@@ -79,7 +79,11 @@ while IFS= read -r -d '' 记录文件; do
       角色=$(printf '%s' "$消息" | jq -r '.role')
       阶段=$(printf '%s' "$消息" | jq -r '.phase')
       内容=$(printf '%s' "$消息" | jq -r '.text')
-      [[ "$内容" == '<external_codex_apps_writing_block_edits>'* ]] && continue
+      case "$内容" in
+        '<external_'* | '<recommended_plugins>'* | '# AGENTS.md instructions'* | '<environment_context>'* | '<app-context>'* | '<permissions instructions>'* | '<skills_instructions>'*)
+          continue
+          ;;
+      esac
       if [[ "$角色" == 'user' ]]; then
         printf '## 用户 · %s\n\n' "$时间"
       elif [[ "$阶段" == 'final_answer' ]]; then
