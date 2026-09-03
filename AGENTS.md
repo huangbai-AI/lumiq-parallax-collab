@@ -9,7 +9,7 @@
 - 当前动效提示词：`output/imagegen/lumiq-revision-2026-09-03/h3-variant-i-balanced-light-scroll.txt`
 - 六屏总览：`output/交付/甲方反馈改版-2026-09-03/六屏总览.png`
 - 原始产品素材：`analysis/materials/`
-- 当前真实网站：`related/website/`，固定于 `codex/home-pearl-scroll-video` 的 `f12078b`
+- 当前真实网站：`related/website/`，来自 `codex/home-pearl-scroll-video` 的 `f12078b`
 
 除非用户明确指定，后续修改一律以上述基线继续，不要误用 `tmp/`、质检帧、raw 视频或旧试验图。
 

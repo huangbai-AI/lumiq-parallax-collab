@@ -1,0 +1,192 @@
+<title>LUMIQ 官网双方向初步提案｜媒体遮罩 × 滚动叙事</title>
+
+<callout emoji="✅" background-color="light-green" border-color="green">
+  <h3>本轮结论</h3>
+  <p>保留现有官网的信息结构、文案主题和 Brand Story / Products 跳转，只重做首页核心体验。建议最终组合为：第一屏用“图片叠视频 + 鼠标遮罩”制造第一眼记忆；第二屏用“视频时间轴 + 滚动进度”完成角色进入 Ola、产品苏醒的连续叙事。</p>
+</callout>
+
+<h1>一、这份提案已经包含什么</h1>
+<checkbox done="true">梳理现官网首页信息结构、品牌资料与 Ola 产品几何基线</checkbox>
+<checkbox done="true">深度分析 MotionSites 与 5 个 X 动效案例，提取公开提示词和可执行规律</checkbox>
+<checkbox done="true">完成方向一静默图、激活图与 5 秒首尾帧视频</checkbox>
+<checkbox done="true">完成方向二 K0–K3 四张锚点图、两段首尾帧视频与 7.875 秒完整拼接视频</checkbox>
+<checkbox done="true">完成两个可操作的本地原型，并验证导航、方向切换、鼠标遮罩和滚动逐帧控制</checkbox>
+<checkbox done="true">整理原型源码、研究截图、生成图片和视频附件</checkbox>
+
+<p><b>本地原型：</b>http://127.0.0.1:4173/（仅在本机开发服务运行时可访问）</p>
+<p><b>AI 视频工作台：</b><a href="https://www.liblib.tv/canvas?projectId=6ceec4196bac44f5ae5fa67e928a7377">LUMIQ 首页核心动效｜首轮</a></p>
+<p><b>现官网：</b><a href="https://lumiqstudio.vercel.app/">lumiqstudio.vercel.app</a></p>
+
+<h1>二、项目与品牌基线</h1>
+<grid>
+  <column width-ratio="0.5">
+    <h3>保留</h3>
+    <ul>
+      <li>Play the Light、温暖科技、跨代陪伴</li>
+      <li>现站导航、首页信息主题与页面跳转</li>
+      <li>珊瑚橙、紫罗兰、奶油白、墨黑</li>
+      <li>Ola 的竖直展示舱、顶部摄像头、左侧三旋钮与厚实底座</li>
+    </ul>
+  </column>
+  <column width-ratio="0.5">
+    <h3>重做</h3>
+    <ul>
+      <li>原渲染只作为几何参考，不直接进入成片</li>
+      <li>场景、材质、光线、角色和镜头用图生图重新生成</li>
+      <li>产品语言升级为深石墨黑、温润香槟金、微雾玻璃</li>
+      <li>避免游戏设备、廉价霓虹和赛博朋克，强调真实、安静、单一视觉焦点</li>
+    </ul>
+  </column>
+</grid>
+
+<h1>三、案例研究：真正可复制的是方法，不是皮肤</h1>
+
+<h2>3.1 MotionSites</h2>
+<p>MotionSites 的价值不是黑色案例墙，而是把首页动效按职责拆成 Reveal Hero、Cursor Follow、Portal、Cinematic Landing、Video Hero 等类型；每个案例都把主视觉、字体、布局、视频、交互、断点和移动端规则写成可执行规格。</p>
+<ul>
+  <li>一屏只设一个主角，其余内容主动退后。</li>
+  <li>一个动作只承担一个职责：鼠标负责揭示，滚动负责导演时间。</li>
+  <li>提示词要写镜头、层级、布局、动效范围、禁用变化项与移动端降级，不使用“高级、未来感”这种空泛形容。</li>
+</ul>
+
+<h2>3.2 X 案例拆解</h2>
+<table>
+  <thead>
+    <tr><th background-color="light-gray">案例</th><th background-color="light-gray">观察</th><th background-color="light-gray">对 LUMIQ 的启发</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Romario / Bateshkaaa</td><td>高级感来自限制、构图与系统，不来自默认字体、三张卡片和紫色渐变。</td><td>先定单一构图和素材规则，再开发。</td></tr>
+    <tr><td>Grok + Cursor</td><td>抽象三维主物体与大标题互相让位，素材和动效提示词由同一套规范驱动。</td><td>先把 Ola 变成真正的视觉主角。</td></tr>
+    <tr><td>Gemini F1 Profile</td><td>人物、数据和地图先组成一张完整“信息海报”，动画只负责节奏。</td><td>滚动叙事必须先有稳定锚点图。</td></tr>
+    <tr><td>GPT Image + Claude Design</td><td>生成图先决定空间、留白和焦点，代码随后还原。</td><td>图生图是页面设计的起点，不是最后装饰。</td></tr>
+    <tr><td>Nano Banana + VEO 3 + Lovable</td><td>公开提示词细化到全屏视频、裁切方式、导航宽度、标题叠压、按钮层级、字体和响应式规则。</td><td>把创意写成前端可执行的规格。</td></tr>
+  </tbody>
+</table>
+<p><b>研究案例合辑</b></p>
+
+<h1>四、方向一：媒体叠层与鼠标遮罩</h1>
+
+<callout emoji="💡" background-color="light-purple" border-color="purple">
+  <p><b>一句话：</b>静态现实下面藏着动态世界；用户移动鼠标，就像亲手唤醒 Ola。</p>
+</callout>
+
+<h2>4.1 视觉与交互</h2>
+<ol>
+  <li seq="auto">底层播放约 5 秒的激活视频：舱内紫色光环亮起，珊瑚橙与紫罗兰光粒聚合成陪伴者。</li>
+  <li seq="auto">上层覆盖完全同机位的静态静默图。</li>
+  <li seq="auto">鼠标周围出现柔边圆形开口，只在开口范围内看到底层视频。</li>
+  <li seq="auto">左侧保留现官网首页主题，按钮继续进入 Brand Story 与 Products。</li>
+</ol>
+
+<h2>4.2 技术路线</h2>
+<ul>
+  <li>底层使用静音、循环、行内播放的视频；上层图片使用浏览器遮罩形成透明圆孔。</li>
+  <li>鼠标坐标只写入页面变量，不触发整页重绘；用平滑插值减少抖动。</li>
+  <li>桌面端圆孔约 180px；触控端改为点击 / 拖动查看，或自动巡游。</li>
+  <li>开启“减少动态效果”时停止追随，直接显示静态激活图。</li>
+</ul>
+
+<h2>4.3 素材规范</h2>
+<ul>
+  <li>静态底图与视频首帧必须像素级同机位。</li>
+  <li>只允许角色、灯环、光粒和轻微反射变化；外壳、桌面、背景不能漂移。</li>
+  <li>首屏视频控制在 4–6 秒、4MB 左右，并准备静态后备图。</li>
+</ul>
+
+<h2>4.4 首轮效果</h2>
+<p><b>方向一｜可操作原型</b></p>
+<p><b>方向一｜静默底图</b></p>
+<p><b>方向一｜激活图</b></p>
+<p><b>方向一｜首尾帧视频</b></p>
+
+<h1>五、方向二：视频锚定与滚动叙事</h1>
+
+<callout emoji="🎬" background-color="light-blue" border-color="blue">
+  <p><b>一句话：</b>页面不自动播放电影，用户的滚动就是导演手柄；向下滚，角色向 Ola 靠近、进入、完成点亮。</p>
+</callout>
+
+<h2>5.1 四个锚点</h2>
+<table>
+  <thead><tr><th background-color="light-gray">锚点</th><th background-color="light-gray">画面</th><th background-color="light-gray">叙事职责</th></tr></thead>
+  <tbody>
+    <tr><td>K0</td><td>Ola 静默，房间安静</td><td>建立真实世界与产品尺度</td></tr>
+    <tr><td>K1</td><td>光之陪伴者在左侧出现，飞向 Ola</td><td>引入角色与行动方向</td></tr>
+    <tr><td>K2</td><td>角色穿过玻璃，正在进入舱体</td><td>完成现实与数字世界的穿越</td></tr>
+    <tr><td>K3</td><td>角色完整进入并挥手，Ola 被点亮</td><td>落在“Technology becomes company”</td></tr>
+  </tbody>
+</table>
+
+<h2>5.2 生成与拼接</h2>
+<ol>
+  <li seq="auto">先用统一场景和产品几何生成 K0–K3。</li>
+  <li seq="auto">用 K1→K2、K2→K3 分别生成两段首尾帧视频。</li>
+  <li seq="auto">统一分辨率、帧率、色彩空间与音轨状态。</li>
+  <li seq="auto">用同一张 K2 连接两段，并加入 0.24 秒交叉过渡，得到 7.875 秒完整视频。</li>
+</ol>
+
+<h2>5.3 滚动绑定</h2>
+<pre lang="text" caption="滚动进度映射"><code>progress = clamp((scrollY - start) / (end - start), 0, 1)
+videoTime = progress × videoDuration</code></pre>
+<p>页面把视频保持暂停，只根据滚动进度设置播放时间。视觉层固定占满一屏，外层叙事区约 520vh；四段文字按进度切换。这样视频、产品和文案共享一条时间线，不会各动各的。</p>
+
+<h2>5.4 编码与降级</h2>
+<ul>
+  <li>首轮主格式为 H.264 MP4、1280×720、24fps，并开启快速起播。</li>
+  <li>关键帧间隔约 0.25–0.5 秒，提高拖动寻址速度。</li>
+  <li>高性能桌面端使用逐帧滚动视频；普通设备降到 720p；移动端或省电模式退化为 K0–K3 图片淡化。</li>
+  <li>视频未加载完成时先显示 K0；减少动态效果模式下直接使用四张静态章节图。</li>
+</ul>
+
+<h2>5.5 首轮效果</h2>
+<p><b>方向二｜K0 静默</b></p>
+<p><b>方向二｜K1 角色出现</b></p>
+<p><b>方向二｜K2 进入舱体</b></p>
+<p><b>方向二｜K3 Ola 苏醒</b></p>
+<p><b>方向二｜滚动中段</b></p>
+<p><b>方向二｜滚动终点</b></p>
+<p><b>方向二｜7.875 秒完整叙事视频</b></p>
+
+<h1>六、两条路线如何取舍</h1>
+<table>
+  <thead><tr><th background-color="light-gray">维度</th><th background-color="light-gray">方向一：鼠标遮罩</th><th background-color="light-gray">方向二：滚动叙事</th></tr></thead>
+  <tbody>
+    <tr><td>首页职责</td><td>第一眼记忆与互动钩子</td><td>品牌故事与产品关系解释</td></tr>
+    <tr><td>理解成本</td><td>低，移动鼠标立即理解</td><td>中，需要滚动进入叙事</td></tr>
+    <tr><td>素材难度</td><td>中，重点是同机位与产品稳定</td><td>高，需要多锚点、多段一致性</td></tr>
+    <tr><td>实现风险</td><td>低到中，遮罩与自动播放降级成熟</td><td>中到高，取决于视频寻址和设备性能</td></tr>
+    <tr><td>推荐</td><td>作为首屏</td><td>作为首页第二屏</td></tr>
+  </tbody>
+</table>
+
+<h1>七、风险与应对</h1>
+<ul>
+  <li><b>产品边缘漂移：</b>提示词锁定镜头、背景和产品；必要时只让舱内区域播放动态。</li>
+  <li><b>多段角色变形：</b>每段共享同一张锚点图，形态与颜色写入不可变化项。</li>
+  <li><b>视频滚动卡顿：</b>缩短关键帧间隔、预加载、分段寻址，并准备静态图降级。</li>
+  <li><b>首屏加载过重：</b>方向一优先，方向二进入视口前再预加载。</li>
+  <li><b>角色略像真人：</b>下一轮优先确认角色风格，建议往更抽象的光丝精灵收敛，减少“数字人”感。</li>
+</ul>
+
+<h1>八、下一轮建议</h1>
+<ol>
+  <li seq="auto">先确认角色：抽象光丝精灵，还是偏人格化的光之人物。</li>
+  <li seq="auto">确认最终首页采用“方向一首屏 + 方向二第二屏”，还是保留为两套独立版本。</li>
+  <li seq="auto">补做 K3→家庭 / 平板生态第三段，把产品叙事接回现有首页内容。</li>
+  <li seq="auto">确定最终镜头后重新生成 1080p 视频，完成关键帧、压缩和移动端素材。</li>
+  <li seq="auto">确认后再迁移进正式官网工程；本轮没有改动 Brand Story 与 Product 页面。</li>
+</ol>
+
+<h1>九、交付附件</h1>
+<p>本节包含方向一、方向二的所有首轮关键图片、完整视频与可运行源码。研究原始截图与推文元数据也已保存在本地仓库的 references/cases 与 proposal-assets/research 目录。</p>
+<p><b>视觉核验｜现官网与方向一同视口对照</b></p>
+<p><b>可运行原型源码</b></p>
+
+<h1>十、研究链接</h1>
+<ul>
+  <li><a href="https://motionsites.ai/">MotionSites</a></li>
+  <li><a href="https://x.com/bateshkaaa/status/2079218516150862086?s=20">Romario / Bateshkaaa</a></li>
+  <li><a href="https://x.com/viktoroddy/status/2082051762111037841?s=20">Viktor：Grok + Cursor</a></li>
+  <li><a href="https://x.com/viktoroddy/status/2079729055931535747?s=20">Viktor：Gemini F1 Profile</a></li>
+  <li><a href="https://x.com/viktoroddy/status/2071911203543437518?s=20">Viktor：GPT Image + Claude Design</a></li>
+  <li><a href="https://x.com/viktoroddy/status/2039742988578877704?s=20">Viktor：Nano Banana + VEO 3 + Lovable</a></li>
+</ul>
