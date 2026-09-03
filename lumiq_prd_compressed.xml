@@ -1,0 +1,421 @@
+<title>LUMIQ STUDIO 官网完整交付 PRD｜信息架构深化版</title>
+
+<callout emoji="📌" background-color="light-blue" border-color="blue">
+  <p><b>文档用途：</b>作为 LUMIQ STUDIO 官网的范围确认、功能说明、上线整改、验收与签收依据。本文以当前前端实现为准，不将页面中的概念展示等同于账户、支付、设备或后台能力。</p>
+</callout>
+
+<h1>一、项目概述与交付边界</h1>
+
+<p>LUMIQ STUDIO 官网面向家庭购买决策者与品牌访客，用于传达品牌理念、展示产品组合、解释硬件与订阅方案，并在正式销售前收集潜在用户意向。核心产品叙事覆盖儿童阅读与创作、家庭共同体验、成人与长者陪伴。</p>
+
+<h2>1.1 当前交付结论</h2>
+
+<grid>
+  <column width-ratio="0.5">
+    <callout emoji="✅" background-color="light-green" border-color="green">
+      <p><b>已达到前端展示站交付条件</b></p>
+      <p>当前版本可构建，已实现 18 个公开内容页、1 个自定义 404、三种语言版本、全局导航、响应式页面、产品浏览、价格切换、FAQ 搜索和展示性交互。</p>
+    </callout>
+  </column>
+  <column width-ratio="0.5">
+    <callout emoji="❗" background-color="light-yellow" border-color="yellow">
+      <p><b>尚未达到正式商业闭环条件</b></p>
+      <p>候补登记已具备数据提交能力，但正式环境配置与通知闭环仍需验收；登录、购买、支付、法律正文和部分外部链接尚未完成或确认。</p>
+    </callout>
+  </column>
+</grid>
+
+<h2>1.2 范围说明</h2>
+
+<table>
+  <thead><tr><th background-color="light-gray">范围</th><th background-color="light-gray">内容</th></tr></thead>
+  <tbody>
+    <tr><td><b>本次已交付</b></td><td>品牌与产品页面、套餐价格、媒体与 FAQ、联系与法律页面、404、三语切换、桌面与移动导航、产品轮播、账期切换、FAQ 筛选、候补登记提交及前端动效。</td></tr>
+    <tr><td><b>演示能力</b></td><td>家长中心面板、年龄与时长控件、积分商店；这些模块只改变前端状态，不产生真实业务结果。</td></tr>
+    <tr><td><b>未接入</b></td><td>账户登录、邮件通知、购物车、订单、支付、订阅、设备绑定、内容后台及运营报表。</td></tr>
+  </tbody>
+</table>
+
+<h1>二、目标用户与核心场景</h1>
+
+<table>
+  <thead><tr><th background-color="light-gray">用户</th><th background-color="light-gray">主要诉求</th><th background-color="light-gray">官网任务</th></tr></thead>
+  <tbody>
+    <tr><td>家庭购买决策者</td><td>理解产品价值、适用人群、价格与安全承诺</td><td>浏览产品、比较套餐、发起预登记</td></tr>
+    <tr><td>家长或监护人</td><td>确认儿童内容、屏幕时间、家长控制与隐私</td><td>查看儿童产品、套餐、儿童安全及家长中心演示</td></tr>
+    <tr><td>成人、长者与照护者</td><td>了解陪伴、提醒、家庭联系与照护场景</td><td>查看陪伴设备、品牌故事及隐私说明</td></tr>
+    <tr><td>媒体、合作方与咨询者</td><td>获取准确资料并找到联系渠道</td><td>查看品牌、媒体页面并使用对应邮箱</td></tr>
+  </tbody>
+</table>
+
+<p><b>角色边界：</b>儿童、成人与长者是产品最终使用者，不是当前官网账户角色。现版本没有身份识别、账户、权限或家庭成员绑定能力。</p>
+
+<h2>核心场景</h2>
+<ol>
+  <li seq="auto">首次了解品牌，并继续浏览产品、故事、媒体与 FAQ。</li>
+  <li seq="auto">按家庭成员选择产品，进入详情页确认功能与场景。</li>
+  <li seq="auto">比较硬件及订阅价格，形成购买或预登记意向。</li>
+  <li seq="auto">通过 FAQ 自助解决问题，或按事项联系团队。</li>
+</ol>
+
+<h1>三、详细信息架构</h1>
+
+<callout emoji="🧭">
+  <p><b>层级口径：</b>本章同时描述“站点导航层级”和“页面内容层级”。页面是导航节点；页面中的楼层、信息模块和按钮是内容节点，不应混在同一棵树里。语言地址仅是同一内容的平行版本，不新增层级。</p>
+</callout>
+
+<h2>3.1 站点级架构</h2>
+
+<whiteboard type="mermaid">
+flowchart LR
+  A[LUMIQ STUDIO]
+  A --> H[首页]
+  A --> S[品牌故事]
+  A --> P[产品总览]
+  P --> P1[Ola]
+  P --> P2[Ola Go]
+  P --> P3[Tablet]
+  P --> P4[Print]
+  P --> P5[Nest 15]
+  A --> PL[套餐与价格]
+  A --> M[媒体与评价]
+  A --> F[常见问题]
+  A --> FT[页脚扩展]
+  FT --> AB[关于我们]
+  FT --> C[联系我们]
+  FT --> L[四个法律页面]
+  A --> W[候补登记]
+  A --> E[404]
+</whiteboard>
+
+<table>
+  <thead><tr><th background-color="light-gray">站点层级</th><th background-color="light-gray">包含内容</th><th background-color="light-gray">说明</th></tr></thead>
+  <tbody>
+    <tr><td><b>第 1 层：站点</b></td><td>LUMIQ STUDIO 官网</td><td>整站根节点。</td></tr>
+    <tr><td><b>第 2 层：页面</b></td><td>首页、品牌故事、产品总览、套餐、媒体、FAQ，以及页脚中的关于、联系、法律页面</td><td>大多数页面从页头或页脚可直接到达，实际导航深度为 2 层。</td></tr>
+    <tr><td><b>第 3 层：产品详情</b></td><td>Ola、Ola Go、Tablet、Print、Nest 15</td><td>只有产品线形成“站点 → 产品总览 → 产品详情”的完整 3 层。</td></tr>
+    <tr><td><b>独立终点</b></td><td>候补登记、404</td><td>它们是流程终点或异常恢复页，不是新的内容分类。</td></tr>
+    <tr><td><b>平行版本</b></td><td>英文、繁体中文、日文</td><td>三种语言为相同页面的版本切换，不计为下一级。</td></tr>
+  </tbody>
+</table>
+
+<h2>3.2 首页：6 个楼层及其信息</h2>
+
+<whiteboard type="mermaid">
+flowchart TB
+  H[首页]
+  H --> F1[01 首屏]
+  H --> F2[02 产品系列]
+  H --> F3[03 品牌故事]
+  H --> F4[04 套餐预览]
+  H --> F5[05 媒体与评价]
+  H --> F6[06 常见问题]
+  F1 --> O1[进入产品]
+  F2 --> O2[选择五款产品]
+  F3 --> O3[理解品牌原则]
+  F4 --> O4[比较价格]
+  F5 --> O5[建立信任]
+  F6 --> O6[消除疑虑]
+</whiteboard>
+
+<table>
+  <thead><tr><th background-color="light-gray">首页下一级</th><th background-color="light-gray">楼层内的信息</th><th background-color="light-gray">主要动作</th></tr></thead>
+  <tbody>
+    <tr><td><b>01 首屏</b></td><td>品牌定位“跨世代的家庭 AI 体验”；儿童故事、家庭陪伴、长者支持的价值摘要；主视觉</td><td>浏览产品</td></tr>
+    <tr><td><b>02 产品系列</b></td><td>Ola、Ola Go、Tablet、Print、Nest 15；每款包含名称、定位说明、产品图和当前选择状态</td><td>前后切换、选择产品、进入对应详情</td></tr>
+    <tr><td><b>03 品牌故事</b></td><td>品牌起点、核心观点、四项原则：宁静设计、家庭优先、AI 协作、长期工艺；生态系统说明</td><td>当前无楼层内按钮；通过主导航进入品牌故事页</td></tr>
+    <tr><td><b>04 套餐预览</b></td><td>Tablet、Ola、Print、Nest 15 四张硬件卡；产品摘要、价格或待定状态、方案提示</td><td>查看产品、进入完整套餐页</td></tr>
+    <tr><td><b>05 媒体与评价</b></td><td>6 条媒体或用户引言及来源；内容草稿提示</td><td>当前无楼层内按钮；通过主导航进入媒体页</td></tr>
+    <tr><td><b>06 常见问题</b></td><td>6 个问题：品牌是什么、适合谁、配送地区、AI 如何运作、数据安全、方案取消；联系邮箱</td><td>展开答案、邮件咨询</td></tr>
+  </tbody>
+</table>
+
+<callout emoji="ℹ️"><p><b>首页结构判断：</b>6 个楼层是首页的直接下一级；每个楼层中的文案、卡片、图片、状态和按钮是再下一级。页头与页脚属于全站公共模块，不计入首页楼层。</p></callout>
+
+<h2>3.3 产品总览与套餐页</h2>
+
+<h3>产品总览 /products｜5 个楼层</h3>
+<table>
+  <thead><tr><th background-color="light-gray">楼层</th><th background-color="light-gray">信息与功能</th></tr></thead>
+  <tbody>
+    <tr><td>01 产品首屏</td><td>产品系列定位、主视觉、产品系列入口、套餐比较入口；顶部另有配送、退货与保修信息带。</td></tr>
+    <tr><td>02 四项产品价值</td><td>AI 驱动、显示体验、学习陪伴、安全与隐私。</td></tr>
+    <tr><td>03 五款产品阵列</td><td>Ola、Ola Go、Tablet、Print、Nest 15；每款包含类别、摘要、3 个亮点、图片和详情按钮，并支持标签及前后切换。</td></tr>
+    <tr><td>04 为什么选择 LUMIQ</td><td>家庭共同使用的生活方式场景、品牌价值说明、品牌故事入口。</td></tr>
+    <tr><td>05 服务承诺</td><td>全球配送、30 天退货、2 年保修、安全结账；当前仍带待确认提示。</td></tr>
+  </tbody>
+</table>
+
+<h3>套餐与价格 /plans｜5 个楼层</h3>
+<table>
+  <thead><tr><th background-color="light-gray">楼层</th><th background-color="light-gray">信息与功能</th></tr></thead>
+  <tbody>
+    <tr><td>01 套餐首屏</td><td>页面定位、价格说明、价格仍需确认的提示。</td></tr>
+    <tr><td>02 硬件价格</td><td>Tablet 399 美元、Ola 599 美元、Print 69 美元、Nest 15 价格待定；每张卡包含产品简介、预约与详情入口。</td></tr>
+    <tr><td>03 账期切换</td><td>按年与按月切换；按年优惠提示。</td></tr>
+    <tr><td>04 Tablet 订阅比较</td><td>Free、Lite、Pro；比较月费、试用期、儿童档案、故事数量、角色、生成次数、Story Quest、原创故事和 Print 加购价。</td></tr>
+    <tr><td>05 Ola 订阅比较</td><td>Free、Lite、Pro、Ultra；比较月费、试用期、角色、声音、个性、提醒、连接 Tablet 和每日使用上限。</td></tr>
+  </tbody>
+</table>
+
+<h2>3.4 五个产品详情页</h2>
+
+<h3>Lumiq Ola /products/ola｜5 个楼层</h3>
+<table>
+  <tbody>
+    <tr><td><b>01 首屏</b></td><td>产品定位、概念状态、599 美元、候补登记、产品主图。</td></tr>
+    <tr><td><b>02 床头桌上的魔法</b></td><td>Ola 与 Tablet 同步的家庭故事场景。</td></tr>
+    <tr><td><b>03 跨年龄陪伴</b></td><td>儿童与成人/长者两类场景，各自包含说明与 3 项价值。</td></tr>
+    <tr><td><b>04 三种故事参与方式</b></td><td>智能助手、环境式故事同步、未来 AI 能力。</td></tr>
+    <tr><td><b>05 五种日常能力</b></td><td>陪伴、日程、平静对话、一键家庭联系、夜间陪伴。</td></tr>
+  </tbody>
+</table>
+
+<h3>Lumiq Ola Go /products/ola-go｜2 个楼层</h3>
+<table>
+  <tbody>
+    <tr><td><b>01 首屏</b></td><td>与 Ola 的从属关系、随身陪伴定位、概念状态、随 Ola 提供、候补登记、产品图。</td></tr>
+    <tr><td><b>02 外出能力</b></td><td>同步提醒、天气、语音日记、可选 4G、位置、跌落检测与紧急求助；提供返回 Ola 与候补登记入口。</td></tr>
+  </tbody>
+</table>
+
+<h3>Lumiq Tablet /products/tablet｜9 个楼层</h3>
+<table>
+  <tbody>
+    <tr><td><b>01 首屏</b></td><td>AI 儿童学习平板定位、概念状态、399 美元、意向登记、设备主图。</td></tr>
+    <tr><td><b>02 阅读设备能力</b></td><td>10.1 英寸防眩光、低蓝光、无浏览器与广告、离线使用、多语言语音与文字。</td></tr>
+    <tr><td><b>03 五种故事模式</b></td><td>经典故事、ImagiMe、重新演绎、Lumiq Original、Story Quest。</td></tr>
+    <tr><td><b>04 为什么是 LUMIQ</b></td><td>传统被动屏幕与主动故事体验的对比。</td></tr>
+    <tr><td><b>05 三项重点能力</b></td><td>无限故事、与 Ola 互动发现、安全及家长控制。</td></tr>
+    <tr><td><b>06 使用方式</b></td><td>阅读、互动、创作、让故事成真。</td></tr>
+    <tr><td><b>07 分龄成长</b></td><td>3–5 岁、6–8 岁、9–12 岁三阶段，每阶段包含 4 项学习与创作重点。</td></tr>
+    <tr><td><b>08 五项成长价值</b></td><td>爱上阅读、做出聪明决定、表达想象、自然使用 AI、把想法完成为故事。</td></tr>
+    <tr><td><b>09 家长中心演示</b></td><td>儿童档案、内容与时长控制、阅读数据、积分勋章、积分商店；目前为前端演示。</td></tr>
+  </tbody>
+</table>
+
+<h3>Lumiq Print /products/print｜2 个楼层</h3>
+<table>
+  <tbody>
+    <tr><td><b>01 首屏</b></td><td>孩子成为主角的个性化精装书、概念状态、69 美元、意向登记、产品图。</td></tr>
+    <tr><td><b>02 从屏幕到书架</b></td><td>故事生成、ImagiMe 个性化、精装成书流程；哑光精装、个性插画及计划中的故事库连接。</td></tr>
+  </tbody>
+</table>
+
+<h3>Lumiq Nest 15 /products/nest｜5 个楼层</h3>
+<table>
+  <tbody>
+    <tr><td><b>01 首屏</b></td><td>15.6 英寸家庭共享屏定位、概念状态、候补登记、材质选择、产品主视觉。</td></tr>
+    <tr><td><b>02 四项核心能力</b></td><td>共享日历、可见日程、温和提醒、一眼查看家庭信息。</td></tr>
+    <tr><td><b>03 家庭共享场景</b></td><td>多人日程、桌面/台面/墙面安装、横竖屏展示与家庭照片框体验。</td></tr>
+    <tr><td><b>04 三种外观</b></td><td>橡木、胡桃木、黑色，可切换预览。</td></tr>
+    <tr><td><b>05 收口转化</b></td><td>加入 LUMIQ 家庭的品牌收束与 Nest 候补登记。</td></tr>
+  </tbody>
+</table>
+
+<h2>3.5 品牌、支持与法律页面</h2>
+
+<table>
+  <thead><tr><th background-color="light-gray">页面</th><th background-color="light-gray">页面下一级</th><th background-color="light-gray">具体信息</th></tr></thead>
+  <tbody>
+    <tr><td><b>品牌故事 /story</b></td><td>7 个楼层</td><td>品牌提问；品牌主图；起源叙事；四项原则；创办笔记引言；发展时间线；未来生态与产品入口。</td></tr>
+    <tr><td><b>关于我们 /about</b></td><td>5 个内容模块</td><td>公司与业务关系；LUMIQ 起点；存在原因；为家长设计；智慧家庭愿景。</td></tr>
+    <tr><td><b>媒体与评价 /media</b></td><td>3 个楼层</td><td>页面介绍；3 条媒体报道；4 封读者来信。刊物、链接、姓名和措辞仍待确认。</td></tr>
+    <tr><td><b>常见问题 /faq</b></td><td>2 个楼层</td><td>页面介绍与搜索；6 组问答、无结果状态和邮件咨询入口。</td></tr>
+    <tr><td><b>联系我们 /contact</b></td><td>3 个内容模块</td><td>页面介绍；一般、支持、媒体、合作 4 个邮箱；邮寄地址与待确认提示。</td></tr>
+    <tr><td><b>候补登记 /prelaunch</b></td><td>1 个转化楼层</td><td>上市预告、邮箱输入、提交状态、重复登记、错误提示、隐私同意与返回产品页。</td></tr>
+    <tr><td><b>隐私政策</b></td><td>5 个内容模块</td><td>收集的数据、使用方式、用户选择、候补名单数据、联系邮箱。</td></tr>
+    <tr><td><b>服务条款</b></td><td>4 个内容模块</td><td>服务使用、订阅付款、内容归属、法律联系。</td></tr>
+    <tr><td><b>Cookie 政策</b></td><td>3 个内容模块</td><td>必要 Cookie、分析 Cookie、管理方式。</td></tr>
+    <tr><td><b>儿童安全</b></td><td>5 个内容模块</td><td>无广告与追踪、家长控制、适龄内容、COPPA 合规、疑虑回报。</td></tr>
+    <tr><td><b>404</b></td><td>1 个恢复模块</td><td>错误说明、返回首页、进入产品总览。</td></tr>
+  </tbody>
+</table>
+
+<h2>3.6 全局导航与现状判断</h2>
+
+<grid>
+  <column width-ratio="0.500000">
+    <callout emoji="✅"><p><b>合理之处</b></p><p>主导航浅、产品详情归属清晰；首页按“认知 → 产品 → 品牌 → 价格 → 信任 → 答疑”递进，符合品牌展示站的决策路径。</p></callout>
+  </column>
+  <column width-ratio="0.500000">
+    <callout emoji="⚠️"><p><b>需要调整</b></p><p>品牌故事与关于我们职责重叠；媒体页权重偏高但内容未定稿；顶部“登录”实际进入候补登记；站点地图缺少媒体与法律页面。</p></callout>
+  </column>
+</grid>
+
+<ul>
+  <li><b>主导航：</b>首页、品牌故事、产品、套餐、媒体与评价、常见问题；建议内容未定稿前将媒体入口降至页脚。</li>
+  <li><b>页脚：</b>五款产品与套餐、关于/故事/媒体/联系、四个法律页面、社交平台占位。</li>
+  <li><b>按钮命名：</b>“登录”当前指向候补登记，不符合用户预期；账户未交付前应改为“加入候补名单”。</li>
+  <li><b>旧地址：</b>/products/pal 与 /products/book 仅作为历史跳转，分别指向 Ola 与 Print，不应继续出现在信息架构中。</li>
+  <li><b>结论：</b>站点导航以 2 层为主、产品线为 3 层；页面内容通常为“页面 → 楼层 → 信息/动作”3 层，复杂楼层中的卡片还会形成第 4 层。现状总体合理，但文档和验收必须按这两套层级分别表达。</li>
+</ul>
+
+<h1>四、关键流程与功能状态</h1>
+
+<whiteboard type="mermaid">
+flowchart LR
+  A[进入官网] --> B[理解品牌]
+  B --> C[浏览产品]
+  C --> D[查看详情]
+  D --> E[比较套餐]
+  E --> F[预登记]
+  C --> G[FAQ 或联系团队]
+</whiteboard>
+
+<table>
+  <thead><tr><th background-color="light-gray">功能或流程</th><th background-color="light-gray">当前状态</th><th background-color="light-gray">验收要求</th></tr></thead>
+  <tbody>
+    <tr><td>品牌与产品发现</td><td>已实现浏览、轮播、产品切换及详情跳转</td><td>产品名称、数量、图片、价格和入口全站一致，每个产品进入唯一详情页。</td></tr>
+    <tr><td>套餐比较</td><td>已实现硬件展示及年付／月付切换</td><td>年付同时显示月均价与年度总额，权益和优惠经甲方确认。</td></tr>
+    <tr><td>预发布登记</td><td>邮箱可提交至候补名单，并返回成功、重复或失败状态</td><td>带入产品、套餐及账期；完成校验、隐私同意、保存、重复判断和成功／失败反馈。</td></tr>
+    <tr><td>登录与账户</td><td>未接入，登录按钮复用预发布页</td><td>本期不做账户则改名；如交付账户，需独立登录、退出、会话及账户中心。</td></tr>
+    <tr><td>FAQ 与联系</td><td>FAQ 搜索和展开已实现；联系通过邮件</td><td>键盘和辅助阅读可用；邮箱有效并完成收件测试，地址替换或移除占位。</td></tr>
+    <tr><td>家长中心</td><td>五个面板可切换，其余控件为演示</td><td>明确标注“概念演示”；无业务结果的按钮改为展示状态或补充演示反馈。</td></tr>
+    <tr><td>购买与支付</td><td>未接入，所有购买动作进入预发布页</td><td>按“仅收集意向”统一按钮；正式交易需另行完成订单、支付、退款与订阅验收。</td></tr>
+  </tbody>
+</table>
+
+<h1>五、品牌、内容与数据规则</h1>
+
+<h2>5.1 主数据统一</h2>
+
+<table>
+  <thead><tr><th background-color="light-gray">对象</th><th background-color="light-gray">当前差异</th><th background-color="light-gray">处理要求</th></tr></thead>
+  <tbody>
+    <tr><td>陪伴产品</td><td>主名称为 Lumiq Ola；旧地址 /products/pal 保留跳转</td><td>全站使用 Lumiq Ola，旧名称与旧地址仅用于兼容跳转。</td></tr>
+    <tr><td>便携产品</td><td>已有独立详情页，当前定位为随 Ola 提供</td><td>确认最终售卖关系、价格与是否可单独登记。</td></tr>
+    <tr><td>儿童平板</td><td>已统一为 Lumiq Tablet</td><td>保持产品名称、价格与页面地址全站一致。</td></tr>
+    <tr><td>个性化绘本</td><td>Lumiq Print／LumiqPrint</td><td>统一空格、大小写和页面地址策略。</td></tr>
+    <tr><td>品牌主体</td><td>Lumiq Studio／LumiqStudio／Lumiq Studios Inc.</td><td>确认品牌、运营主体和版权主体的唯一写法。</td></tr>
+  </tbody>
+</table>
+
+<h2>5.2 对外内容要求</h2>
+
+<ul>
+  <li><b>价格与套餐：</b>确认币种、税费、配送费、价格日期、试用、自动续费、取消及退款规则。</li>
+  <li><b>销售承诺：</b>全球配送、30 天退货、2 年保修、安全结账等内容必须有真实政策支持。</li>
+  <li><b>媒体与社交：</b>提供可核验来源、授权和真实链接；无法核验的内容不应上线。</li>
+  <li><b>联系资料：</b>确认各业务邮箱、邮寄地址与客服响应方式。</li>
+  <li><b>搜索与分享：</b>逐页设置唯一标题、摘要、规范地址和分享图，避免品牌名重复。</li>
+</ul>
+
+<callout emoji="❗" background-color="light-yellow" border-color="yellow">
+  <p><b>高风险表述：</b>儿童照片与声音、儿童档案、阅读数据、位置、碰撞检测、紧急求助、药物提醒、情感支持、家长控制、年龄过滤、无追踪及 COPPA 等内容，必须由产品、法务和合规共同确认。未确认功能应标注“概念展示／规划中”或移除。</p>
+</callout>
+
+<h1>六、非功能要求</h1>
+
+<table>
+  <thead><tr><th background-color="light-gray">领域</th><th background-color="light-gray">上线要求</th></tr></thead>
+  <tbody>
+    <tr><td>响应式</td><td>覆盖 320、375、390、430 手机宽度，768／820 平板及 1024／1440／1920 桌面；200% 缩放仍可操作。</td></tr>
+    <tr><td>兼容性</td><td>Chrome、Safari、Firefox、Edge 最近两个主要版本，以及 iOS Safari、Android Chrome 通过核心路径测试。</td></tr>
+    <tr><td>性能</td><td>压缩约 90 MB 静态资源和超大图片；建议 LCP ≤ 2.5 秒、CLS ≤ 0.1、INP ≤ 200 毫秒。</td></tr>
+    <tr><td>无障碍</td><td>按 WCAG 2.2 AA 检查键盘、焦点、对比度、替代文字、表单标签、读屏顺序及减少动画模式。</td></tr>
+    <tr><td>搜索信息</td><td>补齐 robots.txt、sitemap.xml、页面标题、描述、规范链接、分享图和索引策略。</td></tr>
+    <tr><td>隐私与安全</td><td>正式法律文本、HTTPS、安全响应头、依赖检查、密钥管理、第三方请求披露和数据最小化。</td></tr>
+    <tr><td>可维护性</td><td>锁定依赖与运行版本，明确发布分支、构建、监控、备份和回滚方式。</td></tr>
+  </tbody>
+</table>
+
+<h1>七、上线风险与整改优先级</h1>
+
+<h2>P0｜上线前必须关闭</h2>
+<checkbox done="false">页脚 Legal 的 Privacy Policy、Terms of Service、Cookie Policy、Child Safety 四个入口全部可点击，并对应法务批准的正式正文；不得保留空页、草稿或演示文本。</checkbox>
+<checkbox done="false">儿童、数据、安全与人工智能能力逐项完成产品及法务确认。</checkbox>
+<checkbox done="false">登录、登记、预约和购买入口与真实能力一致。</checkbox>
+<checkbox done="false">媒体报道与用户评价具备真实出处、授权和链接。</checkbox>
+<checkbox done="false">价格、配送、退换、保修、试用、续费与取消规则获得书面确认。</checkbox>
+
+<h2>P1｜原则上上线前完成</h2>
+<ul>
+  <li>统一品牌与产品命名，明确 Ola Go 的产品归属。</li>
+  <li>获取并接入 Instagram、TikTok、YouTube 三个官方账号链接，移除“Links pending confirmation”；同时清理其他占位链接和未完成地址。</li>
+  <li>压缩图片、完成正式环境性能与浏览器矩阵测试。</li>
+  <li>完成键盘、焦点、读屏、对比度、缩放和减少动画检查。</li>
+  <li>完成英文、繁体中文、日文的逐页内容校对，并保证三种语言的页面、按钮和法律内容一致。</li>
+  <li>确认代码仓库、最终分支、提交号、部署及回滚方案。</li>
+</ul>
+
+<h2>P2｜可进入后续迭代</h2>
+<p>英文母语校对、自动化测试、链接检查、持续集成、监控告警、内容管理方式及长期运营优化。</p>
+
+<callout emoji="🚦" background-color="light-red" border-color="red">
+  <p><b>发布判断：</b>当前状态为“前端展示版可演示，正式上线待整改”。任何 P0 未关闭时，不建议签署正式上线通过。</p>
+</callout>
+
+<h1>八、验收清单</h1>
+
+<h2>8.1 版本与页面</h2>
+<checkbox done="false">验收版本对应唯一提交、发布分支或标签，并与部署版本一致。</checkbox>
+<checkbox done="false">正式构建和启动无错误；18 个公开内容页、404、页头、页脚及站内链接正常。</checkbox>
+<checkbox done="false">正式域名、HTTPS、重定向、环境变量和回滚方案已验证。</checkbox>
+
+<h2>8.2 核心交互</h2>
+<checkbox done="false">首页滚动、触摸与键盘操作正常，产品轮播及详情入口匹配。</checkbox>
+<checkbox done="false">套餐账期切换、FAQ 搜索与展开、移动菜单和家长中心演示符合说明。</checkbox>
+<checkbox done="false">登录、登记、购买与选择套餐的名称和结果与实际交付能力一致。</checkbox>
+
+<h2>8.3 内容与质量</h2>
+<checkbox done="false">品牌、产品、价格、权益、销售承诺、媒体、联系资料和英文文案已确认。</checkbox>
+<checkbox done="false">手机、平板、桌面、主流浏览器、200% 缩放和减少动画模式通过。</checkbox>
+<checkbox done="false">搜索信息、无障碍、性能指标、邮箱及全部外链通过正式环境测试；Instagram、TikTok、YouTube 分别进入正确的官方账号。</checkbox>
+
+<h2>8.4 法律与安全</h2>
+<checkbox done="false">页脚四个 Legal 入口均可正常打开；隐私、条款、Cookie 与儿童安全正文已获批准，不含空白页、草稿或演示文字。</checkbox>
+<checkbox done="false">儿童、照片、声音、位置、紧急能力及第三方服务披露具备真实依据。</checkbox>
+<checkbox done="false">正式版本不存在占位地址、空链接、虚假证言或误导性按钮。</checkbox>
+
+<p><b>验收结论：</b>P0 全部关闭且关键路径通过为“通过”；仅剩书面接受的 P1／P2 为“有条件通过”；存在任一 P0、误导性入口或演示法律文本为“不通过”。</p>
+
+<h1>九、交付物与签收</h1>
+
+<h2>9.1 交付物</h2>
+
+<table>
+  <thead><tr><th background-color="light-gray">交付项</th><th background-color="light-gray">内容</th></tr></thead>
+  <tbody>
+    <tr><td>源码与依赖</td><td>Next.js、React、TypeScript 前端源码，package.json、package-lock.json、README 及共享组件。</td></tr>
+    <tr><td>页面与素材</td><td>本 PRD 所列页面、静态图片、字体、许可说明及最终内容。</td></tr>
+    <tr><td>版本信息</td><td>分析基线为 codex/homepage-integration 分支 ac78e75 及当前工作区页面改动；正式交付需将改动提交，并记录唯一提交号与发布标签。</td></tr>
+    <tr><td>品牌与法务内容</td><td>最终品牌主数据、价格套餐、媒体授权、联系资料、隐私、条款、Cookie 和儿童安全文本。</td></tr>
+    <tr><td>发布资料</td><td>目标仓库、正式分支、托管平台、域名、环境变量说明、构建部署、监控及回滚记录；是否包含以合同为准。</td></tr>
+  </tbody>
+</table>
+
+<h2>9.2 甲方确认</h2>
+<checkbox done="false">确认本期交付为 LUMIQ STUDIO 品牌官网前端、响应式页面与展示性交互。</checkbox>
+<checkbox done="false">确认账户、支付、设备与人工智能服务不属于现有源码能力；候补登记仅包含邮箱收集，不代表完整用户系统。</checkbox>
+<checkbox done="false">确认品牌、产品、价格、销售承诺、媒体素材、联系资料和法律内容。</checkbox>
+<checkbox done="false">确认最终仓库、提交号、版本标签、正式域名、部署权限和运维归属。</checkbox>
+<checkbox done="false">确认 P0 全部关闭，未关闭的 P1／P2 已记录责任方与完成日期。</checkbox>
+
+<h2>9.3 签收记录</h2>
+
+<table>
+  <tbody>
+    <tr><td><b>项目名称</b></td><td>LUMIQ STUDIO 品牌官网</td></tr>
+    <tr><td><b>验收版本／标签</b></td><td>待填写</td></tr>
+    <tr><td><b>最终提交号</b></td><td>待填写</td></tr>
+    <tr><td><b>验收环境／正式域名</b></td><td>待填写</td></tr>
+    <tr><td><b>验收日期</b></td><td>待填写</td></tr>
+    <tr><td><b>甲方代表</b></td><td>待填写</td></tr>
+    <tr><td><b>交付方代表</b></td><td>待填写</td></tr>
+    <tr><td><b>验收结论</b></td><td>通过／有条件通过／不通过</td></tr>
+    <tr><td><b>遗留项附件</b></td><td>无／双方书面清单</td></tr>
+  </tbody>
+</table>
+
+<blockquote>缺陷保证期、响应时限、需求变更、额外开发和后续运维以双方合同或补充协议为准；本 PRD 不自行新增商务承诺。</blockquote>
+
+<h1>附录：版本记录</h1>
+
+<table>
+  <thead><tr><th background-color="light-gray">日期</th><th background-color="light-gray">文档版本</th><th background-color="light-gray">网站基线</th><th background-color="light-gray">说明</th></tr></thead>
+  <tbody>
+    <tr><td>2026-08-26</td><td>V1.0</td><td>codex/homepage-integration · 7e8d559</td><td>首次形成完整交付 PRD。</td></tr>
+    <tr><td>2026-08-27</td><td>V1.1</td><td>ac78e75 + 当前工作区</td><td>合并重复章节，并按“页面 → 楼层 → 信息/动作”深化信息架构。</td></tr>
+  </tbody>
+</table>

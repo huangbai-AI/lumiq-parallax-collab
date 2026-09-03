@@ -1,0 +1,55 @@
+<title>LumiQ 首页视觉方向提案｜5 套 Image-2 概念稿</title>
+<p><span text-color="gray">更新日期：2026-08-27　｜　阶段：视觉方向与信息架构　｜　本轮不进入开发</span></p>
+
+<callout emoji="💡" background-color="light-blue" border-color="blue">
+  <p><b>先说结论：</b>推荐以「01 极光白昼」作为首页主框架，再吸收「05 家的长镜头」的生活温度，以及「02 从清晨到晚安」中 Ola Go 的“在家 → 外出 → 回家”叙事。这样既能清楚卖产品，也能把 LumiQ 的陪伴感讲出来。</p>
+</callout>
+
+<h1>一、这次首页要解决什么</h1>
+<p>现有产品页已经具备完整导航、五个产品入口和四项品牌能力，但首页需要重新建立主次：先让人一眼记住 LumiQ、Ola 与 Tablet，再理解 Go、故事书和 Nest 15 如何组成一个连续的家庭体验。</p>
+
+<h2>产品关系重新归类</h2>
+<grid>
+  <column width-ratio="0.5">
+    <h3>LumiQ Ola</h3>
+    <p><b>首页第一主角。</b>个人全息陪伴装置，面向孩子、成人与长辈；承担对话、鼓励、提醒、陪伴与日常协助。</p>
+    <h3>Ola Go</h3>
+    <p><b>Ola 的随身延伸。</b>小圆形口袋屏，随 Ola 提供；重点讲清“拆下带走、回家吸附、同步一天”的关系，不把它误解成独立手表。</p>
+  </column>
+  <column width-ratio="0.5">
+    <h3>LumiQ Tablet + Print</h3>
+    <p><b>首页第二主角与故事生态。</b>儿童无干扰学习平板负责阅读、ImagiMe 与 Story Quest；实体故事书作为 Tablet 的结果和收藏延伸，不再作为第五个同级硬件。</p>
+    <h3>LumiQ Nest 15</h3>
+    <p><b>共享家庭节奏。</b>15.6 吋家庭日历概念，将行事历、作息、天气、提醒和每日信息集中在一块安静的家庭屏幕上。</p>
+  </column>
+</grid>
+
+<h2>推荐首页信息架构</h2>
+<table>
+  <thead><tr><th background-color="light-gray">楼层</th><th background-color="light-gray">主要内容</th><th background-color="light-gray">用户在这一层要明白什么</th></tr></thead>
+  <tbody>
+    <tr><td>01 首屏</td><td>LumiQ 大标题、Ola 主产品、Tablet 副产品、品牌标语</td><td>LumiQ 是面向全家、贯穿不同人生阶段的 AI 产品体系</td></tr>
+    <tr><td>02 Ola + Go</td><td>Ola 约占七成，Go 展示吸附与拆分</td><td>Ola 是核心，Go 把陪伴带出家门</td></tr>
+    <tr><td>03 Tablet + Print</td><td>橙色平板、故事世界、实体故事书</td><td>孩子能在无干扰环境中阅读、探索，并把数字故事变成收藏</td></tr>
+    <tr><td>04 Nest 15</td><td>木框家庭日历机、共享日程、天气、提醒</td><td>LumiQ 不只陪一个人，也帮助全家共享生活节奏</td></tr>
+    <tr><td>05 产品入口</td><td>四条清晰路径：Ola + Go、Tablet + Print、Nest 15、品牌故事</td><td>快速选择自己关心的产品或体验</td></tr>
+    <tr><td>06 家庭场景</td><td>孩子、父母、长辈共同阅读或交流</td><td>科技不是替代家人，而是让陪伴更自然地发生</td></tr>
+    <tr><td>07 功能与跳转</td><td>陪伴、学习、家庭节奏、隐私四项能力及行动按钮</td><td>形成信任，并进入产品详情页</td></tr>
+  </tbody>
+</table>
+
+<h2>首页核心文案建议（繁中）</h2>
+<blockquote>
+  <p><b>主标题：</b>LumiQ，陪你走過人生每一段。</p>
+  <p><b>副标题：</b>從孩子的第一個故事，到全家每一天的節奏。</p>
+  <p><b>Ola：</b>一人一台 Ola，走到哪裡，陪伴都不會中斷。</p>
+  <p><b>Tablet：</b>讓好奇心，有一個不被打擾的世界。</p>
+  <p><b>Nest 15：</b>讓每一天，都有共享的位置。</p>
+</blockquote>
+
+<callout emoji="❗" background-color="light-yellow" border-color="yellow">
+  <p><b>信息边界：</b>Go 的 4G、定位、撞击侦测与 SOS，以及 Nest 15 的最终整合能力仍属于待确认概念。首页可以展示使用方向，但不应写成已经可用的确定承诺。</p>
+</callout>
+
+<h1>二、五个方向总览</h1>
+<p>以下概念稿均由 Image-2 生成。生成时只使用 LumiQ 文件夹内的 Ola、Go、Tablet、Nest 15 原始产品图片作为产品身份参考；未使用现有网页图、临时截图或前一轮生成图作为参考输入。</p>

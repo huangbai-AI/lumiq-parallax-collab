@@ -1,0 +1,194 @@
+<title>LUMIQ STUDIO × Arpha 官網建設 PRD｜交付版</title>
+
+<callout emoji="🎯" background-color="light-blue" border-color="blue">
+  <p><b>文件目的：</b>確認兩個品牌官網的首期範圍、頁面結構、視覺方向、互動原則、交付內容及驗收標準，作為後續設計、開發與驗收的共同依據。</p>
+</callout>
+
+<h1>一、專案背景與目標</h1>
+
+<p>LUMIQ STUDIO 已完成品牌定位、產品概念及初步視覺探索，現階段需要統整品牌識別、產品內容與頁面層級，建立兼具科技感、產品質感與海外品牌表現的官方網站。</p>
+
+<p>Arpha 已有官方網站，本次將在既有品牌及產品資料基礎上，重新整理資訊架構、頁面視覺與前端體驗。兩個網站獨立建設，但共用響應式、可讀性、效能與互動品質標準。</p>
+
+<grid>
+  <column width-ratio="0.5">
+    <h3>LUMIQ STUDIO</h3>
+    <p>建立品牌世界觀，清楚介紹核心產品與技術，將訪客引導至產品了解、預登記或商務聯絡。</p>
+  </column>
+  <column width-ratio="0.5">
+    <h3>Arpha</h3>
+    <p>改善既有網站的閱讀與產品展示效率，形成更清晰的品牌入口與商務轉化路徑。</p>
+  </column>
+</grid>
+
+<h1>二、首期建設範圍</h1>
+
+<p>首期以<b>品牌展示型響應式官網</b>為主，先完成品牌、產品與轉化所需的核心頁面，不在第一階段加入重型業務系統。</p>
+
+<table>
+  <colgroup><col width="145"/><col width="300"/><col width="230"/></colgroup>
+  <thead><tr><th background-color="light-gray">頁面</th><th background-color="light-gray">主要內容</th><th background-color="light-gray">首期要求</th></tr></thead>
+  <tbody>
+    <tr><td>首頁</td><td>品牌定位、核心產品、技術亮點、使用場景、品牌故事與聯絡入口</td><td>重點建設，負責第一印象與導流</td></tr>
+    <tr><td>產品總覽</td><td>已確認產品、即將推出產品及系列關係</td><td>資訊清楚，可進入產品詳情</td></tr>
+    <tr><td>產品詳情</td><td>產品定位、功能、場景、規格、媒體內容及行動入口</td><td>LUMIQ 首期優先完成核心產品</td></tr>
+    <tr><td>Technology</td><td>AI 互動、顯示技術、隱私安全與核心能力</td><td>精簡呈現，不堆砌技術術語</td></tr>
+    <tr><td>About</td><td>品牌故事、價值、願景與品牌角色</td><td>形成品牌信任</td></tr>
+    <tr><td>Support / Contact</td><td>常見問題、聯絡方式、社群及合作入口</td><td>確保轉化路徑可完成</td></tr>
+    <tr><td>Privacy / Terms</td><td>隱私政策、使用條款及必要聲明</td><td>內容由品牌方最終確認</td></tr>
+  </tbody>
+</table>
+
+<p><b>Arpha 頁面規劃：</b>以既有網站內容為基礎，首期預計包含首頁、產品／應用場景、品牌介紹、聯絡及法律頁面；最終頁面數量於既有內容盤點後確認。</p>
+
+<h1>三、網站資訊架構</h1>
+
+<whiteboard type="mermaid">
+graph LR
+  P[雙品牌官網] --> L[LUMIQ STUDIO]
+  P --> A[Arpha]
+  L --> L1[首頁]
+  L --> L2[產品總覽]
+  L2 --> L3[產品詳情]
+  L --> L4[技術與品牌內容]
+  L --> L5[支援聯絡與法律]
+  A --> A1[首頁]
+  A --> A2[產品與應用場景]
+  A --> A3[品牌聯絡與法律]
+</whiteboard>
+
+<h1>四、核心頁面需求</h1>
+
+<h2>4.1 首頁</h2>
+<ul>
+  <li>首屏在短時間內回答「這是什麼品牌、核心產品是什麼、為誰服務」。</li>
+  <li>依序呈現品牌主張、核心產品、使用場景、技術亮點、品牌故事與行動入口。</li>
+  <li>視覺可具有沉浸感，但導航、文字與主要按鈕必須始終清楚可用。</li>
+</ul>
+
+<h2>4.2 產品總覽與詳情</h2>
+<ul>
+  <li>總覽頁建立產品系列關係，避免不同產品各自成為孤立頁面。</li>
+  <li>詳情頁按「產品價值 → 使用場景 → 功能與技術 → 規格 → 行動入口」組織。</li>
+  <li>未上市產品與已上市產品需有清楚標識，避免誤導。</li>
+</ul>
+
+<h2>4.3 品牌、支援與法律內容</h2>
+<ul>
+  <li>品牌內容負責建立願景與信任，不與產品詳情重複。</li>
+  <li>常見問題、聯絡及預登記入口需在桌面端與手機端均可完成。</li>
+  <li>法律頁面須替換為正式公司資料，不使用示例文字。</li>
+</ul>
+
+<h1>五、視覺參考與設計方向</h1>
+
+<h2>5.1 同賽道參考</h2>
+
+<grid>
+  <column width-ratio="0.5">
+    <img href="https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=MGUwODU4MWM3N2IyZTAyOGJjM2JiYzk3N2E5M2QyNDRfNGZiZDZlYjA3ZDFjOTZkYWM4M2JiNGU5OWYzOWRmZjRfSUQ6NzY3ODM2NzY4MDA0ODE4ODM5MF8xNzg3NzYwMzE1OjE3ODc3NjM5MTVfVjM"/>
+    <p align="center"><b>Gatebox</b>｜產品角色與陪伴感</p>
+  </column>
+  <column width-ratio="0.5">
+    <img href="https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=YTM4NmY5NDBhODRiZDQ3MmRlMTRlYmU0ZGFiYjAxOTFfNjQ2ZGUzOTJlZDFmMWZiOTQ3MmNhZTAwNmRlZDI2NWNfSUQ6NzY3ODM2NzY4MjU1NDcyNzM3MV8xNzg3NzYwMzE1OjE3ODc3NjM5MTVfVjM"/>
+    <p align="center"><b>Energize Lab</b>｜產品資訊與購買動機</p>
+  </column>
+</grid>
+
+<grid>
+  <column width-ratio="0.5">
+    <img href="https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=MjE2MDhiMGI5MGY3ZDRjNjhkODE5MDQ4YzhhNTVjYTdfNzFiMWYyNDE1ZDVlZjZmZjFkM2M3OGQ2ZTAxNzkxZTdfSUQ6NzY3ODM2NzY4MTc0NTE0NDc3OV8xNzg3NzYwMzE1OjE3ODc3NjM5MTVfVjM"/>
+    <p align="center"><b>LOVOT</b>｜科技產品的情感化表達</p>
+  </column>
+  <column width-ratio="0.5">
+    <img href="https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=ZTk2ODFmZjQxZTcyM2EwNjcyNTcyMDUzZDM0NTlkNTdfNTVjMDRmNjY0N2RiNDcwM2RmN2ExN2M2MmNjY2M4MTJfSUQ6NzY3ODM2NzY3OTkzNzU2MzU4NV8xNzg3NzYwMzE1OjE3ODc3NjM5MTVfVjM"/>
+    <p align="center"><b>Razer AVA</b>｜深色科技氛圍與角色呈現</p>
+  </column>
+</grid>
+
+<p><b>跨產業借鑑：</b>DJI 的產品敘事、Apple Vision Pro 的空間感、Teenage Engineering 的產品陳列及 NANFU 的海外品牌表達，可作為版式與內容節奏參考，不直接複製其視覺。</p>
+
+<h2>5.2 建議採用的三層視覺策略</h2>
+
+<h3>A｜視差滾動：用於首頁產品揭示</h3>
+<img href="https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NTVlODIxNTdlOTM5MjIyOTE2MmM4NjcxYTkwMzRkMmNfYzEyMWEyYTA0OWEzZTFmZTEzNWFmNTNlMWVmMjE2ZDhfSUQ6NzY3ODM2NzY4MTU2NDgyMjUwMV8xNzg3NzYwMzQ0OjE3ODc3NjM5NDRfVjM"/>
+<p>隨滾動逐步切換品牌信息、產品與場景，適合首頁首屏至核心產品區。每個階段只承載一個重點，手機端改為更輕量的淡入與位移。</p>
+
+<h3>B｜鼠標遮罩：用於產品探索</h3>
+<img href="https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=NmMwOGRiYWVkOTZlMjE2MGQxMmU2Y2ZlODNhNDlmNjZfNTI5ODM5YjU4MTZkMTU2ZjVhMmJlZWM5MDIyMWE5MGRfSUQ6NzY3ODM2NzY4MjQxMjAzOTExNl8xNzg3NzYwMzQ1OjE3ODc3NjM5NDVfVjM"/>
+<p>以靜態產品圖作為基礎，鼠標經過時揭示內部光路、AI 介面或角色狀態，讓使用者主動發現內容。觸控裝置以點擊或自動播放替代。</p>
+
+<h3>C｜黑白極簡排版：作為全站基礎系統</h3>
+<img href="https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=ZTg4Mzk3NGFlMWMzY2RlN2M5NjJkODA4YWNmYTVjNDNfYmQwOTY3MjViNzM5MDRhYjVhMzFjMmJmYmIxYTc4MWNfSUQ6NzY3ODM2NzY4NDQ0NjMwOTM2M18xNzg3NzYwMzMyOjE3ODc3NjM5MzJfVjM"/>
+<p>以清楚網格、留白與文字層級承載主要內容，再於少數關鍵區域加入品牌色和動效。此方向可保持長期擴充的一致性，也避免整站變成只展示特效的作品集。</p>
+
+<callout emoji="✅" background-color="light-green" border-color="green">
+  <p><b>建議組合：</b>以黑白／深淺分區的排版系統為基礎；首頁與核心產品區加入視差滾動；產品探索區選擇性加入鼠標遮罩。即時 3D 僅作後續選配，不列入首期必要範圍。</p>
+</callout>
+
+<h1>六、互動、響應式與效能要求</h1>
+
+<table>
+  <thead><tr><th background-color="light-gray">項目</th><th background-color="light-gray">要求</th></tr></thead>
+  <tbody>
+    <tr><td>桌面端</td><td>保留完整的滾動敘事、鼠標反饋與產品展示層次。</td></tr>
+    <tr><td>手機端</td><td>不依賴鼠標操作；動效降級後仍能完整閱讀與完成行動。</td></tr>
+    <tr><td>媒體</td><td>圖片與影片按裝置載入，避免首屏一次載入所有素材。</td></tr>
+    <tr><td>導航</td><td>頁面入口、返回路徑與主要按鈕保持一致，避免死鏈。</td></tr>
+    <tr><td>基本搜尋資訊</td><td>各頁具備清楚標題、描述、分享圖片及語意化內容結構。</td></tr>
+    <tr><td>可用性</td><td>文字對比、按鈕狀態、鍵盤操作與必要替代文字可正常使用。</td></tr>
+  </tbody>
+</table>
+
+<h2>核心使用者路徑</h2>
+<whiteboard type="mermaid">
+graph LR
+  U[進入官網] --> B[理解品牌]
+  B --> P[瀏覽產品]
+  P --> D[查看詳情或方案]
+  D --> C[預登記或聯絡團隊]
+</whiteboard>
+
+<h1>七、執行流程與交付成果</h1>
+
+<whiteboard type="mermaid">
+graph LR
+  A[需求與素材確認] --> B[資訊架構與視覺方向]
+  B --> C[核心頁面設計確認]
+  C --> D[前端開發與互動]
+  D --> E[整站測試與集中修改]
+  E --> F[驗收與程式碼交付]
+</whiteboard>
+
+<table>
+  <thead><tr><th background-color="light-gray">交付項</th><th background-color="light-gray">驗收標準</th></tr></thead>
+  <tbody>
+    <tr><td>資訊架構與頁面</td><td>約定頁面完整，內容層級清楚，導航與頁面之間無錯誤連結。</td></tr>
+    <tr><td>視覺與互動</td><td>符合確認後的品牌方向，關鍵動效可使用且不影響閱讀。</td></tr>
+    <tr><td>響應式前端</td><td>主流桌面及手機尺寸下，文字、圖片、影片與按鈕正常顯示。</td></tr>
+    <tr><td>轉化入口</td><td>預登記、聯絡或其他指定表單可完成並送達正確接收方。</td></tr>
+    <tr><td>程式碼交付</td><td>交付可運行的網站程式碼、素材引用及必要說明。</td></tr>
+  </tbody>
+</table>
+
+<h1>八、服務邊界與甲方待確認事項</h1>
+
+<callout emoji="❗" background-color="light-yellow" border-color="yellow">
+  <p><b>本次合作範圍：</b>官網資訊架構、UX／UI 設計及響應式前端開發。部署、域名綁定、伺服器、HTTPS／CDN、正式上線操作與後續運維是否包含，需以最終報價或合約為準。</p>
+</callout>
+
+<p><b>首期不包含：</b>購物車與支付、會員及訂單系統、獨立內容後台、複雜資料庫、3D 建模、高複雜度 WebGL、大規模翻譯、法律文件起草、持續搜尋排名服務、廣告投放及社群營運。</p>
+
+<p>如在設計確認後新增頁面、語言、複雜功能，或對整體方向進行重大調整，雙方需重新確認交付時間與費用。</p>
+
+<h2>甲方待確認</h2>
+<checkbox done="false">兩個品牌的最終頁面清單與導航命名</checkbox>
+<checkbox done="false">產品名稱、上市狀態、規格、方案與價格資訊</checkbox>
+<checkbox done="false">正式圖片、影片、媒體報導、社群及聯絡資料</checkbox>
+<checkbox done="false">預登記或聯絡資料的實際接收方式</checkbox>
+<checkbox done="false">公司主體、隱私政策及使用條款</checkbox>
+<checkbox done="false">部署範圍、正式域名與預計上線時間</checkbox>
+
+<h1>九、目前頁面實拍</h1>
+
+<p>以下快照用於確認已實現的桌面端首頁、產品方案頁及手機端首頁方向；正式驗收以最終內容和最新版本為準。</p>

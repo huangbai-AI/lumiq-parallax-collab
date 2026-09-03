@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2048" height="132" viewBox="0 0 2048 132">
+  <rect width="2048" height="132" fill="#ffffff"/>
+  <rect y="130" width="2048" height="2" fill="#e8eaf0"/>
+  <image href="logo-crop.png" x="62" y="24" width="174" height="60" preserveAspectRatio="xMidYMid meet"/>
+  <g fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="1.4">
+    <text x="672" y="72">PRODUCTS</text>
+    <text x="825" y="72">EXPERIENCES</text>
+    <text x="1019" y="72">ABOUT</text>
+    <text x="1144" y="72">SAFETY</text>
+    <text x="1269" y="72">SUPPORT</text>
+  </g>
+  <g fill="none" stroke="#111827" stroke-width="2.2">
+    <circle cx="1663" cy="64" r="17"/>
+    <circle cx="1718" cy="64" r="17"/>
+    <path d="M1655 68c2.5-6 13.5-6 16 0M1663 55a4.7 4.7 0 1 0 0 .1"/>
+    <path d="M1710 64h16M1718 56v16"/>
+    <rect x="1773" y="35" width="226" height="58" rx="29"/>
+  </g>
+  <text x="1886" y="70" text-anchor="middle" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5">JOIN WAITLIST</text>
+</svg>

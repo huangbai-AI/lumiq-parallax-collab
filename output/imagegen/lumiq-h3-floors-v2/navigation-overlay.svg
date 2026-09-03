@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="1152" viewBox="0 0 2048 1152">
+  <g fill="#172038" font-family="Helvetica, Arial, sans-serif">
+    <text x="64" y="36" font-size="23" font-weight="500" letter-spacing="5">LUMIQ</text>
+    <text x="66" y="55" font-size="9" font-weight="600" letter-spacing="6">STUDIO</text>
+
+    <g font-size="12" font-weight="600" letter-spacing="1.2" text-anchor="middle">
+      <text x="710" y="46">PRODUCTS</text>
+      <text x="870" y="46">EXPERIENCES</text>
+      <text x="1010" y="46">ABOUT</text>
+      <text x="1130" y="46">SAFETY</text>
+      <text x="1260" y="46">SUPPORT</text>
+    </g>
+
+    <g fill="none" stroke="#172038" stroke-width="2">
+      <circle cx="1660" cy="40" r="12"/>
+      <circle cx="1660" cy="36" r="3.2"/>
+      <path d="M1653 46c2.2-5.4 11.8-5.4 14 0"/>
+      <circle cx="1710" cy="40" r="12"/>
+      <path d="M1704 40h12M1710 34v12"/>
+      <rect x="1762" y="18" width="220" height="44" rx="22"/>
+    </g>
+    <text x="1872" y="46" font-size="12" font-weight="600" letter-spacing="1.1" text-anchor="middle">JOIN WAITLIST</text>
+  </g>
+</svg>

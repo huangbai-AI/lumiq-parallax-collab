@@ -1,0 +1,128 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - link "Lumiq Studio home" [ref=e5] [cursor=pointer]:
+      - /url: /
+      - img "Lumiq Studio" [ref=e6]
+    - navigation "Main navigation" [ref=e7]:
+      - link "Home" [ref=e8] [cursor=pointer]:
+        - /url: /
+      - link "Brand Story" [ref=e9] [cursor=pointer]:
+        - /url: /story
+      - link "Products" [ref=e10] [cursor=pointer]:
+        - /url: /products
+      - link "Plans" [ref=e11] [cursor=pointer]:
+        - /url: /plans
+      - link "Media & Review" [ref=e12] [cursor=pointer]:
+        - /url: /media
+      - link "FAQ" [ref=e13] [cursor=pointer]:
+        - /url: /faq
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e21]: Language
+        - combobox "Language" [ref=e22] [cursor=pointer]:
+          - option "EN" [selected]
+          - option "繁中"
+          - option "日本語"
+      - link "Join LumiQ" [ref=e23] [cursor=pointer]:
+        - /url: /prelaunch
+  - main "LumiQ home" [ref=e27]:
+    - navigation "Homepage sections" [ref=e28]:
+      - link "01 home" [ref=e29] [cursor=pointer]:
+        - /url: "#home"
+        - generic [ref=e30]: "01"
+      - link "02 ola" [ref=e31] [cursor=pointer]:
+        - /url: "#ola"
+        - generic [ref=e32]: "02"
+      - link "03 tablet" [ref=e33] [cursor=pointer]:
+        - /url: "#tablet"
+        - generic [ref=e34]: "03"
+      - link "04 nest" [ref=e35] [cursor=pointer]:
+        - /url: "#nest"
+        - generic [ref=e36]: "04"
+      - link "05 together" [ref=e37] [cursor=pointer]:
+        - /url: "#together"
+        - generic [ref=e38]: "05"
+      - link "06 join" [ref=e39] [cursor=pointer]:
+        - /url: "#join"
+        - generic [ref=e40]: "06"
+    - generic [ref=e41]:
+      - generic [ref=e43]:
+        - paragraph [ref=e44]: One home · Every chapter
+        - heading "AI experiences for families across generations." [level=1] [ref=e45]
+        - paragraph [ref=e46]: From a child’s first story to the rhythm of everyday family life, LumiQ brings learning, companionship and care into one continuous experience.
+        - link "Explore the family" [ref=e47] [cursor=pointer]:
+          - /url: "#ola"
+        - paragraph [ref=e50]: Ola with Ola Go · Tablet · Nest 15
+      - generic "Product sections" [ref=e51]:
+        - link "01 LumiQ Ola" [ref=e52] [cursor=pointer]:
+          - /url: "#ola"
+          - generic [ref=e53]: "01"
+          - text: LumiQ Ola
+        - link "02 LumiQ Tablet" [ref=e54] [cursor=pointer]:
+          - /url: "#tablet"
+          - generic [ref=e55]: "02"
+          - text: LumiQ Tablet
+        - link "03 Nest 15" [ref=e56] [cursor=pointer]:
+          - /url: "#nest"
+          - generic [ref=e57]: "03"
+          - text: Nest 15
+    - generic [ref=e60]:
+      - generic [ref=e61]: 02 / 06
+      - paragraph [ref=e62]: LumiQ Ola · Ola Go included
+      - heading "Companionship that grows with their world." [level=2] [ref=e63]
+      - paragraph [ref=e64]: A personal holographic companion for stories, routines and everyday encouragement. Ola Go carries the familiar character and selected reminders beyond home.
+      - link "Discover Ola" [ref=e65] [cursor=pointer]:
+        - /url: /products/ola
+    - generic [ref=e70]:
+      - generic [ref=e71]: 03 / 06
+      - paragraph [ref=e72]: LumiQ Tablet
+      - heading "Storytime. Study time. Their time." [level=2] [ref=e73]
+      - paragraph [ref=e74]: A calm AI learning and reading tablet built around curiosity — without feeds, ads or distracting notifications.
+      - link "Discover Tablet" [ref=e75] [cursor=pointer]:
+        - /url: /products/tablet
+    - generic [ref=e80]:
+      - generic [ref=e81]: 04 / 06
+      - paragraph [ref=e82]: LumiQ Nest 15
+      - heading "The rhythm of the home, beautifully in sync." [level=2] [ref=e83]
+      - paragraph [ref=e84]: A 15.6-inch shared family display for calendars, routines, weather and gentle reminders — visible at a glance, quiet when it is not needed.
+      - link "Discover Nest 15" [ref=e85] [cursor=pointer]:
+        - /url: /products/nest
+    - generic [ref=e88]:
+      - generic [ref=e90]:
+        - paragraph [ref=e91]: One continuous purpose
+        - heading "Made for moments that bring us closer." [level=2] [ref=e92]
+        - paragraph [ref=e93]: Different forms, one thoughtful family experience — designed to support connection, never replace it.
+      - list "LumiQ values" [ref=e94]:
+        - listitem [ref=e95]:
+          - generic [ref=e96]: "01"
+          - text: Thoughtful by design
+        - listitem [ref=e97]:
+          - generic [ref=e98]: "02"
+          - text: For every generation
+        - listitem [ref=e99]:
+          - generic [ref=e100]: "03"
+          - text: Connected, not complicated
+        - listitem [ref=e101]:
+          - generic [ref=e102]: "04"
+          - text: Privacy has a place
+    - generic [ref=e103]:
+      - generic [ref=e105]:
+        - paragraph [ref=e106]: A light through every chapter
+        - heading "Join the LumiQ family" [level=2] [ref=e107]
+        - paragraph [ref=e108]: Be the first to know about availability, product previews and early access.
+        - link "Join the waitlist" [ref=e109] [cursor=pointer]:
+          - /url: /prelaunch
+      - generic [ref=e112]:
+        - img "LumiQ Studio" [ref=e113]
+        - navigation "Footer navigation" [ref=e114]:
+          - link "Brand Story" [ref=e115] [cursor=pointer]:
+            - /url: /story
+          - link "Products" [ref=e116] [cursor=pointer]:
+            - /url: /products
+          - link "Plans" [ref=e117] [cursor=pointer]:
+            - /url: /plans
+          - link "Media & Review" [ref=e118] [cursor=pointer]:
+            - /url: /media
+          - link "FAQ" [ref=e119] [cursor=pointer]:
+            - /url: /faq
+        - generic [ref=e120]: © 2026 LumiQ Studio

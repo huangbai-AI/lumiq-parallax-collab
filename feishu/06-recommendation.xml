@@ -1,0 +1,34 @@
+<h1>三、横向比较与最终建议</h1>
+<table>
+  <thead><tr><th background-color="light-gray">方案</th><th background-color="light-gray">品牌匹配</th><th background-color="light-gray">产品清晰</th><th background-color="light-gray">情感温度</th><th background-color="light-gray">落地难度</th><th background-color="light-gray">建议</th></tr></thead>
+  <tbody>
+    <tr><td>01 极光白昼</td><td>★★★★★</td><td>★★★★★</td><td>★★★★☆</td><td>低至中</td><td><b>主框架</b></td></tr>
+    <tr><td>02 从清晨到晚安</td><td>★★★★☆</td><td>★★★★☆</td><td>★★★★★</td><td>中</td><td>借用 Go 叙事</td></tr>
+    <tr><td>03 光的章节</td><td>★★★★★</td><td>★★★★☆</td><td>★★★★☆</td><td>中</td><td>借用章节系统</td></tr>
+    <tr><td>04 四件器物同一轨道</td><td>★★★★☆</td><td>★★★★★</td><td>★★★☆☆</td><td>低至中</td><td>借用最终导航</td></tr>
+    <tr><td>05 家的长镜头</td><td>★★★★☆</td><td>★★★★☆</td><td>★★★★★</td><td>中至高</td><td>借用家庭场景</td></tr>
+  </tbody>
+</table>
+
+<callout emoji="✅" background-color="light-green" border-color="green">
+  <p><b>建议合成方向：</b>01 的极光白底与清晰产品楼层 + 02 的 Go 三段式叙事 + 03 的章节编号与光带 + 05 的家庭收束场景 + 04 的最终四入口导航。</p>
+</callout>
+
+<h2>建议进入下一轮的页面结构</h2>
+<ol>
+  <li seq="auto"><b>首屏：</b>只放 Ola 与 Tablet；大字 LUMIQ 做背景；标语“LumiQ，陪你走過人生每一段。”</li>
+  <li seq="auto"><b>Ola + Go：</b>用三帧或滚动动画讲“吸附在家 → 拆下外出 → 回家同步”。</li>
+  <li seq="auto"><b>Tablet + Print：</b>橙色产品负责视觉焦点，故事光从屏幕延伸到实体书页。</li>
+  <li seq="auto"><b>Nest 15：</b>突出“全家共享日程”，不与 Ola 的个人陪伴混淆。</li>
+  <li seq="auto"><b>家庭场景：</b>孩子、父母、长辈共处，但画面中只保留与当前情境相关的设备。</li>
+  <li seq="auto"><b>功能收束：</b>陪伴、学习、家庭节奏、隐私四项；四个清晰详情入口。</li>
+</ol>
+
+<h2>正式设计前需确认</h2>
+<checkbox done="false">首屏最终主标语与繁中语气</checkbox>
+<checkbox done="false">是否采用“01 为主、02／03／05 为辅”的合成方向</checkbox>
+<checkbox done="false">Go 的 4G、安全与定位信息对外可写到什么程度</checkbox>
+<checkbox done="false">Nest 15 的最终命名、界面与能力边界</checkbox>
+<checkbox done="false">家庭场景希望偏睡前共读、客厅互动或三代日常</checkbox>
+
+<p><span text-color="gray">说明：以上图片是用于确认视觉方向的概念稿，不是最终页面成品；产品细节、文案、界面内容和人物场景仍需在选定方向后继续精修。</span></p>

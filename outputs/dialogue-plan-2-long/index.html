@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LumiQ — Dialogue Direction 02</title>
+  <style>
+    @font-face {
+      font-family: "ManropeLocal";
+      src: url("file:///Users/a1/Documents/LumiQ/references/source-websites/lumiqstudiovercel2-vercel-app/_next/static/media/4c9affa5bc8f420d-s.p.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400 800;
+      font-display: block;
+    }
+
+    :root {
+      --navy: #0b2147;
+      --navy-soft: #53617a;
+      --ink: #171817;
+      --warm: #a96c2b;
+      --cream: #fbf9f5;
+      --line: rgba(11, 33, 71, 0.16);
+      --sans: "ManropeLocal", Arial, Helvetica, sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 1920px;
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background: #f7f5f2;
+      font-family: var(--sans);
+      font-synthesis: none;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body { overflow: hidden; }
+
+    .page {
+      width: 1920px;
+      overflow: hidden;
+      background: #f7f5f2;
+    }
+
+    .panel {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      isolation: isolate;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero {
+      background-image: url("file:///Users/a1/Downloads/LimiQ%20网站/1-bg.png");
+    }
+
+    .hero::before {
+      background:
+        linear-gradient(90deg, rgba(252, 250, 248, 0.96) 0%, rgba(252, 250, 248, 0.88) 23%, rgba(252, 250, 248, 0.38) 40%, rgba(252, 250, 248, 0) 60%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.10) 65%, rgba(222, 226, 243, 0.18) 100%);
+    }
+
+    .ola {
+      background-image: url("file:///Users/a1/Downloads/LimiQ%20网站/2-bg.png");
+    }
+
+    .ola::before {
+      background: linear-gradient(90deg, rgba(252, 250, 250, 0.96) 0%, rgba(252, 250, 250, 0.86) 26%, rgba(252, 250, 250, 0.24) 49%, rgba(252, 250, 250, 0) 66%);
+    }
+
+    .tablet {
+      background-image: url("file:///Users/a1/Downloads/LimiQ%20网站/3-bg.png");
+    }
+
+    .tablet::before {
+      background: linear-gradient(270deg, rgba(252, 251, 251, 0.98) 0%, rgba(252, 251, 251, 0.88) 30%, rgba(252, 251, 251, 0.30) 49%, rgba(252, 251, 251, 0) 68%);
+    }
+
+    .nest {
+      background-image: url("file:///Users/a1/Downloads/LimiQ%20网站/nest-15-bg.png");
+    }
+
+    .nest::before {
+      background: linear-gradient(90deg, rgba(251, 249, 250, 0.98) 0%, rgba(251, 249, 250, 0.90) 27%, rgba(251, 249, 250, 0.34) 49%, rgba(251, 249, 250, 0) 67%);
+    }
+
+    .together {
+      background-image: url("file:///Users/a1/Documents/ChatGPT/LumiQ%208.26%20开发/outputs/libtv-4k-redraw/generated/family-together.png");
+      background-position: center 48%;
+      color: #fff;
+    }
+
+    .together::before {
+      background:
+        linear-gradient(90deg, rgba(10, 18, 31, 0.78) 0%, rgba(10, 18, 31, 0.36) 38%, rgba(10, 18, 31, 0.02) 64%),
+        linear-gradient(180deg, rgba(9, 17, 30, 0) 44%, rgba(9, 17, 30, 0.54) 72%, rgba(9, 17, 30, 0.90) 100%);
+    }
+
+    .join {
+      background-image: url("file:///Users/a1/Documents/ChatGPT/LumiQ%208.26%20开发/outputs/libtv-4k-redraw/generated/join-home.png");
+      color: var(--navy);
+    }
+
+    .join::before {
+      background:
+        radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0.15) 38%, rgba(255, 255, 255, 0) 64%),
+        linear-gradient(180deg, rgba(250, 247, 242, 0.08), rgba(236, 226, 213, 0.20));
+    }
+
+    .site-header {
+      position: absolute;
+      z-index: 8;
+      top: 24px;
+      left: 60px;
+      right: 60px;
+      height: 86px;
+      padding: 12px 14px 12px 24px;
+      display: grid;
+      grid-template-columns: 230px 1fr 300px;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 24px;
+      background: rgba(250, 248, 244, 0.88);
+      box-shadow: 0 18px 60px rgba(44, 39, 49, 0.10);
+      backdrop-filter: blur(26px);
+    }
+
+    .brand {
+      width: 144px;
+      height: auto;
+      display: block;
+    }
+
+    .nav-links {
+      justify-self: center;
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      color: #4e4c4a;
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links span:first-child {
+      position: relative;
+      color: #161616;
+    }
+
+    .nav-links span:first-child::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -14px;
+      height: 2px;
+      border-radius: 2px;
+      background: #c38a42;
+    }
+
+    .nav-actions {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .language,
+    .header-cta {
+      height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 28px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .language {
+      min-width: 112px;
+      gap: 12px;
+      border: 1px solid rgba(23, 24, 23, 0.16);
+      background: rgba(255, 255, 255, 0.68);
+    }
+
+    .header-cta {
+      min-width: 154px;
+      gap: 13px;
+      color: #fff;
+      background: #171717;
+    }
+
+    .content {
+      position: absolute;
+      z-index: 4;
+      width: 700px;
+    }
+
+    .left-copy { left: 112px; }
+    .right-copy { right: 108px; }
+
+    .hero .content {
+      top: 278px;
+      width: 710px;
+    }
+
+    .ola .content,
+    .nest .content {
+      top: 292px;
+      width: 690px;
+    }
+
+    .tablet .content {
+      top: 292px;
+      width: 690px;
+    }
+
+    .kicker {
+      margin: 0 0 24px;
+      color: var(--warm);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.23em;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      margin: 0;
+      color: #171817;
+      font-family: var(--serif);
+      font-size: 84px;
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.058em;
+      text-wrap: balance;
+    }
+
+    .hero .headline {
+      font-size: 90px;
+      line-height: 0.94;
+    }
+
+    .description {
+      max-width: 620px;
+      margin: 30px 0 0;
+      color: var(--navy-soft);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.60;
+      letter-spacing: -0.015em;
+    }
+
+    .button {
+      min-width: 202px;
+      height: 58px;
+      margin-top: 34px;
+      padding: 0 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-radius: 30px;
+      color: #fff;
+      background: var(--navy);
+      box-shadow: 0 16px 40px rgba(11, 33, 71, 0.18);
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .button .arrow,
+    .header-cta .arrow {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .subline {
+      margin: 20px 0 0;
+      color: #66748b;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .section-count {
+      position: absolute;
+      z-index: 5;
+      top: 154px;
+      left: 112px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: rgba(11, 33, 71, 0.42);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.20em;
+    }
+
+    .section-count::after {
+      content: "";
+      width: 64px;
+      height: 1px;
+      background: rgba(11, 33, 71, 0.28);
+    }
+
+    .tablet .section-count {
+      right: 108px;
+      left: auto;
+    }
+
+    .tablet .section-count::before {
+      content: "";
+      width: 64px;
+      height: 1px;
+      background: rgba(11, 33, 71, 0.28);
+    }
+
+    .tablet .section-count::after { display: none; }
+
+    .rail {
+      position: absolute;
+      z-index: 6;
+      top: 420px;
+      right: 44px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .rail span {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(11, 33, 71, 0.12);
+      border-radius: 50%;
+      color: rgba(11, 33, 71, 0.45);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 8px 22px rgba(29, 38, 67, 0.06);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .rail span.active {
+      color: #fff;
+      border-color: var(--navy);
+      background: var(--navy);
+    }
+
+    .together .rail span {
+      border-color: rgba(255, 255, 255, 0.30);
+      color: rgba(255, 255, 255, 0.72);
+      background: rgba(10, 18, 31, 0.26);
+    }
+
+    .together .rail span.active {
+      color: var(--navy);
+      border-color: #fff;
+      background: #fff;
+    }
+
+    .product-tabs {
+      position: absolute;
+      z-index: 5;
+      right: 64px;
+      bottom: 54px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .product-tab {
+      min-width: 168px;
+      height: 56px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      border-radius: 30px;
+      color: var(--navy);
+      background: rgba(250, 247, 244, 0.76);
+      box-shadow: 0 12px 36px rgba(44, 41, 61, 0.08);
+      backdrop-filter: blur(18px);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .product-tab b {
+      color: var(--warm);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .detail-chip-row {
+      position: absolute;
+      z-index: 5;
+      left: 112px;
+      bottom: 72px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .tablet .detail-chip-row {
+      right: 108px;
+      left: auto;
+    }
+
+    .detail-chip {
+      padding: 14px 19px;
+      border: 1px solid rgba(11, 33, 71, 0.12);
+      border-radius: 24px;
+      color: #34445f;
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: 0 12px 30px rgba(43, 49, 74, 0.06);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+      backdrop-filter: blur(16px);
+    }
+
+    .together-copy {
+      position: absolute;
+      z-index: 4;
+      left: 112px;
+      bottom: 196px;
+      width: 780px;
+    }
+
+    .together .kicker { color: #f0bb74; }
+
+    .together .headline {
+      color: #fff;
+      font-size: 74px;
+      line-height: 0.98;
+      text-shadow: 0 3px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .together .description {
+      max-width: 710px;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .values {
+      position: absolute;
+      z-index: 5;
+      right: 112px;
+      bottom: 70px;
+      left: 112px;
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255, 255, 255, 0.40);
+    }
+
+    .value {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .value b {
+      color: #efb86d;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
+
+    .join-content {
+      position: absolute;
+      z-index: 4;
+      top: 224px;
+      left: 50%;
+      width: 960px;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .join-mark {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 30px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(11, 33, 71, 0.13);
+      border-radius: 50%;
+      color: var(--warm);
+      background: rgba(255, 255, 255, 0.50);
+      box-shadow: 0 18px 50px rgba(51, 44, 38, 0.07);
+      font-family: var(--serif);
+      font-size: 30px;
+    }
+
+    .join .kicker { margin-bottom: 22px; }
+
+    .join .headline {
+      color: var(--navy);
+      font-size: 100px;
+      line-height: 0.95;
+    }
+
+    .join .description {
+      max-width: 650px;
+      margin: 30px auto 0;
+      color: #4e5b70;
+    }
+
+    .join .button {
+      min-width: 220px;
+      margin-top: 34px;
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 5;
+      right: 68px;
+      bottom: 42px;
+      left: 68px;
+      min-height: 92px;
+      padding: 24px 26px;
+      display: grid;
+      grid-template-columns: 260px 1fr 260px;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      border-radius: 24px;
+      background: rgba(250, 248, 244, 0.70);
+      box-shadow: 0 18px 60px rgba(44, 39, 49, 0.08);
+      backdrop-filter: blur(24px);
+    }
+
+    .footer .brand { width: 126px; }
+
+    .footer-links {
+      justify-self: center;
+      display: flex;
+      gap: 34px;
+      color: #445169;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .copyright {
+      justify-self: end;
+      color: #68758a;
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .seam {
+      position: absolute;
+      z-index: 7;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      background: rgba(16, 34, 69, 0.09);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="panel hero">
+      <header class="site-header">
+        <img class="brand" src="file:///Users/a1/Documents/LumiQ/proposal-demo/public/assets/brand/lumiq-logo.png" alt="LumiQ Studio" />
+        <nav class="nav-links" aria-label="Primary">
+          <span>Home</span>
+          <span>Brand Story</span>
+          <span>Products</span>
+          <span>Plans</span>
+          <span>Media &amp; Review</span>
+          <span>FAQ</span>
+        </nav>
+        <div class="nav-actions">
+          <div class="language">◎&nbsp; EN⌄</div>
+          <div class="header-cta">Join LumiQ <span class="arrow">↗</span></div>
+        </div>
+      </header>
+
+      <div class="content left-copy">
+        <p class="kicker">One home · Every chapter</p>
+        <h1 class="headline">AI experiences<br />for families across<br />generations.</h1>
+        <p class="description">From a child’s first story to the rhythm of everyday family life, LumiQ brings learning, companionship and care into one continuous experience.</p>
+        <div class="button">Explore the family <span class="arrow">↓</span></div>
+        <p class="subline">OLA WITH OLA GO · TABLET · NEST 15</p>
+      </div>
+
+      <div class="product-tabs" aria-hidden="true">
+        <div class="product-tab"><b>01</b> LumiQ Ola</div>
+        <div class="product-tab"><b>02</b> LumiQ Tablet</div>
+        <div class="product-tab"><b>03</b> Nest 15</div>
+      </div>
+
+      <div class="rail" aria-hidden="true">
+        <span class="active">01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span>
+      </div>
+      <div class="seam"></div>
+    </section>
+
+    <section class="panel ola">
+      <div class="section-count">02 / 06</div>
+      <div class="content left-copy">
+        <p class="kicker">LumiQ Ola · Ola Go included</p>
+        <h2 class="headline">Companionship<br />that grows with<br />their world.</h2>
+        <p class="description">A personal holographic companion for stories, routines and everyday encouragement. Ola Go carries the familiar character and selected reminders beyond home.</p>
+        <div class="button">Discover Ola <span class="arrow">↗</span></div>
+      </div>
+      <div class="detail-chip-row" aria-hidden="true">
+        <div class="detail-chip">Holographic presence</div>
+        <div class="detail-chip">Ola Go included</div>
+        <div class="detail-chip">Everyday encouragement</div>
+      </div>
+      <div class="rail" aria-hidden="true">
+        <span>01</span><span class="active">02</span><span>03</span><span>04</span><span>05</span><span>06</span>
+      </div>
+      <div class="seam"></div>
+    </section>
+
+    <section class="panel tablet">
+      <div class="section-count">03 / 06</div>
+      <div class="content right-copy">
+        <p class="kicker">LumiQ Tablet</p>
+        <h2 class="headline">Storytime.<br />Study time.<br />Their time.</h2>
+        <p class="description">A calm AI learning and reading tablet built around curiosity — without feeds, ads or distracting notifications.</p>
+        <div class="button">Discover Tablet <span class="arrow">↗</span></div>
+      </div>
+      <div class="detail-chip-row" aria-hidden="true">
+        <div class="detail-chip">Focused learning</div>
+        <div class="detail-chip">Stories on screen</div>
+        <div class="detail-chip">Magic on paper</div>
+      </div>
+      <div class="rail" aria-hidden="true">
+        <span>01</span><span>02</span><span class="active">03</span><span>04</span><span>05</span><span>06</span>
+      </div>
+      <div class="seam"></div>
+    </section>
+
+    <section class="panel nest">
+      <div class="section-count">04 / 06</div>
+      <div class="content left-copy">
+        <p class="kicker">LumiQ Nest 15</p>
+        <h2 class="headline">The rhythm of<br />the home,<br />beautifully in sync.</h2>
+        <p class="description">A 15.6-inch shared family display for calendars, routines, weather and gentle reminders — visible at a glance, quiet when it is not needed.</p>
+        <div class="button">Discover Nest 15 <span class="arrow">↗</span></div>
+      </div>
+      <div class="detail-chip-row" aria-hidden="true">
+        <div class="detail-chip">Shared calendar</div>
+        <div class="detail-chip">Family routines</div>
+        <div class="detail-chip">Quiet reminders</div>
+      </div>
+      <div class="rail" aria-hidden="true">
+        <span>01</span><span>02</span><span>03</span><span class="active">04</span><span>05</span><span>06</span>
+      </div>
+      <div class="seam"></div>
+    </section>
+
+    <section class="panel together">
+      <div class="together-copy">
+        <p class="kicker">One continuous purpose</p>
+        <h2 class="headline">Made for moments<br />that bring us closer.</h2>
+        <p class="description">Different forms, one thoughtful family experience — designed to support connection, never replace it.</p>
+      </div>
+      <div class="values" aria-label="LumiQ values">
+        <div class="value"><b>01</b> Thoughtful by design</div>
+        <div class="value"><b>02</b> For every generation</div>
+        <div class="value"><b>03</b> Connected, not complicated</div>
+        <div class="value"><b>04</b> Privacy has a place</div>
+      </div>
+      <div class="rail" aria-hidden="true">
+        <span>01</span><span>02</span><span>03</span><span>04</span><span class="active">05</span><span>06</span>
+      </div>
+      <div class="seam"></div>
+    </section>
+
+    <section class="panel join">
+      <div class="join-content">
+        <div class="join-mark">✦</div>
+        <p class="kicker">A light through every chapter</p>
+        <h2 class="headline">Join the LumiQ family</h2>
+        <p class="description">Be the first to know about availability, product previews and early access.</p>
+        <div class="button">Join the waitlist <span class="arrow">↗</span></div>
+      </div>
+      <footer class="footer">
+        <img class="brand" src="file:///Users/a1/Documents/LumiQ/proposal-demo/public/assets/brand/lumiq-logo.png" alt="LumiQ Studio" />
+        <div class="footer-links"><span>Products</span><span>Technology</span><span>Story</span><span>Support</span><span>Privacy</span></div>
+        <div class="copyright">© 2026 LumiQ Studio</div>
+      </footer>
+      <div class="rail" aria-hidden="true">
+        <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span class="active">06</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

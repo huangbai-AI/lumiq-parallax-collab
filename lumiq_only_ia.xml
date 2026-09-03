@@ -1,0 +1,9 @@
+<whiteboard type="mermaid">
+graph LR
+  L[LUMIQ STUDIO 官網] --> L1[首頁]
+  L --> L2[產品總覽]
+  L2 --> L3[產品詳情]
+  L --> L4[技術與品牌內容]
+  L --> L5[支援與聯絡]
+  L --> L6[隱私與條款]
+</whiteboard>

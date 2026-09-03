@@ -1,0 +1,117 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - link "Lumiq Studio home" [ref=e5] [cursor=pointer]:
+      - /url: /
+      - img "Lumiq Studio" [ref=e6]
+    - navigation "Main navigation" [ref=e7]:
+      - link "Home" [ref=e8] [cursor=pointer]:
+        - /url: /
+      - link "Brand Story" [ref=e9] [cursor=pointer]:
+        - /url: /story
+      - link "Products" [ref=e10] [cursor=pointer]:
+        - /url: /products
+      - link "Plans" [ref=e11] [cursor=pointer]:
+        - /url: /plans
+      - link "Media & Review" [ref=e12] [cursor=pointer]:
+        - /url: /media
+      - link "FAQ" [ref=e13] [cursor=pointer]:
+        - /url: /faq
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: Language
+        - combobox "Language" [ref=e17]:
+          - option "EN" [selected]
+      - link "Join prelaunch" [ref=e18] [cursor=pointer]:
+        - /url: /prelaunch
+  - main "Chapters of Light homepage" [ref=e22]:
+    - navigation "Homepage chapters" [ref=e23]:
+      - link "00 Cover" [ref=e24] [cursor=pointer]:
+        - /url: "#cover"
+        - generic [ref=e25]: "00"
+        - generic [ref=e26]: Cover
+      - link "01 Ola + Go" [ref=e27] [cursor=pointer]:
+        - /url: "#ola"
+        - generic [ref=e28]: "01"
+        - generic [ref=e29]: Ola + Go
+      - link "02 Tablet" [ref=e30] [cursor=pointer]:
+        - /url: "#tablet"
+        - generic [ref=e31]: "02"
+        - generic [ref=e32]: Tablet
+      - link "03 Nest 15" [ref=e33] [cursor=pointer]:
+        - /url: "#nest-15"
+        - generic [ref=e34]: "03"
+        - generic [ref=e35]: Nest 15
+      - link "04 Together" [ref=e36] [cursor=pointer]:
+        - /url: "#together"
+        - generic [ref=e37]: "04"
+        - generic [ref=e38]: Together
+      - link "05 Join Lumiq" [ref=e39] [cursor=pointer]:
+        - /url: "#join"
+        - generic [ref=e40]: "05"
+        - generic [ref=e41]: Join Lumiq
+    - region [ref=e42]:
+      - img "Lumiq Ola with Ola Go, Tablet and Nest 15 in a luminous pearl-white gallery" [ref=e44]
+      - generic [ref=e45]:
+        - paragraph [ref=e46]: A light through every chapter
+        - heading "Chapters of light." [level=1] [ref=e47]: Chaptersof light.
+        - paragraph [ref=e48]: AI experiences for families across generations.
+        - button "Discover Lumiq" [ref=e49] [cursor=pointer]
+      - paragraph [ref=e52]: Scroll one chapter at a time
+    - region [ref=e53]:
+      - img "Lumiq Ola and Ola Go resting together on a luminous gallery plinth" [ref=e55]
+      - generic [ref=e56]:
+        - generic [ref=e57]: "01"
+        - paragraph [ref=e58]: The companion
+        - heading "Ola + Go" [level=2] [ref=e59]
+        - paragraph [ref=e60]: Companionship, always close.
+        - paragraph [ref=e61]: A personal AI companion at home, with a pocket-sized extension designed to carry familiar routines into the day.
+        - link "Explore Ola" [ref=e62] [cursor=pointer]:
+          - /url: /products/ola
+    - region [ref=e65]:
+      - img "Orange Lumiq Tablet shown from the front and back in a pearl-white gallery" [ref=e67]
+      - generic [ref=e68]:
+        - generic [ref=e69]: "02"
+        - paragraph [ref=e70]: The story
+        - heading "Tablet" [level=2] [ref=e71]
+        - paragraph [ref=e72]: Stories that grow with them.
+        - paragraph [ref=e73]: A calm AI learning and reading experience shaped around stories, creativity and discovery — without ads or endless feeds.
+        - link "Explore Tablet" [ref=e74] [cursor=pointer]:
+          - /url: /products/tablet
+    - region [ref=e77]:
+      - img "Lumiq Nest 15 in a pale oak frame on a softly lit gallery plinth" [ref=e79]
+      - generic [ref=e80]:
+        - generic [ref=e81]: "03"
+        - paragraph [ref=e82]: The family rhythm
+        - heading "Nest 15" [level=2] [ref=e83]
+        - paragraph [ref=e84]: The family rhythm, beautifully framed.
+        - paragraph [ref=e85]: A shared home display for the everyday details a family chooses to keep in view — from schedules to gentle reminders.
+        - link "Explore Nest 15" [ref=e86] [cursor=pointer]:
+          - /url: /products/nest-15
+    - region [ref=e89]:
+      - img "A multigenerational family sharing Lumiq Ola, Tablet and Nest 15 together" [ref=e91]
+      - generic [ref=e92]:
+        - generic [ref=e93]: "04"
+        - paragraph [ref=e94]: Together
+        - heading "One family. One connected experience." [level=2] [ref=e95]: One family.One connected experience.
+        - paragraph [ref=e96]: Learning, companionship and everyday rhythm — designed around family choice, privacy and real human connection.
+    - region [ref=e97]:
+      - generic [ref=e99]:
+        - paragraph [ref=e100]: Begin your chapter
+        - heading "Join Lumiq." [level=2] [ref=e101]
+        - paragraph [ref=e102]: Be among the first to hear about product previews, launch news and the chapters still to come.
+        - link "Join the prelaunch" [ref=e103] [cursor=pointer]:
+          - /url: /prelaunch
+      - generic [ref=e106]:
+        - img "Lumiq Studio" [ref=e107]
+        - navigation "Footer navigation" [ref=e108]:
+          - link "Brand Story" [ref=e109] [cursor=pointer]:
+            - /url: /story
+          - link "Products" [ref=e110] [cursor=pointer]:
+            - /url: /products
+          - link "Plans" [ref=e111] [cursor=pointer]:
+            - /url: /plans
+          - link "Media & Review" [ref=e112] [cursor=pointer]:
+            - /url: /media
+          - link "FAQ" [ref=e113] [cursor=pointer]:
+            - /url: /faq
+        - paragraph [ref=e114]: © 2026 Lumiq Studio · Privacy and safety by design.

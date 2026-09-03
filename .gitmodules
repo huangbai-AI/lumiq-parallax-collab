@@ -1,0 +1,8 @@
+[submodule "related/website"]
+	path = related/website
+	url = https://github.com/huangbai-AI/lumiqstudiovercel.git
+	branch = codex/home-pearl-scroll-video
+[submodule "related/project-background"]
+	path = related/project-background
+	url = https://github.com/huangbai-AI/LumiQ.git
+	branch = codex/github-publish

@@ -1,0 +1,75 @@
+<title>LUMIQ STUDIO × Arpha 官网建设简版 PRD</title>
+
+<callout emoji="🎯" background-color="light-blue">
+  <p><b>项目目标：</b>为 LUMIQ STUDIO 与 Arpha 建设两套独立品牌官网，在统一体验标准下，分别承接品牌展示、产品理解与客户转化。</p>
+</callout>
+
+<h1>01｜首期交付范围</h1>
+
+<table>
+  <tr><td>品牌</td><td>首期页面</td><td>主要目的</td></tr>
+  <tr><td><b>LUMIQ STUDIO</b></td><td>首页、产品总览、产品详情、套餐、品牌故事、媒体、常见问题、联系与法律页面</td><td>建立品牌认知，引导用户了解产品并完成咨询或预登记</td></tr>
+  <tr><td><b>Arpha</b></td><td>首页、产品与应用场景、关于品牌、联系与法律页面</td><td>形成独立品牌入口，承接产品介绍与商务咨询</td></tr>
+</table>
+
+<callout emoji="✂️" background-color="light-gray">
+  <p><b>首期不包含：</b>在线支付、会员系统、复杂后台、重型 3D 特效及大规模多语言内容录入；如需增加，另行确认排期与费用。</p>
+</callout>
+
+<h1>02｜网站信息架构</h1>
+
+<whiteboard type="mermaid">
+graph LR
+  P[双品牌官网] --> L[LUMIQ STUDIO]
+  P --> A[Arpha]
+  L --> L1[首页]
+  L --> L2[产品总览]
+  L2 --> L3[产品详情]
+  L --> L4[套餐与品牌内容]
+  L --> L5[联系与法律]
+  A --> A1[首页]
+  A --> A2[产品与应用场景]
+  A --> A3[品牌联系与法律]
+</whiteboard>
+
+<h1>03｜视觉与交互方向</h1>
+
+<table>
+  <tr><td><b>品牌感</b><br/>深色科技首页，突出产品记忆点</td><td><b>易阅读</b><br/>内容清晰，方便快速理解</td><td><b>有节制的动效</b><br/>轻量反馈，兼顾手机端与速度</td></tr>
+</table>
+
+<h1>04｜核心用户路径</h1>
+
+<whiteboard type="mermaid">
+graph LR
+  U[进入官网] --> B[理解品牌]
+  B --> P[浏览产品]
+  P --> D[查看详情或套餐]
+  D --> C[预登记或联系团队]
+</whiteboard>
+
+<h1>05｜交付与验收</h1>
+
+<table>
+  <tr><td>交付项</td><td>验收标准</td></tr>
+  <tr><td>页面与导航</td><td>范围内页面完整，入口清晰，无死链与错页</td></tr>
+  <tr><td>桌面端与手机端</td><td>主流尺寸下布局正常，文字、图片与按钮可用</td></tr>
+  <tr><td>内容与转化</td><td>产品信息准确，咨询或预登记路径可完成</td></tr>
+  <tr><td>基础上线项</td><td>域名、访问、分享信息、法律页面与基础搜索信息配置完成</td></tr>
+</table>
+
+<h2>上线前需甲方确认</h2>
+
+<checkbox>品牌、产品与套餐的最终名称及文案</checkbox>
+<checkbox>产品图片、影片、媒体报道与社交链接</checkbox>
+<checkbox>咨询或预登记的实际接收方式</checkbox>
+<checkbox>隐私政策、使用条款及公司主体信息</checkbox>
+<checkbox>正式域名、部署账号与上线时间</checkbox>
+
+<callout emoji="⚠️" background-color="light-red">
+  <p>任何新增页面、功能或内容变更，均以双方书面确认后的范围为准，避免影响原定交付时间。</p>
+</callout>
+
+<h1>06｜页面实拍与验收基线</h1>
+
+<p>以下为 2026 年 8 月 26 日的正常页面快照，用于确认桌面端首页、套餐页与手机端首页的视觉方向。正式上线前将以最终内容再次复核。</p>
