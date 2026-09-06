@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export const endingMotionQuery =
-  "(min-height: 700px) and (prefers-reduced-motion: no-preference), (min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)";
+  "(min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)";
 
 /** Full-bleed entry, one shared image/content column, then native scroll release. */
 export function mountEndingChapters(root: HTMLElement) {

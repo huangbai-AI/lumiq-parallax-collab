@@ -25,8 +25,15 @@ export function mountProductRail(root: HTMLElement) {
   )!;
   let pin: ScrollTrigger | undefined;
   let tween: gsap.core.Tween | undefined;
-  const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-  const step = () => slots[1].offsetLeft - slots[0].offsetLeft;
+  let travel = 0;
+  let stride = 1;
+  const measure = () => {
+    travel = Math.max(0, track.scrollWidth - viewport.clientWidth);
+    stride = Math.max(1, slots[1].offsetLeft - slots[0].offsetLeft);
+  };
+  measure();
+  const distance = () => travel;
+  const step = () => stride;
   const position = () =>
     pin ? pin.progress * distance() : viewport.scrollLeft;
   const update = () => {
@@ -38,6 +45,10 @@ export function mountProductRail(root: HTMLElement) {
     previous.disabled = offset < 2;
     next.disabled = offset >= max - 2;
   };
+  const resize = new ResizeObserver(() => { measure(); update(); });
+  resize.observe(viewport);
+  resize.observe(track);
+  ScrollTrigger.addEventListener("refreshInit", measure);
   const go = (offset: number, immediate = false) => {
     const target = gsap.utils.clamp(0, distance(), offset);
     const reduced = window.matchMedia(
@@ -118,6 +129,8 @@ export function mountProductRail(root: HTMLElement) {
   update();
   return () => {
     mm.revert();
+    resize.disconnect();
+    ScrollTrigger.removeEventListener("refreshInit", measure);
     delete section.dataset.enhanced;
     previous.removeEventListener("click", back);
     next.removeEventListener("click", forward);

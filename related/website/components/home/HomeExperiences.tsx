@@ -59,6 +59,14 @@ export default function HomeExperiences() {
           </div>
         </div>
       </div>
+      <div className="lh-room-mobile-links" aria-label={t("roomExplore")}>
+        {products.map(({id}) => (
+          <Link href={`/products/${id}`} key={id}>
+            <strong>{t(`products.${id}.name`)}</strong>
+            <span>{t(`roomLabels.${id}.title`)} {t(`roomLabels.${id}.subtitle`)}</span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
