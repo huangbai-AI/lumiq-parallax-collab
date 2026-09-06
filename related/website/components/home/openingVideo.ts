@@ -28,7 +28,8 @@ export function mountOpeningVideo(root: HTMLElement) {
     let alive = true;
     let frame = 0;
     // Measured on the continuous H3 movie; no source or element swap here.
-    const introEnd = 2.5;
+    const introEnd = 2.4;
+    const frameDuration = 1 / 24;
     let targetTime = introEnd;
     const playhead = { progress: 0 };
     const finishIntro = () => {
@@ -48,7 +49,7 @@ export function mountOpeningVideo(root: HTMLElement) {
         return;
       }
       if (video.seeking) return; // seeked schedules the latest target again.
-      if (Math.abs(video.currentTime - targetTime) > 0.018)
+      if (Math.abs(video.currentTime - targetTime) > frameDuration / 2)
         video.currentTime = targetTime;
       else layer.dataset.ready = "true";
     };
@@ -60,7 +61,9 @@ export function mountOpeningVideo(root: HTMLElement) {
       brandCopy.inert = cards.inert = playhead.progress < 0.68;
       const endTime = Number.isFinite(video.duration)
         ? Math.max(introEnd, video.duration - 0.045) : introEnd;
-      targetTime = introEnd + playhead.progress * (endTime - introEnd);
+      targetTime = Math.min(endTime, Math.round(
+        (introEnd + playhead.progress * (endTime - introEnd)) / frameDuration,
+      ) * frameDuration);
       video.dataset.scrollProgress = String(playhead.progress);
       // Scrolling or an anchor can skip the intro, but never replays it backwards.
       if (playhead.progress > 0.03 && !introFinished) finishIntro();
@@ -90,10 +93,10 @@ export function mountOpeningVideo(root: HTMLElement) {
     document.addEventListener("visibilitychange", visibility);
     layer.dataset.intro = introFinished ? "complete" : "pending";
     video.muted = true;
-    // H3 settles the letters before 2.5s; show that lead-in in about two seconds.
-    video.playbackRate = 1.25;
+    // The 2.4-second letter entrance plays in two seconds.
+    video.playbackRate = 1.2;
     video.preload = "auto";
-    video.src = "/assets/home-video/opening-mixed-clean-brand-h3-20260907.mp4";
+    video.src = "/assets/home-video/opening-position-h3-20260907.mp4";
     video.load();
     // Slow or blocked loading leaves the approved static composition usable.
     const loadDeadline = setTimeout(failed, 8000);
@@ -124,7 +127,7 @@ export function mountOpeningVideo(root: HTMLElement) {
         card,
         { y: 90 + index * 28, autoAlpha: 0 },
         { y: 0, autoAlpha: 1, duration: 0.18, ease: "power2.out" },
-        0.68 + index * 0.08,
+        0.68 + index * 0.07,
       );
     });
     const trigger = timeline.scrollTrigger!;

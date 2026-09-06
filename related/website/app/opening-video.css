@@ -58,13 +58,13 @@
   }
 }
 .lh-video-start-poster {
-  background-image: url("/assets/home-video/hero-approved-20260907.webp");
+  background-image: url("/assets/home-video/hero-position-20260907.webp");
 }
 .lh-video-layer[data-intro="pending"] .lh-video-start-poster {
   background-image: url("/assets/home-video/hero-intro-start-20260907.webp");
 }
 .lh-video-end-poster {
-  background-image: url("/assets/home-video/brand-end-clean-20260907.webp");
+  background-image: url("/assets/home-video/brand-end-position-20260907.webp");
   opacity: 0;
 }
 .lh-opening-video {
@@ -129,6 +129,9 @@
 }
 .lh-opening[data-video-mode] .lh-rhythm-cards {
   grid-column: 3;
+}
+.lh-opening[data-video-mode] .lh-rhythm-card {
+  align-self: stretch;
 }
 .lh-opening[data-video-mode]
   :is(.lh-rhythm-connect, .lh-rhythm-care) {
