@@ -13,6 +13,9 @@ export function mountOpeningVideo(root: HTMLElement) {
   const heroCopy = opening.querySelector<HTMLElement>(".lh-hero-copy")!;
   const brandCopy = opening.querySelector<HTMLElement>(".lh-ola-copy")!;
   const cards = opening.querySelector<HTMLElement>(".lh-rhythm-cards")!;
+  const rhythmCards = Array.from(
+    opening.querySelectorAll<HTMLElement>(".lh-rhythm-card"),
+  );
   const cue = opening.querySelector<HTMLAnchorElement>(".lh-scroll-cue")!;
   const mm = gsap.matchMedia();
   if (new URLSearchParams(window.location.search).get("opening") === "code")
@@ -25,7 +28,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     let alive = true;
     let frame = 0;
     // Measured on the continuous H3 movie; no source or element swap here.
-    const introEnd = 3.5;
+    const introEnd = 2.5;
     let targetTime = introEnd;
     const playhead = { progress: 0 };
     const finishIntro = () => {
@@ -87,10 +90,10 @@ export function mountOpeningVideo(root: HTMLElement) {
     document.addEventListener("visibilitychange", visibility);
     layer.dataset.intro = introFinished ? "complete" : "pending";
     video.muted = true;
-    // H3 settles the letters before 3.5s; show that full lead-in in about 2.2s.
-    video.playbackRate = 1.6;
+    // H3 settles the letters before 2.5s; show that lead-in in about two seconds.
+    video.playbackRate = 1.25;
     video.preload = "auto";
-    video.src = "/assets/home-video/opening-mixed-h3-20260907.mp4";
+    video.src = "/assets/home-video/opening-mixed-clean-brand-h3-20260907.mp4";
     video.load();
     // Slow or blocked loading leaves the approved static composition usable.
     const loadDeadline = setTimeout(failed, 8000);
@@ -115,9 +118,15 @@ export function mountOpeningVideo(root: HTMLElement) {
       // Posters are only a fallback beneath the decoded movie.
       .to(".lh-video-end-poster", { opacity: 1, duration: 0.3, ease: "none" }, 0.38)
       .fromTo(brandCopy, { y: 35, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.2, ease: "power1.out" }, 0.68)
-      .fromTo(cards, { y: 55, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.2, ease: "power1.out" }, 0.74);
+        { y: 0, autoAlpha: 1, duration: 0.2, ease: "power1.out" }, 0.64);
+    rhythmCards.forEach((card, index) => {
+      timeline.fromTo(
+        card,
+        { y: 90 + index * 28, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.18, ease: "power2.out" },
+        0.68 + index * 0.08,
+      );
+    });
     const trigger = timeline.scrollTrigger!;
     const closer = (event: MouseEvent) => {
       event.preventDefault();
