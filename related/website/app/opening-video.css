@@ -13,9 +13,9 @@
   height: 100svh;
 }
 .lh-opening[data-video-mode] .lh-video-layer {
-  --hero-width: min(100vw, 179.1667svh);
-  /* Feather only the extra-wide margins; cap the fade before the products. */
-  --hero-edge: clamp(0px, calc((100vw - 179.1667svh) * 0.18), 96px);
+  --hero-width: min(100vw, 200svh);
+  /* Ordinary laptop/desktop ratios fill the width without feathered sides. */
+  --hero-edge: 0px;
   display: block;
   position: absolute;
   inset: 0;
@@ -36,17 +36,26 @@
   top: 50%;
   width: var(--hero-width);
   height: auto;
-  aspect-ratio: 5504 / 3072;
+  aspect-ratio: 16 / 9;
   transform: translate(-50%, -50%);
   object-fit: fill;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
-  mask-image:
-    linear-gradient(90deg, transparent, #000 var(--hero-edge),
-      #000 calc(100% - var(--hero-edge)), transparent),
-    linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
-  mask-composite: intersect;
+  mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+}
+@media (min-aspect-ratio: 2 / 1) and (min-width: 1600px) {
+  .lh-opening[data-video-mode] .lh-video-layer {
+    --hero-edge: clamp(0px, calc((100vw - 200svh) * 0.5), 96px);
+  }
+  .lh-opening[data-video-mode]
+    :is(.lh-video-start-poster, .lh-video-end-poster, .lh-opening-video) {
+    mask-image:
+      linear-gradient(90deg, transparent, #000 var(--hero-edge),
+        #000 calc(100% - var(--hero-edge)), transparent),
+      linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+    mask-composite: intersect;
+  }
 }
 .lh-video-start-poster {
   background-image: url("/assets/home-video/hero-approved-20260907.webp");
@@ -98,7 +107,7 @@
 }
 .lh-opening[data-video-mode] .lh-hero-layout,
 .lh-opening[data-video-mode] .lh-ola-layout {
-  width: min(calc(100% - var(--lh-gutter) * 2), calc(179.1667svh - var(--lh-gutter) * 2));
+  width: min(calc(100% - var(--lh-gutter) * 2), calc(200svh - var(--lh-gutter) * 2));
 }
 .lh-opening[data-video-mode] .lh-hero-copy {
   max-width: 540px;
