@@ -1,13 +1,13 @@
 # Lumiq Studio 网站
 
-这是 Lumiq Studio 官网的 Vercel 预览版项目。当前分支为 `codex/homepage-integration`，不得直接发布生产环境或合并 `main`。
+这是 Lumiq Studio 官网源码，现内置于协作仓库的 `related/website/`。2026-09-06 首页改版位于本地分支 `codex/homepage-client-ready-2026-09-06`，尚未提交或发布；不得直接发布生产环境或合并 `main`。最新七层结构、验证结果及客户仓库差异见根目录的 `output/交付/首页代码优化-2026-09-06/首页优化与交付检查.md`。
 
 ## 本地开发与检查
 
 ```bash
-cd /Users/a1/Documents/lumiqstudiovercel
-npm install
-npm run dev -- --port 4182
+cd related/website
+npm ci
+npm run dev -- --port 4186
 ```
 
 完整验收命令：
@@ -60,7 +60,7 @@ npm run optimize-images
 
 ## 内容状态
 
-当前预览保留了未确认样稿，但相关页面会明确显示待确认提示。正式上线前必须确认：
+当前预览保留了未确认样稿。注意：`DraftNotice` 目前返回空内容，部分法律与地址的草稿提示实际不可见；产品详情自己的状态说明仍在。本轮仅列出此问题，未擅自改动其他页面。正式上线前必须确认：
 
 - 社交媒体地址、媒体报道、评价姓名和公司注册地址。
 - 配送地区、退货、保修、儿童安全、定位、SOS、照护和陪伴能力。
@@ -86,8 +86,7 @@ messages/             多语言文案
 ## Vercel 预览部署
 
 ```bash
-git push -u origin codex/homepage-integration
 npx vercel
 ```
 
-只选择 Preview 环境。部署前先应用数据库迁移并配置 Supabase 私密变量；验收预览地址后仍不得运行生产部署，也不得合并 `main`。
+上面的命令仅作后续说明，本轮未部署。先确认使用客户仓库还是开发仓库，以及 Vercel 项目的 Root Directory；本协作仓库的代码根目录是 `related/website/`。获准部署时只选择 Preview 环境。部署前先应用数据库迁移并配置 Supabase 私密变量；验收预览地址后仍不得运行生产部署，也不得合并 `main`。

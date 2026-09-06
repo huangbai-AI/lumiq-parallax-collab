@@ -2,13 +2,14 @@
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Globe2, Menu, X } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
 import Image from "next/image";
 
 export default function SiteHeader() {
   const t = useTranslations("Common");
+  const home = useTranslations("HomeRefresh");
   const locale = useLocale() as Locale;
   const pathname = usePathname();
   const router = useRouter();
@@ -17,15 +18,26 @@ export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const languageRef = useRef<HTMLButtonElement>(null);
 
-  const nav = [
-    { href: "/", label: t("home") },
-    { href: "/story", label: t("brandStory") },
-    { href: "/products", label: t("products") },
-    { href: "/plans", label: t("plans") },
-    { href: "/media", label: t("mediaReviews") },
-    { href: "/faq", label: t("faq") },
-  ] as const;
+  const nav = isHomepage
+    ? [
+        { href: "/products", label: t("products") },
+        { href: "/#experiences", label: home("navExperiences") },
+        { href: "/story", label: home("navAbout") },
+        { href: "/#safety", label: home("navSafety") },
+        { href: "/faq", label: home("navSupport") },
+      ]
+    : ([
+        { href: "/", label: t("home") },
+        { href: "/story", label: t("brandStory") },
+        { href: "/products", label: t("products") },
+        { href: "/plans", label: t("plans") },
+        { href: "/media", label: t("mediaReviews") },
+        { href: "/faq", label: t("faq") },
+      ] as const);
 
   const languages: { locale: Locale; code: string; label: string }[] = [
     { locale: "en", code: "EN", label: t("english") },
@@ -43,11 +55,62 @@ export default function SiteHeader() {
   }, []);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    const wide = window.matchMedia("(min-width: 1121px)");
+    const closeOnWide = () => {
+      if (wide.matches) setMenuOpen(false);
+    };
+    wide.addEventListener("change", closeOnWide);
+    return () => wide.removeEventListener("change", closeOnWide);
+  }, []);
+
+  useEffect(() => {
+    if (!langOpen && !menuOpen) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (
+        event.target instanceof Element &&
+        !event.target.closest(".lang-switch")
+      )
+        setLangOpen(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setLangOpen(false);
+        setMenuOpen(false);
+        (menuOpen ? triggerRef : languageRef).current?.focus();
+      }
+      if (event.key === "Tab" && menuOpen) {
+        const items = Array.from(
+          navRef.current?.querySelectorAll<HTMLElement>(
+            "a[href], button:not([disabled])",
+          ) ?? [],
+        ).filter((item) => item.getClientRects().length > 0);
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [langOpen, menuOpen]);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -70,14 +133,25 @@ export default function SiteHeader() {
 
   return (
     <nav
+      ref={navRef}
+      aria-label={t("primaryNavigation")}
       className={`navbar${isHomepage ? " homepage-nav" : ""}${scrolled || menuOpen ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
       style={{ zIndex: 3000, position: "fixed", top: 0, left: 0, right: 0 }}
     >
+      {isHomepage && (
+        <a href="#main-content" className="lh-skip">
+          {home("skip")}
+        </a>
+      )}
       <div className="container nav-inner">
         <Link href="/" className="nav-logo" onClick={closeMenu}>
           <Image
-            src="/lumiq-logo.png"
-            alt="Lumiq Studios"
+            src={
+              isHomepage
+                ? "/assets/brand/lumiq-logo-transparent-dark.png"
+                : "/lumiq-logo.png"
+            }
+            alt="LumiQ Studio"
             className="nav-logo-img"
             width={360}
             height={96}
@@ -105,12 +179,13 @@ export default function SiteHeader() {
           <div className="lang-switch site-desktop-action hidden md:block">
             <button
               type="button"
+              ref={languageRef}
               className="lang-btn"
               onClick={() => setLangOpen((v) => !v)}
               aria-haspopup="listbox"
               aria-expanded={langOpen}
             >
-              <span aria-hidden="true">🌐</span> {activeLanguage.code}{" "}
+              <Globe2 size={16} aria-hidden="true" /> {activeLanguage.code}{" "}
               <span className="lang-caret">▾</span>
             </button>
             {langOpen && (
@@ -132,7 +207,8 @@ export default function SiteHeader() {
             )}
           </div>
           <Link
-            href="/prelaunch"
+            href={isHomepage ? "/#join" : "/prelaunch"}
+            onClick={closeMenu}
             className="btn btn-ghost-navy login-btn site-login-btn"
           >
             {t("login")}
@@ -140,6 +216,7 @@ export default function SiteHeader() {
 
           <button
             type="button"
+            ref={triggerRef}
             className="site-mobile-trigger flex md:hidden"
             aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
             aria-expanded={menuOpen}

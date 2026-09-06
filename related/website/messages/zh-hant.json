@@ -1,4 +1,127 @@
 {
+  "HomeRefresh": {
+    "navExperiences": "應用體驗",
+    "navAbout": "品牌故事",
+    "navSafety": "信任與安全",
+    "navSupport": "支援",
+    "skip": "跳至主要內容",
+    "hero1": "讓智慧",
+    "hero2": "融入生活，",
+    "hero3": "讓家人更親近。",
+    "heroBody": "為學習、想像與日常陪伴而設計，與每個家庭一同成長。",
+    "heroAlt": "珍珠白展台上的 LumiQ OLA 全息夥伴與橙色 LumiQ Tablet",
+    "discover": "探索 LumiQ",
+    "ourStory": "品牌故事",
+    "scroll": "走近 LumiQ",
+    "olaKicker": "認識你的專屬夥伴",
+    "olaTitle": "你好，OLA。",
+    "olaAccent": "陪伴，從此有了模樣。",
+    "olaBody": "有熟悉面孔的個人 AI 夥伴，陪你聊天、提醒日常小事，一起探索生活中的新發現。",
+    "olaAlt": "原始 LumiQ OLA 產品、全息角色及可拆卸的 OlaGo",
+    "collectionKicker": "LumiQ 產品家族",
+    "collectionTitle": "各有精彩，同屬一個家。",
+    "collectionBody": "五款用心設計的產品，找到適合你日常生活的那一款。",
+    "explore": "探索產品",
+    "allProducts": "查看所有產品",
+    "products": {
+      "tablet": {
+        "name": "LumiQ Tablet",
+        "type": "獻給好奇的心",
+        "body": "讓故事、探索與創作，在手中展開。"
+      },
+      "ola": {
+        "name": "LumiQ OLA",
+        "type": "獻給專屬的陪伴",
+        "body": "生動的個人夥伴，陪你度過每一天。"
+      },
+      "ola-go": {
+        "name": "LumiQ OlaGo",
+        "type": "陪你走得更遠",
+        "body": "隨 OLA 提供的口袋夥伴。"
+      },
+      "nest": {
+        "name": "LumiQ LuckyTable",
+        "type": "讓家人的日常有序",
+        "body": "在同一處，看見全家人的一天。"
+      },
+      "print": {
+        "name": "LumiQ Print",
+        "type": "讓故事值得珍藏",
+        "body": "把專屬冒險，變成一本實體精裝書。"
+      }
+    },
+    "experienceKicker": "為真實生活而設計",
+    "experienceTitle": "日常小時刻，",
+    "experienceAccent": "更多新可能。",
+    "experienceBody": "從具體使用方式出發，探索 LumiQ 如何融入家庭的一天。",
+    "seeExperience": "了解應用體驗",
+    "experiences": {
+      "stories": {
+        "label": "故事與創作",
+        "alt": "孩子在家中手持橙色 LumiQ Tablet",
+        "caption": "LumiQ Tablet + LumiQ Print",
+        "title": "從一個小小想像，到一本值得珍藏的故事。",
+        "body": "讓好奇心帶路，探索原創故事，透過 ImagiMe 成為主角，再把專屬冒險變成實體紀念。",
+        "step1": "閱讀與探索原創故事。",
+        "step2": "透過 ImagiMe，讓冒險屬於自己。",
+        "step3": "用 LumiQ Print，把喜愛的故事變成書。"
+      },
+      "companion": {
+        "label": "日常陪伴",
+        "alt": "長者在家中使用 LumiQ OLA 夥伴",
+        "caption": "LumiQ OLA + OlaGo",
+        "title": "熟悉的陪伴，走出客廳也在身邊。",
+        "body": "在家聊天、獲得鼓勵與溫柔提醒；透過隨附的 OlaGo，把日常小小的支持帶在身邊。",
+        "step1": "與專屬 OLA 開始一段對話。",
+        "step2": "透過 OlaGo 隨身查看日常提醒。",
+        "step3": "用簡短語音日記，記下片刻想法。"
+      },
+      "routines": {
+        "label": "家庭日常",
+        "alt": "家人在木框 LumiQ 螢幕上查看共同日程",
+        "caption": "LumiQ LuckyTable",
+        "title": "每個人的一天，更有默契地相連。",
+        "body": "把行事曆、日常安排與提醒放在同一處，為值得共享的時刻留出空間。",
+        "step1": "一眼看清家人的計畫。",
+        "step2": "讓日常安排與提醒隨時可見。",
+        "step3": "為相處與分享留出時間。"
+      }
+    },
+    "safetyKicker": "把關懷放進設計",
+    "safetyTitle": "為真正重要的事，",
+    "safetyAccent": "用心設計。",
+    "safetyBody": "我們從人的需要出發，讓這些原則引導我們為孩子、家長與所愛的人設計產品。",
+    "safetySeal": "從一開始，就為家庭多想一步。",
+    "trust": {
+      "privacy": {
+        "title": "隱私優先。",
+        "body": "尊重個人資訊，重視知情同意，作為資料處理的出發點。"
+      },
+      "children": {
+        "title": "童年值得被呵護。",
+        "body": "適齡體驗與用心設計的界線，是我們的重要原則。"
+      },
+      "parents": {
+        "title": "讓家長參與其中。",
+        "body": "以清晰的內容、時間與日常使用選擇，作為家庭控制體驗的設計方向。"
+      },
+      "responsible": {
+        "title": "以人為中心的 AI。",
+        "body": "讓科技支持想像與連結，始終把人放在中心。"
+      }
+    },
+    "familyKicker": "我們為何而做",
+    "familyTitle": "不只是連接，",
+    "familyAccent": "更是親近。",
+    "familyBody": "為晚餐後共享的故事，為每一次小小的發現，為孩子、父母與祖父母，以及讓彼此走近的時光。",
+    "joinKicker": "下一個篇章",
+    "joinTitle": "一起期待，",
+    "joinAccent": "下一個新可能。",
+    "joinBody": "加入 LumiQ 候補名單，獲取產品消息、搶先預覽及未來體驗活動邀請。",
+    "joinNote": "分享值得期待的消息。",
+    "joinForm": "加入 LumiQ 候補名單",
+    "joinButton": "加入候補名單"
+  },
   "Common": {
     "language": "語言",
     "menu": "選單",

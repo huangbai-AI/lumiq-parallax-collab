@@ -1,4 +1,127 @@
 {
+  "HomeRefresh": {
+    "navExperiences": "Experiences",
+    "navAbout": "Our story",
+    "navSafety": "Safety",
+    "navSupport": "Support",
+    "skip": "Skip to content",
+    "hero1": "Intelligence",
+    "hero2": "that brings",
+    "hero3": "us closer.",
+    "heroBody": "Thoughtful companions for learning, imagination and everyday family life.",
+    "heroAlt": "LumiQ OLA holographic companion and orange LumiQ Tablet on a pearl-white stage",
+    "discover": "Discover LumiQ",
+    "ourStory": "Our story",
+    "scroll": "A little closer",
+    "olaKicker": "Meet your companion",
+    "olaTitle": "Hello, OLA.",
+    "olaAccent": "A presence. A connection.",
+    "olaBody": "A personal AI companion with a familiar face. Here for conversations, little reminders and moments of discovery — at every age.",
+    "olaAlt": "Original LumiQ OLA with its holographic character and detachable OlaGo",
+    "collectionKicker": "The LumiQ family",
+    "collectionTitle": "Different possibilities.\nOne family.",
+    "collectionBody": "Five considered objects. Find the one that belongs in your everyday.",
+    "explore": "Explore product",
+    "allProducts": "Explore the whole collection",
+    "products": {
+      "tablet": {
+        "name": "LumiQ Tablet",
+        "type": "For curious minds",
+        "body": "A world of stories, discovery and creative play."
+      },
+      "ola": {
+        "name": "LumiQ OLA",
+        "type": "For a personal connection",
+        "body": "An expressive companion for your everyday."
+      },
+      "ola-go": {
+        "name": "LumiQ OlaGo",
+        "type": "For wherever you go",
+        "body": "Your pocket companion, included with OLA."
+      },
+      "nest": {
+        "name": "LumiQ LuckyTable",
+        "type": "For shared routines",
+        "body": "One calm place for the family’s day."
+      },
+      "print": {
+        "name": "LumiQ Print",
+        "type": "For stories worth keeping",
+        "body": "Their own adventure, in a real hardcover."
+      }
+    },
+    "experienceKicker": "Made for real life",
+    "experienceTitle": "Little moments.",
+    "experienceAccent": "Bigger possibilities.",
+    "experienceBody": "See what a day with LumiQ can feel like. Discover the experiences behind the objects.",
+    "seeExperience": "Explore the experience",
+    "experiences": {
+      "stories": {
+        "label": "Stories & creativity",
+        "alt": "A child holding the orange LumiQ Tablet at home",
+        "caption": "LumiQ Tablet + LumiQ Print",
+        "title": "From a spark of imagination to a story to keep.",
+        "body": "Let curiosity lead. Explore original stories, become the hero with ImagiMe, and turn a personal adventure into a printed keepsake.",
+        "step1": "Read and explore original stories.",
+        "step2": "Make the adventure personal with ImagiMe.",
+        "step3": "Bring a favorite story to life with LumiQ Print."
+      },
+      "companion": {
+        "label": "Everyday companionship",
+        "alt": "An older adult using the LumiQ OLA companion at home",
+        "caption": "LumiQ OLA + OlaGo",
+        "title": "A familiar presence. Beyond the living room.",
+        "body": "Conversation, encouragement and gentle reminders at home. With the included OlaGo, little moments of support can come along.",
+        "step1": "Start a conversation with your personal OLA.",
+        "step2": "Keep everyday reminders close with OlaGo.",
+        "step3": "Capture a thought in a quick voice diary."
+      },
+      "routines": {
+        "label": "Family rhythms",
+        "alt": "A family sharing their schedule on a wooden-framed LumiQ display",
+        "caption": "LumiQ LuckyTable",
+        "title": "Everyone’s day. A little more together.",
+        "body": "Bring calendars, routines and reminders into one shared place — so there is more room for the moments that matter.",
+        "step1": "See the family’s plans at a glance.",
+        "step2": "Keep routines and reminders in view.",
+        "step3": "Make time for what you share."
+      }
+    },
+    "safetyKicker": "Care, by design",
+    "safetyTitle": "Built for what",
+    "safetyAccent": "matters most.",
+    "safetyBody": "Our design starts with people. These principles guide how we build for children, parents and the people they love.",
+    "safetySeal": "Considered for families, from the start.",
+    "trust": {
+      "privacy": {
+        "title": "Privacy comes first.",
+        "body": "Respect for personal information and meaningful consent guide our approach to data."
+      },
+      "children": {
+        "title": "Childhood deserves care.",
+        "body": "Age-appropriate experiences and thoughtful boundaries are part of our design principles."
+      },
+      "parents": {
+        "title": "Parents stay involved.",
+        "body": "We design towards clear choices for families around content, time and everyday use."
+      },
+      "responsible": {
+        "title": "AI with people in mind.",
+        "body": "Technology should support imagination and connection, with people at the center."
+      }
+    },
+    "familyKicker": "Our reason for being",
+    "familyTitle": "More than connected.",
+    "familyAccent": "Closer.",
+    "familyBody": "For the story shared after dinner. For the little discoveries. For children, parents and grandparents — and the time that brings them together.",
+    "joinKicker": "The next chapter",
+    "joinTitle": "Be part of",
+    "joinAccent": "what comes next.",
+    "joinBody": "Product news, first looks and invitations to future experiences. Join the LumiQ waitlist.",
+    "joinNote": "A little news. Something worth waiting for.",
+    "joinForm": "Join the LumiQ waitlist",
+    "joinButton": "Join waitlist"
+  },
   "Common": {
     "language": "Language",
     "menu": "Menu",

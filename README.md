@@ -14,6 +14,7 @@
 
 ## 当前正式结果
 
+- 最新七层首页代码、响应式验收与其他页面清单：`output/交付/首页代码优化-2026-09-06/首页优化与交付检查.md`；代码位于 `related/website/`，本次本地分支 `codex/homepage-client-ready-2026-09-06` 尚未推送。
 - 六张 2048×1152 静态页面：`output/交付/甲方反馈改版-2026-09-03/`
 - 推荐视频：`output/libtv/h3-variants/lumiq-h3-variant-i-balanced-final-v2.mp4`
 - 推荐提示词：`output/imagegen/lumiq-revision-2026-09-03/h3-variant-i-balanced-light-scroll.txt`

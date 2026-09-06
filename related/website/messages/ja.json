@@ -1,4 +1,127 @@
 {
+  "HomeRefresh": {
+    "navExperiences": "体験",
+    "navAbout": "ブランドストーリー",
+    "navSafety": "安全への配慮",
+    "navSupport": "サポート",
+    "skip": "本文へ移動",
+    "hero1": "暮らしに知性を。",
+    "hero2": "家族の時間を、",
+    "hero3": "もっと近くに。",
+    "heroBody": "学び、想像、日々の寄り添い。家族の毎日のために、心を込めたテクノロジーを。",
+    "heroAlt": "パールホワイトの台に置かれた LumiQ OLA とオレンジ色の LumiQ Tablet",
+    "discover": "LumiQ を見る",
+    "ourStory": "私たちのストーリー",
+    "scroll": "LumiQ をもっと知る",
+    "olaKicker": "あなただけのパートナー",
+    "olaTitle": "こんにちは、OLA。",
+    "olaAccent": "つながりに、表情を。",
+    "olaBody": "なじみのある顔を持つ、個人向け AI パートナー。会話や日々のリマインダー、小さな発見を、さまざまな世代へ。",
+    "olaAlt": "ホログラフィックキャラクターと取り外し可能な OlaGo を備えた LumiQ OLA",
+    "collectionKicker": "LumiQ の仲間たち",
+    "collectionTitle": "それぞれの可能性を、ひとつの家族に。",
+    "collectionBody": "暮らしを考えた5つの製品。あなたの毎日に合うひとつを見つけてください。",
+    "explore": "製品を見る",
+    "allProducts": "すべての製品を見る",
+    "products": {
+      "tablet": {
+        "name": "LumiQ Tablet",
+        "type": "好奇心のために",
+        "body": "物語、発見、創造的な遊びの世界へ。"
+      },
+      "ola": {
+        "name": "LumiQ OLA",
+        "type": "あなたとのつながり",
+        "body": "表情豊かなパートナーを、毎日のそばに。"
+      },
+      "ola-go": {
+        "name": "LumiQ OlaGo",
+        "type": "どこへ行くときも",
+        "body": "OLA に付属する、ポケットサイズの仲間。"
+      },
+      "nest": {
+        "name": "LumiQ LuckyTable",
+        "type": "家族の予定をひとつに",
+        "body": "家族の一日を、落ち着いたひとつの場所で。"
+      },
+      "print": {
+        "name": "LumiQ Print",
+        "type": "残しておきたい物語",
+        "body": "自分だけの冒険を、本物のハードカバーに。"
+      }
+    },
+    "experienceKicker": "毎日の暮らしのために",
+    "experienceTitle": "小さな時間に、",
+    "experienceAccent": "大きな可能性を。",
+    "experienceBody": "LumiQ と過ごす一日を想像してみてください。製品から生まれる体験をご紹介します。",
+    "seeExperience": "体験を詳しく見る",
+    "experiences": {
+      "stories": {
+        "label": "物語と創作",
+        "alt": "家でオレンジ色の LumiQ Tablet を持つ子ども",
+        "caption": "LumiQ Tablet + LumiQ Print",
+        "title": "ひらめきから、ずっと残る一冊へ。",
+        "body": "好奇心のままに物語を探索し、ImagiMe で主人公に。自分だけの冒険を、手に取れる思い出に変えましょう。",
+        "step1": "オリジナルの物語を読んで探索。",
+        "step2": "ImagiMe で、自分だけの冒険に。",
+        "step3": "お気に入りを LumiQ Print で一冊の本に。"
+      },
+      "companion": {
+        "label": "日々の寄り添い",
+        "alt": "自宅で LumiQ OLA と過ごす高齢者",
+        "caption": "LumiQ OLA + OlaGo",
+        "title": "いつもの存在を、リビングの外へ。",
+        "body": "家では会話や励まし、やさしいリマインダー。付属の OlaGo で、日々の小さなサポートを持ち歩けます。",
+        "step1": "自分の OLA と会話を始める。",
+        "step2": "OlaGo で日々のリマインダーを確認。",
+        "step3": "短い音声日記で、思いつきを記録。"
+      },
+      "routines": {
+        "label": "家族のリズム",
+        "alt": "木枠の LumiQ ディスプレイで予定を確認する家族",
+        "caption": "LumiQ LuckyTable",
+        "title": "みんなの一日を、少し近くに。",
+        "body": "カレンダー、習慣、リマインダーを共有の場所へ。大切な時間を一緒に過ごす余裕を。",
+        "step1": "家族の予定をひと目で確認。",
+        "step2": "毎日の習慣やリマインダーを見える場所に。",
+        "step3": "一緒に過ごす時間をつくる。"
+      }
+    },
+    "safetyKicker": "思いやりを、設計から",
+    "safetyTitle": "本当に大切なものの",
+    "safetyAccent": "ためにつくる。",
+    "safetyBody": "人への配慮が出発点です。子ども、保護者、大切な人のための設計を、これらの原則が導きます。",
+    "safetySeal": "はじめから、家族を考えて。",
+    "trust": {
+      "privacy": {
+        "title": "プライバシーを優先。",
+        "body": "個人情報の尊重と十分な理解に基づく同意を、データへの取り組みの中心に。"
+      },
+      "children": {
+        "title": "子ども時代への配慮。",
+        "body": "年齢に合った体験と慎重な境界づくりを、設計の原則に。"
+      },
+      "parents": {
+        "title": "保護者も一緒に。",
+        "body": "コンテンツ、時間、日々の使い方を、家族がわかりやすく選べる設計を目指します。"
+      },
+      "responsible": {
+        "title": "人を中心に考える AI。",
+        "body": "想像力とつながりを支え、人を中心に置くテクノロジーを。"
+      }
+    },
+    "familyKicker": "私たちがつくる理由",
+    "familyTitle": "つながるだけでなく、",
+    "familyAccent": "もっと身近に。",
+    "familyBody": "夕食の後に分かち合う物語。小さな発見。子ども、親、祖父母、そして家族の距離を縮める時間のために。",
+    "joinKicker": "次のチャプター",
+    "joinTitle": "次の可能性を、",
+    "joinAccent": "一緒に。",
+    "joinBody": "LumiQ のウェイトリストに登録して、製品ニュース、先行プレビュー、今後の体験イベントへのご案内を。",
+    "joinNote": "楽しみにしたくなるお知らせを。",
+    "joinForm": "LumiQ ウェイトリスト登録",
+    "joinButton": "登録する"
+  },
   "Common": {
     "language": "言語",
     "menu": "メニュー",

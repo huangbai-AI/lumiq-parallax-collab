@@ -1,12 +1,13 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { PRODUCT_CATALOG } from "@/lib/products";
 import Image from "next/image";
 
 export default function SiteFooter() {
   const t = useTranslations("Footer");
+  const isHomepage = usePathname() === "/";
 
   return (
     <footer className="footer">
@@ -15,8 +16,12 @@ export default function SiteFooter() {
           <div>
             <div className="foot-logo">
               <Image
-                src="/lumiq-logo.png"
-                alt="Lumiq Studios"
+                src={
+                  isHomepage
+                    ? "/assets/brand/lumiq-logo-transparent-dark.png"
+                    : "/lumiq-logo.png"
+                }
+                alt="LumiQ Studio"
                 className="foot-logo-img"
                 width={360}
                 height={96}
