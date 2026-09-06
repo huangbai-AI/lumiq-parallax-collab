@@ -29,7 +29,9 @@
   mask-image: linear-gradient(180deg, transparent, #000 6%, #000 92%, transparent);
 }
 .lh-video-start-poster,
+.lh-video-end-poster,
 .lh-video-intro-poster,
+.lh-opening-transition,
 .lh-opening-video {
   position: absolute;
   left: 50%;
@@ -51,6 +53,20 @@
 .lh-video-start-poster {
   background-image: url("/assets/home-video/hero-approved-20260907.webp");
 }
+.lh-video-end-poster {
+  background-image: url("/assets/home-video/brand-end-20260907.webp");
+  opacity: 0;
+}
+.lh-opening-transition {
+  opacity: 0;
+}
+.lh-video-layer[data-transition-ready] .lh-opening-transition {
+  opacity: 1;
+}
+.lh-video-layer[data-transition-ready]
+  :is(.lh-video-start-poster, .lh-video-end-poster) {
+  visibility: hidden;
+}
 .lh-video-intro-poster {
   background-image: url("/assets/home-video/hero-intro-start-20260907.webp");
 }
@@ -69,6 +85,7 @@
     .lh-opening-atmosphere,
     .lh-glass-word,
     .lh-hero-stage,
+    .lh-brand-character,
     .lh-section-index
   ) {
   display: none;
@@ -91,7 +108,8 @@
 .lh-opening[data-video-mode] .lh-ola-layout {
   grid-template-columns: 28% 17% 55%;
 }
-.lh-opening[data-video-mode] .lh-hero-layout {
+.lh-opening[data-video-mode] .lh-hero-layout,
+.lh-opening[data-video-mode] .lh-ola-layout {
   width: min(calc(100% - var(--lh-gutter) * 2), calc(179.1667svh - var(--lh-gutter) * 2));
 }
 .lh-opening[data-video-mode] .lh-hero-copy {
