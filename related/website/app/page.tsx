@@ -349,7 +349,7 @@ export default async function Home() {
               alt={t("trustAlt")}
               fill
               quality={90}
-              sizes="(min-width: 2200px) 2200px, 100vw"
+              sizes="(max-width: 767px) 800px, (max-width: 1200px) 1280px, (min-width: 2200px) 2340px, 106vw"
             />
           </div>
           <div className="lh-wrap lh-safety-copy" data-home-reveal>
