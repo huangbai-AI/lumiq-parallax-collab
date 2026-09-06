@@ -87,9 +87,9 @@
       }
     },
     "experienceKicker": "毎日の暮らしのために",
-    "experienceTitle": "小さな時間に、",
-    "experienceAccent": "大きな可能性を。",
-    "experienceBody": "LumiQ と過ごす一日を想像してみてください。製品から生まれる体験をご紹介します。",
+    "experienceTitle": "ひとつにつながる、",
+    "experienceAccent": "家族の毎日。",
+    "experienceBody": "日々の何気ない瞬間から特別な思い出まで、LumiQ は学び、遊び、ともに過ごす時間をつないでいきます。",
     "seeExperience": "体験を詳しく見る",
     "experiences": {
       "stories": {
@@ -156,7 +156,54 @@
     "joinBody": "LumiQ のウェイトリストに登録して、製品ニュース、先行プレビュー、今後の体験イベントへのご案内を。",
     "joinNote": "楽しみにしたくなるお知らせを。",
     "joinForm": "LumiQ ウェイトリスト登録",
-    "joinButton": "登録する"
+    "joinButton": "登録する",
+    "roomExplore": "製品を選んで、暮らしの中での使い方を見る",
+    "roomTabs": {
+      "stories": "創作",
+      "companion": "つながり",
+      "routines": "予定"
+    },
+    "roomPlaces": {
+      "tablet": "読書のコーナー",
+      "ola": "リビング",
+      "ola-go": "お出かけに",
+      "nest": "キッチンと食卓",
+      "print": "創作のコーナー"
+    },
+    "roomUses": {
+      "tablet": "物語が動き出す",
+      "ola": "育まれるつながり",
+      "ola-go": "どこでも学びと遊び",
+      "nest": "食卓でつながる",
+      "print": "つくって、分かち合う"
+    },
+    "roomHeading": {
+      "line1": "ひとつにつながる、",
+      "line2": "家族の",
+      "line3": "新しい毎日。"
+    },
+    "roomLabels": {
+      "tablet": {
+        "title": "物語が",
+        "subtitle": "動き出す"
+      },
+      "ola": {
+        "title": "つながりが",
+        "subtitle": "育っていく"
+      },
+      "nest": {
+        "title": "食卓で",
+        "subtitle": "つながる"
+      },
+      "ola-go": {
+        "title": "学びと遊びを",
+        "subtitle": "どこでも"
+      },
+      "print": {
+        "title": "創造を",
+        "subtitle": "分かち合う"
+      }
+    }
   },
   "Common": {
     "language": "言語",

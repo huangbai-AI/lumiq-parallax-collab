@@ -87,9 +87,9 @@
       }
     },
     "experienceKicker": "Made for real life",
-    "experienceTitle": "Little moments.",
-    "experienceAccent": "Bigger possibilities.",
-    "experienceBody": "See what a day with LumiQ can feel like. Discover the experiences behind the objects.",
+    "experienceTitle": "One connected",
+    "experienceAccent": "family of experiences.",
+    "experienceBody": "From everyday moments to special memories, LumiQ weaves together learning, play and togetherness.",
     "seeExperience": "Explore the experience",
     "experiences": {
       "stories": {
@@ -156,7 +156,54 @@
     "joinBody": "Product news, first looks and invitations to future experiences. Join the LumiQ waitlist.",
     "joinNote": "A little news. Something worth waiting for.",
     "joinForm": "Join the LumiQ waitlist",
-    "joinButton": "Join waitlist"
+    "joinButton": "Join waitlist",
+    "roomExplore": "Choose a product to explore its place in everyday life",
+    "roomTabs": {
+      "stories": "Create",
+      "companion": "Connect",
+      "routines": "Plan"
+    },
+    "roomPlaces": {
+      "tablet": "Reading nook",
+      "ola": "Living room",
+      "ola-go": "On the go",
+      "nest": "Kitchen & dining",
+      "print": "Creative corner"
+    },
+    "roomUses": {
+      "tablet": "Stories come to life",
+      "ola": "Companionship that grows",
+      "ola-go": "Learning & play anywhere",
+      "nest": "Mealtimes that connect",
+      "print": "Create & share"
+    },
+    "roomHeading": {
+      "line1": "One connected",
+      "line2": "family of",
+      "line3": "experiences."
+    },
+    "roomLabels": {
+      "tablet": {
+        "title": "Stories",
+        "subtitle": "come to life"
+      },
+      "ola": {
+        "title": "Companionship",
+        "subtitle": "that grows"
+      },
+      "nest": {
+        "title": "Mealtimes",
+        "subtitle": "that connect"
+      },
+      "ola-go": {
+        "title": "Learning & play",
+        "subtitle": "anywhere"
+      },
+      "print": {
+        "title": "Creativity",
+        "subtitle": "to share"
+      }
+    }
   },
   "Common": {
     "language": "Language",

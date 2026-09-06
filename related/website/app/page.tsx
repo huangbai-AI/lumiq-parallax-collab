@@ -18,6 +18,7 @@ import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
 import "./opening-video.css";
+import "./home-floors-3-4.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.
@@ -29,11 +30,11 @@ const glassSlices = [
   [77.5, 100],
 ];
 const artwork: Record<ProductId, string> = {
-  tablet: "tablet",
-  ola: "ola",
-  "ola-go": "go",
-  nest: "nest15-confirmed",
-  print: "print",
+  tablet: "home-products-refined-20260907/tablet-pair",
+  ola: "home-products-refined-20260907/ola-repaired",
+  "ola-go": "home-interactive/go",
+  nest: "home-products-20260907/nest15-angle-confirmed",
+  print: "home-interactive/print",
 };
 const principles = [
   { key: "children", icon: ShieldCheck, href: "/legal/child-safety" },
@@ -251,11 +252,12 @@ export default async function Home() {
                       <div className="lh-product-float">
                         <Image
                           src={
-                            "/assets/home-interactive/" + artwork[id] + ".webp"
+                            "/assets/" + artwork[id] + ".webp"
                           }
                           alt={t(`products.${id}.name`)}
                           fill
-                          sizes="(max-width: 520px) 78vw, 420px"
+                          sizes="(max-width: 520px) 78vw, 440px"
+                          quality={90}
                         />
                       </div>
                     </div>
@@ -315,24 +317,11 @@ export default async function Home() {
       </section>
       <section
         id="experiences"
-        className="lh-experiences lh-section"
+        className="lh-experiences lh-room-section"
         aria-labelledby="experiences-title"
         data-home-section
       >
-        <div className="lh-wrap">
-          <div className="lh-section-head" data-home-reveal>
-            <div>
-              <p className="lh-eyebrow">04 / {t("experienceKicker")}</p>
-              <h2 id="experiences-title">
-                {t("experienceTitle")}
-                <br />
-                <span className="lh-muted">{t("experienceAccent")}</span>
-              </h2>
-            </div>
-            <p className="lh-section-intro">{t("experienceBody")}</p>
-          </div>
-          <HomeExperiences />
-        </div>
+        <HomeExperiences />
       </section>
       <section
         id="safety"
