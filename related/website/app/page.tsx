@@ -50,7 +50,7 @@ export default async function Home() {
         <div className="lh-opening-stage">
           <div className="lh-video-layer" aria-hidden="true">
             <div className="lh-video-start-poster" />
-            <div className="lh-video-end-poster" />
+            <div className="lh-video-intro-poster" />
             <video
               className="lh-opening-video"
               muted
