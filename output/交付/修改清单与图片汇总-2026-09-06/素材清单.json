@@ -1,0 +1,365 @@
+{
+  "note": "原样复制并逐文件校验一致；聊天资料来源名称为微信项目记录，本会话上传图不声称等同于缺失消息1225。",
+  "files": [
+    {
+      "file": "06-门锁修改参考/1096-参数反馈.png",
+      "source": "微信项目记录/附件/1096_5b080bd3ec6c651f912a05966c555dc3.png",
+      "bytes": 286030,
+      "sha256": "ff382d435a2d553d7f810a4c23baa1875127400e5d73a61f46b4fe5e4d96ab99"
+    },
+    {
+      "file": "06-门锁修改参考/1097-参数反馈.png",
+      "source": "微信项目记录/附件/1097_05ae53ea6513f634329ba0562dc41c5f.png",
+      "bytes": 511723,
+      "sha256": "4db1e326e63f5dfc6c5743bf6b6b6840816ee367352351c58668da1ae893a185"
+    },
+    {
+      "file": "06-门锁修改参考/1098-画面反馈.png",
+      "source": "微信项目记录/附件/1098_9016977619f864fb8c8cbe01c622f649.png",
+      "bytes": 343617,
+      "sha256": "fccb6d1c7bcf1370c14276a4cab26e5f813b7b2e4f0d3055b0a1475397b74c90"
+    },
+    {
+      "file": "06-门锁修改参考/1108-画面反馈.png",
+      "source": "微信项目记录/附件/1108_4c8aa8f05da3d6bcbb7bd181a7b2c79e.png",
+      "bytes": 519055,
+      "sha256": "8a63b48111493d561afff06a4749a286a7fd2354d9d51c678a3fe81204ddd22a"
+    },
+    {
+      "file": "06-门锁修改参考/1109-画面反馈.png",
+      "source": "微信项目记录/附件/1109_e6a114875cd6c6357913e89882da503a.png",
+      "bytes": 158110,
+      "sha256": "a259fe2217348ac99a0d93f1e96c5eaee4d6c4c1acd7a7eb0cf286c3b1567913"
+    },
+    {
+      "file": "06-门锁修改参考/1111-文字反馈.png",
+      "source": "微信项目记录/附件/1111_284badb351784a670ae43ee84e06c6f7.png",
+      "bytes": 719729,
+      "sha256": "329633ff79c63eeadc5d7812a0abba0d1a0953726a5393f41b8e1b60587c9e5b"
+    },
+    {
+      "file": "06-门锁修改参考/1114-通话人物参考.png",
+      "source": "微信项目记录/附件/1114_fc1717f4fdd170d6426c6bfb5719f6b1.png",
+      "bytes": 10120,
+      "sha256": "b9e83c787f5a3565f23eee6c2a62739c61ce2f12989f25a09e98088ce677e95c"
+    },
+    {
+      "file": "06-门锁修改参考/1115-通话人物参考.png",
+      "source": "微信项目记录/附件/1115_a8fd16e662d152fa683ce0c0b1cfb244.png",
+      "bytes": 15082,
+      "sha256": "3282ef9b87bb786dcdbcc0fb923e5a8e27797f5dfa250db2c2670880e69ade1d"
+    },
+    {
+      "file": "06-门锁修改参考/1123-旧参考视频封面-非视频.jpg",
+      "source": "微信项目记录/附件/1123_d6a1123bf164fbd6e507c0846ede25ff.jpg",
+      "bytes": 65601,
+      "sha256": "ec4c25f00c298003d487dccb16adfb5e01e68df3afea16cbcaa131478adef7bd"
+    },
+    {
+      "file": "06-门锁修改参考/1131-前期方案沟通.png",
+      "source": "微信项目记录/附件/1131_bea5a08cd9ccf79d93661b3ce7d40f0a.png",
+      "bytes": 964856,
+      "sha256": "6595d5be0ffac65e66f2f342711ee8bae2b3a929f83f2227cd05b340f82c0437"
+    },
+    {
+      "file": "06-门锁修改参考/1140-解锁状态反馈.png",
+      "source": "微信项目记录/附件/1140_c0b49cfd1fdb097db9abd69053ec6eac.png",
+      "bytes": 429502,
+      "sha256": "1fbbc10660efdc846feb635e682465030dff170a2c1077e06a9a734d082988f4"
+    },
+    {
+      "file": "06-门锁修改参考/1143-画面反馈.png",
+      "source": "微信项目记录/附件/1143_dd21da1f14cb0a746c9f4bb5456947f3.png",
+      "bytes": 197714,
+      "sha256": "2a12102583418332402e37502ec185a29c4f65515ee7aeaa900354af352acd04"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1145-客户角色参考.png",
+      "source": "微信项目记录/附件/1145_e8de14e2aabd7d64eeed86ea9d8bc5de_h.png",
+      "bytes": 2378062,
+      "sha256": "c11ea13fecdd2252067bff25bd9dbcc6ef37c3f7802e49b91cc2ec4ad96c6845"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1148-客户故事书参考.jpg",
+      "source": "微信项目记录/附件/1148_5ca84a626d1d6541b03eb71cee6aea06_h.jpg",
+      "bytes": 508208,
+      "sha256": "ce577720616eceb53c4c691e0989d1442e0e2693fe849f38c4d8bc0c7ecf961e"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1151-导航放大批注.png",
+      "source": "微信项目记录/附件/1151_1122858d282996537e7f99f7a6867cec.png",
+      "bytes": 359113,
+      "sha256": "d32772eb78aecc5bbbbf1725e628195b5cc18662f22c44e2db403559028a8d0b"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1153-产品区旧稿-要求重做.jpg",
+      "source": "微信项目记录/附件/1153_4ed85374b0c865d3317fe3b0d8ade5dc_h.jpg",
+      "bytes": 382191,
+      "sha256": "a0dedbe2a47e8f869ea07a061099465ae79600a94e0f3ce2f15877b0afbdfd7b"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1154-信任区旧稿-要求重做.jpg",
+      "source": "微信项目记录/附件/1154_6a2f3f701dda425c504f2f54274f1921_h.jpg",
+      "bytes": 374505,
+      "sha256": "bcc40257a3ccaae23e3912cf985095ac2e3fade3def9d9f049d7bca5395ea815"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1159-首页内容遗漏反馈.jpg",
+      "source": "微信项目记录/附件/1159_896d7d17fe205a2320efc64054648616_h.jpg",
+      "bytes": 235994,
+      "sha256": "bc42e8feb5f4e0bba6f73e3c1cf6f2746dad6d6555327ac8c89b9034e1fb3d89"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1170-家庭场景-要求放靠后.png",
+      "source": "微信项目记录/附件/1170_7c17ffac1422547d6677a660cc6a791e_h.png",
+      "bytes": 2865834,
+      "sha256": "87193bc83b9e7ec8cda0232ec9c5d0f66ea7b57f6ada41b74d3d53c3a26b3ae7"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1203-展会大屏场景.jpg",
+      "source": "微信项目记录/附件/1203_5f7c77e16f3a35df59cb4f5168ab8648_h.jpg",
+      "bytes": 440270,
+      "sha256": "7e97aa57bb6faedf0c6d8bdd7d30eef473b07c37dcebd8e88964800857f03485"
+    },
+    {
+      "file": "06-门锁修改参考/1204-结尾名称批注.jpg",
+      "source": "微信项目记录/附件/1204_8c6ace535683012554c3686e2a528fb0_h.jpg",
+      "bytes": 329648,
+      "sha256": "a8335e4b9efcf8e92c2f78074d6085e8c50020dccc1192688ab991727f2ffce3"
+    },
+    {
+      "file": "06-门锁修改参考/1210-十二种解锁方式.jpg",
+      "source": "微信项目记录/附件/1210_a226b4711b056c4a4a852dfbd9beff52_h.jpg",
+      "bytes": 136391,
+      "sha256": "63f07119aa5b480df8df6a242c243c7959a9318fe8c772ef02638284ba5a297e"
+    },
+    {
+      "file": "06-门锁修改参考/1211-补充三种解锁说明.jpg",
+      "source": "微信项目记录/附件/1211_8d9e86504c20573ed7a84f0dbc62a076_h.jpg",
+      "bytes": 332228,
+      "sha256": "47b383da07fcb620472dde0ad70fd4ba2ed3575e12de200919a92bc5954b827f"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1219-LuckyTable旧图-仅对照.png",
+      "source": "微信项目记录/附件/1219_30d762216c8d83de529356a93648ff03.png",
+      "bytes": 182978,
+      "sha256": "15ea6a72aaa28cbb0a6cf3c99b52deb6679a6885988ae80f75fd0ab753c9fbf3"
+    },
+    {
+      "file": "02-官网客户反馈与参考/1220-Nest15旧界面-仅对照.png",
+      "source": "微信项目记录/附件/1220_a9e0e889cd73fc2a0611cec1d93840b4.png",
+      "bytes": 686544,
+      "sha256": "d465e2f09f9e3ef17d4f2a928aa7025562398eeafb08360cc4a7f7f77e69f533"
+    },
+    {
+      "file": "01-最新确认/Nest15-原木外观与家庭食谱新界面.png",
+      "source": "本会话上传图",
+      "bytes": 716772,
+      "sha256": "8e970f37b1f288e90b9802c8b144144188310449802a96c08b0f5cae32dd374b"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/01-首屏.png",
+      "source": "output/交付/甲方反馈改版-2026-09-03/01-首屏.png",
+      "bytes": 1921336,
+      "sha256": "3ad9724d682ece97fdb7dd61ebb2539a30a58dccef947ef6ef02c660feb016e2"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/02-品牌故事.png",
+      "source": "output/交付/甲方反馈改版-2026-09-03/02-品牌故事.png",
+      "bytes": 2034796,
+      "sha256": "d45fbefb198e23a1f2554d2ad886923e780191891f84f12e0d0cd31b0d641c2c"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/03-产品系列-深色展厅.png",
+      "source": "output/交付/甲方反馈改版-2026-09-03/03-产品系列-深色展厅.png",
+      "bytes": 2396426,
+      "sha256": "1df55842069b291bb932bc3295b8590adb5c45e1ea229266482e983ef7a112b4"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/04-家庭生态.png",
+      "source": "output/交付/甲方反馈改版-2026-09-03/04-家庭生态.png",
+      "bytes": 2072752,
+      "sha256": "53e2da9ee0d390c71391492ce33e714935295eec6aaf61805deda7411deb85ca"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/05-信任与证明-深色叙事.png",
+      "source": "output/交付/甲方反馈改版-2026-09-03/05-信任与证明-深色叙事.png",
+      "bytes": 2102973,
+      "sha256": "08bb74f8faba52fe12215372ff8e1d8c80685664aec721dc221124a3f8645682"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/06-候补名单与页脚.png",
+      "source": "output/交付/甲方反馈改版-2026-09-03/06-候补名单与页脚.png",
+      "bytes": 1323702,
+      "sha256": "d27666c34d6ce70679cb625bb1cee87fcdbeaad857192de8d8e48c0a9004e4a7"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/六屏总览.png",
+      "source": "output/交付/甲方反馈改版-2026-09-03/六屏总览.png",
+      "bytes": 4236863,
+      "sha256": "8e7915d095aca2936f42b72073d7d737c44e51541d26e9a4729f322c9d00296c"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/03-products-dusk-nav.png",
+      "source": "output/imagegen/lumiq-revision-2026-09-03/03-products-dusk-nav.png",
+      "bytes": 2660671,
+      "sha256": "977248c75f759350f5d699467b492d652a822f485dc6ded06d56df42e2508013"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/05-trust-pearl-nav.png",
+      "source": "output/imagegen/lumiq-revision-2026-09-03/05-trust-pearl-nav.png",
+      "bytes": 2277853,
+      "sha256": "6e2007265c1a55fb5c1fa0783e5c19d3637c58903486ced2064631adcc86464b"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/loading-large-blank.png",
+      "source": "output/imagegen/lumiq-revision-2026-09-03/loading-large-blank.png",
+      "bytes": 1198,
+      "sha256": "db156f3ad94a3ee0ef3c1c7ebe090f8772d866688180985690d1e92337726b86"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/navigation-large.png",
+      "source": "output/imagegen/lumiq-revision-2026-09-03/navigation-large.png",
+      "bytes": 22422,
+      "sha256": "15ff5b4fd43b346755e08d302fdc2d040a0736b8730bd34a25f6122ff0d251d9"
+    },
+    {
+      "file": "03-既有设计稿与动效关键帧/00A-小Logo过渡.png",
+      "source": "output/交付/H版静态页面/00A-小Logo过渡.png",
+      "bytes": 1954088,
+      "sha256": "dcdf9bd939e16ff743948471275fa3c5cdd94a4c25857f7352457a47d7c23272"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/01-首页桌面首屏.png",
+      "source": "output/交付/首页代码优化-2026-09-06/01-首页桌面首屏.png",
+      "bytes": 990022,
+      "sha256": "9ad0ab1af9469651562b335ea64b0c494ae01564c9f6f4cbbbca54cf0796cf84"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/02-五款产品.png",
+      "source": "output/交付/首页代码优化-2026-09-06/02-五款产品.png",
+      "bytes": 510164,
+      "sha256": "2591620403d584b89333bc3fafa663a72007dbe1f59405646ed5af5b2f387d19"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/03-信任安全.png",
+      "source": "output/交付/首页代码优化-2026-09-06/03-信任安全.png",
+      "bytes": 213149,
+      "sha256": "20f06f13a75389b8f9ae0ff85850b0d8672ecbc076ec20c5727417e676c63fba"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/04-首页桌面长图.png",
+      "source": "output/交付/首页代码优化-2026-09-06/04-首页桌面长图.png",
+      "bytes": 3639978,
+      "sha256": "036c503ef60007aa635b23fa18c7ad44cc9ef9d22acae818d3fcd5c29a70b85d"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/05-首页手机首屏.png",
+      "source": "output/交付/首页代码优化-2026-09-06/05-首页手机首屏.png",
+      "bytes": 206801,
+      "sha256": "19c0953f16ad6523763d507c732e4f910b052940454d960d38db4e80c84b2d1f"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/06-首页手机长图.png",
+      "source": "output/交付/首页代码优化-2026-09-06/06-首页手机长图.png",
+      "bytes": 1459473,
+      "sha256": "c0bff2cb91ce0aaadc353fc810934c20abc843940b28414180d23e8111c0d37e"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/导航统一后-home-desktop.png",
+      "source": "output/playwright/navigation-2026-09-06/home-desktop.png",
+      "bytes": 886150,
+      "sha256": "c7588ca42a85f3258fe8a019e25e377ae6a137906268ce455010dde93e92bbb7"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/导航统一后-mobile-menu.png",
+      "source": "output/playwright/navigation-2026-09-06/mobile-menu.png",
+      "bytes": 79625,
+      "sha256": "c9710d765dc4ff232954158580437e113db626e587de4fe4b863909accf7354f"
+    },
+    {
+      "file": "04-现有网页截图-待改对照/导航统一后--products-tablet-desktop.png",
+      "source": "output/playwright/navigation-2026-09-06/-products-tablet-desktop.png",
+      "bytes": 227381,
+      "sha256": "fce5f44f17e1289874ca058e3c2d7cde770ce67a271e826087920501b793f57f"
+    },
+    {
+      "file": "05-产品与品牌素材/网站既有素材-需核对/lumiq-print.png",
+      "source": "related/website/public/assets/products/lumiq-print.png",
+      "bytes": 2156756,
+      "sha256": "ff0a62337ada681351b7199a56b7f0f9889803cd0d11722227c727f6bf235b5e"
+    },
+    {
+      "file": "05-产品与品牌素材/网站既有素材-需核对/lumiq-tablet.png",
+      "source": "related/website/public/assets/products/lumiq-tablet.png",
+      "bytes": 1484917,
+      "sha256": "d488384f93a628e7c45b5197ccf3fa71edc6fc69a44f266089c7f742962b9b43"
+    },
+    {
+      "file": "05-产品与品牌素材/网站既有素材-需核对/lumiq-ola-go.png",
+      "source": "related/website/public/assets/products/lumiq-ola-go.png",
+      "bytes": 1098589,
+      "sha256": "a5c072fa7ebcfbacb83d1db36c7d867ee3b6382de32d2e24833d9ea0e34fb15c"
+    },
+    {
+      "file": "05-产品与品牌素材/网站既有素材-需核对/ola-hero-front.png",
+      "source": "related/website/public/assets/ola/ola-hero-front.png",
+      "bytes": 15012912,
+      "sha256": "d3f251683bf7bf64f06f362e09b9e45bf6109974a1730bb6ce99604f6f140137"
+    },
+    {
+      "file": "05-产品与品牌素材/网站既有素材-需核对/lumiq-studio-logo-master-4k.png",
+      "source": "related/website/public/assets/brand/lumiq-studio-logo-master-4k.png",
+      "bytes": 1921220,
+      "sha256": "a82ce57088eabeeef2b09e822a573aaaad41fcb09023460744e0a14a3c784025"
+    },
+    {
+      "file": "05-产品与品牌素材/Word原图-未经重绘/image1.jpg",
+      "source": "output/交付/产品名称对照-2026-09-06/image1.jpg",
+      "bytes": 31188,
+      "sha256": "6513c25c8526393ed2709ccb27c375038ffbd01d68d8760b9cca09c0906892d1"
+    },
+    {
+      "file": "05-产品与品牌素材/Word原图-未经重绘/image2.jpg",
+      "source": "output/交付/产品名称对照-2026-09-06/image2.jpg",
+      "bytes": 76055,
+      "sha256": "1bc26b33e383c9927d825f1bed784a1cb9aa2322e5cbcfcb55b6496e859777ab"
+    },
+    {
+      "file": "05-产品与品牌素材/Word原图-未经重绘/image3.jpg",
+      "source": "output/交付/产品名称对照-2026-09-06/image3.jpg",
+      "bytes": 22532,
+      "sha256": "bbc9018cd372be4b58a90422cda7f79bcdf1d532ca9e5bb835cb21b42c598e0e"
+    },
+    {
+      "file": "05-产品与品牌素材/Word原图-未经重绘/image4.jpg",
+      "source": "output/交付/产品名称对照-2026-09-06/image4.jpg",
+      "bytes": 32393,
+      "sha256": "fc0078c5213c5686a00ae63b3bb81fe672032bdc20f9264628c208898200460e"
+    },
+    {
+      "file": "05-产品与品牌素材/Word原图-未经重绘/image5.jpg",
+      "source": "output/交付/产品名称对照-2026-09-06/image5.jpg",
+      "bytes": 16645,
+      "sha256": "510387e8b78710673d1250f331604327983a8046bd0f94df2f78a3042c34975f"
+    },
+    {
+      "file": "05-产品与品牌素材/Word原图-未经重绘/image6.jpg",
+      "source": "output/交付/产品名称对照-2026-09-06/image6.jpg",
+      "bytes": 40908,
+      "sha256": "81ec96b0b31e2cb6d8f27b2731249a439b6fddc26c19e6012df52d911701f5d8"
+    },
+    {
+      "file": "07-修改前视频参考/微信1089-官网初版动效.mp4",
+      "source": "微信项目记录/附件/1089_b1c5905b1a4842c449b1161beabc61b2.mp4",
+      "bytes": 2934045,
+      "sha256": "bce649a817aa6e340a25aa452f55466717f5e8bd1e29d0eaa41d21436eca6b2d"
+    },
+    {
+      "file": "07-修改前视频参考/项目I版-滚动动效参考.mp4",
+      "source": "output/libtv/h3-variants/lumiq-h3-variant-i-balanced-final-v2.mp4",
+      "bytes": 27278389,
+      "sha256": "9ade801acddae641595793bb97c3f1579d6d47e05ff5e9872aa1a076bea62350"
+    }
+  ]
+}

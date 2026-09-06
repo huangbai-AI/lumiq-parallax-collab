@@ -1,0 +1,4 @@
+const fs=require('fs'),path=require('path'),sharp=require('../../../related/website/node_modules/sharp');
+const names={"03":"03-产品系列-定向修改","04":"04-核心应用体验-定向修改","05":"05-信任与安全-定向修改"};
+(async()=>{const out=__dirname;const nav=path.resolve(out,'../七层设计补齐-2026-09-06/统一导航.png');const layers=[];for(const [id,name] of Object.entries(names)){const raw=path.join(out,'生成原图',id+'.png');const m=await sharp(raw).metadata();const header=await sharp(nav).resize(m.width,Math.round(m.width*106/1672)).toBuffer();const f=path.join(out,name+'.png');await sharp(raw).composite([{input:header,left:0,top:0}]).png().toFile(f);layers.push({input:await sharp(f).resize(836,471).toBuffer(),left:0,top:(Number(id)-3)*487});console.log(name,m.width,m.height)}await sharp({create:{width:836,height:1445,channels:3,background:'#fff'}}).composite(layers).png().toFile(path.join(out,'三屏修改总览.png'));})();
+
