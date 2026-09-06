@@ -4,7 +4,7 @@
 ```js
 await (async page => {
  const results={};const base='output/playwright/anchored-ending-2026-09-07/';
- await page.goto('http://127.0.0.1:4207/en#safety');
+ await page.goto('http://127.0.0.1:4207/en?revision=anchored-final#safety');
  await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(800);
  const position=async(selector,p)=>{await page.evaluate(({selector,p})=>{const track=document.querySelector(selector),stage=track.firstElementChild,nav=document.querySelector('.site-nav').getBoundingClientRect().height;window.scrollTo({top:track.getBoundingClientRect().top+scrollY-nav+(track.offsetHeight-stage.offsetHeight)*p,behavior:'instant'});},{selector,p});await page.waitForTimeout(800);};
  await position('.lh-trust-scroll',.4);
@@ -38,7 +38,10 @@ await (async page => {
  const productAfter=await page.locator('.lh-products-track').evaluate(e=>getComputedStyle(e).transform);
  results.productsStillMove=productBefore!==productAfter;
  if(!results.productsStillMove)throw Error('product rail');
- await page.goto('http://127.0.0.1:4207/en#safety');await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(600);await position('.lh-trust-scroll',.25);
+ await page.goto('http://127.0.0.1:4207/en?revision=anchored-final#safety');await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(600);await position('.lh-trust-scroll',.25);
  return results;
 })(page);
 ```
+### Page
+- Page URL: http://127.0.0.1:4207/en?revision=anchored-final#safety
+- Page Title: Lumiq Studio — Where Stories Come Alive
