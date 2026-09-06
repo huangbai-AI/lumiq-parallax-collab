@@ -30,8 +30,6 @@
 }
 .lh-video-start-poster,
 .lh-video-end-poster,
-.lh-video-intro-poster,
-.lh-opening-transition,
 .lh-opening-video {
   position: absolute;
   left: 50%;
@@ -53,31 +51,21 @@
 .lh-video-start-poster {
   background-image: url("/assets/home-video/hero-approved-20260907.webp");
 }
+.lh-video-layer[data-intro="pending"] .lh-video-start-poster {
+  background-image: url("/assets/home-video/hero-intro-start-20260907.webp");
+}
 .lh-video-end-poster {
   background-image: url("/assets/home-video/brand-end-20260907.webp");
   opacity: 0;
 }
-.lh-opening-transition {
-  opacity: 0;
-}
-.lh-video-layer[data-transition-ready] .lh-opening-transition {
-  opacity: 1;
-}
-.lh-video-layer[data-transition-ready]
-  :is(.lh-video-start-poster, .lh-video-end-poster) {
-  visibility: hidden;
-}
-.lh-video-intro-poster {
-  background-image: url("/assets/home-video/hero-intro-start-20260907.webp");
-}
 .lh-opening-video {
   opacity: 0;
-  transition: opacity 0.25s ease;
 }
-.lh-video-layer[data-ready][data-intro="pending"] .lh-opening-video {
+.lh-video-layer[data-ready] .lh-opening-video {
   opacity: 1;
 }
-.lh-video-layer[data-intro="complete"] .lh-video-intro-poster {
+.lh-video-layer[data-ready]
+  :is(.lh-video-start-poster, .lh-video-end-poster) {
   visibility: hidden;
 }
 .lh-opening[data-video-mode]

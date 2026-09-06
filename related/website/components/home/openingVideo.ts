@@ -4,13 +4,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export const openingVideoQuery =
   "(min-width: 1101px) and (min-height: 720px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
-/** The AI intro plays once; separate AI transition footage follows scrolling. */
+/** One continuous AI movie: autoplay the opening, then scrub the same source. */
 export function mountOpeningVideo(root: HTMLElement) {
   const opening = root.querySelector<HTMLElement>(".lh-opening")!;
   const stage = opening.querySelector<HTMLElement>(".lh-opening-stage")!;
   const video = opening.querySelector<HTMLVideoElement>(".lh-opening-video")!;
   const layer = opening.querySelector<HTMLElement>(".lh-video-layer")!;
-  const transition = opening.querySelector<HTMLVideoElement>(".lh-opening-transition")!;
   const heroCopy = opening.querySelector<HTMLElement>(".lh-hero-copy")!;
   const brandCopy = opening.querySelector<HTMLElement>(".lh-ola-copy")!;
   const cards = opening.querySelector<HTMLElement>(".lh-rhythm-cards")!;
@@ -25,8 +24,9 @@ export function mountOpeningVideo(root: HTMLElement) {
     opening.dataset.videoMode = "true";
     let alive = true;
     let frame = 0;
-    let targetTime = 0;
-    let loadDeadline: ReturnType<typeof setTimeout> | undefined;
+    // Measured on the continuous H3 movie; no source or element swap here.
+    const introEnd = 3.5;
+    let targetTime = introEnd;
     const playhead = { progress: 0 };
     const finishIntro = () => {
       if (!alive) return;
@@ -34,41 +34,45 @@ export function mountOpeningVideo(root: HTMLElement) {
       clearTimeout(loadDeadline);
       layer.dataset.intro = "complete";
       video.pause();
+      schedule();
     };
-    const seek = () => {
+    const tick = () => {
       frame = 0;
-      if (!alive || document.hidden || transition.readyState < 2 || transition.seeking)
+      if (!alive || document.hidden || video.error || video.readyState < 2) return;
+      if (!introFinished) {
+        if (video.currentTime >= introEnd) finishIntro();
+        else schedule();
         return;
-      if (Math.abs(transition.currentTime - targetTime) > 0.018)
-        transition.currentTime = targetTime;
+      }
+      if (video.seeking) return; // seeked schedules the latest target again.
+      if (Math.abs(video.currentTime - targetTime) > 0.018)
+        video.currentTime = targetTime;
+      else layer.dataset.ready = "true";
     };
     const schedule = () => {
-      if (!frame && alive) frame = requestAnimationFrame(seek);
+      if (!frame && alive) frame = requestAnimationFrame(tick);
     };
     const update = () => {
       heroCopy.inert = playhead.progress > 0.3;
       brandCopy.inert = cards.inert = playhead.progress < 0.68;
-      const endTime = Number.isFinite(transition.duration)
-        ? Math.max(0, transition.duration - 0.045) : 0;
-      targetTime = playhead.progress * endTime;
-      transition.dataset.scrollProgress = String(playhead.progress);
-      schedule();
-      // Never trap a visitor waiting for an intro or replay it on reverse scroll.
+      const endTime = Number.isFinite(video.duration)
+        ? Math.max(introEnd, video.duration - 0.045) : introEnd;
+      targetTime = introEnd + playhead.progress * (endTime - introEnd);
+      video.dataset.scrollProgress = String(playhead.progress);
+      // Scrolling or an anchor can skip the intro, but never replays it backwards.
       if (playhead.progress > 0.03 && !introFinished) finishIntro();
+      schedule();
     };
     const ready = () => {
-      if (!alive || introFinished) return;
-      layer.dataset.ready = "true";
-      if (!document.hidden) void video.play().catch(finishIntro);
-    };
-    const transitionReady = () => {
       if (!alive) return;
-      transition.pause();
-      layer.dataset.transitionReady = "true";
-      update();
+      clearTimeout(loadDeadline);
+      if (introFinished) { update(); return; }
+      layer.dataset.ready = "true";
+      if (!document.hidden) void video.play().then(schedule).catch(finishIntro);
     };
-    const transitionFailed = () => {
-      delete layer.dataset.transitionReady;
+    const failed = () => {
+      finishIntro();
+      delete layer.dataset.ready;
     };
     const visibility = () => {
       if (document.hidden) video.pause();
@@ -76,29 +80,20 @@ export function mountOpeningVideo(root: HTMLElement) {
       schedule();
     };
     video.addEventListener("loadeddata", ready);
-    video.addEventListener("error", finishIntro);
+    video.addEventListener("error", failed);
     video.addEventListener("ended", finishIntro);
+    video.addEventListener("seeked", schedule);
+    video.addEventListener("canplay", schedule);
     document.addEventListener("visibilitychange", visibility);
-    transition.addEventListener("loadeddata", transitionReady);
-    transition.addEventListener("error", transitionFailed);
-    transition.addEventListener("seeked", schedule);
-    transition.addEventListener("canplay", schedule);
-    // This second movie never autoplays: both forward and reverse motion are
-    // driven by currentTime, independently of the one-time letter intro.
-    transition.muted = true;
-    transition.preload = "auto";
-    transition.src = "/assets/home-video/hero-brand-scroll-20260907.mp4";
-    transition.load();
-    if (introFinished) finishIntro();
-    else {
-      layer.dataset.intro = "pending";
-      video.muted = true;
-      video.preload = "auto";
-      video.src = "/assets/home-video/hero-intro-20260907.mp4";
-      video.load();
-      // A blocked or slow video must still leave the approved hero fully visible.
-      loadDeadline = setTimeout(finishIntro, 8000);
-    }
+    layer.dataset.intro = introFinished ? "complete" : "pending";
+    video.muted = true;
+    // H3 settles the letters before 3.5s; show that full lead-in in about 2.2s.
+    video.playbackRate = 1.6;
+    video.preload = "auto";
+    video.src = "/assets/home-video/opening-mixed-h3-20260907.mp4";
+    video.load();
+    // Slow or blocked loading leaves the approved static composition usable.
+    const loadDeadline = setTimeout(failed, 8000);
 
     const timeline = gsap.timeline({
       scrollTrigger: {
@@ -117,7 +112,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       .to(playhead, { progress: 1, duration: 1, ease: "none", onUpdate: update }, 0)
       .to(heroCopy, { autoAlpha: 0, y: -45, duration: 0.2, ease: "none" }, 0.08)
       .to(cue, { autoAlpha: 0, duration: 0.08 }, 0.04)
-      // Posters are only a fallback beneath the opaque decoded transition.
+      // Posters are only a fallback beneath the decoded movie.
       .to(".lh-video-end-poster", { opacity: 1, duration: 0.3, ease: "none" }, 0.38)
       .fromTo(brandCopy, { y: 35, autoAlpha: 0 },
         { y: 0, autoAlpha: 1, duration: 0.2, ease: "power1.out" }, 0.68)
@@ -146,23 +141,17 @@ export function mountOpeningVideo(root: HTMLElement) {
       cancelAnimationFrame(frame);
       cue.removeEventListener("click", closer);
       video.removeEventListener("loadeddata", ready);
-      video.removeEventListener("error", finishIntro);
+      video.removeEventListener("error", failed);
       video.removeEventListener("ended", finishIntro);
       document.removeEventListener("visibilitychange", visibility);
-      transition.removeEventListener("loadeddata", transitionReady);
-      transition.removeEventListener("error", transitionFailed);
-      transition.removeEventListener("seeked", schedule);
-      transition.removeEventListener("canplay", schedule);
-      transition.pause();
-      transition.removeAttribute("src");
-      transition.load();
-      delete transition.dataset.scrollProgress;
+      video.removeEventListener("seeked", schedule);
+      video.removeEventListener("canplay", schedule);
+      delete video.dataset.scrollProgress;
       video.pause();
       video.removeAttribute("src");
       video.load();
       delete opening.dataset.videoMode;
       delete layer.dataset.ready;
-      delete layer.dataset.transitionReady;
       delete layer.dataset.intro;
       heroCopy.inert = brandCopy.inert = cards.inert = false;
     };

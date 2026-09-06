@@ -52,14 +52,6 @@ export default async function Home() {
             <div className="lh-video-start-poster" />
             <div className="lh-video-end-poster" />
             <video
-              className="lh-opening-transition"
-              muted
-              playsInline
-              preload="none"
-              tabIndex={-1}
-            />
-            <div className="lh-video-intro-poster" />
-            <video
               className="lh-opening-video"
               muted
               playsInline
