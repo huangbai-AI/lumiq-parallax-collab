@@ -20,6 +20,7 @@ import "./homepage.css";
 import "./opening-video.css";
 import "./home-ending.css";
 import "./home-immersive.css";
+import "./home-anchored.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.
@@ -342,24 +343,26 @@ export default async function Home() {
         aria-labelledby="safety-title"
         data-home-section
       >
-        <div className="lh-trust-room">
-          <div className="lh-safety-photo">
-            <Image
-              src="/assets/home-immersive-2026-09-07/trust-wide.webp"
-              alt={t("trustAlt")}
-              fill
-              quality={90}
-              sizes="(max-width: 767px) 800px, (max-width: 1200px) 1280px, (min-width: 2200px) 2340px, 106vw"
-            />
-          </div>
-          <div className="lh-wrap lh-safety-copy" data-home-reveal>
-            <p className="lh-eyebrow">05 / {t("safetyKicker")}</p>
-            <h2 id="safety-title">
-              {t("safetyTitle")}
-              <br />
-              <span className="lh-muted">{t("safetyAccent")}</span>
-            </h2>
-            <p className="lh-lead">{t("safetyBody")}</p>
+        <div className="lh-trust-scroll">
+          <div className="lh-trust-room">
+            <div className="lh-safety-photo">
+              <Image
+                src="/assets/home-immersive-2026-09-07/trust-wide.webp"
+                alt={t("trustAlt")}
+                fill
+                quality={90}
+                sizes="(max-width: 767px) 800px, (max-width: 1200px) 1280px, (min-width: 2200px) 2340px, 106vw"
+              />
+            </div>
+            <div className="lh-wrap lh-safety-copy">
+              <p className="lh-eyebrow">05 / {t("safetyKicker")}</p>
+              <h2 id="safety-title">
+                {t("safetyTitle")}
+                <br />
+                <span className="lh-muted">{t("safetyAccent")}</span>
+              </h2>
+              <p className="lh-lead">{t("safetyBody")}</p>
+            </div>
           </div>
         </div>
         <div className="lh-wrap lh-trust-notes">
@@ -394,24 +397,28 @@ export default async function Home() {
         aria-labelledby="family-title"
         data-home-section
       >
-        <div className="lh-wrap lh-family-heading" data-home-reveal>
-          <div>
-            <p className="lh-eyebrow">06 / {t("familyKicker")}</p>
-            <h2 id="family-title">
-              {t("familyTitle")}
-              <br />
-              <span className="lh-muted">{t("familyAccent")}</span>
-            </h2>
-          </div>
-          <div className="lh-section-intro">
-            <p>{t("familyBody")}</p>
-            <Link href="/story" className="lh-text-link">
-              {t("ourStory")}
-              <ArrowRight size={18} />
-            </Link>
+        <div className="lh-family-scroll">
+          <div className="lh-family-anchor">
+            <div className="lh-wrap lh-family-heading">
+              <div>
+                <p className="lh-eyebrow">06 / {t("familyKicker")}</p>
+                <h2 id="family-title">
+                  {t("familyTitle")}
+                  <br />
+                  <span className="lh-muted">{t("familyAccent")}</span>
+                </h2>
+              </div>
+              <div className="lh-section-intro">
+                <p>{t("familyBody")}</p>
+                <Link href="/story" className="lh-text-link">
+                  {t("ourStory")}
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+            <HomeFamily />
           </div>
         </div>
-        <HomeFamily />
       </section>
       <section
         id="join"

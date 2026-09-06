@@ -15,6 +15,7 @@
 /.next-i18n/
 /.next-e2e/
 /.next-verify/
+/.next-anchor/
 /.next-interactive/
 /.next-video-option/
 /supabase/.temp/

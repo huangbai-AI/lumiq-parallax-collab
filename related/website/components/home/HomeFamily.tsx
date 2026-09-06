@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 
 const moments = ["morning", "afternoon", "evening"] as const;
@@ -8,7 +8,24 @@ const moments = ["morning", "afternoon", "evening"] as const;
 export default function HomeFamily() {
   const t = useTranslations("HomeRefresh");
   const [active, setActive] = useState(0);
+  const chapters = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    const section = chapters.current?.closest<HTMLElement>("#family");
+    if (!section) return;
+    const change = (event: Event) => setActive((event as CustomEvent<number>).detail);
+    section.addEventListener("lumiq:chapter-change", change);
+    if (section.dataset.chapter) setActive(Number(section.dataset.chapter));
+    return () => section.removeEventListener("lumiq:chapter-change", change);
+  }, []);
+
+  const select = (index: number) => {
+    setActive(index);
+    chapters.current?.dispatchEvent(new CustomEvent("lumiq:chapter-select", {
+      bubbles: true, detail: index,
+    }));
+  };
 
   const navigate = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     let next: number;
@@ -20,12 +37,12 @@ export default function HomeFamily() {
       default: return;
     }
     event.preventDefault();
-    setActive(next);
+    select(next);
     tabs.current[next]?.focus();
   };
 
   return (
-    <div className="lh-family-chapters">
+    <div ref={chapters} className="lh-family-chapters">
       <div className="lh-chapter-navigation" role="tablist" aria-label={t("familyPanoramaAlt")}>
         {moments.map((key, index) => (
           <button
@@ -37,9 +54,10 @@ export default function HomeFamily() {
             aria-controls={`family-panel-${key}`}
             aria-selected={index === active}
             tabIndex={index === active ? 0 : -1}
-            onClick={() => setActive(index)}
+            onClick={() => select(index)}
             onKeyDown={(event) => navigate(event, index)}
           >
+            <span className="lh-chapter-progress" aria-hidden="true" />
             <span className="lh-chapter-number" aria-hidden="true">0{index + 1}</span>
             <span>{t(`familyMoments.${key}`)}</span>
           </button>
