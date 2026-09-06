@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   distDir: process.env.LUMIQ_NEXT_DIST_DIR ?? ".next",
   images: {
     unoptimized: false,
+    qualities: [75, 90, 95],
   },
 };
 

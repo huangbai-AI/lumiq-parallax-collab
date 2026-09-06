@@ -156,7 +156,20 @@
     "joinBody": "LumiQ のウェイトリストに登録して、製品ニュース、先行プレビュー、今後の体験イベントへのご案内を。",
     "joinNote": "楽しみにしたくなるお知らせを。",
     "joinForm": "LumiQ ウェイトリスト登録",
-    "joinButton": "登録する"
+    "joinButton": "登録する",
+    "roomExplore": "製品を選んで、暮らしの中での使い方を見る",
+    "roomTabs": {
+      "stories": "創作",
+      "companion": "つながり",
+      "routines": "予定"
+    },
+    "roomPlaces": {
+      "tablet": "読書のコーナー",
+      "ola": "リビング",
+      "ola-go": "お出かけに",
+      "nest": "キッチンと食卓",
+      "print": "創作のコーナー"
+    }
   },
   "Common": {
     "language": "言語",

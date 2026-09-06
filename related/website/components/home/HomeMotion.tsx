@@ -160,11 +160,10 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
             });
           }
           gsap.fromTo(
-            ".lh-house-art",
-            { y: 65, scale: 0.93 },
+            ".lh-room-canvas",
+            { y: 28 },
             {
-              y: -25,
-              scale: 1.015,
+              y: -20,
               ease: "none",
               scrollTrigger: {
                 trigger: ".lh-experiences",

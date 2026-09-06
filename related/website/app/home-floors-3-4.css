@@ -1,0 +1,125 @@
+/* 第3–4屏专用；不改变首屏共用产品、全站导航或其他楼层。 */
+.lh-products .lh-product-float { inset: 1% -3%; }
+.lh-products .lh-product-ola .lh-product-float { inset: -2% 11%; }
+.lh-products .lh-product-ola-go .lh-product-float { inset: 5% 13%; }
+.lh-products .lh-product-nest .lh-product-float { inset: 1% -4%; }
+.lh-products .lh-product-print .lh-product-float { inset: 0 12%; }
+
+.lh-home .lh-room-section { padding: 0; background: #f0edf5; isolation: isolate; }
+.lh-room-section::before,
+.lh-room-section::after { content: ""; position: absolute; inset-inline: 0; height: 100px; z-index: 0; pointer-events: none; }
+.lh-room-section::before { top: 0; background: linear-gradient(#edf3fa, transparent); }
+.lh-room-section::after { bottom: 0; background: linear-gradient(transparent, #f2f5fa); }
+.lh-room-layout {
+  position: relative; isolation: isolate; z-index: 1; max-width: 1920px;
+  min-height: max(900px, min(56.25vw, 1080px)); margin-inline: auto;
+  display: grid; grid-template-columns: 30% 1fr; grid-template-rows: auto 1fr;
+  column-gap: 4%; padding: 100px 5% 90px;
+}
+.lh-room-heading,
+.lh-room-copy { position: relative; z-index: 2; grid-column: 1; }
+.lh-room-heading { grid-row: 1; }
+.lh-home .lh-room-heading h2 { font-size: clamp(36px, 3.3vw, 58px); }
+.lh-home .lh-room-intro { font-size: 15px; line-height: 1.75; color: #647184; margin: 22px 0 28px; max-width: 380px; }
+.lh-room-map { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.lh-room-canvas { position: absolute; width: 100%; aspect-ratio: 16 / 9; top: 50%; margin-top: -28.125%; }
+.lh-room-background,
+.lh-room-lines,
+.lh-room-products { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lh-room-background img { object-fit: contain; }
+.lh-room-background { mask-image: linear-gradient(transparent, #000 5%, #000 94%, transparent); }
+.lh-room-lines { overflow: visible; }
+.lh-room-lines path { fill: none; stroke: #fff; stroke-width: 1.5; filter: drop-shadow(0 1px 3px #6688aa50); }
+.lh-room-lines circle { fill: white; stroke: #709bbf; stroke-width: 1; }
+.lh-room-lines g { opacity: 0; transition: opacity .35s; }
+.lh-room-lines g[data-selected="true"] { opacity: .85; }
+.lh-room-product {
+  position: absolute; left: var(--room-x); top: var(--room-y); transform: translate(-50%, -50%); width: clamp(112px, 9vw, 168px);
+  padding: 0; border: 0; background: none; color: #223b54; text-align: center;
+  pointer-events: auto; border-radius: 14px;
+}
+.lh-room-product-art {
+  display: block; position: relative; width: clamp(85px, 7.3vw, 136px); height: clamp(85px, 7.3vw, 136px);
+  margin: 0 auto 9px; border: 1px solid #ffffffd9; border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #ffffffd9, #eff3fb80 65%, #d8e5f366);
+  box-shadow: 0 0 0 5px #ffffff26, 0 8px 26px #43628f16;
+  transition: transform .35s, box-shadow .35s;
+}
+.lh-room-product-art img { object-fit: contain; padding: 10px; filter: drop-shadow(0 8px 5px #1e354026); }
+.lh-room-product-ola .lh-room-product-art img { padding: 4px 22px; }
+.lh-room-product-ola-go .lh-room-product-art img,
+.lh-room-product-print .lh-room-product-art img { padding: 10px 22px; }
+.lh-room-product[aria-pressed="true"] .lh-room-product-art { box-shadow: 0 0 0 3px #9bbbd780, 0 0 28px #ffffff, 0 8px 26px #43628f18; }
+.lh-room-product:where(:hover, :focus-visible) .lh-room-product-art { transform: translateY(-5px) scale(1.04); }
+.lh-room-product-name,
+.lh-room-product-place { display: block; line-height: 1.45; }
+.lh-room-product-name { font-size: 12px; font-weight: 700; }
+.lh-room-product-place { font-size: 11px; color: #5c6d80; margin-top: 2px; }
+.lh-room-copy { grid-row: 2; }
+.lh-room-tabs { display: flex; gap: 5px; padding-bottom: 18px; margin-bottom: 24px; border-bottom: 1px solid #7189a329; }
+.lh-room-tabs button {
+  display: flex; justify-content: center; align-items: center; flex: 1; gap: 6px; min-height: 44px;
+  border: 1px solid transparent; border-radius: 99px; padding: 8px 6px; font-size: 12px;
+  font-weight: 600; color: #5f7187; background: #ffffff66;
+}
+.lh-room-tabs button[aria-selected="true"] { color: white; background: #294964; }
+.lh-room-tabs svg { flex-shrink: 0; }
+.lh-room-caption { display: block; font-size: 10px; font-weight: 700; letter-spacing: .07em; color: #678298; margin-bottom: 13px; }
+/* 三段内容共用最大高度，切换不推动房间和下一个楼层。 */
+.lh-room-details { display: grid; align-items: start; }
+.lh-room-details .lh-experience-panel { grid-area: 1 / 1; min-width: 0; }
+.lh-room-details .lh-experience-panel[data-inactive="true"] { visibility: hidden; pointer-events: none; }
+.lh-home .lh-room-details h3 { font-size: clamp(22px, 1.7vw, 29px); line-height: 1.3; }
+.lh-home .lh-room-details .lh-experience-panel > p { font-size: 14px; line-height: 1.75; margin: 18px 0 18px; color: #5f7084; }
+.lh-room-steps { list-style: none; padding: 0; margin: 0 0 18px; }
+.lh-room-steps li { display: flex; align-items: baseline; gap: 12px; padding: 10px 0; border-top: 1px solid #8198af26; font-size: 12px; line-height: 1.6; }
+.lh-room-steps li span { font-size: 10px; color: #6e879d; }
+.lh-room-details .lh-text-link { font-size: 13px; }
+
+@media (min-width: 1921px) {
+  .lh-room-background {
+    mask-image: linear-gradient(transparent, #000 5%, #000 94%, transparent), linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-composite: intersect;
+  }
+}
+@media (min-width: 1101px) and (max-width: 1300px) {
+  .lh-room-layout { grid-template-columns: 32% 1fr; padding-inline: 4%; }
+  .lh-room-tabs button { font-size: 11px; }
+}
+@media (max-width: 1100px) {
+  .lh-room-layout { display: flex; flex-direction: column; min-height: 0; padding: 80px 0; }
+  .lh-room-heading,
+  .lh-room-copy { width: min(680px, calc(100% - var(--lh-gutter) * 2)); margin-inline: auto; }
+  .lh-home .lh-room-intro { max-width: 600px; }
+  .lh-room-map { position: relative; inset: auto; width: 100%; aspect-ratio: 1.1; margin: -20px 0 12px; overflow: clip; }
+  .lh-room-canvas { width: 154%; top: 0; left: -49%; margin: 0; }
+  .lh-room-product { width: 120px; }
+  .lh-room-product-ola-go { left: 86%; }
+  .lh-room-product-ola { left: 86%; }
+  .lh-room-lines { display: none; }
+  .lh-room-product-art { width: 104px; height: 104px; }
+  .lh-room-copy { padding-top: 24px; }
+  .lh-room-tabs { max-width: 500px; }
+  .lh-room-details { min-height: 350px; }
+}
+@media (max-width: 767px) {
+  .lh-room-layout { padding-top: 65px; padding-bottom: 65px; }
+  .lh-room-map { aspect-ratio: 1; margin-top: -5px; }
+  .lh-room-canvas { top: 8px; }
+  .lh-room-product { width: 94px; }
+  .lh-room-product-art { width: 68px; height: 68px; margin-bottom: 5px; }
+  .lh-room-product-art img { padding: 7px; }
+  .lh-room-product-ola .lh-room-product-art img { padding: 4px 15px; }
+  .lh-room-product-ola-go .lh-room-product-art img,
+  .lh-room-product-print .lh-room-product-art img { padding: 7px 15px; }
+  .lh-room-product-name { font-size: 10px; }
+  .lh-room-product-place { font-size: 9px; }
+  .lh-room-copy { padding-top: 15px; }
+  .lh-room-details { min-height: 390px; }
+  .lh-home .lh-room-details h3 { font-size: 25px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lh-room-product-art,
+  .lh-room-lines g { transition: none; }
+  .lh-room-product:where(:hover, :focus-visible) .lh-room-product-art { transform: none; }
+}

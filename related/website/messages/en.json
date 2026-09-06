@@ -156,7 +156,20 @@
     "joinBody": "Product news, first looks and invitations to future experiences. Join the LumiQ waitlist.",
     "joinNote": "A little news. Something worth waiting for.",
     "joinForm": "Join the LumiQ waitlist",
-    "joinButton": "Join waitlist"
+    "joinButton": "Join waitlist",
+    "roomExplore": "Choose a product to explore its place in everyday life",
+    "roomTabs": {
+      "stories": "Create",
+      "companion": "Connect",
+      "routines": "Plan"
+    },
+    "roomPlaces": {
+      "tablet": "Reading nook",
+      "ola": "Living room",
+      "ola-go": "On the go",
+      "nest": "Kitchen & dining",
+      "print": "Creative corner"
+    }
   },
   "Common": {
     "language": "Language",

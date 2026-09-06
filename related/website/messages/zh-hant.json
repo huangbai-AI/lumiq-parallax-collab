@@ -156,7 +156,20 @@
     "joinBody": "加入 LumiQ 候補名單，獲取產品消息、搶先預覽及未來體驗活動邀請。",
     "joinNote": "分享值得期待的消息。",
     "joinForm": "加入 LumiQ 候補名單",
-    "joinButton": "加入候補名單"
+    "joinButton": "加入候補名單",
+    "roomExplore": "點選產品，探索它在日常生活中的位置",
+    "roomTabs": {
+      "stories": "創作",
+      "companion": "陪伴",
+      "routines": "日程"
+    },
+    "roomPlaces": {
+      "tablet": "閱讀角落",
+      "ola": "客廳陪伴",
+      "ola-go": "出門隨行",
+      "nest": "廚房與餐桌",
+      "print": "創作角落"
+    }
   },
   "Common": {
     "language": "語言",
