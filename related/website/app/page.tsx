@@ -18,6 +18,7 @@ import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
 import "./opening-video.css";
+import "./home-ending.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.
@@ -340,45 +341,49 @@ export default async function Home() {
         aria-labelledby="safety-title"
         data-home-section
       >
-        <div className="lh-wrap">
-          <div className="lh-safety-top">
-            <div className="lh-safety-copy" data-home-reveal>
-              <p className="lh-eyebrow">05 / {t("safetyKicker")}</p>
-              <h2 id="safety-title">
-                {t("safetyTitle")}
-                <br />
-                <span className="lh-muted">{t("safetyAccent")}</span>
-              </h2>
-              <p className="lh-lead">{t("safetyBody")}</p>
-              <div className="lh-safety-seal">
-                <ShieldCheck size={24} strokeWidth={1.3} />
-                <span>{t("safetySeal")}</span>
+        <div className="lh-wrap lh-trust-layout">
+          <div className="lh-safety-copy" data-home-reveal>
+            <p className="lh-eyebrow">05 / {t("safetyKicker")}</p>
+            <h2 id="safety-title">
+              {t("safetyTitle")}
+              <br />
+              <span className="lh-muted">{t("safetyAccent")}</span>
+            </h2>
+            <p className="lh-lead">{t("safetyBody")}</p>
+          </div>
+          <figure className="lh-trust-figure">
+            <div className="lh-safety-image">
+              <div className="lh-safety-photo">
+                <Image
+                  src="/assets/home-ending-2026-09-07/trust-family.webp"
+                  alt={t("trustAlt")}
+                  fill
+                  quality={90}
+                  sizes="(max-width: 767px) 90vw, (max-width: 1600px) 45vw, 740px"
+                />
               </div>
             </div>
-            <div className="lh-safety-image">
-              <Image
-                src="/assets/home-interactive/trust-family.webp"
-                alt={t("trustAlt")}
-                fill
-                sizes="(max-width: 767px) 100vw, 850px"
-              />
-              <span className="lh-photo-veil" aria-hidden="true" />
-            </div>
-          </div>
+            <figcaption>{t("safetySeal")}</figcaption>
+          </figure>
           <div className="lh-principles">
-            {principles.map(({ key, icon: Icon, href }) => (
+            {principles.map(({ key, icon: Icon, href }, index) => (
               <Link
                 href={href}
                 key={key}
                 className="lh-principle"
                 data-home-reveal
               >
-                <span className="lh-principle-icon">
-                  <Icon size={28} strokeWidth={1.3} />
+                <span className="lh-principle-top" aria-hidden="true">
+                  <span className="lh-principle-number">0{index + 1}</span>
+                  <Icon size={22} strokeWidth={1.3} />
                 </span>
                 <h3>{t(`trust.${key}.title`)}</h3>
                 <p>{t(`trust.${key}.body`)}</p>
-                <ArrowUpRight className="lh-principle-arrow" size={19} />
+                <ArrowUpRight
+                  className="lh-principle-arrow"
+                  size={19}
+                  aria-hidden="true"
+                />
               </Link>
             ))}
           </div>
@@ -417,14 +422,14 @@ export default async function Home() {
       >
         <div className="lh-join-art" aria-hidden="true">
           <Image
-            src="/assets/home-pearl/join-bg.webp"
+            src="/assets/home-ending-2026-09-07/join-atmosphere.webp"
             alt=""
             fill
             sizes="100vw"
           />
         </div>
         <div className="lh-wrap lh-join-layout">
-          <div data-home-reveal>
+          <div className="lh-join-copy" data-home-reveal>
             <p className="lh-eyebrow">07 / {t("joinKicker")}</p>
             <h2 id="join-title">
               {t("joinTitle")}

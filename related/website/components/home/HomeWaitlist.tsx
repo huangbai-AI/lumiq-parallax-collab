@@ -1,5 +1,5 @@
 "use client";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef, useState, type FormEvent } from "react";
 import { Link } from "@/i18n/navigation";
@@ -58,10 +58,6 @@ export default function HomeWaitlist() {
   };
   return (
     <div className="lh-waitlist">
-      <p className="lh-waitlist-note">
-        <Check size={17} />
-        {h("joinNote")}
-      </p>
       <form
         method="post"
         action="/api/waitlist"
@@ -94,7 +90,7 @@ export default function HomeWaitlist() {
             disabled={status === "submitting" || status === "success"}
           >
             {status === "submitting" ? t("submitting") : h("joinButton")}
-            <ArrowRight size={18} />
+            <ArrowRight size={18} aria-hidden="true" />
           </button>
         </div>
         <label className="lh-honeypot" aria-hidden="true">

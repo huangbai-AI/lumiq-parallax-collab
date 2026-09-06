@@ -1,0 +1,47 @@
+### Result
+{"samples":[{"transform":"matrix(1, 0, 0, 1, 0, -2.86868)","covered":true},{"transform":"matrix(1, 0, 0, 1, 0, 5.10383)","covered":true},{"transform":"matrix(1, 0, 0, 1, 0, 12.1869)","covered":true}],"keyboardNavigation":true,"focusOutline":"solid","reducedMotionTransform":"none","familyAfterResize":"02 / 03"}
+### Ran Playwright code
+```js
+await (async page => {
+  await page.emulateMedia({reducedMotion:"no-preference"});
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("http://127.0.0.1:4205/en");
+  const samples=[];
+  for(const portion of [0,0.45,0.85]){
+    await page.evaluate(p=>{const el=document.querySelector("#safety");window.scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight*p-100,behavior:"instant"});},portion);
+    await page.waitForTimeout(950);
+    const s=await page.evaluate(()=>{const frame=document.querySelector(".lh-safety-image").getBoundingClientRect(),photo=document.querySelector(".lh-safety-photo").getBoundingClientRect();return {transform:getComputedStyle(document.querySelector(".lh-safety-photo")).transform,covered:photo.top<=frame.top+1&&photo.bottom>=frame.bottom-1};});
+    if(!s.covered)throw Error("Photo reveals a gap"); samples.push(s);
+  }
+  await page.locator("#safety .lh-principle").first().focus();
+  const focus=await page.locator("#safety .lh-principle").first().evaluate(el=>getComputedStyle(el).outlineStyle);
+  await page.keyboard.press("Enter");
+  await page.waitForURL("**/en/legal/child-safety");
+  await page.goBack();
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await page.waitForTimeout(150);
+  const reduced=await page.locator(".lh-safety-photo").evaluate(el=>getComputedStyle(el).transform);
+  if(reduced!=="none")throw Error("Reduced motion not reset: "+reduced);
+  await page.setViewportSize({width:390,height:844});
+  await page.getByRole("button",{name:"Next family moment",exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector(".lh-family-controls > span").textContent.includes("02"));
+  await page.getByRole("button",{name:"Next family moment",exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector(".lh-family-controls > span").textContent.includes("03"));
+  await page.setViewportSize({width:1440,height:900});
+  await page.setViewportSize({width:390,height:844});
+  await page.getByRole("button",{name:"Previous family moment",exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector(".lh-family-controls > span").textContent.includes("02"));
+  await page.evaluate(()=>document.querySelector("#family").scrollIntoView({behavior:"instant"}));
+  await page.screenshot({path:"output/playwright/trust-waitlist-2026-09-07/final-mobile-family.png"});
+  await page.evaluate(()=>document.querySelector(".footer").scrollIntoView({behavior:"instant"}));
+  await page.screenshot({path:"output/playwright/trust-waitlist-2026-09-07/final-mobile-footer.png"});
+  await page.setViewportSize({width:1440,height:900});
+  for(const id of ["safety","join"]){ await page.locator("#"+id).screenshot({path:"output/playwright/trust-waitlist-2026-09-07/final-section-"+id+".png"}); }
+  return {samples,keyboardNavigation:true,focusOutline:focus,reducedMotionTransform:reduced,familyAfterResize:"02 / 03"};
+})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4205/en
+- Page Title: Lumiq Studio — Where Stories Come Alive
+### Events
+- New console entries: .playwright-cli/console-2026-09-06T16-06-52-261Z.log#L37

@@ -1,0 +1,38 @@
+### Result
+{"rows":[{"locale":"en","width":320,"height":640,"overflow":0,"clipped":[],"photo":[265,331]},{"locale":"en","width":390,"height":844,"overflow":0,"clipped":[],"photo":[327,409]},{"locale":"en","width":768,"height":1024,"overflow":0,"clipped":[],"photo":[323,403]},{"locale":"en","width":1024,"height":768,"overflow":0,"clipped":[],"photo":[451,563]},{"locale":"en","width":844,"height":390,"overflow":0,"clipped":[],"photo":[361,451]},{"locale":"en","width":1440,"height":900,"overflow":0,"clipped":[],"photo":[613,767]},{"locale":"en","width":2560,"height":1080,"overflow":0,"clipped":[],"photo":[710,888]},{"locale":"en","width":3440,"height":1440,"overflow":0,"clipped":[],"photo":[710,888]},{"locale":"zh-hant","width":320,"height":640,"overflow":0,"clipped":[],"photo":[265,331]},{"locale":"zh-hant","width":390,"height":844,"overflow":0,"clipped":[],"photo":[327,409]},{"locale":"zh-hant","width":768,"height":1024,"overflow":0,"clipped":[],"photo":[323,403]},{"locale":"zh-hant","width":1024,"height":768,"overflow":0,"clipped":[],"photo":[451,563]},{"locale":"zh-hant","width":1440,"height":900,"overflow":0,"clipped":[],"photo":[613,767]},{"locale":"zh-hant","width":2560,"height":1080,"overflow":0,"clipped":[],"photo":[710,888]},{"locale":"ja","width":320,"height":640,"overflow":0,"clipped":[],"photo":[265,331]},{"locale":"ja","width":390,"height":844,"overflow":0,"clipped":[],"photo":[327,409]},{"locale":"ja","width":768,"height":1024,"overflow":0,"clipped":[],"photo":[323,403]},{"locale":"ja","width":1024,"height":768,"overflow":0,"clipped":[],"photo":[451,563]},{"locale":"ja","width":1440,"height":900,"overflow":0,"clipped":[],"photo":[613,767]},{"locale":"ja","width":2560,"height":1080,"overflow":0,"clipped":[],"photo":[710,888]}],"errors":[],"badImages":[]}
+### Ran Playwright code
+```js
+await (async page => {
+  const errors=[],badImages=[],rows=[];
+  page.on("pageerror",e=>errors.push(e.message));
+  page.on("response",r=>{if(r.request().resourceType()==="image"&&r.status()>=400)badImages.push(r.status()+" "+r.url());});
+  for(const locale of ["en","zh-hant","ja"]){
+    await page.goto("http://127.0.0.1:4205/"+locale);
+    const sizes=locale==="en"?[[320,640],[390,844],[768,1024],[1024,768],[844,390],[1440,900],[2560,1080],[3440,1440]]:[[320,640],[390,844],[768,1024],[1024,768],[1440,900],[2560,1080]];
+    for(const [width,height] of sizes){
+      await page.setViewportSize({width,height});
+      await page.locator("#safety").scrollIntoViewIfNeeded();
+      await page.locator("#safety img").evaluate(img=>img.decode());
+      const info=await page.evaluate(()=>{
+        const nodes=[...document.querySelectorAll("#safety h2,#safety h3,#safety .lh-principle,#join h2,#join input[type=email],#join button,.footer .foot-nav")];
+        const clipped=nodes.filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&(r.left < -1||r.right>innerWidth+1||el.scrollWidth>el.clientWidth+1);}).map(el=>el.className||el.tagName);
+        const r=document.querySelector(".lh-safety-image").getBoundingClientRect();
+        return {overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,clipped,photo:[Math.round(r.width),Math.round(r.height)]};
+      });
+      rows.push({locale,width,height,...info});
+      if(info.overflow>1||info.clipped.length)throw Error(JSON.stringify(rows));
+      if(locale!=="en"&&[390,1440].includes(width)){
+        for(const id of ["safety","join"]){
+          await page.evaluate(id=>document.getElementById(id).scrollIntoView({behavior:"instant"}),id);
+          await page.screenshot({path:"output/playwright/trust-waitlist-2026-09-07/final-"+locale+"-"+width+"-"+id+".png"});
+        }
+      }
+    }
+  }
+  if(errors.length||badImages.length)throw Error(JSON.stringify({errors,badImages}));
+  return {rows,errors,badImages};
+})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4205/ja
+- Page Title: Lumiq Studio — 物語が動き出す場所

@@ -175,10 +175,10 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
             },
           );
           gsap.fromTo(
-            ".lh-safety-image img",
-            { yPercent: 8 },
+            ".lh-safety-photo",
+            { yPercent: -2 },
             {
-              yPercent: -5,
+              yPercent: 2,
               ease: "none",
               scrollTrigger: {
                 trigger: ".lh-safety",
