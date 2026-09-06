@@ -13,7 +13,7 @@
   height: 100svh;
 }
 .lh-opening[data-video-mode] .lh-video-layer {
-  --hero-width: min(100vw, 200svh);
+  --hero-width: 100vw;
   /* Ordinary laptop/desktop ratios fill the width without feathered sides. */
   --hero-edge: 0px;
   display: block;
@@ -46,6 +46,7 @@
 }
 @media (min-aspect-ratio: 2 / 1) and (min-width: 1600px) {
   .lh-opening[data-video-mode] .lh-video-layer {
+    --hero-width: min(100vw, 200svh);
     --hero-edge: clamp(0px, calc((100vw - 200svh) * 0.5), 96px);
   }
   .lh-opening[data-video-mode]
@@ -107,7 +108,12 @@
 }
 .lh-opening[data-video-mode] .lh-hero-layout,
 .lh-opening[data-video-mode] .lh-ola-layout {
-  width: min(calc(100% - var(--lh-gutter) * 2), calc(200svh - var(--lh-gutter) * 2));
+  width: calc(100% - var(--lh-gutter) * 2);
+}
+@media (min-aspect-ratio: 2 / 1) and (min-width: 1600px) {
+  .lh-opening[data-video-mode] :is(.lh-hero-layout, .lh-ola-layout) {
+    width: min(calc(100% - var(--lh-gutter) * 2), calc(200svh - var(--lh-gutter) * 2));
+  }
 }
 .lh-opening[data-video-mode] .lh-hero-copy {
   max-width: 540px;
@@ -162,4 +168,11 @@
     :is(.lh-rhythm-connect, .lh-rhythm-care) {
     margin-top: 0;
   }
+}
+@media (max-height: 719px) {
+  .lh-opening[data-video-mode] :is(.lh-hero-layout, .lh-ola-layout) {
+    padding-block: 100px 32px;
+  }
+  .lh-opening[data-video-mode] .lh-rhythm-photo { aspect-ratio: 1 / 1.1; }
+  .lh-opening[data-video-mode] .lh-scroll-cue { bottom: 18px; }
 }

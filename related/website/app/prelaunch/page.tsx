@@ -1,7 +1,7 @@
 "use client";
 import {Link} from "@/i18n/navigation";
 import {useTranslations} from "next-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
@@ -10,22 +10,26 @@ export default function PrelaunchPage() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<SubmissionStatus>("idle");
   const [message, setMessage] = useState("");
+  const busy = useRef(false);
 
   const submitWaitlist = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (status === "submitting") return;
+    if (busy.current) return;
+    busy.current = true;
 
     const formData = new FormData(event.currentTarget);
     const website = String(formData.get("website") ?? "");
 
     setStatus("submitting");
     setMessage("");
-
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 15000);
     try {
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, website }),
+        signal: controller.signal,
       });
       const result = (await response.json()) as {
         ok?: boolean;
@@ -44,6 +48,9 @@ export default function PrelaunchPage() {
     } catch {
       setStatus("error");
       setMessage(t("unavailable"));
+    } finally {
+      window.clearTimeout(timeout);
+      busy.current = false;
     }
   };
 

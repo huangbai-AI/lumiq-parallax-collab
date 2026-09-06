@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export const openingVideoQuery =
-  "(min-width: 1101px) and (min-height: 720px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+  "(min-width: 1101px) and (min-height: 600px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
 /** One continuous AI movie: autoplay the opening, then scrub the same source. */
 export function mountOpeningVideo(root: HTMLElement) {
