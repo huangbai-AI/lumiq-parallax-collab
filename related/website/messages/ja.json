@@ -54,6 +54,11 @@
     "collectionBody": "暮らしを考えた5つの製品。あなたの毎日に合うひとつを見つけてください。",
     "explore": "製品を見る",
     "allProducts": "すべての製品を見る",
+    "productsHeading": "あなたの LumiQ に出会う。",
+    "productsScroll": "スクロールして見る",
+    "productsSwipe": "スワイプして見る",
+    "productsPrevious": "前の製品",
+    "productsNext": "次の製品",
     "products": {
       "tablet": {
         "name": "LumiQ Tablet",

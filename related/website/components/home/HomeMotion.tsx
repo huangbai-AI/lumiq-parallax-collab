@@ -3,6 +3,7 @@ import { useRef, type ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { mountProductRail } from "./productRail";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Native scrolling is the source of truth. No wheel interception or video seeking. */
@@ -10,6 +11,10 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLElement>(null);
   useGSAP(
     () => {
+      // Create the only pinned floor first so following floors measure its spacing.
+      const releaseProducts = root.current
+        ? mountProductRail(root.current)
+        : () => {};
       const mm = gsap.matchMedia();
       mm.add(
         "(min-width: 1101px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)",
@@ -143,28 +148,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
               scrub: 0.6,
             },
           });
-          gsap.from(".lh-product-slot", {
-            y: 130,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ".lh-product-grid",
-              start: "top 95%",
-              end: "top 37%",
-              scrub: 0.7,
-            },
-          });
-          gsap.from(".lh-collection-halo", {
-            scale: 0.7,
-            opacity: 0.3,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".lh-collection",
-              start: "top bottom",
-              end: "center center",
-              scrub: 1,
-            },
-          });
           gsap.fromTo(
             ".lh-house-art",
             { y: 65, scale: 0.93 },
@@ -284,7 +267,10 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
           return () => cleanups.forEach((cleanup) => cleanup());
         },
       );
-      return () => mm.revert();
+      return () => {
+        mm.revert();
+        releaseProducts();
+      };
     },
     { scope: root },
   );

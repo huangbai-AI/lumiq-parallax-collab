@@ -53,7 +53,12 @@
     "collectionTitle": "Different possibilities.\nOne family.",
     "collectionBody": "Five considered objects. Find the one that belongs in your everyday.",
     "explore": "Explore product",
-    "allProducts": "Explore the whole collection",
+    "allProducts": "Explore all products",
+    "productsHeading": "Meet your LumiQ.",
+    "productsScroll": "Scroll to explore",
+    "productsSwipe": "Swipe to explore",
+    "productsPrevious": "Previous product",
+    "productsNext": "Next product",
     "products": {
       "tablet": {
         "name": "LumiQ Tablet",

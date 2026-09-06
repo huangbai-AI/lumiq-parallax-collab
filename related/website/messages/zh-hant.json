@@ -54,6 +54,11 @@
     "collectionBody": "五款用心設計的產品，找到適合你日常生活的那一款。",
     "explore": "探索產品",
     "allProducts": "查看所有產品",
+    "productsHeading": "遇見你的 LumiQ。",
+    "productsScroll": "向下捲動，探索更多",
+    "productsSwipe": "左右滑動，探索更多",
+    "productsPrevious": "上一款產品",
+    "productsNext": "下一款產品",
     "products": {
       "tablet": {
         "name": "LumiQ Tablet",

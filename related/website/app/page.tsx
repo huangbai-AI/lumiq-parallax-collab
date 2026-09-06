@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import {
   ArrowDown,
+  ArrowLeft,
   ArrowUpRight,
   ArrowRight,
   HeartHandshake,
@@ -204,64 +205,94 @@ export default async function Home() {
       </div>
       <section
         id="products"
-        className="lh-collection lh-section"
+        className="lh-products"
         aria-labelledby="products-title"
         data-home-section
       >
-        <div className="lh-collection-halo" aria-hidden="true" />
-        <div className="lh-wrap">
-          <div className="lh-section-head" data-home-reveal>
-            <div>
-              <p className="lh-eyebrow">03 / {t("collectionKicker")}</p>
-              <h2 id="products-title">{t("collectionTitle")}</h2>
-            </div>
-            <p className="lh-section-intro">{t("collectionBody")}</p>
+        <div className="lh-products-stage">
+          <div className="lh-products-heading">
+            <h2 id="products-title">{t("productsHeading")}</h2>
+            <span className="lh-products-count" aria-hidden="true">
+              <span data-products-current>01</span>
+              <span>—</span>
+              <span>05</span>
+            </span>
           </div>
-          <div className="lh-product-grid">
-            {collection.map((id, index) => (
-              <div className={"lh-product-slot lh-product-slot-" + id} key={id}>
-                <Link
-                  href={PRODUCT_BY_ID[id].href}
-                  className={"lh-product lh-product-" + id}
+          <div className="lh-products-viewport" id="home-products-rail">
+            <div className="lh-products-track">
+              {collection.map((id, index) => (
+                <div
+                  className={"lh-product-slot lh-product-slot-" + id}
+                  key={id}
                 >
-                  <div className="lh-product-art">
-                    <div className="lh-product-float">
-                      <Image
-                        src={
-                          "/assets/home-interactive/" + artwork[id] + ".webp"
-                        }
-                        alt={t(`products.${id}.name`)}
-                        fill
-                        sizes="(max-width: 600px) 70vw, (max-width: 1100px) 40vw, 300px"
-                      />
+                  <Link
+                    href={PRODUCT_BY_ID[id].href}
+                    className={"lh-product lh-product-" + id}
+                  >
+                    <div className="lh-product-art">
+                      <div className="lh-product-float">
+                        <Image
+                          src={
+                            "/assets/home-interactive/" + artwork[id] + ".webp"
+                          }
+                          alt={t(`products.${id}.name`)}
+                          fill
+                          sizes="(max-width: 520px) 78vw, 420px"
+                        />
+                      </div>
                     </div>
-                    <div className="lh-podium" aria-hidden="true" />
-                    <span className="lh-product-orbit" aria-hidden="true" />
-                  </div>
-                  <div className="lh-product-copy">
-                    <span className="lh-product-type">
-                      {t(`products.${id}.type`)}
+                    <div className="lh-product-copy">
+                      <span className="lh-product-type">
+                        {t(`products.${id}.type`)}
+                      </span>
+                      <h3>{t(`products.${id}.name`)}</h3>
+                      <p>{t(`products.${id}.body`)}</p>
+                    </div>
+                    <span className="lh-product-bottom">
+                      <span>{t("explore")}</span>
+                      <span className="lh-product-arrow">
+                        <ArrowUpRight size={19} />
+                      </span>
                     </span>
-                    <h3>{t(`products.${id}.name`)}</h3>
-                    <p>{t(`products.${id}.body`)}</p>
-                  </div>
-                  <span className="lh-product-bottom">
-                    <span>{t("explore")}</span>
-                    <span className="lh-product-arrow">
-                      <ArrowUpRight size={19} />
+                    <span className="lh-product-number" aria-hidden="true">
+                      0{index + 1}
                     </span>
-                  </span>
-                  <span className="lh-product-number" aria-hidden="true">
-                    0{index + 1}
-                  </span>
-                </Link>
-              </div>
-            ))}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
-          <Link href="/products" className="lh-collection-link lh-text-link">
-            {t("allProducts")}
-            <ArrowRight size={18} />
-          </Link>
+          <div className="lh-products-footer">
+            <p className="lh-products-hint">
+              <span className="lh-products-scroll-hint">
+                {t("productsScroll")}
+              </span>
+              <span className="lh-products-swipe-hint">
+                {t("productsSwipe")}
+              </span>
+            </p>
+            <div className="lh-products-progress" aria-hidden="true">
+              <span />
+            </div>
+            <div className="lh-products-controls">
+              <button
+                type="button"
+                data-products-previous
+                aria-label={t("productsPrevious")}
+                aria-controls="home-products-rail"
+              >
+                <ArrowLeft size={20} />
+              </button>
+              <button
+                type="button"
+                data-products-next
+                aria-label={t("productsNext")}
+                aria-controls="home-products-rail"
+              >
+                <ArrowRight size={20} />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
       <section
