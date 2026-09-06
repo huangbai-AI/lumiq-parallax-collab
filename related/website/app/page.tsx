@@ -19,6 +19,7 @@ import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
 import "./opening-video.css";
 import "./home-ending.css";
+import "./home-immersive.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.
@@ -341,8 +342,17 @@ export default async function Home() {
         aria-labelledby="safety-title"
         data-home-section
       >
-        <div className="lh-wrap lh-trust-layout">
-          <div className="lh-safety-copy" data-home-reveal>
+        <div className="lh-trust-room">
+          <div className="lh-safety-photo">
+            <Image
+              src="/assets/home-immersive-2026-09-07/trust-wide.webp"
+              alt={t("trustAlt")}
+              fill
+              quality={90}
+              sizes="(min-width: 2200px) 2200px, 100vw"
+            />
+          </div>
+          <div className="lh-wrap lh-safety-copy" data-home-reveal>
             <p className="lh-eyebrow">05 / {t("safetyKicker")}</p>
             <h2 id="safety-title">
               {t("safetyTitle")}
@@ -351,20 +361,9 @@ export default async function Home() {
             </h2>
             <p className="lh-lead">{t("safetyBody")}</p>
           </div>
-          <figure className="lh-trust-figure">
-            <div className="lh-safety-image">
-              <div className="lh-safety-photo">
-                <Image
-                  src="/assets/home-ending-2026-09-07/trust-family.webp"
-                  alt={t("trustAlt")}
-                  fill
-                  quality={90}
-                  sizes="(max-width: 767px) 90vw, (max-width: 1600px) 45vw, 740px"
-                />
-              </div>
-            </div>
-            <figcaption>{t("safetySeal")}</figcaption>
-          </figure>
+        </div>
+        <div className="lh-wrap lh-trust-notes">
+          <p className="lh-trust-caption">{t("safetySeal")}</p>
           <div className="lh-principles">
             {principles.map(({ key, icon: Icon, href }, index) => (
               <Link
@@ -395,7 +394,7 @@ export default async function Home() {
         aria-labelledby="family-title"
         data-home-section
       >
-        <div className="lh-wrap lh-section-head" data-home-reveal>
+        <div className="lh-wrap lh-family-heading" data-home-reveal>
           <div>
             <p className="lh-eyebrow">06 / {t("familyKicker")}</p>
             <h2 id="family-title">

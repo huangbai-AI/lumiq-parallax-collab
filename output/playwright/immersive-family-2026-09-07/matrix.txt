@@ -1,0 +1,50 @@
+### Result
+{"results":[{"locale":"en","width":320,"height":640,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":96.078125,"imageWidths":[320,320,320],"copyOverflow":false},{"locale":"en","width":390,"height":844,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":96.078125,"imageWidths":[389,389,389],"copyOverflow":false},{"locale":"en","width":768,"height":1024,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":84.390625,"imageWidths":[768,768,768],"copyOverflow":false},{"locale":"en","width":1024,"height":768,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":84.390625,"imageWidths":[1024,1024,1024],"copyOverflow":false},{"locale":"en","width":1440,"height":900,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":108.25,"imageWidths":[1440,1440,1440],"copyOverflow":false},{"locale":"en","width":2560,"height":1080,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":112.09375,"imageWidths":[2200,2200,2200],"copyOverflow":false},{"locale":"zh-hant","width":320,"height":640,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":96.078125,"imageWidths":[320,320,320],"copyOverflow":false},{"locale":"zh-hant","width":390,"height":844,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":79.1875,"imageWidths":[389,389,389],"copyOverflow":false},{"locale":"zh-hant","width":768,"height":1024,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":84.390625,"imageWidths":[768,768,768],"copyOverflow":false},{"locale":"zh-hant","width":1024,"height":768,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":84.390625,"imageWidths":[1024,1024,1024],"copyOverflow":false},{"locale":"zh-hant","width":1440,"height":900,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":108.25,"imageWidths":[1440,1440,1440],"copyOverflow":false},{"locale":"zh-hant","width":2560,"height":1080,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":112.09375,"imageWidths":[2200,2200,2200],"copyOverflow":false},{"locale":"ja","width":320,"height":640,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":96.078125,"imageWidths":[320,320,320],"copyOverflow":false},{"locale":"ja","width":390,"height":844,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":96.078125,"imageWidths":[389,389,389],"copyOverflow":false},{"locale":"ja","width":768,"height":1024,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":84.390625,"imageWidths":[768,768,768],"copyOverflow":false},{"locale":"ja","width":1024,"height":768,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":84.390625,"imageWidths":[1024,1024,1024],"copyOverflow":false},{"locale":"ja","width":1440,"height":900,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":108.25,"imageWidths":[1440,1440,1440],"copyOverflow":false},{"locale":"ja","width":2560,"height":1080,"overflow":false,"selected":1,"visiblePanels":1,"minTarget":112.09375,"imageWidths":[2200,2200,2200],"copyOverflow":false}],"keyboard":"pass","reducedMotion":"pass","errors":[]}
+### Ran Playwright code
+```js
+await (async page => {
+ const results=[]; const errors=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ for(const locale of ['en','zh-hant','ja']) {
+  await page.goto('http://127.0.0.1:4206/'+locale+'#family');
+  for(const [width,height] of [[320,640],[390,844],[768,1024],[1024,768],[1440,900],[2560,1080]]) {
+   await page.setViewportSize({width,height});
+   await page.locator('#family').scrollIntoViewIfNeeded();
+   await page.waitForTimeout(250);
+   for(const key of ['afternoon','evening','morning']) {
+    await page.locator('#family-tab-'+key).click();
+    await page.locator('#family-panel-'+key+' img').evaluate(img=>img.decode());
+    if(await page.locator('#family-tab-'+key).getAttribute('aria-selected')!=='true')throw Error('selection');
+   }
+   const stats=await page.evaluate(()=>({
+    overflow:document.documentElement.scrollWidth>innerWidth+1,
+    selected:document.querySelectorAll('#family [aria-selected="true"]').length,
+    visiblePanels:document.querySelectorAll('#family [role="tabpanel"][aria-hidden="false"]').length,
+    minTarget:Math.min(...[...document.querySelectorAll('#family [role="tab"]')].map(e=>e.getBoundingClientRect().height)),
+    imageWidths:[...document.querySelectorAll('#family img')].map(e=>e.naturalWidth),
+    copyOverflow:[...document.querySelectorAll('#safety h2,#family h2,#family [role="tab"]')].some(e=>e.scrollWidth>e.clientWidth+1)
+   }));
+   results.push({locale,width,height,...stats});
+   if(stats.overflow||stats.copyOverflow||stats.selected!==1||stats.visiblePanels!==1||stats.minTarget<44)throw Error(JSON.stringify(results.at(-1)));
+  }
+ }
+ await page.locator('#family-tab-morning').focus();
+ await page.keyboard.press('ArrowRight');
+ if(await page.locator('#family-tab-afternoon').getAttribute('aria-selected')!=='true')throw Error('arrow');
+ await page.keyboard.press('End');
+ if(await page.locator('#family-tab-evening').getAttribute('aria-selected')!=='true')throw Error('end');
+ await page.keyboard.press('ArrowRight');
+ if(await page.locator('#family-tab-morning').getAttribute('aria-selected')!=='true')throw Error('wrap');
+ await page.keyboard.press('Tab');
+ if(await page.evaluate(()=>document.activeElement.id)!=='family-panel-morning')throw Error('panel focus');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ const duration=await page.locator('.lh-family-scene').first().evaluate(e=>getComputedStyle(e).transitionDuration);
+ if(duration!=='0s')throw Error('reduced motion '+duration);
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ if(errors.length)throw Error(JSON.stringify(errors));
+ return {results,keyboard:'pass',reducedMotion:'pass',errors};
+})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4206/ja#family
+- Page Title: Lumiq Studio — 物語が動き出す場所

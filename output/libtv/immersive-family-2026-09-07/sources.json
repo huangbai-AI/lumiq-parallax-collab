@@ -1,0 +1,104 @@
+{
+  "canvas": "5ed032eaf73248ed8c1a7e540b8fab7f",
+  "model": "Lib Image",
+  "resolution": "4K",
+  "quality": "high",
+  "download": "官方会员原图下载",
+  "inputs": "仅原始产品及客户确认的 Nest 15 外观界面。设计方案纯文字生成；所有生成图均不作生图输入。",
+  "assets": [
+    {
+      "key": "design",
+      "node": "b5a21d48-1316-4e8b-a9e9-2ebc318ba76e",
+      "task": "20260907004703851332028",
+      "status": 2,
+      "dimensions": {
+        "items": [
+          {
+            "kind": "image",
+            "width": 2448,
+            "height": 3264
+          }
+        ]
+      },
+      "inputNodes": [],
+      "ratio": "3:4"
+    },
+    {
+      "key": "trust-wide",
+      "node": "73558490-c688-45cf-8977-27489831b2ac",
+      "task": "20260907004703797122028",
+      "status": 2,
+      "dimensions": {
+        "items": [
+          {
+            "kind": "image",
+            "width": 3840,
+            "height": 2160
+          }
+        ]
+      },
+      "inputNodes": [
+        "e36a6499-b973-43cd-8775-e4058373ef37"
+      ],
+      "ratio": "16:9"
+    },
+    {
+      "key": "morning",
+      "node": "98d79f55-8a7c-4ce7-8ea1-2bff8a565de5",
+      "task": "20260907004703788592028",
+      "status": 2,
+      "dimensions": {
+        "items": [
+          {
+            "kind": "image",
+            "width": 3840,
+            "height": 2160
+          }
+        ]
+      },
+      "inputNodes": [
+        "99cea0cd-f44c-4293-8937-762ad57bf3ce"
+      ],
+      "ratio": "16:9"
+    },
+    {
+      "key": "afternoon",
+      "node": "d7fb7287-4a51-4491-aa63-30307bbc0e2c",
+      "task": "20260907004703064112028",
+      "status": 2,
+      "dimensions": {
+        "items": [
+          {
+            "kind": "image",
+            "width": 3840,
+            "height": 2160
+          }
+        ]
+      },
+      "inputNodes": [
+        "e36a6499-b973-43cd-8775-e4058373ef37",
+        "9fafebca-523a-4c56-9738-38cef637c2cf"
+      ],
+      "ratio": "16:9"
+    },
+    {
+      "key": "evening",
+      "node": "21347853-0e71-4225-915d-e1e0e823c48a",
+      "task": "20260907004703114642028",
+      "status": 2,
+      "dimensions": {
+        "items": [
+          {
+            "kind": "image",
+            "width": 3840,
+            "height": 2160
+          }
+        ]
+      },
+      "inputNodes": [
+        "02ba0766-929a-4ded-95f3-3f92e605148e"
+      ],
+      "ratio": "16:9"
+    }
+  ]
+}

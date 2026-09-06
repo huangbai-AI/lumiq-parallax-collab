@@ -189,21 +189,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
             },
           );
           gsap.fromTo(
-            ".lh-family-art",
-            { yPercent: -7, scale: 1.05 },
-            {
-              yPercent: 7,
-              scale: 1.02,
-              ease: "none",
-              scrollTrigger: {
-                trigger: ".lh-family-frame",
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.8,
-              },
-            },
-          );
-          gsap.fromTo(
             ".lh-join-art",
             { yPercent: -5 },
             {

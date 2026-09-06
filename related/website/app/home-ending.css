@@ -1,108 +1,3 @@
-/* Floors 5–7 only. Keep the opening and product/application sections independent. */
-.lh-home .lh-safety {
-  background: linear-gradient(#f2f5fa, #f8f8f6 24%, #faf9f7);
-}
-.lh-trust-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.03fr);
-  grid-template-rows: auto 1fr;
-  column-gap: clamp(40px, 5vw, 80px);
-  row-gap: 48px;
-}
-.lh-safety .lh-safety-copy {
-  grid-column: 1;
-  grid-row: 1;
-}
-.lh-safety .lh-lead {
-  max-width: 510px;
-}
-.lh-trust-figure {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  min-width: 0;
-  margin: 0;
-}
-.lh-safety .lh-safety-image {
-  flex: 1;
-  height: auto;
-  min-height: 580px;
-  aspect-ratio: 4 / 5;
-  border-radius: 28px;
-  mask-image: none;
-  background: #ede8df;
-}
-.lh-safety-photo {
-  position: absolute;
-  inset: -4% 0;
-}
-.lh-safety-photo img {
-  object-fit: cover;
-  object-position: center 52%;
-}
-.lh-trust-figure figcaption {
-  padding-top: 18px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: #6d756e;
-}
-.lh-safety .lh-principles {
-  grid-column: 1;
-  grid-row: 2;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 28px;
-  row-gap: 28px;
-  align-content: start;
-}
-.lh-safety .lh-principle {
-  border: 0;
-  border-top: 1px solid #bdc6cc;
-  border-radius: 0;
-  background: transparent;
-  padding: 20px 0 30px;
-  box-shadow: none;
-  transform: none;
-  transition: border-color 0.25s;
-}
-.lh-principle-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #6b7d88;
-  margin-bottom: 18px;
-}
-.lh-principle-number {
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.08em;
-}
-.lh-home .lh-safety .lh-principle h3 {
-  font-size: clamp(20px, 1.55vw, 24px);
-  line-height: 1.3;
-  letter-spacing: -0.035em;
-  margin-bottom: 12px;
-}
-.lh-home .lh-safety .lh-principle p {
-  font-size: 15px;
-  line-height: 1.75;
-  color: #5e6c7a;
-}
-.lh-safety .lh-principle-arrow {
-  top: auto;
-  right: 0;
-  bottom: 0;
-  transition: transform 0.25s, color 0.25s;
-}
-.lh-safety .lh-principle:is(:hover, :focus-visible) {
-  border-top-color: #687d8a;
-}
-.lh-safety .lh-principle:is(:hover, :focus-visible) .lh-principle-arrow {
-  color: #152439;
-  transform: translate(3px, -3px);
-}
-
 /* A quiet, centered invitation; the form remains real and fully interactive. */
 .lh-home .lh-join {
   background: #f7f6f3;
@@ -195,48 +90,7 @@
     mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
   }
 }
-@media (min-width: 768px) and (max-width: 1100px) {
-  .lh-trust-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 36px;
-  }
-  .lh-trust-figure {
-    grid-row: 1;
-  }
-  .lh-safety .lh-safety-image {
-    min-height: 0;
-    flex: none;
-  }
-  .lh-safety .lh-principles {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
-  }
-}
 @media (max-width: 767px) {
-  .lh-trust-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-  .lh-safety .lh-safety-image {
-    min-height: 0;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    border-radius: 22px;
-  }
-  .lh-safety-photo {
-    inset: 0;
-  }
-  .lh-trust-figure figcaption {
-    padding-top: 14px;
-  }
-  .lh-safety .lh-principles {
-    gap: 28px 24px;
-  }
-  .lh-home .lh-safety .lh-principle h3 {
-    font-size: 21px;
-  }
   .lh-home .lh-join {
     padding-block: 88px;
   }
@@ -251,25 +105,6 @@
   }
 }
 @media (max-width: 520px) {
-  .lh-safety .lh-principles {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .lh-safety .lh-principle {
-    padding: 18px 0 14px 36px;
-  }
-  .lh-principle-top {
-    margin-bottom: 14px;
-  }
-  .lh-principle-number {
-    position: absolute;
-    left: 0;
-    top: 22px;
-  }
-  .lh-safety .lh-principle-arrow {
-    top: 20px;
-    bottom: auto;
-  }
   .lh-join .lh-email-row {
     flex-direction: column;
     gap: 10px;
