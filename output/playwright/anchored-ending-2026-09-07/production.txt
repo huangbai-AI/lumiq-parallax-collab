@@ -1,0 +1,44 @@
+### Result
+{"wheel":{"moved":true,"chapter":"1","top":87},"released":true,"productsStillMove":true}
+### Ran Playwright code
+```js
+await (async page => {
+ const results={};const base='output/playwright/anchored-ending-2026-09-07/';
+ await page.goto('http://127.0.0.1:4207/en#safety');
+ await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(800);
+ const position=async(selector,p)=>{await page.evaluate(({selector,p})=>{const track=document.querySelector(selector),stage=track.firstElementChild,nav=document.querySelector('.site-nav').getBoundingClientRect().height;window.scrollTo({top:track.getBoundingClientRect().top+scrollY-nav+(track.offsetHeight-stage.offsetHeight)*p,behavior:'instant'});},{selector,p});await page.waitForTimeout(800);};
+ await position('.lh-trust-scroll',.4);
+ await page.locator('#safety img').evaluate(img=>img.decode());
+ await page.screenshot({path:base+'trust-1900.png'});
+ for(const [p,key] of [[.1,'morning'],[.5,'afternoon'],[.9,'evening']]){await position('.lh-family-scroll',p);await page.locator('#family-panel-'+key+' img').evaluate(img=>img.decode());await page.screenshot({path:base+'family-'+key+'-1900.png'});}
+ await position('.lh-family-scroll',.1);
+ const before=await page.evaluate(()=>scrollY);
+ await page.mouse.move(950,600);await page.mouse.wheel(0,600);await page.waitForTimeout(900);
+ results.wheel=await page.evaluate(before=>({moved:scrollY>before,chapter:document.querySelector('#family').dataset.chapter,top:document.querySelector('.lh-family-anchor').getBoundingClientRect().top}),before);
+ if(!results.wheel.moved||results.wheel.chapter!=='1'||Math.abs(results.wheel.top-87)>2)throw Error('wheel');
+ await page.mouse.wheel(0,-600);await page.waitForTimeout(900);
+ if(await page.locator('#family-tab-morning').getAttribute('aria-selected')!=='true')throw Error('reverse wheel');
+ await page.mouse.wheel(0,1900);await page.waitForTimeout(900);
+ results.released=await page.locator('.lh-family-anchor').evaluate(e=>e.getBoundingClientRect().bottom<innerHeight);
+ if(!results.released)throw Error('never releases');
+ await page.locator('#join').scrollIntoViewIfNeeded();await page.locator('#join img').evaluate(img=>img.decode());await page.waitForTimeout(500);
+ await page.screenshot({path:base+'join-1900.png'});
+ const sizes=[];
+ for(const [width,height] of [[1440,900],[1280,720],[390,844]]) {
+  await page.setViewportSize({width,height});await page.waitForTimeout(600);
+  if(width>1100){await position('.lh-family-scroll',.5);}else{await page.locator('#family').scrollIntoViewIfNeeded();}
+  await page.screenshot({path:base+'family-'+width+'.png'});
+  if(width===390){await page.locator('#join').scrollIntoViewIfNeeded();await page.screenshot({path:base+'join-390.png'});}
+  sizes.push(width);
+ }
+ await page.setViewportSize({width:1440,height:900});await page.waitForTimeout(600);
+ await page.locator('[data-products-next]').scrollIntoViewIfNeeded();
+ const productBefore=await page.locator('.lh-products-track').evaluate(e=>getComputedStyle(e).transform);
+ await page.locator('[data-products-next]').click();await page.waitForTimeout(1200);
+ const productAfter=await page.locator('.lh-products-track').evaluate(e=>getComputedStyle(e).transform);
+ results.productsStillMove=productBefore!==productAfter;
+ if(!results.productsStillMove)throw Error('product rail');
+ await page.goto('http://127.0.0.1:4207/en#safety');await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(600);await position('.lh-trust-scroll',.25);
+ return results;
+})(page);
+```

@@ -428,10 +428,11 @@ export default async function Home() {
       >
         <div className="lh-join-art" aria-hidden="true">
           <Image
-            src="/assets/home-ending-2026-09-07/join-atmosphere.webp"
+            src="/assets/home-anchored-2026-09-07/join-crystal.webp"
             alt=""
             fill
-            sizes="100vw"
+            quality={90}
+            sizes="(max-width: 767px) 1200px, 100vw"
           />
         </div>
         <div className="lh-wrap lh-join-layout">
