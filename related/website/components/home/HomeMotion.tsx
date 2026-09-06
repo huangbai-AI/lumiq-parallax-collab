@@ -19,16 +19,15 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
           const brand = select(".lh-ola")[0] as HTMLElement;
           // Finite intro: a small glass word settles behind the real products.
           if (window.scrollY < 40) {
-            gsap.from(".lh-glass-word", {
+            gsap.from(".lh-glass-art", {
               scale: 0.21,
               y: 80,
               opacity: 0.1,
               duration: 1.65,
               ease: "power3.inOut",
             });
-            gsap.from(".lh-glass-word span", {
+            gsap.from(".lh-glass-glyph", {
               opacity: 0,
-              y: 8,
               stagger: 0.075,
               duration: 0.65,
               ease: "power2.out",

@@ -18,6 +18,14 @@ import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
+// Five masks reveal the existing rendered letters, not a browser font.
+const glassSlices = [
+  [0, 20],
+  [20, 42],
+  [42, 69.5],
+  [69.5, 77.5],
+  [77.5, 100],
+];
 const artwork: Record<ProductId, string> = {
   tablet: "tablet",
   ola: "ola",
@@ -48,9 +56,24 @@ export default async function Home() {
           data-home-section
         >
           <div className="lh-glass-word" aria-hidden="true">
-            {"LUMiQ".split("").map((letter, i) => (
-              <span key={i}>{letter}</span>
-            ))}
+            <div className="lh-glass-art">
+              {glassSlices.map(([left, right], index) => (
+                <span
+                  className="lh-glass-glyph"
+                  key={index}
+                  style={{ clipPath: `inset(0 ${100 - right}% 0 ${left}%)` }}
+                >
+                  <Image
+                    src="/assets/home-interactive/glass-wordmark-original.webp"
+                    alt=""
+                    fill
+                    sizes="(max-width: 1692px) 91vw, 1540px"
+                    unoptimized
+                    priority
+                  />
+                </span>
+              ))}
+            </div>
           </div>
           <div className="lh-wrap lh-hero-layout">
             <div className="lh-hero-copy">

@@ -183,7 +183,7 @@ html:has(.lh-home) {
 }
 .lh-hero {
   min-height: max(700px, 100svh);
-  z-index: 2;
+  z-index: auto;
 }
 .lh-hero-layout {
   min-height: max(700px, 100svh);
@@ -215,26 +215,27 @@ html:has(.lh-home) {
   left: 50%;
   width: min(91%, 1540px);
   transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
-  font-family: "Lumiq Space", sans-serif;
-  font-weight: 500;
-  font-size: clamp(150px, 20vw, 330px);
-  line-height: 1;
-  letter-spacing: -0.09em;
-  color: #eef0f620;
-  -webkit-text-stroke: 1px #acb6c85c;
-  text-shadow:
-    0 2px 2px #ffffff3a,
-    1px 5px 18px #a69bc11a;
   pointer-events: none;
+  mix-blend-mode: multiply;
+  mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
 }
-.lh-glass-word span {
-  display: block;
+.lh-glass-art {
+  position: relative;
+  aspect-ratio: 1590 / 385;
+  mask-image: linear-gradient(
+    180deg,
+    transparent,
+    #000 8%,
+    #000 90%,
+    transparent
+  );
 }
-.lh-glass-word span:last-child {
-  background: linear-gradient(120deg, #e9edf34f 55%, #b9a5d75a 78%, #f6b5c04d);
-  background-clip: text;
+.lh-glass-glyph {
+  position: absolute;
+  inset: 0;
+}
+.lh-glass-glyph img {
+  object-fit: contain;
 }
 .lh-hero-stage {
   position: relative;
@@ -1242,7 +1243,6 @@ html:has(.lh-home) {
   .lh-glass-word {
     top: auto;
     bottom: 250px;
-    font-size: 22vw;
     width: 92%;
     opacity: 0.75;
   }
