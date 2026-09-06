@@ -87,9 +87,9 @@
       }
     },
     "experienceKicker": "毎日の暮らしのために",
-    "experienceTitle": "小さな時間に、",
-    "experienceAccent": "大きな可能性を。",
-    "experienceBody": "LumiQ と過ごす一日を想像してみてください。製品から生まれる体験をご紹介します。",
+    "experienceTitle": "ひとつにつながる、",
+    "experienceAccent": "家族の毎日。",
+    "experienceBody": "学びも、遊びも、ふれあいも。日々の暮らしに。",
     "seeExperience": "体験を詳しく見る",
     "experiences": {
       "stories": {
@@ -169,6 +169,13 @@
       "ola-go": "お出かけに",
       "nest": "キッチンと食卓",
       "print": "創作のコーナー"
+    },
+    "roomUses": {
+      "tablet": "物語が動き出す",
+      "ola": "育まれるつながり",
+      "ola-go": "どこでも学びと遊び",
+      "nest": "食卓でつながる",
+      "print": "つくって、分かち合う"
     }
   },
   "Common": {

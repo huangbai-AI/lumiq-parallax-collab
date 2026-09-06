@@ -30,8 +30,8 @@ const glassSlices = [
   [77.5, 100],
 ];
 const artwork: Record<ProductId, string> = {
-  tablet: "home-products-20260907/tablet-angle",
-  ola: "home-products-20260907/ola-angle",
+  tablet: "home-products-refined-20260907/tablet-pair",
+  ola: "home-products-refined-20260907/ola-repaired",
   "ola-go": "home-interactive/go",
   nest: "home-products-20260907/nest15-angle-confirmed",
   print: "home-interactive/print",

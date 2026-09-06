@@ -12,69 +12,64 @@
 .lh-room-section::after { bottom: 0; background: linear-gradient(transparent, #f2f5fa); }
 .lh-room-layout {
   position: relative; isolation: isolate; z-index: 1; max-width: 1920px;
-  min-height: max(900px, min(56.25vw, 1080px)); margin-inline: auto;
-  display: grid; grid-template-columns: 30% 1fr; grid-template-rows: auto 1fr;
+  min-height: max(800px, min(56.25vw, 1080px)); margin-inline: auto;
+  display: grid; grid-template-columns: 30% 1fr; grid-template-rows: 1fr auto 1fr;
   column-gap: 4%; padding: 100px 5% 90px;
 }
 .lh-room-heading,
 .lh-room-copy { position: relative; z-index: 2; grid-column: 1; }
-.lh-room-heading { grid-row: 1; }
-.lh-home .lh-room-heading h2 { font-size: clamp(36px, 3.3vw, 58px); }
+.lh-room-heading { grid-row: 2; align-self: end; }
+.lh-home .lh-room-heading h2 { font-size: clamp(34px, 3.25vw, 60px); line-height: 1.13; letter-spacing: -.035em; text-transform: uppercase; }
 .lh-home .lh-room-intro { font-size: 15px; line-height: 1.75; color: #647184; margin: 22px 0 28px; max-width: 380px; }
 .lh-room-map { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .lh-room-canvas { position: absolute; width: 100%; aspect-ratio: 16 / 9; top: 50%; margin-top: -28.125%; }
 .lh-room-background,
 .lh-room-lines,
+.lh-room-orbits,
 .lh-room-products { position: absolute; inset: 0; width: 100%; height: 100%; }
 .lh-room-background img { object-fit: contain; }
 .lh-room-background { mask-image: linear-gradient(transparent, #000 5%, #000 94%, transparent); }
+.lh-room-orbits { overflow: visible; pointer-events: none; }
+.lh-room-orbits path { fill: none; stroke: #ffffffc9; stroke-width: 1.5; filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px #b9e4ff); }
+
 .lh-room-lines { overflow: visible; }
-.lh-room-lines path { fill: none; stroke: #fff; stroke-width: 1.5; filter: drop-shadow(0 1px 3px #6688aa50); }
-.lh-room-lines circle { fill: white; stroke: #709bbf; stroke-width: 1; }
-.lh-room-lines g { opacity: 0; transition: opacity .35s; }
-.lh-room-lines g[data-selected="true"] { opacity: .85; }
+.lh-room-lines path { fill: none; stroke: #fff; stroke-width: 1.35; filter: drop-shadow(0 0 3px white) drop-shadow(0 0 7px #d7eeff); }
+.lh-room-lines circle { fill: white; stroke: #ffffff80; stroke-width: 4; filter: drop-shadow(0 0 5px white); }
+.lh-room-lines g { opacity: .55; transition: opacity .35s; }
+.lh-room-lines g[data-selected="true"] { opacity: 1; }
 .lh-room-product {
-  position: absolute; left: var(--room-x); top: var(--room-y); transform: translate(-50%, -50%); width: clamp(112px, 9vw, 168px);
+  position: absolute; left: var(--room-x); top: var(--room-y); transform: translate(-50%, -50%); width: clamp(140px, 11vw, 210px);
   padding: 0; border: 0; background: none; color: #223b54; text-align: center;
   pointer-events: auto; border-radius: 14px;
 }
 .lh-room-product-art {
-  display: block; position: relative; width: clamp(85px, 7.3vw, 136px); height: clamp(85px, 7.3vw, 136px);
-  margin: 0 auto 9px; border: 1px solid #ffffffd9; border-radius: 50%;
-  background: radial-gradient(circle at 40% 30%, #ffffffd9, #eff3fb80 65%, #d8e5f366);
-  box-shadow: 0 0 0 5px #ffffff26, 0 8px 26px #43628f16;
-  transition: transform .35s, box-shadow .35s;
+  display: block; position: relative; isolation: isolate; width: clamp(114px, 9.4vw, 180px); aspect-ratio: 1;
+  margin: 0 auto 14px; border: 2px solid #fffffff0; border-radius: 50%;
+  background: radial-gradient(circle at 34% 20%, #ffffffb8, #e6f4ff26 46%, #b8d9f333 72%, #ffffff9c);
+  box-shadow: inset 0 0 12px #fff, 0 0 6px 2px #fff, 0 0 22px 8px #e5f7ffd9, 0 0 48px 12px #badfff80;
+  transition: transform .4s, box-shadow .4s;
 }
-.lh-room-product-art img { object-fit: contain; padding: 10px; filter: drop-shadow(0 8px 5px #1e354026); }
-.lh-room-product-ola .lh-room-product-art img { padding: 4px 22px; }
+.lh-room-product-art::before { content: ""; position: absolute; inset: -11%; border-radius: 50%; border: 1px solid #ffffff50; background: radial-gradient(ellipse at 25% 14%, #fff 0, #fff9 2%, transparent 13%); pointer-events: none; }
+.lh-room-product-art::after { content: ""; position: absolute; width: 24%; height: 24%; top: -8%; right: 5%; background: radial-gradient(ellipse, white, #fff5 20%, transparent 65%); filter: blur(1px); pointer-events: none; }
+.lh-room-product-art img { object-fit: contain; padding: 10px; filter: drop-shadow(0 10px 7px #24486540); }
+.lh-room-product-ola .lh-room-product-art img { padding: 7px 26px; }
 .lh-room-product-ola-go .lh-room-product-art img,
-.lh-room-product-print .lh-room-product-art img { padding: 10px 22px; }
-.lh-room-product[aria-pressed="true"] .lh-room-product-art { box-shadow: 0 0 0 3px #9bbbd780, 0 0 28px #ffffff, 0 8px 26px #43628f18; }
-.lh-room-product:where(:hover, :focus-visible) .lh-room-product-art { transform: translateY(-5px) scale(1.04); }
+.lh-room-product-print .lh-room-product-art img { padding: 13px 25px; }
+.lh-room-product[aria-pressed="true"] .lh-room-product-art { box-shadow: inset 0 0 16px #fff, 0 0 8px 3px #fff, 0 0 30px 12px #d5f0ff, 0 0 58px 15px #c3e5ff9c; }
+.lh-room-product:where(:hover, :focus-visible) .lh-room-product-art { transform: translateY(-7px) scale(1.06); }
 .lh-room-product-name,
 .lh-room-product-place { display: block; line-height: 1.45; }
-.lh-room-product-name { font-size: 12px; font-weight: 700; }
+.lh-room-product-name { font-size: clamp(11px, .85vw, 16px); font-weight: 500; text-shadow: 0 1px 8px white, 0 1px 4px white; }
 .lh-room-product-place { font-size: 11px; color: #5c6d80; margin-top: 2px; }
-.lh-room-copy { grid-row: 2; }
-.lh-room-tabs { display: flex; gap: 5px; padding-bottom: 18px; margin-bottom: 24px; border-bottom: 1px solid #7189a329; }
-.lh-room-tabs button {
-  display: flex; justify-content: center; align-items: center; flex: 1; gap: 6px; min-height: 44px;
-  border: 1px solid transparent; border-radius: 99px; padding: 8px 6px; font-size: 12px;
-  font-weight: 600; color: #5f7187; background: #ffffff66;
-}
-.lh-room-tabs button[aria-selected="true"] { color: white; background: #294964; }
-.lh-room-tabs svg { flex-shrink: 0; }
-.lh-room-caption { display: block; font-size: 10px; font-weight: 700; letter-spacing: .07em; color: #678298; margin-bottom: 13px; }
-/* 三段内容共用最大高度，切换不推动房间和下一个楼层。 */
+.lh-room-copy { grid-row: 3; align-self: start; }
+.lh-room-tabs { display: flex; gap: 20px; margin-bottom: 18px; }
+.lh-room-tabs button { display: flex; gap: 6px; align-items: center; min-height: 44px; padding: 0; background: transparent; border: 0; border-bottom: 1px solid transparent; color: #607184; font-size: 12px; }
+.lh-room-tabs button[aria-selected="true"] { border-bottom-color: #385771; color: #223b54; }
+.lh-room-tabs svg { width: 14px; height: 14px; }
 .lh-room-details { display: grid; align-items: start; }
 .lh-room-details .lh-experience-panel { grid-area: 1 / 1; min-width: 0; }
 .lh-room-details .lh-experience-panel[data-inactive="true"] { visibility: hidden; pointer-events: none; }
-.lh-home .lh-room-details h3 { font-size: clamp(22px, 1.7vw, 29px); line-height: 1.3; }
-.lh-home .lh-room-details .lh-experience-panel > p { font-size: 14px; line-height: 1.75; margin: 18px 0 18px; color: #5f7084; }
-.lh-room-steps { list-style: none; padding: 0; margin: 0 0 18px; }
-.lh-room-steps li { display: flex; align-items: baseline; gap: 12px; padding: 10px 0; border-top: 1px solid #8198af26; font-size: 12px; line-height: 1.6; }
-.lh-room-steps li span { font-size: 10px; color: #6e879d; }
-.lh-room-details .lh-text-link { font-size: 13px; }
+.lh-room-details .lh-text-link { font-size: 12px; color: #4f687e; }
 
 @media (min-width: 1921px) {
   .lh-room-background {
@@ -97,25 +92,25 @@
   .lh-room-product-ola-go { left: 86%; }
   .lh-room-product-ola { left: 86%; }
   .lh-room-lines { display: none; }
-  .lh-room-product-art { width: 104px; height: 104px; }
+  .lh-room-product-art { width: 112px; height: 112px; }
   .lh-room-copy { padding-top: 24px; }
   .lh-room-tabs { max-width: 500px; }
-  .lh-room-details { min-height: 350px; }
+  .lh-room-details { min-height: 24px; }
 }
 @media (max-width: 767px) {
   .lh-room-layout { padding-top: 65px; padding-bottom: 65px; }
   .lh-room-map { aspect-ratio: 1; margin-top: -5px; }
   .lh-room-canvas { top: 8px; }
   .lh-room-product { width: 94px; }
-  .lh-room-product-art { width: 68px; height: 68px; margin-bottom: 5px; }
+  .lh-room-product-art { width: 78px; height: 78px; margin-bottom: 5px; }
   .lh-room-product-art img { padding: 7px; }
   .lh-room-product-ola .lh-room-product-art img { padding: 4px 15px; }
   .lh-room-product-ola-go .lh-room-product-art img,
   .lh-room-product-print .lh-room-product-art img { padding: 7px 15px; }
-  .lh-room-product-name { font-size: 10px; }
+  .lh-room-product-name { font-size: 10px; line-height: 1.25; }
   .lh-room-product-place { font-size: 9px; }
   .lh-room-copy { padding-top: 15px; }
-  .lh-room-details { min-height: 390px; }
+  .lh-room-details { min-height: 24px; }
   .lh-home .lh-room-details h3 { font-size: 25px; }
 }
 @media (prefers-reduced-motion: reduce) {

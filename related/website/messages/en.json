@@ -87,9 +87,9 @@
       }
     },
     "experienceKicker": "Made for real life",
-    "experienceTitle": "Little moments.",
-    "experienceAccent": "Bigger possibilities.",
-    "experienceBody": "See what a day with LumiQ can feel like. Discover the experiences behind the objects.",
+    "experienceTitle": "One connected",
+    "experienceAccent": "family of experiences.",
+    "experienceBody": "Learning, play and togetherness, woven into everyday life.",
     "seeExperience": "Explore the experience",
     "experiences": {
       "stories": {
@@ -169,6 +169,13 @@
       "ola-go": "On the go",
       "nest": "Kitchen & dining",
       "print": "Creative corner"
+    },
+    "roomUses": {
+      "tablet": "Stories come to life",
+      "ola": "Companionship that grows",
+      "ola-go": "Learning & play anywhere",
+      "nest": "Mealtimes that connect",
+      "print": "Create & share"
     }
   },
   "Common": {

@@ -87,9 +87,9 @@
       }
     },
     "experienceKicker": "為真實生活而設計",
-    "experienceTitle": "日常小時刻，",
-    "experienceAccent": "更多新可能。",
-    "experienceBody": "從具體使用方式出發，探索 LumiQ 如何融入家庭的一天。",
+    "experienceTitle": "一家相連，",
+    "experienceAccent": "讓體驗發生。",
+    "experienceBody": "讓學習、玩樂與陪伴，自然融入每一天。",
     "seeExperience": "了解應用體驗",
     "experiences": {
       "stories": {
@@ -169,6 +169,13 @@
       "ola-go": "出門隨行",
       "nest": "廚房與餐桌",
       "print": "創作角落"
+    },
+    "roomUses": {
+      "tablet": "讓故事活起來",
+      "ola": "一起成長的陪伴",
+      "ola-go": "隨時學習與玩樂",
+      "nest": "相聚每一餐",
+      "print": "創作與分享"
     }
   },
   "Common": {

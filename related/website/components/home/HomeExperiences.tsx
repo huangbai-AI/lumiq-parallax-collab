@@ -13,8 +13,8 @@ const experiences = [
 
 // Original products and location lines share the same 16:9 background plane.
 const roomProducts = [
-  { id: "tablet", group: 0, image: "home-products-20260907/tablet-angle", x: 44, y: 22, targetX: 47, targetY: 55 },
-  { id: "ola", group: 1, image: "home-products-20260907/ola-angle", x: 87, y: 23, targetX: 77, targetY: 46 },
+  { id: "tablet", group: 0, image: "home-products-refined-20260907/tablet-pair", x: 44, y: 22, targetX: 47, targetY: 55 },
+  { id: "ola", group: 1, image: "home-products-refined-20260907/ola-repaired", x: 87, y: 23, targetX: 77, targetY: 46 },
   { id: "ola-go", group: 1, image: "home-interactive/go", x: 94, y: 64, targetX: 87, targetY: 58 },
   { id: "nest", group: 2, image: "home-products-20260907/nest15-angle-confirmed", x: 45, y: 84, targetX: 75, targetY: 58 },
   { id: "print", group: 0, image: "home-interactive/print", x: 74, y: 88, targetX: 49, targetY: 58 },
@@ -39,10 +39,10 @@ export default function HomeExperiences() {
   return (
     <div className="lh-room-layout" data-active={experiences[active].key}>
       <div className="lh-room-heading" data-home-reveal>
-        <p className="lh-eyebrow">04 / {t("experienceKicker")}</p>
+
         <h2 id="experiences-title">
           {t("experienceTitle")}<br />
-          <span className="lh-muted">{t("experienceAccent")}</span>
+          <span>{t("experienceAccent")}</span>
         </h2>
         <p className="lh-room-intro">{t("experienceBody")}</p>
       </div>
@@ -58,10 +58,13 @@ export default function HomeExperiences() {
               quality={95}
             />
           </div>
+          <svg className="lh-room-orbits" viewBox="0 0 1000 562.5" aria-hidden="true">
+            <path d="M 305 330 C 255 510, 880 525, 992 345" />
+          </svg>
           <svg className="lh-room-lines" viewBox="0 0 1000 562.5" aria-hidden="true">
             {roomProducts.map(({ id, group, x, y, targetX, targetY }) => (
               <g key={id} data-selected={active === group}>
-                <path d={`M ${x * 10} ${y * 5.625} Q ${x * 10} ${targetY * 5.625} ${targetX * 10} ${targetY * 5.625}`} />
+                <path d={`M ${x * 10} ${y * 5.625} L ${targetX * 10} ${targetY * 5.625}`} />
                 <circle cx={targetX * 10} cy={targetY * 5.625} r="3.5" />
               </g>
             ))}
@@ -79,10 +82,9 @@ export default function HomeExperiences() {
                 onClick={() => setActive(group)}
               >
                 <span className="lh-room-product-art">
-                  <Image src={`/assets/${image}.webp`} alt="" fill sizes="(max-width: 767px) 72px, (max-width: 1100px) 110px, 140px" quality={90} />
+                  <Image src={`/assets/${image}.webp`} alt="" fill sizes="(max-width: 767px) 88px, (max-width: 1100px) 128px, 180px" quality={90} />
                 </span>
-                <span className="lh-room-product-name">{t(`products.${id}.name`)}</span>
-                <span className="lh-room-product-place">{t(`roomPlaces.${id}`)}</span>
+                <span className="lh-room-product-name">{t(`roomUses.${id}`)}</span>
               </button>
             ))}
           </div>
@@ -122,16 +124,8 @@ export default function HomeExperiences() {
               inert={active !== index}
               tabIndex={active === index ? 0 : -1}
             >
-              <span className="lh-room-caption">{t(`experiences.${key}.caption`)}</span>
-              <h3>{t(`experiences.${key}.title`)}</h3>
-              <p>{t(`experiences.${key}.body`)}</p>
-              <ol className="lh-room-steps">
-                {[1, 2, 3].map((step) => (
-                  <li key={step}><span>0{step}</span>{t(`experiences.${key}.step${step}`)}</li>
-                ))}
-              </ol>
               <Link href={href} className="lh-text-link">
-                {t("seeExperience")}<ArrowRight size={18} />
+                {t(`experiences.${key}.caption`)}<ArrowRight size={18} />
               </Link>
             </div>
           ))}
