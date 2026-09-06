@@ -17,6 +17,7 @@ import HomeExperiences from "@/components/home/HomeExperiences";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
+import "./opening-video.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.
@@ -46,162 +47,179 @@ export default async function Home() {
   return (
     <HomeMotion>
       <div className="lh-opening">
-        <div
-          className="lh-atmosphere lh-opening-atmosphere"
-          aria-hidden="true"
-        />
-        <section
-          id="top"
-          className="lh-hero"
-          aria-labelledby="hero-title"
-          data-home-section
-        >
-          <div className="lh-glass-word" aria-hidden="true">
-            <div className="lh-glass-art">
-              {glassSlices.map(([left, right], index) => (
-                <span
-                  className="lh-glass-glyph"
-                  key={index}
-                  style={{ clipPath: `inset(0 ${100 - right}% 0 ${left}%)` }}
-                >
+        <div className="lh-opening-stage">
+          <div className="lh-video-layer" aria-hidden="true">
+            <div className="lh-video-start-poster" />
+            <div className="lh-video-end-poster" />
+            <video
+              className="lh-opening-video"
+              muted
+              playsInline
+              preload="none"
+              tabIndex={-1}
+            />
+          </div>
+          <div
+            className="lh-atmosphere lh-opening-atmosphere"
+            aria-hidden="true"
+          />
+          <section
+            id="top"
+            className="lh-hero"
+            aria-labelledby="hero-title"
+            data-home-section
+          >
+            <div className="lh-glass-word" aria-hidden="true">
+              <div className="lh-glass-art">
+                {glassSlices.map(([left, right], index) => (
+                  <span
+                    className="lh-glass-glyph"
+                    key={index}
+                    style={{ clipPath: `inset(0 ${100 - right}% 0 ${left}%)` }}
+                  >
+                    <Image
+                      src="/assets/home-interactive/glass-wordmark-original.webp"
+                      alt=""
+                      fill
+                      sizes="(max-width: 1692px) 91vw, 1540px"
+                      unoptimized
+                      priority
+                    />
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="lh-wrap lh-hero-layout">
+              <div className="lh-hero-copy">
+                <p className="lh-eyebrow">
+                  <span className="lh-dot" /> LUMIQ STUDIO
+                </p>
+                <h1 id="hero-title">
+                  {t("hero1")}
+                  <br />
+                  {t("hero2")}
+                  <br />
+                  <span>{t("hero3")}</span>
+                </h1>
+                <p className="lh-lead">{t("heroBody")}</p>
+                <div className="lh-actions">
+                  <a href="#products" className="lh-button">
+                    {t("discover")}
+                    <ArrowRight size={18} />
+                  </a>
+                  <Link href="/story#brand-film" className="lh-text-link">
+                    {t("ourStory")}
+                    <ArrowUpRight size={18} />
+                  </Link>
+                </div>
+              </div>
+              <div
+                className="lh-hero-stage"
+                aria-label={t("heroAlt")}
+                role="img"
+              >
+                <div className="lh-hero-plinth" aria-hidden="true" />
+                <div className="lh-hero-object lh-hero-nest">
                   <Image
-                    src="/assets/home-interactive/glass-wordmark-original.webp"
+                    src="/assets/home-interactive/nest15-confirmed.webp"
                     alt=""
                     fill
-                    sizes="(max-width: 1692px) 91vw, 1540px"
-                    unoptimized
+                    sizes="(max-width: 767px) 36vw, 350px"
                     priority
                   />
-                </span>
-              ))}
+                </div>
+                <div className="lh-hero-object lh-hero-ola">
+                  <Image
+                    src="/assets/home-interactive/ola.webp"
+                    alt=""
+                    fill
+                    sizes="(max-width: 767px) 40vw, 430px"
+                    priority
+                  />
+                </div>
+                <div className="lh-hero-object lh-hero-tablet">
+                  <Image
+                    src="/assets/home-interactive/tablet.webp"
+                    alt=""
+                    fill
+                    sizes="(max-width: 767px) 40vw, 410px"
+                    priority
+                  />
+                </div>
+                <div className="lh-hero-object lh-hero-go">
+                  <Image
+                    src="/assets/home-interactive/go.webp"
+                    alt=""
+                    fill
+                    sizes="150px"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="lh-wrap lh-hero-layout">
-            <div className="lh-hero-copy">
-              <p className="lh-eyebrow">
-                <span className="lh-dot" /> LUMIQ STUDIO
-              </p>
-              <h1 id="hero-title">
-                {t("hero1")}
-                <br />
-                {t("hero2")}
-                <br />
-                <span>{t("hero3")}</span>
-              </h1>
-              <p className="lh-lead">{t("heroBody")}</p>
-              <div className="lh-actions">
-                <a href="#products" className="lh-button">
-                  {t("discover")}
+            <a className="lh-scroll-cue" href="#ola">
+              <span>
+                <ArrowDown size={17} />
+              </span>
+              {t("scroll")}
+            </a>
+            <span className="lh-section-index" aria-hidden="true">
+              01 — 07
+            </span>
+          </section>
+          <section
+            id="ola"
+            className="lh-ola"
+            aria-labelledby="ola-title"
+            data-home-section
+          >
+            <div className="lh-wrap lh-ola-layout">
+              <div className="lh-ola-copy" data-home-reveal>
+                <p className="lh-eyebrow">02 / {t("olaKicker")}</p>
+                <h2 id="ola-title">
+                  {t("brandTitle")}
+                  <br />
+                  <span className="lh-muted">{t("brandAccent")}</span>
+                </h2>
+                <p className="lh-lead">{t("brandBody")}</p>
+                <Link className="lh-text-link" href="/products/ola">
+                  {t("meetOla")}
                   <ArrowRight size={18} />
-                </a>
-                <Link href="/story#brand-film" className="lh-text-link">
-                  {t("ourStory")}
-                  <ArrowUpRight size={18} />
                 </Link>
               </div>
-            </div>
-            <div className="lh-hero-stage" aria-label={t("heroAlt")} role="img">
-              <div className="lh-hero-plinth" aria-hidden="true" />
-              <div className="lh-hero-object lh-hero-nest">
+              <div className="lh-brand-character" aria-hidden="true">
                 <Image
-                  src="/assets/home-interactive/nest15-confirmed.webp"
+                  src="/assets/home-interactive/ola-character.webp"
                   alt=""
                   fill
-                  sizes="(max-width: 767px) 36vw, 350px"
-                  priority
+                  sizes="(max-width: 767px) 180px, 340px"
                 />
               </div>
-              <div className="lh-hero-object lh-hero-ola">
-                <Image
-                  src="/assets/home-interactive/ola.webp"
-                  alt=""
-                  fill
-                  sizes="(max-width: 767px) 40vw, 430px"
-                  priority
-                />
-              </div>
-              <div className="lh-hero-object lh-hero-tablet">
-                <Image
-                  src="/assets/home-interactive/tablet.webp"
-                  alt=""
-                  fill
-                  sizes="(max-width: 767px) 40vw, 410px"
-                  priority
-                />
-              </div>
-              <div className="lh-hero-object lh-hero-go">
-                <Image
-                  src="/assets/home-interactive/go.webp"
-                  alt=""
-                  fill
-                  sizes="150px"
-                  priority
-                />
+              <div className="lh-rhythm-cards">
+                {(["learn", "connect", "care"] as const).map((key, i) => (
+                  <article
+                    className={"lh-rhythm-card lh-rhythm-" + key}
+                    key={key}
+                  >
+                    <div className="lh-rhythm-photo">
+                      <Image
+                        src={"/assets/home-video/" + key + ".webp"}
+                        alt={t(`rhythms.${key}.alt`)}
+                        fill
+                        sizes="(max-width: 520px) 42vw, (max-width: 1100px) 28vw, 320px"
+                      />
+                    </div>
+                    <div className="lh-rhythm-copy">
+                      <span className="lh-micro-index">0{i + 1}</span>
+                      <h3>{t(`rhythms.${key}.title`)}</h3>
+                      <p>{t(`rhythms.${key}.body`)}</p>
+                    </div>
+                  </article>
+                ))}
               </div>
             </div>
-          </div>
-          <a className="lh-scroll-cue" href="#ola">
-            <span>
-              <ArrowDown size={17} />
-            </span>
-            {t("scroll")}
-          </a>
-          <span className="lh-section-index" aria-hidden="true">
-            01 — 07
-          </span>
-        </section>
-        <section
-          id="ola"
-          className="lh-ola"
-          aria-labelledby="ola-title"
-          data-home-section
-        >
-          <div className="lh-wrap lh-ola-layout">
-            <div className="lh-ola-copy" data-home-reveal>
-              <p className="lh-eyebrow">02 / {t("olaKicker")}</p>
-              <h2 id="ola-title">
-                {t("brandTitle")}
-                <br />
-                <span className="lh-muted">{t("brandAccent")}</span>
-              </h2>
-              <p className="lh-lead">{t("brandBody")}</p>
-              <Link className="lh-text-link" href="/products/ola">
-                {t("meetOla")}
-                <ArrowRight size={18} />
-              </Link>
-            </div>
-            <div className="lh-brand-character" aria-hidden="true">
-              <Image
-                src="/assets/home-interactive/ola-character.webp"
-                alt=""
-                fill
-                sizes="(max-width: 767px) 180px, 340px"
-              />
-            </div>
-            <div className="lh-rhythm-cards">
-              {(["learn", "connect", "care"] as const).map((key, i) => (
-                <article
-                  className={"lh-rhythm-card lh-rhythm-" + key}
-                  key={key}
-                >
-                  <div className="lh-rhythm-photo">
-                    <Image
-                      src={"/assets/home-interactive/" + key + ".webp"}
-                      alt={t(`rhythms.${key}.alt`)}
-                      fill
-                      sizes="(max-width: 767px) 80vw, 320px"
-                    />
-                  </div>
-                  <div className="lh-rhythm-copy">
-                    <span className="lh-micro-index">0{i + 1}</span>
-                    <h3>{t(`rhythms.${key}.title`)}</h3>
-                    <p>{t(`rhythms.${key}.body`)}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
       <section
         id="products"

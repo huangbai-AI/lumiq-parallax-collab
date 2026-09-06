@@ -391,7 +391,7 @@ html:has(.lh-home) {
 }
 .lh-rhythm-photo {
   position: relative;
-  aspect-ratio: 0.78;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
 }
 .lh-rhythm-photo img {
@@ -1451,7 +1451,7 @@ html:has(.lh-home) {
     font-size: 12px;
   }
   .lh-rhythm-photo {
-    aspect-ratio: 0.73;
+    aspect-ratio: 3 / 4;
   }
   .lh-experience-browser {
     grid-template-columns: 1fr;
