@@ -1,5 +1,36 @@
 {
   "HomeRefresh": {
+    "previousMoment": "前の家族の時間",
+    "nextMoment": "次の家族の時間",
+    "brandTitle": "ひとつの家族。",
+    "brandAccent": "それぞれのリズム。",
+    "brandBody": "家族には、それぞれのペースがあります。学び、つながり、日々の小さな時間を、OLA と一緒に。",
+    "meetOla": "OLA に出会う",
+    "houseAlt": "学び、寄り添い、家族の日常を探索できる、青い立体の家",
+    "trustAlt": "オレンジ色の LumiQ Tablet を一緒に使う親子",
+    "familyPanoramaAlt": "朝の団らん、午後の発見、寝る前の物語へと続く家族の一日",
+    "familyMoments": {
+      "morning": "一緒に始める朝",
+      "afternoon": "午後の小さな発見",
+      "evening": "おやすみ前の想像"
+    },
+    "rhythms": {
+      "learn": {
+        "title": "学ぶ",
+        "body": "好奇心から始まる発見が、自信につながる。",
+        "alt": "オレンジ色のタブレットで物語を楽しむ子ども"
+      },
+      "connect": {
+        "title": "つながる",
+        "body": "一緒に過ごす小さな時間が、家族を近づける。",
+        "alt": "タブレットを一緒に楽しむ親子"
+      },
+      "care": {
+        "title": "寄り添う",
+        "body": "大切な人のために、心を込めたパートナー。",
+        "alt": "寝る前にぬいぐるみを抱きしめる子ども"
+      }
+    },
     "navExperiences": "体験",
     "navAbout": "ブランドストーリー",
     "navSafety": "安全への配慮",
@@ -40,7 +71,7 @@
         "body": "OLA に付属する、ポケットサイズの仲間。"
       },
       "nest": {
-        "name": "LumiQ LuckyTable",
+        "name": "LumiQ Nest 15",
         "type": "家族の予定をひとつに",
         "body": "家族の一日を、落ち着いたひとつの場所で。"
       },
@@ -79,7 +110,7 @@
       "routines": {
         "label": "家族のリズム",
         "alt": "木枠の LumiQ ディスプレイで予定を確認する家族",
-        "caption": "LumiQ LuckyTable",
+        "caption": "LumiQ Nest 15",
         "title": "みんなの一日を、少し近くに。",
         "body": "カレンダー、習慣、リマインダーを共有の場所へ。大切な時間を一緒に過ごす余裕を。",
         "step1": "家族の予定をひと目で確認。",

@@ -1,5 +1,36 @@
 {
   "HomeRefresh": {
+    "previousMoment": "上一個家庭時刻",
+    "nextMoment": "下一個家庭時刻",
+    "brandTitle": "同一個家，",
+    "brandAccent": "各自的生活節奏。",
+    "brandBody": "每個家庭都有自己的步調。讓 OLA 陪你學習、交流，也陪伴日常中每個細微時刻。",
+    "meetOla": "認識 OLA",
+    "houseAlt": "原有藍色立體房屋，可探索故事、陪伴與家庭日常",
+    "trustAlt": "媽媽與孩子一起使用橙色 LumiQ Tablet",
+    "familyPanoramaAlt": "從早餐相聚、午後探索到睡前故事的家庭日常",
+    "familyMoments": {
+      "morning": "早晨，一起開始",
+      "afternoon": "午後，好奇探索",
+      "evening": "睡前，想像啟程"
+    },
+    "rhythms": {
+      "learn": {
+        "title": "學習",
+        "body": "讓好奇心帶路，在探索中建立自信。",
+        "alt": "孩子透過橙色平板探索故事"
+      },
+      "connect": {
+        "title": "連結",
+        "body": "共享有意義的時光，讓彼此更親近。",
+        "alt": "父母與孩子一起探索平板上的內容"
+      },
+      "care": {
+        "title": "關懷",
+        "body": "用心設計的陪伴，獻給你所愛的人。",
+        "alt": "孩子在睡前抱著玩具熊"
+      }
+    },
     "navExperiences": "應用體驗",
     "navAbout": "品牌故事",
     "navSafety": "信任與安全",
@@ -40,7 +71,7 @@
         "body": "隨 OLA 提供的口袋夥伴。"
       },
       "nest": {
-        "name": "LumiQ LuckyTable",
+        "name": "LumiQ Nest 15",
         "type": "讓家人的日常有序",
         "body": "在同一處，看見全家人的一天。"
       },
@@ -79,7 +110,7 @@
       "routines": {
         "label": "家庭日常",
         "alt": "家人在木框 LumiQ 螢幕上查看共同日程",
-        "caption": "LumiQ LuckyTable",
+        "caption": "LumiQ Nest 15",
         "title": "每個人的一天，更有默契地相連。",
         "body": "把行事曆、日常安排與提醒放在同一處，為值得共享的時刻留出空間。",
         "step1": "一眼看清家人的計畫。",

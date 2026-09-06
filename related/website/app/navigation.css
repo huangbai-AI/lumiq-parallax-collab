@@ -403,6 +403,14 @@
   .lumiq-root .site-nav .nav-actions {
     gap: 6px;
   }
+  .lumiq-root .site-nav .login-btn {
+    max-width: 118px;
+    padding-inline: 10px;
+    white-space: normal;
+    text-wrap: balance;
+    line-height: 1.35;
+    text-align: center;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .lumiq-root .site-nav,
