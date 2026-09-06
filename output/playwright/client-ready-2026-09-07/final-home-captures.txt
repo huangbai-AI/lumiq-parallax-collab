@@ -1,0 +1,9 @@
+### Result
+[{"w":320,"h":740,"overflow":0,"videoSrc":null},{"w":390,"h":844,"overflow":0,"videoSrc":null},{"w":768,"h":1024,"overflow":0,"videoSrc":null},{"w":1024,"h":768,"overflow":0,"videoSrc":null}]
+### Ran Playwright code
+```js
+await (async(page)=>{await page.setViewportSize({width:1440,height:900});await page.goto('http://127.0.0.1:4211/en');await page.waitForTimeout(2600);await page.screenshot({path:'output/交付/客户审阅版-2026-09-07/首页-01-电脑.png'});await page.evaluate(()=>scrollTo({top:innerHeight*1.6,behavior:'instant'}));await page.waitForTimeout(500);await page.screenshot({path:'output/交付/客户审阅版-2026-09-07/首页-02-电脑.png'});for(const [id,n]of [['products','03'],['experiences','04'],['safety','05'],['family','06'],['join','07']]){await page.evaluate(id=>{const section=document.getElementById(id);let y=section.getBoundingClientRect().top+scrollY-86;if(id==='products')y+=86;if(id==='safety')y+=(innerHeight-86)*.95;if(id==='family')y+=(innerHeight-86)*2.4*.64;scrollTo({top:y,behavior:'instant'});},id);await page.waitForTimeout(600);await page.screenshot({path:'output/交付/客户审阅版-2026-09-07/首页-'+n+'-电脑.png'});}const checks=[];for(const [width,height] of [[320,740],[390,844],[768,1024],[1024,768]]){await page.setViewportSize({width,height});await page.goto('http://127.0.0.1:4211/zh-hant');await page.waitForTimeout(500);checks.push(await page.evaluate(()=>({w:innerWidth,h:innerHeight,overflow:document.documentElement.scrollWidth-innerWidth,videoSrc:document.querySelector('.lh-opening-video').getAttribute('src')})));if(width===390)await page.screenshot({path:'output/交付/客户审阅版-2026-09-07/首页-手机-繁中.png',fullPage:true});}return checks;})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4211/zh-hant
+- Page Title: Lumiq Studio — 讓故事活起來

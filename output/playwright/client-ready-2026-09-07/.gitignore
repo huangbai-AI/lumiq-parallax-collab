@@ -1,0 +1,6 @@
+# Keep intermediate screenshots locally; version only final verification evidence.
+*
+!.gitignore
+!final-*.json
+!final-*.txt
+!final-*.png
