@@ -1,0 +1,19 @@
+{
+  "currentCandidate": "repositioned/第二屏4K定位参考重绘20260907.png",
+  "nodeKey": "30ffc8df-19c3-48d7-86ef-f33fc1bfc1a8",
+  "taskId": "20260907020403440822028",
+  "model": "Lib Image",
+  "quality": "high",
+  "resolution": "4K",
+  "actualSize": [
+    3840,
+    2160
+  ],
+  "referenceOrder": [
+    "第二屏38百分比构图定位参考20260907",
+    "第二屏清晰人物源图20260907"
+  ],
+  "review": "人物中心目视约左起37%，右侧约一半空白；角色比首次居中版本略小，但未严格达到原设想的72%画高。仅提供图片供用户查看，尚未套入网页检查。",
+  "websiteReplaced": false,
+  "merged": false
+}

@@ -1,0 +1,17 @@
+{
+  "nodeName": "第二屏干净完整4K背景20260907",
+  "nodeKey": "aeb768f8-361d-4c12-bd99-bb1d5dc314f0",
+  "taskId": "20260907013903821962028",
+  "model": "Lib Image",
+  "modeType": "image2image",
+  "quality": "high",
+  "resolution": "4K",
+  "ratio": "16:9",
+  "actualSize": [
+    3840,
+    2160
+  ],
+  "reference": "output/交付/第二屏背景确认-2026-09-07/清晰人物候选/独立人物源图.png",
+  "status": "generated_for_review",
+  "websiteReplaced": false
+}

@@ -1,0 +1,32 @@
+{
+  "nodeName": "智能多参首屏入场到品牌H3-20260907",
+  "nodeKey": "64998573-0200-4bfa-9061-78eaf52e0729",
+  "taskId": "20260907010503826572028",
+  "status": 2,
+  "model": "Minimax H3",
+  "modeType": "mixed2video",
+  "settings": {
+    "ratio": "16:9",
+    "resolution": "2K",
+    "duration": 7
+  },
+  "referenceOrder": [
+    "首屏无字起始参考20260907",
+    "首屏用户确认原图20260907",
+    "首屏接品牌尾帧参考20260907"
+  ],
+  "actual": {
+    "width": 2560,
+    "height": 1440,
+    "duration": 7.291667,
+    "fps": 24
+  },
+  "website": {
+    "file": "related/website/public/assets/home-video/opening-mixed-h3-20260907.mp4",
+    "introEnd": 3.5,
+    "introPlaybackRate": 1.6,
+    "introWallSeconds": 2.1875,
+    "videoElements": 1,
+    "editedTimeline": false
+  }
+}
