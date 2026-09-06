@@ -1,6 +1,6 @@
 # Lumiq Studio 网站
 
-这是 Lumiq Studio 官网源码，现内置于协作仓库的 `related/website/`。2026-09-06 首页改版位于本地分支 `codex/homepage-client-ready-2026-09-06`，尚未提交或发布；不得直接发布生产环境或合并 `main`。最新七层结构、验证结果及客户仓库差异见根目录的 `output/交付/首页代码优化-2026-09-06/首页优化与交付检查.md`。
+这是 Lumiq Studio 官网源码，现内置于协作仓库的 `related/website/`。2026-09-06 首页改版位于本地分支 `codex/homepage-client-ready-2026-09-06`，已保存基线 `cfe7870`，随后统一了全站导航；未推送或发布，不得直接发布生产环境或合并 `main`。七层结构与客户仓库差异见根目录的 `output/交付/首页代码优化-2026-09-06/首页优化与交付检查.md`；最新导航验收见 `output/playwright/navigation-2026-09-06/验收.md`。
 
 ## 本地开发与检查
 

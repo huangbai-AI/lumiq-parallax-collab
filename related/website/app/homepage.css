@@ -658,80 +658,6 @@ html:has(.lh-home) {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-/* Scope shell changes to the homepage. */
-.lumiq-root .navbar.homepage-nav,
-.lumiq-root .navbar.homepage-nav.scrolled {
-  padding: 0;
-  background: #ffffffed;
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid #1823310c;
-  box-shadow: none;
-}
-.lumiq-root .homepage-nav .nav-inner {
-  max-width: 1664px;
-  min-height: 86px;
-  padding: 12px clamp(24px, 4vw, 72px);
-}
-.lumiq-root .homepage-nav .nav-logo {
-  width: 142px;
-  height: 48px;
-}
-.lumiq-root .homepage-nav .nav-actions {
-  gap: 16px;
-}
-.lumiq-root .homepage-nav .site-desktop-nav {
-  gap: clamp(20px, 2.5vw, 42px);
-}
-.lumiq-root .homepage-nav .site-desktop-nav a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  font-size: 13px;
-  color: #44515e;
-}
-.lumiq-root .homepage-nav .site-desktop-nav a.active::after {
-  display: none;
-}
-.lumiq-root .homepage-nav .login-btn {
-  min-height: 44px;
-  padding: 10px 22px;
-  border-color: #b9c1c8;
-  font-size: 12px;
-}
-.lumiq-root .homepage-nav .lang-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 44px;
-  font-size: 12px;
-}
-.lumiq-root .homepage-nav .site-mobile-trigger {
-  width: 44px;
-  height: 44px;
-}
-.lumiq-root .homepage-nav .site-mobile-menu {
-  max-height: calc(100dvh - 76px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-.lumiq-root .homepage-nav .site-mobile-close {
-  min-width: 44px;
-  min-height: 44px;
-}
-.lh-skip {
-  position: fixed;
-  z-index: 4000;
-  top: 8px;
-  left: 16px;
-  transform: translateY(-150%);
-  padding: 12px 20px;
-  border-radius: 12px;
-  background: #182331;
-  color: white !important;
-}
-.lh-skip:focus {
-  transform: translateY(0);
-}
 .lumiq-root:has(.lh-home) > .footer {
   background: #f9f8f6;
   border-top: 1px solid #dce0e3;
@@ -1025,21 +951,6 @@ html:has(.lh-home) {
   .lh-home .lh-consent {
     font-size: 13px;
   }
-  .lumiq-root .homepage-nav .nav-inner {
-    min-height: 76px;
-    padding: 12px 24px;
-  }
-  .lumiq-root .homepage-nav .nav-logo {
-    width: 112px;
-    height: 44px;
-  }
-  .lumiq-root .homepage-nav .nav-actions {
-    gap: 10px;
-  }
-  .lumiq-root .homepage-nav .login-btn {
-    padding: 10px 14px;
-    font-size: 11px;
-  }
   .lumiq-root:has(.lh-home) > .footer .foot-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 36px 24px;
@@ -1076,15 +987,6 @@ html:has(.lh-home) {
 @media (max-width: 360px) {
   .lh-home {
     --lh-gutter: 20px;
-  }
-  .lumiq-root .homepage-nav .nav-inner {
-    padding-inline: 16px;
-  }
-  .lumiq-root .homepage-nav .nav-logo {
-    width: 92px;
-  }
-  .lumiq-root .homepage-nav .nav-actions {
-    gap: 6px;
   }
   .lh-actions {
     gap: 14px;
