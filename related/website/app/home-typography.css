@@ -1,11 +1,11 @@
 /* A shared reading scale for every homepage floor. */
 .lh-home {
-  --lh-h1: clamp(44px, 4.8vw, 78px);
-  --lh-h2: clamp(36px, 3vw, 52px);
-  --lh-h3: clamp(20px, 1.6vw, 26px);
-  --lh-body: clamp(16px, 1.05vw, 18px);
+  --lh-h1: var(--lq-h1);
+  --lh-h2: var(--lq-h2);
+  --lh-h3: var(--lq-h3);
+  --lh-body: var(--lq-body);
   --lh-detail: 14px;
-  --lh-action: 14px;
+  --lh-action: var(--lq-action);
 }
 .lumiq-root .lh-home .lh-hero h1 { font-size: var(--lh-h1); }
 .lumiq-root .lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
@@ -40,12 +40,6 @@
   overflow-wrap: anywhere;
 }
 @media (max-width: 767px) {
-  .lh-home {
-    --lh-h1: clamp(40px, 10vw, 64px);
-    --lh-h2: clamp(32px, 7vw, 40px);
-    --lh-h3: 22px;
-    --lh-body: 16px;
-  }
   /* Let the copy breathe beside the smaller character. */
   .lh-ola-copy { padding-right: 0; }
   .lh-ola-copy h2 { padding-right: 96px; }

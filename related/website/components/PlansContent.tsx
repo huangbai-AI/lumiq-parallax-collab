@@ -332,7 +332,7 @@ export default function PlansContent() {
               <h3
                 className="serif"
                 style={{
-                  fontSize: "clamp(1.4rem, 2.2vw, 1.75rem)",
+                  fontSize: "var(--lq-h3)",
                   margin: ".25rem 0 .35rem",
                 }}
               >

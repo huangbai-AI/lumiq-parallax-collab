@@ -21,7 +21,7 @@ export default function MediaPage() {
 
       <section className="container reveal" style={{ padding: "2rem 2rem 4rem" }}>
         <span className="kicker media-kicker">{t("eyebrow")}</span>
-        <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1.05, margin: "0 0 1rem", maxWidth: 800 }}>
+        <h1 className="serif" style={{ margin: "0 0 1rem", maxWidth: 800 }}>
           {t("title")}
         </h1>
         <p style={{ color: "var(--ink-2)", fontSize: "1.1rem", maxWidth: 560, lineHeight: 1.7 }}>

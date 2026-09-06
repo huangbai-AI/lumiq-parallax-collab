@@ -1,0 +1,39 @@
+/* Shared sizes; each page keeps its established typeface and composition. */
+.lumiq-root {
+  --lq-h1: clamp(44px, 4.8vw, 78px);
+  --lq-h2: clamp(36px, 3vw, 52px);
+  --lq-h3: clamp(20px, 1.6vw, 26px);
+  --lq-body: clamp(16px, 1.05vw, 18px);
+  --lq-action: 14px;
+}
+.lumiq-root main:is(.editorial-page, .product-detail-light, .subpage):not(.lh-home) h1 {
+  font-size: var(--lq-h1);
+  line-height: 1.08;
+}
+.lumiq-root main:is(.editorial-page, .product-detail-light, .subpage):not(.lh-home) h2 {
+  font-size: var(--lq-h2);
+  line-height: 1.16;
+}
+.lumiq-root main:is(.editorial-page, .product-detail-light, .subpage):not(.lh-home) h3 {
+  font-size: var(--lq-h3);
+  line-height: 1.3;
+}
+.lumiq-root :is(.lq-body, .subpage-intro, .pd-hero-lede, .pd-section-intro) {
+  font-size: var(--lq-body);
+  line-height: 1.7;
+}
+.lumiq-root .editorial-page .media-label { letter-spacing: -.015em; text-transform: none; }
+.lumiq-root :is(.btn, .pd-primary-action, .pd-secondary-action) { font-size: var(--lq-action); }
+.lumiq-root :is(input, select, textarea) { font-size: 16px; }
+@media (max-width: 767px) {
+  .lumiq-root {
+    --lq-h1: clamp(40px, 10vw, 64px);
+    --lq-h2: clamp(32px, 7vw, 40px);
+    --lq-h3: 22px;
+    --lq-body: 16px;
+  }
+}
+.lumiq-root:is(.locale-ja, .locale-zh-hant) main:not(.lh-home) :is(h1, h2, h3) {
+  line-height: 1.3;
+  letter-spacing: .01em;
+}

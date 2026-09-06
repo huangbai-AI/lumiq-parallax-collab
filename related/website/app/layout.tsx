@@ -3,6 +3,7 @@ import {getLocale} from "next-intl/server";
 import "./globals.css";
 import "./product-detail-template.css";
 import "./navigation.css";
+import "./site-typography.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export const metadata: Metadata = {

@@ -38,7 +38,7 @@ export default function FaqPage() {
 
       <section className="container" style={{ padding: "2rem 2rem 3rem" }}>
         <span className="kicker">{t("eyebrow")}</span>
-        <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1.05, margin: "1rem 0 1.5rem", maxWidth: 700 }}>
+        <h1 className="serif" style={{ margin: "1rem 0 1.5rem", maxWidth: 700 }}>
           {t("title")}
         </h1>
         <p style={{ fontSize: "1.15rem", color: "var(--ink-2)", lineHeight: 1.7, maxWidth: 640 }}>
