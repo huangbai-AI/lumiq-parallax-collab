@@ -81,7 +81,7 @@ export default function HomeFamily() {
               alt={t(`familyMoments.${key}`)}
               fill
               quality={90}
-              sizes="(min-width: 2200px) 2200px, 100vw"
+              sizes="100vw"
             />
           </div>
         ))}

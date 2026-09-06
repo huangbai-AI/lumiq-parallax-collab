@@ -1,0 +1,47 @@
+### Result
+{"nativeWheelShrinks":[1885,1441],"nativeReverseExpands":true,"wheelChapter":"true","released":true,"productsStillMove":true,"routeReturn":"true","pageErrors":[]}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='output/playwright/fullscreen-shrink-2026-09-07/'; const results={}; const errors=[];
+ const collect=e=>errors.push(e.message);page.on('pageerror',collect);
+ await page.goto('http://127.0.0.1:4208/en?revision=shrink-final#safety');
+ const position=async(selector,p)=>{await page.evaluate(({selector,p})=>{const t=document.querySelector(selector),s=t.firstElementChild;window.scrollTo({top:t.getBoundingClientRect().top+scrollY-document.querySelector('.site-nav').getBoundingClientRect().height+(t.offsetHeight-s.offsetHeight)*p,behavior:'instant'});},{selector,p});await page.waitForTimeout(800);};
+ const shot=async(name)=>page.screenshot({path:base+name+'.png'});
+ await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(900);
+ for(const [p,name] of [[0,'trust-entry-1900'],[.5,'trust-shrinking-1900'],[.96,'trust-settled-1900']]) {await position('.lh-trust-scroll',p);await page.locator('.lh-safety-photo img').evaluate(i=>i.decode());await shot(name);}
+ for(const [p,name,key] of [[0,'family-entry-1900','morning'],[.19,'family-shrinking-1900','morning'],[.46,'family-morning-1900','morning'],[.7,'family-afternoon-1900','afternoon'],[.95,'family-evening-1900','evening']]) {await position('.lh-family-scroll',p);await page.locator('#family-panel-'+key+' img').evaluate(i=>i.decode());await shot(name);}
+ await position('.lh-trust-scroll',0); const widthBefore=await page.locator('.lh-safety-photo').evaluate(e=>e.offsetWidth);
+ await page.mouse.move(950,550);await page.mouse.wheel(0,400);await page.waitForTimeout(900);
+ const widthAfter=await page.locator('.lh-safety-photo').evaluate(e=>e.offsetWidth);
+ if(widthAfter>=widthBefore)throw Error('wheel did not shrink');
+ results.nativeWheelShrinks=[widthBefore,widthAfter];
+ await page.mouse.wheel(0,-400);await page.waitForTimeout(900);
+ if(await page.locator('.lh-safety-photo').evaluate(e=>e.offsetWidth)<widthBefore-2)throw Error('reverse did not expand');
+ results.nativeReverseExpands=true;
+ await position('.lh-family-scroll',.5);await page.mouse.wheel(0,700);await page.waitForTimeout(900);
+ results.wheelChapter=await page.locator('#family-tab-evening').getAttribute('aria-selected');
+ if(results.wheelChapter!=='true')throw Error('wheel chapter');
+ await page.mouse.wheel(0,1600);await page.waitForTimeout(900);
+ if(!await page.locator('.lh-family-anchor').evaluate(e=>e.getBoundingClientRect().bottom<innerHeight))throw Error('scroll never releases');
+ results.released=true;
+ for(const [width,height] of [[1280,720],[390,844]]){await page.setViewportSize({width,height});await page.waitForTimeout(700);await position('.lh-trust-scroll',.96);await shot('trust-settled-'+width);await position('.lh-family-scroll',.46);await shot('family-settled-'+width);}
+ await page.setViewportSize({width:1440,height:900});await page.waitForTimeout(800);
+ await page.locator('[data-products-next]').scrollIntoViewIfNeeded();
+ const before=await page.locator('.lh-products-track').evaluate(e=>getComputedStyle(e).transform);
+ await page.locator('[data-products-next]').click();await page.waitForTimeout(1100);
+ const after=await page.locator('.lh-products-track').evaluate(e=>getComputedStyle(e).transform);
+ if(before===after)throw Error('product rail regression');results.productsStillMove=true;
+ await position('.lh-family-scroll',.46);await page.locator('.lh-family-heading a').click();await page.waitForURL('**/story');await page.goBack();await page.waitForTimeout(1000);
+ await position('.lh-trust-scroll',.96);results.routeReturn=await page.locator('.lh-trust-scroll').getAttribute('data-anchored');
+ if(results.routeReturn!=='true')throw Error('route return');
+ await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(700);await position('.lh-trust-scroll',0);
+ results.pageErrors=errors;page.off('pageerror',collect);if(errors.length)throw Error(JSON.stringify(errors));
+ return results;
+})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4208/en?revision=shrink-final#safety
+- Page Title: Lumiq Studio — Where Stories Come Alive
+### Events
+- New console entries: .playwright-cli/console-2026-09-06T18-03-31-602Z.log#L11

@@ -1,0 +1,24 @@
+### Result
+[{"key":"entry","fade":"1","gradient":"linear-gradient(rgb(250, 249, 247), rgba(250, 249, 247, 0) 28%, rgba(250, 249, 247, 0) 86%, rgb(250, 249, 247))","width":1885},{"key":"shrinking","fade":"1","gradient":"linear-gradient(rgb(250, 249, 247), rgba(250, 249, 247, 0) 28%, rgba(250, 249, 247, 0) 86%, rgb(250, 249, 247))","width":1448},{"key":"settled","fade":"0.16","gradient":"linear-gradient(rgb(250, 249, 247), rgba(250, 249, 247, 0) 28%, rgba(250, 249, 247, 0) 86%, rgb(250, 249, 247))","width":1072},{"key":"settled","fade":"0.16","gradient":"linear-gradient(rgb(250, 249, 247), rgba(250, 249, 247, 0) 28%, rgba(250, 249, 247, 0) 86%, rgb(250, 249, 247))","width":741},{"key":"settled","fade":"0.16","gradient":"linear-gradient(rgb(250, 249, 247), rgba(250, 249, 247, 0) 28%, rgba(250, 249, 247, 0) 78%, rgb(250, 249, 247))","width":327}]
+### Ran Playwright code
+```js
+await (async page => {
+ await page.goto('http://127.0.0.1:4208/en?revision=shrink-final-v2#safety');
+ const result=[]; const base='output/playwright/fullscreen-shrink-2026-09-07/';
+ for(const [width,height] of [[1900,916],[1280,720],[390,844]]) {
+  await page.setViewportSize({width,height});await page.waitForTimeout(800);
+  for(const [p,key] of (width===1900?[[0,'entry'],[.5,'shrinking'],[.96,'settled']]:[[.96,'settled']])){
+   await page.evaluate(p=>{const t=document.querySelector('.lh-trust-scroll');window.scrollTo({top:t.getBoundingClientRect().top+scrollY-document.querySelector('.site-nav').getBoundingClientRect().height+(t.offsetHeight-t.firstElementChild.offsetHeight)*p,behavior:'instant'});},p);
+   await page.waitForTimeout(800);await page.locator('.lh-safety-photo img').evaluate(i=>i.decode());await page.screenshot({path:base+'trust-'+key+'-'+width+'.png'});
+   result.push(await page.locator('.lh-safety-photo').evaluate((e,key)=>({key,fade:getComputedStyle(e).getPropertyValue('--edge-fade'),gradient:getComputedStyle(e,'::after').backgroundImage,width:e.offsetWidth}),key));
+  }
+ }
+ await page.setViewportSize({width:1900,height:916});await page.waitForTimeout(700);
+ await page.evaluate(()=>{let t=document.querySelector('.lh-trust-scroll');window.scrollTo({top:t.getBoundingClientRect().top+scrollY-document.querySelector('.site-nav').getBoundingClientRect().height,behavior:'instant'});});
+ if(result[1].fade!=='1'||result[2].fade!=='0.16')throw Error('gradient timing');
+ return result;
+})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4208/en?revision=shrink-final-v2#safety
+- Page Title: Lumiq Studio — Where Stories Come Alive

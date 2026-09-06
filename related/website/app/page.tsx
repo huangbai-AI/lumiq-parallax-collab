@@ -351,7 +351,7 @@ export default async function Home() {
                 alt={t("trustAlt")}
                 fill
                 quality={90}
-                sizes="(max-width: 767px) 800px, (max-width: 1200px) 1280px, (min-width: 2200px) 2340px, 106vw"
+                sizes="100vw"
               />
             </div>
             <div className="lh-wrap lh-safety-copy">
@@ -363,31 +363,30 @@ export default async function Home() {
               </h2>
               <p className="lh-lead">{t("safetyBody")}</p>
             </div>
-          </div>
-        </div>
-        <div className="lh-wrap lh-trust-notes">
-          <p className="lh-trust-caption">{t("safetySeal")}</p>
-          <div className="lh-principles">
-            {principles.map(({ key, icon: Icon, href }, index) => (
-              <Link
-                href={href}
-                key={key}
-                className="lh-principle"
-                data-home-reveal
-              >
-                <span className="lh-principle-top" aria-hidden="true">
-                  <span className="lh-principle-number">0{index + 1}</span>
-                  <Icon size={22} strokeWidth={1.3} />
-                </span>
-                <h3>{t(`trust.${key}.title`)}</h3>
-                <p>{t(`trust.${key}.body`)}</p>
-                <ArrowUpRight
-                  className="lh-principle-arrow"
-                  size={19}
-                  aria-hidden="true"
-                />
-              </Link>
-            ))}
+            <div className="lh-wrap lh-trust-notes">
+              <p className="lh-trust-caption">{t("safetySeal")}</p>
+              <div className="lh-principles">
+                {principles.map(({ key, icon: Icon, href }, index) => (
+                  <Link
+                    href={href}
+                    key={key}
+                    className="lh-principle"
+                  >
+                    <span className="lh-principle-top" aria-hidden="true">
+                      <span className="lh-principle-number">0{index + 1}</span>
+                      <Icon size={22} strokeWidth={1.3} />
+                    </span>
+                    <h3>{t(`trust.${key}.title`)}</h3>
+                    <p>{t(`trust.${key}.body`)}</p>
+                    <ArrowUpRight
+                      className="lh-principle-arrow"
+                      size={19}
+                      aria-hidden="true"
+                    />
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
