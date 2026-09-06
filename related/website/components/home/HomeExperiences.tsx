@@ -1,134 +1,62 @@
 "use client";
 import Image from "next/image";
-import { ArrowRight, BookOpen, CalendarDays, MessageCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { useState, type CSSProperties } from "react";
 import { Link } from "@/i18n/navigation";
 
-const experiences = [
-  { key: "stories", icon: BookOpen, href: "/products/tablet" },
-  { key: "companion", icon: MessageCircle, href: "/products/ola" },
-  { key: "routines", icon: CalendarDays, href: "/products/nest" },
-] as const;
-
-// Original products and location lines share the same 16:9 background plane.
-const roomProducts = [
-  { id: "tablet", group: 0, image: "home-products-refined-20260907/tablet-pair", x: 44, y: 22, targetX: 47, targetY: 55 },
-  { id: "ola", group: 1, image: "home-products-refined-20260907/ola-repaired", x: 87, y: 23, targetX: 77, targetY: 46 },
-  { id: "ola-go", group: 1, image: "home-interactive/go", x: 94, y: 64, targetX: 87, targetY: 58 },
-  { id: "nest", group: 2, image: "home-products-20260907/nest15-angle-confirmed", x: 45, y: 84, targetX: 75, targetY: 58 },
-  { id: "print", group: 0, image: "home-interactive/print", x: 74, y: 88, targetX: 49, targetY: 58 },
+// 产品、预合成光晕与短连接线共用同一背景坐标，缩放时保持比例。
+const products = [
+  { id: "tablet", x: 44, y: 21, tx: 47, ty: 42 },
+  { id: "ola", x: 86, y: 21, tx: 83, ty: 41 },
+  { id: "print", x: 44, y: 84, tx: 48, ty: 66 },
+  { id: "ola-go", x: 65, y: 84, tx: 65, ty: 73 },
+  { id: "nest", x: 86, y: 84, tx: 80, ty: 66 },
 ] as const;
 
 export default function HomeExperiences() {
   const t = useTranslations("HomeRefresh");
-  const [active, setActive] = useState(0);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    let next = index;
-    if (event.key === "ArrowRight") next = (index + 1) % experiences.length;
-    else if (event.key === "ArrowLeft") next = (index + experiences.length - 1) % experiences.length;
-    else if (event.key === "Home") next = 0;
-    else if (event.key === "End") next = experiences.length - 1;
-    else return;
-    event.preventDefault();
-    setActive(next);
-    tabs.current[next]?.focus();
-  };
-
+  const [active, setActive] = useState<string | null>(null);
   return (
-    <div className="lh-room-layout" data-active={experiences[active].key}>
+    <div className="lh-room-layout">
       <div className="lh-room-heading" data-home-reveal>
-
-        <h2 id="experiences-title">
-          {t("experienceTitle")}<br />
-          <span>{t("experienceAccent")}</span>
-        </h2>
+        <h2 id="experiences-title">{t("roomHeading.line1")}<br />{t("roomHeading.line2")}<br />{t("roomHeading.line3")}</h2>
         <p className="lh-room-intro">{t("experienceBody")}</p>
       </div>
-
       <div className="lh-room-map">
         <div className="lh-room-canvas">
           <div className="lh-room-background">
-            <Image
-              src="/assets/home-rooms-20260907/room-full-4k.webp"
-              alt={t("houseAlt")}
-              fill
-              sizes="(max-width: 1100px) 154vw, (min-width: 1920px) 1920px, 100vw"
-              quality={95}
-            />
+            <Image src="/assets/home-rooms-20260907/room-full-4k.webp" alt={t("houseAlt")} fill sizes="(max-width: 1100px) 154vw, (min-width: 1920px) 1920px, 100vw" quality={95} />
           </div>
-          <svg className="lh-room-orbits" viewBox="0 0 1000 562.5" aria-hidden="true">
-            <path d="M 305 330 C 255 510, 880 525, 992 345" />
-          </svg>
           <svg className="lh-room-lines" viewBox="0 0 1000 562.5" aria-hidden="true">
-            {roomProducts.map(({ id, group, x, y, targetX, targetY }) => (
-              <g key={id} data-selected={active === group}>
-                <path d={`M ${x * 10} ${y * 5.625} L ${targetX * 10} ${targetY * 5.625}`} />
-                <circle cx={targetX * 10} cy={targetY * 5.625} r="3.5" />
+            <defs>
+              {products.map(({id,x,y,tx,ty}) => (
+                <linearGradient key={id} id={`room-light-${id}`} gradientUnits="userSpaceOnUse" x1={x*10} y1={y*5.625} x2={tx*10} y2={ty*5.625}>
+                  <stop offset="0" stopColor="white" stopOpacity="0" />
+                  <stop offset=".36" stopColor="white" stopOpacity=".9" />
+                  <stop offset="1" stopColor="#d6eaff" stopOpacity="0" />
+                </linearGradient>
+              ))}
+            </defs>
+            {products.map(({id,x,y,tx,ty}) => (
+              <g key={id} data-active={active === id}>
+                <path className="lh-room-beam" stroke={`url(#room-light-${id})`} d={`M ${x*10} ${y*5.625} L ${tx*10} ${ty*5.625}`} />
+                <path stroke={`url(#room-light-${id})`} d={`M ${x*10} ${y*5.625} L ${tx*10} ${ty*5.625}`} />
               </g>
             ))}
           </svg>
           <div className="lh-room-products" role="group" aria-label={t("roomExplore")}>
-            {roomProducts.map(({ id, group, image, x, y }) => (
-              <button
-                key={id}
-                className={"lh-room-product lh-room-product-" + id}
-                style={{ "--room-x": `${x}%`, "--room-y": `${y}%` } as CSSProperties}
-                type="button"
-                aria-pressed={active === group}
-                aria-controls={"experience-panel-" + experiences[group].key}
-                aria-label={`${t(`products.${id}.name`)} · ${t(`roomPlaces.${id}`)}`}
-                onClick={() => setActive(group)}
-              >
+            {products.map(({id,x,y}) => (
+              <Link key={id} href={`/products/${id}`} className={`lh-room-product lh-room-product-${id}`}
+                style={{"--room-x":`${x}%`,"--room-y":`${y}%`} as CSSProperties}
+                aria-label={`${t(`products.${id}.name`)} · ${t(`roomLabels.${id}.title`)} ${t(`roomLabels.${id}.subtitle`)}`}
+                onMouseEnter={()=>setActive(id)} onMouseLeave={()=>setActive(null)} onFocus={()=>setActive(id)} onBlur={()=>setActive(null)}>
                 <span className="lh-room-product-art">
-                  <Image src={`/assets/${image}.webp`} alt="" fill sizes="(max-width: 767px) 88px, (max-width: 1100px) 128px, 180px" quality={90} />
+                  <Image src={`/assets/home-premium-20260907/${id}-halo.webp`} alt="" fill sizes="(max-width: 767px) 94px, (max-width: 1100px) 130px, 190px" quality={95} />
                 </span>
-                <span className="lh-room-product-name">{t(`roomUses.${id}`)}</span>
-              </button>
+                <span className="lh-room-label"><span>{t(`roomLabels.${id}.title`)}</span><small>{t(`roomLabels.${id}.subtitle`)}</small></span>
+              </Link>
             ))}
           </div>
-        </div>
-      </div>
-
-      <div className="lh-room-copy">
-        <div className="lh-room-tabs" role="tablist" aria-label={t("experienceKicker")}>
-          {experiences.map(({ key, icon: Icon }, index) => (
-            <button
-              key={key}
-              ref={(el) => { tabs.current[index] = el; }}
-              type="button"
-              role="tab"
-              id={"experience-tab-" + key}
-              aria-controls={"experience-panel-" + key}
-              aria-selected={active === index}
-              tabIndex={active === index ? 0 : -1}
-              onClick={() => setActive(index)}
-              onKeyDown={(event) => onKeyDown(event, index)}
-            >
-              <Icon size={17} aria-hidden="true" />
-              <span>{t(`roomTabs.${key}`)}</span>
-            </button>
-          ))}
-        </div>
-        <div className="lh-room-details">
-          {experiences.map(({ key, href }, index) => (
-            <div
-              key={key}
-              className="lh-experience-panel"
-              id={"experience-panel-" + key}
-              role="tabpanel"
-              aria-labelledby={"experience-tab-" + key}
-              data-inactive={active !== index}
-              aria-hidden={active !== index}
-              inert={active !== index}
-              tabIndex={active === index ? 0 : -1}
-            >
-              <Link href={href} className="lh-text-link">
-                {t(`experiences.${key}.caption`)}<ArrowRight size={18} />
-              </Link>
-            </div>
-          ))}
         </div>
       </div>
     </div>

@@ -176,6 +176,33 @@
       "ola-go": "Learning & play anywhere",
       "nest": "Mealtimes that connect",
       "print": "Create & share"
+    },
+    "roomHeading": {
+      "line1": "One connected",
+      "line2": "family of",
+      "line3": "experiences."
+    },
+    "roomLabels": {
+      "tablet": {
+        "title": "Stories",
+        "subtitle": "come to life"
+      },
+      "ola": {
+        "title": "Companionship",
+        "subtitle": "that grows"
+      },
+      "nest": {
+        "title": "Mealtimes",
+        "subtitle": "that connect"
+      },
+      "ola-go": {
+        "title": "Learning & play",
+        "subtitle": "anywhere"
+      },
+      "print": {
+        "title": "Creativity",
+        "subtitle": "to share"
+      }
     }
   },
   "Common": {

@@ -176,6 +176,33 @@
       "ola-go": "隨時學習與玩樂",
       "nest": "相聚每一餐",
       "print": "創作與分享"
+    },
+    "roomHeading": {
+      "line1": "一家相連，",
+      "line2": "每一刻",
+      "line3": "都有新體驗。"
+    },
+    "roomLabels": {
+      "tablet": {
+        "title": "故事",
+        "subtitle": "在此鮮活"
+      },
+      "ola": {
+        "title": "陪伴",
+        "subtitle": "一起成長"
+      },
+      "nest": {
+        "title": "每一餐",
+        "subtitle": "連結彼此"
+      },
+      "ola-go": {
+        "title": "學習與玩樂",
+        "subtitle": "隨時隨地"
+      },
+      "print": {
+        "title": "創意",
+        "subtitle": "一起分享"
+      }
     }
   },
   "Common": {

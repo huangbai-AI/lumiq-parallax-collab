@@ -176,6 +176,33 @@
       "ola-go": "どこでも学びと遊び",
       "nest": "食卓でつながる",
       "print": "つくって、分かち合う"
+    },
+    "roomHeading": {
+      "line1": "ひとつにつながる、",
+      "line2": "家族の",
+      "line3": "新しい毎日。"
+    },
+    "roomLabels": {
+      "tablet": {
+        "title": "物語が",
+        "subtitle": "動き出す"
+      },
+      "ola": {
+        "title": "つながりが",
+        "subtitle": "育っていく"
+      },
+      "nest": {
+        "title": "食卓で",
+        "subtitle": "つながる"
+      },
+      "ola-go": {
+        "title": "学びと遊びを",
+        "subtitle": "どこでも"
+      },
+      "print": {
+        "title": "創造を",
+        "subtitle": "分かち合う"
+      }
     }
   },
   "Common": {
