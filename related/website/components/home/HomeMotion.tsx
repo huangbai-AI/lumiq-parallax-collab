@@ -3,6 +3,7 @@ import { useRef, type ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { mountEndingChapters } from "./endingChapters";
 import { mountProductRail } from "./productRail";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -19,6 +20,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       const releaseProducts = root.current
         ? mountProductRail(root.current)
         : () => {};
+      const releaseEnding = root.current ? mountEndingChapters(root.current) : () => {};
       const mm = gsap.matchMedia();
       mm.add(
         {
@@ -173,49 +175,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
               },
             },
           );
-          gsap.fromTo(
-            ".lh-safety-image img",
-            { yPercent: 8 },
-            {
-              yPercent: -5,
-              ease: "none",
-              scrollTrigger: {
-                trigger: ".lh-safety",
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.8,
-              },
-            },
-          );
-          gsap.fromTo(
-            ".lh-family-art",
-            { yPercent: -7, scale: 1.05 },
-            {
-              yPercent: 7,
-              scale: 1.02,
-              ease: "none",
-              scrollTrigger: {
-                trigger: ".lh-family-frame",
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.8,
-              },
-            },
-          );
-          gsap.fromTo(
-            ".lh-join-art",
-            { yPercent: -5 },
-            {
-              yPercent: 5,
-              ease: "none",
-              scrollTrigger: {
-                trigger: ".lh-join",
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.8,
-              },
-            },
-          );
           select("[data-home-reveal]").forEach((element: Element) => {
             if (element.closest(".lh-opening[data-video-mode]")) return;
             gsap.from(element, {
@@ -280,6 +239,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       );
       return () => {
         mm.revert();
+        releaseEnding();
         releaseProducts();
         releaseOpening();
       };

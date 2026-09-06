@@ -1,0 +1,2 @@
+### Error
+Error: {"errors":[],"badImages":["304 http://127.0.0.1:4205/_next/image?url=%2Fassets%2Fbrand%2Flumiq-logo-transparent-dark.png&w=384&q=75"]}

@@ -1,0 +1,51 @@
+### Result
+{"results":[{"locale":"en","width":1900,"height":916,"anchored":true,"pass":true},{"locale":"en","width":1440,"height":900,"anchored":true,"pass":true},{"locale":"en","width":1280,"height":720,"anchored":true,"pass":true},{"locale":"en","width":2560,"height":1080,"anchored":true,"pass":true},{"locale":"en","width":3440,"height":1440,"anchored":true,"pass":true},{"locale":"en","width":1024,"height":768,"anchored":false,"pass":true},{"locale":"en","width":768,"height":1024,"anchored":false,"pass":true},{"locale":"en","width":390,"height":844,"anchored":false,"pass":true},{"locale":"en","width":320,"height":640,"anchored":false,"pass":true},{"locale":"en","width":844,"height":390,"anchored":false,"pass":true},{"locale":"zh-hant","width":1900,"height":916,"anchored":true,"pass":true},{"locale":"zh-hant","width":1440,"height":900,"anchored":true,"pass":true},{"locale":"zh-hant","width":1280,"height":720,"anchored":true,"pass":true},{"locale":"zh-hant","width":2560,"height":1080,"anchored":true,"pass":true},{"locale":"zh-hant","width":3440,"height":1440,"anchored":true,"pass":true},{"locale":"zh-hant","width":1024,"height":768,"anchored":false,"pass":true},{"locale":"zh-hant","width":768,"height":1024,"anchored":false,"pass":true},{"locale":"zh-hant","width":390,"height":844,"anchored":false,"pass":true},{"locale":"zh-hant","width":320,"height":640,"anchored":false,"pass":true},{"locale":"zh-hant","width":844,"height":390,"anchored":false,"pass":true},{"locale":"ja","width":1900,"height":916,"anchored":true,"pass":true},{"locale":"ja","width":1440,"height":900,"anchored":true,"pass":true},{"locale":"ja","width":1280,"height":720,"anchored":true,"pass":true},{"locale":"ja","width":2560,"height":1080,"anchored":true,"pass":true},{"locale":"ja","width":3440,"height":1440,"anchored":true,"pass":true},{"locale":"ja","width":1024,"height":768,"anchored":false,"pass":true},{"locale":"ja","width":768,"height":1024,"anchored":false,"pass":true},{"locale":"ja","width":390,"height":844,"anchored":false,"pass":true},{"locale":"ja","width":320,"height":640,"anchored":false,"pass":true},{"locale":"ja","width":844,"height":390,"anchored":false,"pass":true}],"reducedMotion":"pass","errors":[]}
+### Ran Playwright code
+```js
+await (async page => {
+ const results=[];
+ const errors=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ for(const locale of ['en','zh-hant','ja']) {
+  await page.goto('http://127.0.0.1:4207/'+locale+'#safety');
+  for(const [width,height] of [[1900,916],[1440,900],[1280,720],[2560,1080],[3440,1440],[1024,768],[768,1024],[390,844],[320,640],[844,390]]) {
+   await page.setViewportSize({width,height}); await page.waitForTimeout(420);
+   const anchored=await page.locator('.lh-family-scroll').getAttribute('data-anchored');
+   if(anchored==='true') {
+    for(const [progress,expected] of [[0.1,0],[0.5,1],[0.9,2],[0.5,1],[0.1,0]]) {
+     await page.evaluate(p=>{const track=document.querySelector('.lh-family-scroll'),stage=document.querySelector('.lh-family-anchor');const nav=document.querySelector('.site-nav').getBoundingClientRect().height;window.scrollTo({top:track.getBoundingClientRect().top+scrollY-nav+(track.offsetHeight-stage.offsetHeight)*p,behavior:'instant'});},progress);
+     await page.waitForTimeout(150);
+     const state=await page.evaluate(()=>{const stage=document.querySelector('.lh-family-anchor').getBoundingClientRect(),nav=document.querySelector('.site-nav').getBoundingClientRect();const h=document.querySelector('#family-title').getBoundingClientRect(),tabs=document.querySelector('.lh-chapter-navigation').getBoundingClientRect();return {top:stage.top,bottom:stage.bottom,nav:nav.bottom,titleTop:h.top,tabsBottom:tabs.bottom,chapter:Number(document.querySelector('#family').dataset.chapter),selected:[...document.querySelectorAll('#family [role=tab]')].findIndex(e=>e.getAttribute('aria-selected')==='true')}});
+     if(Math.abs(state.top-state.nav)>2||state.bottom>height+1||state.titleTop<state.nav||state.tabsBottom>height||state.chapter!==expected||state.selected!==expected)throw Error(JSON.stringify({locale,width,height,progress,state}));
+    }
+    await page.locator('#family-tab-evening').click(); await page.waitForTimeout(150);
+    if(await page.locator('#family-tab-evening').getAttribute('aria-selected')!=='true')throw Error('click sync');
+    await page.keyboard.press('Home'); await page.waitForTimeout(150);
+    if(await page.locator('#family-tab-morning').getAttribute('aria-selected')!=='true')throw Error('keyboard sync');
+    await page.evaluate(()=>{const track=document.querySelector('.lh-trust-scroll'),stage=document.querySelector('.lh-trust-room');const nav=document.querySelector('.site-nav').getBoundingClientRect().height;window.scrollTo({top:track.getBoundingClientRect().top+scrollY-nav+(track.offsetHeight-stage.offsetHeight)*.5,behavior:'instant'});});
+    await page.waitForTimeout(150);
+    const trust=await page.evaluate(()=>{const room=document.querySelector('.lh-trust-room').getBoundingClientRect(),copy=document.querySelector('.lh-safety-copy').getBoundingClientRect();return {top:room.top,bottom:room.bottom,copyBottom:copy.bottom,nav:document.querySelector('.site-nav').getBoundingClientRect().bottom};});
+    if(Math.abs(trust.top-trust.nav)>2||trust.bottom>height+1||trust.copyBottom>trust.bottom)throw Error('trust '+JSON.stringify(trust));
+   } else {
+    for(const key of ['afternoon','evening','morning']){await page.locator('#family-tab-'+key).click();if(await page.locator('#family-tab-'+key).getAttribute('aria-selected')!=='true')throw Error('fallback');}
+   }
+   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);
+   if(overflow)throw Error('overflow '+locale+width);
+   results.push({locale,width,height,anchored:anchored==='true',pass:true});
+  }
+ }
+ await page.setViewportSize({width:1900,height:916});
+ await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(400);
+ if(await page.locator('.lh-family-scroll').getAttribute('data-anchored'))throw Error('reduced hold remains');
+ await page.locator('#family-tab-evening').click();
+ if(await page.locator('.lh-family-scene').first().evaluate(e=>getComputedStyle(e).transitionDuration)!=='0s')throw Error('reduced fade');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ if(errors.length)throw Error(JSON.stringify(errors));
+ return {results,reducedMotion:'pass',errors};
+})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4207/ja#safety
+- Page Title: Lumiq Studio — 物語が動き出す場所
+### Events
+- New console entries: .playwright-cli/console-2026-09-06T17-21-07-529Z.log#L6-L7

@@ -1,0 +1,20 @@
+### Result
+[{"path":"/en/legal/child-safety","status":200},{"path":"/en/legal/privacy","status":200},{"path":"/en/products/ola","status":200},{"path":"/en/products/ola-go","status":200},{"path":"/en/products/tablet","status":200},{"path":"/en/products/print","status":200},{"path":"/en/products/nest","status":200},{"path":"/en/plans","status":200},{"path":"/en/about","status":200},{"path":"/en/story","status":200},{"path":"/en/media","status":200},{"path":"/en/contact","status":200},{"path":"/en/legal/terms","status":200},{"path":"/en/legal/cookies","status":200}]
+### Ran Playwright code
+```js
+await (async page => {
+  const links=await page.locator("#safety a,#join a,.footer a").evaluateAll(els=>[...new Set(els.map(el=>el.href))]);
+  const result=[];
+  for(const url of links){const r=await page.request.get(url);result.push({path:url.split(":4205")[1],status:r.status()});if(r.status()!==200)throw Error(url+" "+r.status());}
+  await page.setViewportSize({width:1440,height:1200});
+  await page.locator("#safety-title").click();
+  await page.evaluate(()=>document.querySelector("#safety").scrollIntoView({behavior:"instant"}));
+  await page.screenshot({path:"output/playwright/trust-waitlist-2026-09-07/final-desktop-trust.png"});
+  await page.setViewportSize({width:1440,height:900});
+  await page.evaluate(()=>document.querySelector("#join").scrollIntoView({behavior:"instant"}));
+  await page.screenshot({path:"output/playwright/trust-waitlist-2026-09-07/final-desktop-waitlist.png"});
+  await page.emulateMedia({reducedMotion:"no-preference"});
+  await page.evaluate(()=>document.querySelector("#safety").scrollIntoView({behavior:"instant"}));
+  return result;
+})(page);
+```

@@ -1,0 +1,20 @@
+{
+  "canvas": "d62d3781dab446fca6f33eb1d1c9dea9",
+  "node": "d797c412-c67e-47ca-9d53-ba1d94eff91d",
+  "task": "20260907011603821882028",
+  "status": 2,
+  "model": "Lib Image",
+  "resolution": "4K",
+  "quality": "high",
+  "dimensions": {
+    "items": [
+      {
+        "kind": "image",
+        "width": 3840,
+        "height": 2160
+      }
+    ]
+  },
+  "inputs": [],
+  "download": "官方会员原图，无AI图垫图"
+}
