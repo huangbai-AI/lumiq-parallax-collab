@@ -1,13 +1,14 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Script from "next/script";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import {useTranslations} from "next-intl";
 
 export default function FaqPage() {
   const t = useTranslations("Faq");
   const [open, setOpen] = useState<number | null>(0);
   const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
   const faqs = useMemo(() => [1, 2, 3, 4, 5, 6].map((i) => ({
     q: t(`q${i}`),
     a: t(`a${i}`),
@@ -50,13 +51,15 @@ export default function FaqPage() {
         <div className="faq-search">
           <Search size={16} strokeWidth={1.8} aria-hidden />
           <input
+            ref={searchRef}
             type="search"
             placeholder={t("search")}
             value={query}
             onChange={(e) => { setQuery(e.target.value); setOpen(null); }}
             aria-label={t("searchLabel")}
           />
-          <span className="faq-count">{visible.length} / {faqs.length}</span>
+          {query && <button type="button" className="faq-clear" aria-label={t("clearSearch")} onClick={() => { setQuery(""); setOpen(0); searchRef.current?.focus(); }}><X size={16} aria-hidden /></button>}
+          <span className="faq-count" role="status" aria-live="polite" aria-atomic="true">{t("results", { count: visible.length, total: faqs.length })}</span>
         </div>
 
         {visible.length === 0 && (
@@ -70,11 +73,11 @@ export default function FaqPage() {
           const isOpen = open === idx;
           return (
             <div key={f.q} className="faq-row">
-              <button className="faq-q" onClick={() => setOpen(isOpen ? null : idx)} aria-expanded={isOpen}>
+              <button className="faq-q" id={`faq-question-${idx}`} onClick={() => setOpen(isOpen ? null : idx)} aria-expanded={isOpen} aria-controls={`faq-answer-${idx}`}>
                 <span>{f.q}</span>
                 <span className={`faq-plus${isOpen ? " open" : ""}`} aria-hidden>+</span>
               </button>
-              <div className={`faq-a${isOpen ? " open" : ""}`}>
+              <div id={`faq-answer-${idx}`} role="region" aria-labelledby={`faq-question-${idx}`} aria-hidden={!isOpen} className={`faq-a${isOpen ? " open" : ""}`}>
                 <p>{f.a}</p>
               </div>
             </div>
@@ -91,6 +94,11 @@ export default function FaqPage() {
         .faq-search input { flex: 1; border: 0; outline: none; background: transparent; font: inherit; font-size: .95rem; color: var(--ink); }
         .faq-search input::placeholder { color: var(--ink-4); }
         .faq-count { font-size: .75rem; letter-spacing: .1em; color: var(--ink-4); }
+        .faq-search input { min-width: 0; width: 100%; }
+        .faq-count { flex-shrink: 0; letter-spacing: 0; }
+        .faq-clear { flex: 0 0 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: transparent; color: var(--ink-3); cursor: pointer; }
+        .faq-clear:hover { background: var(--cream-3); }
+        .faq-search input::-webkit-search-cancel-button { display: none; }
 
         .faq-row { border-bottom: 1px solid var(--border); }
         .faq-q { width: 100%; text-align: left; background: transparent; cursor: pointer; padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--font-serif); font-size: 1.2rem; color: var(--ink); transition: color .25s; }

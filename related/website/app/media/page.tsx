@@ -39,7 +39,6 @@ export default function MediaPage() {
                 <span className="media-press-date">{p.date}</span>
               </div>
               <blockquote className="serif">&ldquo;{p.quote}&rdquo;</blockquote>
-              <span className="media-press-link">{t("readMore")}</span>
             </article>
           ))}
         </div>
@@ -66,7 +65,7 @@ export default function MediaPage() {
         .media-press-list { display: flex; flex-direction: column; }
         .media-press-row { display: grid; grid-template-columns: 220px 1fr auto; gap: 2rem; align-items: center; padding: 2rem 0; border-top: 1px solid var(--border); color: inherit; transition: padding-left .45s cubic-bezier(.22,1,.36,1); }
         .media-press-row:last-child { border-bottom: 1px solid var(--border); }
-        .media-press-row:hover { padding-left: 1.25rem; }
+        .media-press-row { grid-template-columns: 220px 1fr; }
         .media-press-meta { display: flex; flex-direction: column; gap: .3rem; }
         .media-press-source { font-weight: 600; font-size: .95rem; color: var(--ink); }
         .media-press-date { font-size: .8rem; color: var(--ink-3); letter-spacing: .06em; }

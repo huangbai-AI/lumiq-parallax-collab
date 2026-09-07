@@ -476,7 +476,9 @@
     "q5": "Is my data private?",
     "a5": "Yes. We store as little as we can, never sell data, and offer offline modes for every product where it's possible.",
     "q6": "Can I cancel a plan?",
-    "a6": "Any time. There are no contracts and no penalties."
+    "a6": "Any time. There are no contracts and no penalties.",
+    "clearSearch": "Clear search",
+    "results": "{count} / {total}"
   },
   "Story": {
     "eyebrow": "Brand Story",

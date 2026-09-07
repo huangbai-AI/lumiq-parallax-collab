@@ -121,6 +121,7 @@ function BillingToggle({
       <button
         type="button"
         className={billing === "yearly" ? "on" : ""}
+        aria-pressed={billing === "yearly"}
         onClick={() => setBilling("yearly")}
       >
         {labels.yearly} <span className="billing-save">{labels.save}</span>
@@ -128,6 +129,7 @@ function BillingToggle({
       <button
         type="button"
         className={billing === "monthly" ? "on" : ""}
+        aria-pressed={billing === "monthly"}
         onClick={() => setBilling("monthly")}
       >
         {labels.monthly}
@@ -155,9 +157,9 @@ function PlanTable({
         <table className="pal-table">
           <thead>
             <tr>
-              <th>{labels.subscription}</th>
+              <th scope="col">{labels.subscription}</th>
               {cols.map((c) => (
-                <th key={c} className={c === featured ? "is-featured" : ""}>
+                <th scope="col" key={c} className={c === featured ? "is-featured" : ""}>
                   {c === featured && (
                     <span className="pop-tag">{labels.popular}</span>
                   )}

@@ -197,9 +197,23 @@ export default function ProductsShowcase() {
               key={p.id}
               type="button"
               role="tab"
+              id={`product-tab-${p.id}`}
+              aria-controls="product-panel"
               aria-selected={i === active}
+              tabIndex={i === active ? 0 : -1}
               className={`prod-tab${i === active ? " on" : ""}`}
               onClick={() => setActive(i)}
+              onKeyDown={(event) => {
+                const next = event.key === "ArrowRight" ? (i + 1) % products.length
+                  : event.key === "ArrowLeft" ? (i + products.length - 1) % products.length
+                  : event.key === "Home" ? 0 : event.key === "End" ? products.length - 1 : null;
+                if (next === null) return;
+                event.preventDefault();
+                setActive(next);
+                const target = document.getElementById(`product-tab-${products[next].id}`);
+                target?.focus({ preventScroll: true });
+                target?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+              }}
             >
               <span className="prod-tab-num serif">{p.tag}</span>
               <span className="prod-tab-name">{p.name}</span>
@@ -208,7 +222,7 @@ export default function ProductsShowcase() {
           ))}
         </div>
 
-        <div className="prod-stage reveal">
+        <div className="prod-stage reveal" id="product-panel" role="tabpanel" aria-labelledby={`product-tab-${current.id}`} tabIndex={0}>
           <div className="prod-stage-media">
             {products.map((p, i) => (
               <Image
@@ -395,8 +409,11 @@ export default function ProductsShowcase() {
           .prod-feat:nth-child(odd) { border-left: none; }
           .prod-feat:nth-child(n+3) { border-top: 1px solid var(--border); }
           .prod-page > .prod-lineup { padding-top: 4rem; padding-bottom: 3.5rem; }
-          .prod-tabs { grid-template-columns: 1fr; gap: 0.5rem; margin: 2.25rem 0 2.5rem; }
-          .prod-tab { padding: 0.9rem 0 0.9rem; }
+          .prod-tabs { display: flex; overflow-x: auto; gap: .6rem; margin: 1.5rem 0; padding: 5px 4px 12px; scrollbar-width: thin; }
+          .prod-tab { flex: 0 0 auto; min-height: 48px; padding: .75rem 1rem; border: 1px solid var(--border-h); border-radius: 999px; }
+          .prod-tab.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+          .prod-tab::before, .prod-tab-num, .prod-tab-sub { display: none; }
+          .prod-tab-name { margin: 0; font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
           .prod-stage { grid-template-columns: 1fr; gap: 2.5rem; }
           .prod-page > .prod-story-invite .prod-story-invite-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 5rem; padding-bottom: 5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }

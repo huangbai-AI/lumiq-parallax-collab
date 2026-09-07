@@ -70,6 +70,7 @@ export default function PrelaunchPage() {
           {t("intro")}
         </p>
         <form
+          className="prelaunch-form"
           onSubmit={submitWaitlist}
           style={{
             display: "flex",
@@ -100,7 +101,7 @@ export default function PrelaunchPage() {
             maxLength={254}
             required
             aria-label={t("emailLabel")}
-            style={{ flex: 1, padding: "0 1.25rem", background: "transparent", color: "var(--ink)" }}
+            style={{ flex: 1, minWidth: 0, padding: "0 1.25rem", background: "transparent", color: "var(--ink)" }}
           />
           <label
             aria-hidden="true"
@@ -139,6 +140,14 @@ export default function PrelaunchPage() {
           <Link href="/products" style={{ color: "var(--ink-2)", fontWeight: 500, borderBottom: "1px solid var(--ink-4)", paddingBottom: 2 }}>{t("back")}</Link>
         </div>
       </section>
+      <style>{`
+        .prelaunch-form:focus-within { border-color: #52677d !important; }
+        @media (max-width: 540px) {
+          .prelaunch-form { flex-direction: column; border-radius: 24px !important; }
+          .prelaunch-form input[type="email"] { min-height: 48px; }
+          .prelaunch-form button { width: 100%; }
+        }
+      `}</style>
     </main>
   );
 }
