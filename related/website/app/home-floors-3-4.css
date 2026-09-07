@@ -46,7 +46,8 @@
 .lh-room-layout[data-reading=true] .lh-room-canvas {
   width: min(100%,calc((var(--room-height) - 48px)*16/9));
   height: min(1080px,56.25vw,calc(var(--room-height) - 48px));
-  right: 0; margin-top: 0; translate: 0 -50%;
+  right: 0; margin-top: 0;
+  top: calc((var(--room-height) - min(1080px,56.25vw,calc(var(--room-height) - 48px)))/2);
 }
 .lh-room-layout[data-reading=true] .lh-room-background {
   mask-image: linear-gradient(transparent,#000 8%,#000 92%,transparent),linear-gradient(90deg,transparent,#000 12%);
