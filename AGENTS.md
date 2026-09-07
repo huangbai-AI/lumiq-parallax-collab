@@ -4,14 +4,12 @@
 
 ## 当前基线
 
-- 当前正式静态稿：`output/交付/甲方反馈改版-2026-09-03/`
-- 当前推荐动效：`output/libtv/h3-variants/lumiq-h3-variant-i-balanced-final-v2.mp4`
-- 当前动效提示词：`output/imagegen/lumiq-revision-2026-09-03/h3-variant-i-balanced-light-scroll.txt`
-- 六屏总览：`output/交付/甲方反馈改版-2026-09-03/六屏总览.png`
-- 原始产品素材：`analysis/materials/`
-- 当前真实网站：`related/website/`，来自 `codex/home-pearl-scroll-video` 的 `f12078b`
+- 当前正式网站：`main` 分支的 `related/website/`，交接版本 `handoff-2026-09-07`。
+- 当前交接说明与素材索引：`output/交付/GitHub交接-2026-09-07/`。
+- 当前网页视频：`related/website/public/assets/home-video/opening-web-20260907.mp4`。
+- 原始产品素材：`analysis/materials/`。
 
-除非用户明确指定，后续修改一律以上述基线继续，不要误用 `tmp/`、质检帧、raw 视频或旧试验图。
+9月3日静态稿及旧推荐视频是历史资料，不得覆盖当前网站。正式素材以交接索引和代码实际引用为准。
 
 ## 工作原则
 
@@ -20,7 +18,7 @@
 3. 新结果放入新的日期目录，不覆盖正式交付。
 4. 视频生成后至少检查首、中、尾画面、分辨率、时长、导航稳定性和文字变形。
 5. 项目不含账号密钥。需要在线生成时，使用新环境已经登录的工具或请用户登录。
-6. 本项目现有内容是视觉稿、提示词、素材和视频，不含线上官网源代码；若用户要求修改真实网站，需要先取得网站代码仓库。
+6. 本项目已包含真实网站源代码，直接在 `related/website/` 修改；新开 `codex/` 分支，分段检查并提交。
 
 ## 需要避免
 

@@ -1,0 +1,1405 @@
+{
+  "date": "2026-09-07",
+  "files": [
+    {
+      "path": "related/website/public/assets/brand/lumiq-logo-transparent-dark.png",
+      "bytes": 698247,
+      "sha256": "fea475cbf313011e447f0e3b7311da8728382e6f6a87dfd55b32b6227110e35b"
+    },
+    {
+      "path": "related/website/public/assets/brand/lumiq-logo-white-transparent-v2.png",
+      "bytes": 268512,
+      "sha256": "562bb8d6940e7369872c7c7853dd42f70c46246da6102b7656f4f1b9f28fdbd3"
+    },
+    {
+      "path": "related/website/public/assets/brand/lumiq-studio-logo-master-4k.png",
+      "bytes": 1921220,
+      "sha256": "a82ce57088eabeeef2b09e822a573aaaad41fcb09023460744e0a14a3c784025"
+    },
+    {
+      "path": "related/website/public/assets/fonts/manrope-latin.woff2",
+      "bytes": 24576,
+      "sha256": "e310b55a7fd9677f5e3555e6c6c4d064fa1f1d24393f0ddbe217cea12a8c432f"
+    },
+    {
+      "path": "related/website/public/assets/fonts/space-grotesk-latin.woff2",
+      "bytes": 22320,
+      "sha256": "a0d054c4af557de20afd6ca59f47ab353bcaec49c63ff04b6c9d39d0f8910557"
+    },
+    {
+      "path": "related/website/public/assets/home-anchored-2026-09-07/join-crystal.webp",
+      "bytes": 428898,
+      "sha256": "0657744658c1ef46e3fcf67070418542ccac1cd7f73e585d384681559cf72790"
+    },
+    {
+      "path": "related/website/public/assets/home-ending-2026-09-07/join-atmosphere.webp",
+      "bytes": 142390,
+      "sha256": "27fcf9c0e8703266e943a64a86dbcab697eaf778226ae1a4ea3ccf07f18d28c0"
+    },
+    {
+      "path": "related/website/public/assets/home-ending-2026-09-07/trust-family.webp",
+      "bytes": 887586,
+      "sha256": "ec858763adde655a6be29f760c31a49e290b8492945b04895934753ad25842c3"
+    },
+    {
+      "path": "related/website/public/assets/home-immersive-2026-09-07/afternoon.webp",
+      "bytes": 926480,
+      "sha256": "51dc67b7aa7613b258f7c0fc79d25f988d5adcdb54e0c2614d4fa45d32ef8845"
+    },
+    {
+      "path": "related/website/public/assets/home-immersive-2026-09-07/evening.webp",
+      "bytes": 783564,
+      "sha256": "e856d17303b68f3ff08f9e702441e7aa2ae6c4c6e200c01c15a2a9e22f8e1fa9"
+    },
+    {
+      "path": "related/website/public/assets/home-immersive-2026-09-07/morning.webp",
+      "bytes": 1306102,
+      "sha256": "fd6f3c3711947b1677a742dd72f8bf34d816ce9ae6bd1c3ee3639c98a8e6d95c"
+    },
+    {
+      "path": "related/website/public/assets/home-immersive-2026-09-07/trust-wide.webp",
+      "bytes": 510962,
+      "sha256": "84ab183d71108bef23c47c98db7f438ccd5c4f65d05846ddd9a32d0f33ae9f41"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/care.webp",
+      "bytes": 19366,
+      "sha256": "a1fab6617fc0295fd1dd61781b5ac0321ecf9df826b0edd31a4157ede7282623"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/connect.webp",
+      "bytes": 19548,
+      "sha256": "b58d01bf0fddbcf1f6643a2d4fe4dddc761ffca9b97b2844c5d1fc3d44518cf3"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/family-panorama.webp",
+      "bytes": 227414,
+      "sha256": "b0c9198122e0ce8e015c74cbe1da88d7aa1344bc62463f73f923eb8701664d11"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/glass-wordmark-original.webp",
+      "bytes": 412154,
+      "sha256": "7470146b90929cf3c7b6281d90684dc2e8ef2d09d8e08dd6a5e26026b026a212"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/go.webp",
+      "bytes": 126518,
+      "sha256": "a13296cfba62ad8fb61b60dbc413a2493de25c9203d082d32262f7daf1f20622"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/learn.webp",
+      "bytes": 16532,
+      "sha256": "8783fd07ebd07bf4138e1f0ad529b2942cdf23a12bb68dbb22a49b4a4ff7f0eb"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/nest15-confirmed.webp",
+      "bytes": 109484,
+      "sha256": "a20f0ee034ca4f89bf5d81acc1c8dfb298a02e8a0517b3e020ca24fd2514a07b"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/ola-character.webp",
+      "bytes": 155514,
+      "sha256": "9b73308209316a24f8f055e03b91a6e76da615fb7f4137df68ba77dbd3e877d5"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/ola.webp",
+      "bytes": 168626,
+      "sha256": "c71655311e626eb65c4dd542d937d3f3c36f3542406b37856261a2eb30fd05e2"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/original-house.webp",
+      "bytes": 130416,
+      "sha256": "8443775dff6f7ae39ecc20d8e1346b71899da5b28c46416c66050d98df987b3c"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/pearl-light.webp",
+      "bytes": 158830,
+      "sha256": "48fe245cb0ba2eb484f9420d8f412de0776151353184b4435b0a81f71d281ef8"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/print.webp",
+      "bytes": 436824,
+      "sha256": "cdfdbcee6d8d6044b52f48104d1b6d260a48bcf1877a662d8b06e7590381e8aa"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/tablet.webp",
+      "bytes": 380742,
+      "sha256": "b4a6740c5b5189c2b30f9f4e6192346dee7560469a3874922387da0b05d3d6ca"
+    },
+    {
+      "path": "related/website/public/assets/home-interactive/trust-family.webp",
+      "bytes": 56076,
+      "sha256": "bb29f318d6a40af62b332af2fa6a07c8a4764a0c78eaf23ac32b9237e30e1009"
+    },
+    {
+      "path": "related/website/public/assets/home-mobile-20260907/hero-1280.webp",
+      "bytes": 121660,
+      "sha256": "203188b6680a7fcebf6a7b4d28e22f24603efb322867ba37794832761f1df10e"
+    },
+    {
+      "path": "related/website/public/assets/home-mobile-20260907/hero-1600.webp",
+      "bytes": 168106,
+      "sha256": "6bdbae2e7718f512a7aa7449f6bf0887a23300ca0c8a3cf0daba61132a2a9265"
+    },
+    {
+      "path": "related/website/public/assets/home-mobile-20260907/hero-640.webp",
+      "bytes": 43100,
+      "sha256": "12333548ee6a042923ee9704afe26279fd31b931019ae05ebc89d5d979880bd8"
+    },
+    {
+      "path": "related/website/public/assets/home-mobile-20260907/hero-960.webp",
+      "bytes": 80734,
+      "sha256": "319de96db41f1e8aaa6dfd29d978d3ea6faeb97c48562cd0022dab05bb801d22"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/family-bg.png",
+      "bytes": 7143384,
+      "sha256": "b17b0e0757b0ac634ef10e4813aa300e38839fc4c94e7d68b37fcd56653db018"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/family-bg.webp",
+      "bytes": 284376,
+      "sha256": "e48f10e7ec9edf584c04cef7fe3094de00a401da6ec9902d1fb791c6e20ff1c3"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/home-products-bg.png",
+      "bytes": 17689764,
+      "sha256": "08d5fde54d4834b3914fe6a2d43bb738aad5f8b513f12b70d76a75a4e241127c"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/home-products-bg.webp",
+      "bytes": 340964,
+      "sha256": "5d58c8e4b04c62b900c14423e94014e7c9d4f69b40fd5b59555cdc8aa3d5a67d"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/join-bg.png",
+      "bytes": 6457894,
+      "sha256": "4adf3334574378685090458b81f6e8cbaf48b49a97cf8d9480eb311abd9ad27d"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/join-bg.webp",
+      "bytes": 176706,
+      "sha256": "856684189d0a2b909c377c9edf1d6afc0dd73d8c95875c12889b4ef9e2603ebe"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/lumiq-pearl-hero-h3-2k.mp4",
+      "bytes": 4510047,
+      "sha256": "a77a32abdb320b3d7a3dcc47bd836f583f2fcdead7c92a0779a0019c8742a56b"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/lumiq-scroll-world-1080.mp4",
+      "bytes": 15465259,
+      "sha256": "9b022d71ee5b3e8180c96cccbf7326a4d2f1abbb08cbb58f893b8487ad3d86d7"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/lumiq-scroll-world-720.mp4",
+      "bytes": 5929704,
+      "sha256": "0ddc71395dc3b54e709f27d2b12d73263a5339604960f4ca48a00921f5127d4d"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/lumiq-scroll-world-poster.jpg",
+      "bytes": 182783,
+      "sha256": "71b4aadb1c0ec623a301b7354df12b50474e6996ba7b1940c367ecd564e87854"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/nest-15-bg.png",
+      "bytes": 7202643,
+      "sha256": "d81d8ac615cee6d1caed5137cf4bb5e4111558c0b6b78b84d0780a4d824d9a09"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/nest-15-bg.webp",
+      "bytes": 235866,
+      "sha256": "330c6dc2c168d42003cb9622d982066ccfb9f936cc898386fbe5854a6a7d49dd"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/ola-bg.png",
+      "bytes": 18831983,
+      "sha256": "3bf194e8166cf46f59668a9b60ed8f9609a218941094f083eeb43c8efb2744e3"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/ola-bg.webp",
+      "bytes": 224794,
+      "sha256": "2c9191ac00e272ffbad23d3ed8d1c6e5a6af28eaa68b047b661f2b3f0ebfd6ea"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/tablet-bg.png",
+      "bytes": 17583359,
+      "sha256": "c0c516a4ab23d89870dd467e29ab8be627d90d860168dcca229617a88e4d9725"
+    },
+    {
+      "path": "related/website/public/assets/home-pearl/tablet-bg.webp",
+      "bytes": 291044,
+      "sha256": "65bcd6c57cffabb444d98e5f82b2475a58bb09ee3aceac653973fec5e6daf271"
+    },
+    {
+      "path": "related/website/public/assets/home-premium-20260907/nest-halo.webp",
+      "bytes": 171406,
+      "sha256": "ccf523040e658fd2b6c5bdd8efdccbece9c36001d437048d04f04b9bf7508c55"
+    },
+    {
+      "path": "related/website/public/assets/home-premium-20260907/ola-go-halo.webp",
+      "bytes": 155824,
+      "sha256": "57a0082686fd3fa4e415a7e0818fdc22e7692b2b279892c62e01aaa4c3f441ed"
+    },
+    {
+      "path": "related/website/public/assets/home-premium-20260907/ola-halo.webp",
+      "bytes": 157540,
+      "sha256": "a60a560b921c053b0522a7bb63906bce527efc88ab2e5607bc5da68ad6459c71"
+    },
+    {
+      "path": "related/website/public/assets/home-premium-20260907/print-halo.webp",
+      "bytes": 234342,
+      "sha256": "4550c2d34b4a640b43770457574f17d16c2037eb9b95cbcc856a365c07eddee6"
+    },
+    {
+      "path": "related/website/public/assets/home-premium-20260907/tablet-halo.webp",
+      "bytes": 184448,
+      "sha256": "24b4467f86af6dd759742ddafb027dc1da99da7dbce823b463d3023e50503c91"
+    },
+    {
+      "path": "related/website/public/assets/home-products-20260907/nest15-angle-confirmed.webp",
+      "bytes": 493930,
+      "sha256": "30a369dee9297f9cd9fa6da1051cf0c55c2e158496d876d03d0c26dfefccbd24"
+    },
+    {
+      "path": "related/website/public/assets/home-products-20260907/ola-angle.webp",
+      "bytes": 1502290,
+      "sha256": "d3a907bde51522e8c89f839fa76cf4012496adf2b7461ff3ca7f7295dcab63e8"
+    },
+    {
+      "path": "related/website/public/assets/home-products-20260907/tablet-angle.webp",
+      "bytes": 403284,
+      "sha256": "be7b1cb79e28960c2b0cc4f152ba80a39daaa1ea921a26298611400ba73d483a"
+    },
+    {
+      "path": "related/website/public/assets/home-products-refined-20260907/ola-repaired.webp",
+      "bytes": 928938,
+      "sha256": "91c09cbc0de33f7da060e967bc6e77af3c06fb2df7999926037d0af8cd997c06"
+    },
+    {
+      "path": "related/website/public/assets/home-products-refined-20260907/tablet-pair.webp",
+      "bytes": 1000616,
+      "sha256": "b200cc29cde9e18e6f7c4f86f9c1fe7c338d678faa508bd93aaf08b73e0a49fe"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/afternoon-51dc67b7aa-1280.webp",
+      "bytes": 96860,
+      "sha256": "b11ee18dfb8c4cfce9551b579841b717ae2bfc3d9edfe8318556ffddcf3f7621"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/afternoon-51dc67b7aa-1920.webp",
+      "bytes": 173608,
+      "sha256": "01afbf84319a3f3ce2282ee964377159e770fd2b6b50c062f4d5578c1502d10b"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/afternoon-51dc67b7aa-2560.webp",
+      "bytes": 245044,
+      "sha256": "e823e5318eae9aa46dabc5457172b79ccdefd4dffe3079ff695f65c419cfc907"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/afternoon-51dc67b7aa-320.webp",
+      "bytes": 12562,
+      "sha256": "270201175aa76e90154605b87e90e3b9067553992bd6209c6a76b3981bbf1a1d"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/afternoon-51dc67b7aa-3840.webp",
+      "bytes": 420840,
+      "sha256": "1385f84662a17301458b23abc88eb0301f8fbe9226592be458557c835782552c"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/afternoon-51dc67b7aa-640.webp",
+      "bytes": 34630,
+      "sha256": "ca05cc881fd1dd4761439b5f684137fff1b91a0ac5b72ca9b2d785f84686a56f"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/afternoon-51dc67b7aa-960.webp",
+      "bytes": 63700,
+      "sha256": "f7c69c7d9aa4946ed8318998535236ac878f30998aa4acc0200005b8b56e43e1"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/care-6ad5274bf5-1200.webp",
+      "bytes": 137884,
+      "sha256": "2555c9d4b24e1785c1b8cb01e33cbcb8ffa650fa60a1099d8bfbb5528678e38a"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/care-6ad5274bf5-320.webp",
+      "bytes": 16718,
+      "sha256": "17072a5a602ee147dc1523eef6898ddc27a76e641b80cdf47280cffd7df41709"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/care-6ad5274bf5-640.webp",
+      "bytes": 44936,
+      "sha256": "dc8a87ffe9f1bd3456dda4fbe0e10d779fa2bc7b68bd95f6fa23e67ae623ca6a"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/care-6ad5274bf5-960.webp",
+      "bytes": 79754,
+      "sha256": "f925820913a0f9364f94b27138765a0b43b50cdc83cc53aae1f282be1c81d77e"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/connect-e64201ac2a-1200.webp",
+      "bytes": 226588,
+      "sha256": "a88a4a6e7f3ca3425af2ef2acea66a0506412b4bc4b2e9f1f7f3040363ffe31d"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/connect-e64201ac2a-320.webp",
+      "bytes": 23262,
+      "sha256": "f15297dfe972b45f174b3841c9943d8fbdea9aae457a2cdc7d4794e231fdbdc1"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/connect-e64201ac2a-640.webp",
+      "bytes": 73342,
+      "sha256": "7c664c5f35cf017062dcb4604411e52f9736d75cdd41bf77fd0ca46cd5bb079e"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/connect-e64201ac2a-960.webp",
+      "bytes": 133954,
+      "sha256": "263c07b88997bd2799e1242cd74b36de9b198957e6e60e0dfa4d942fac1afa2a"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/evening-e856d17303-1280.webp",
+      "bytes": 63238,
+      "sha256": "f65e028f298c5bd5918b4e92eeed516d2bd39a0a27b533eb2e135a82f946a1f9"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/evening-e856d17303-1920.webp",
+      "bytes": 117808,
+      "sha256": "a39d0ca342f9ddef8f5e23d155b1f7d70360ae2944281d1abac4c3dc2331b5f3"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/evening-e856d17303-2560.webp",
+      "bytes": 169064,
+      "sha256": "7c25ce709df5bbed41a50054637e381df2272d60e47f126d4d3ab9a633d8be33"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/evening-e856d17303-320.webp",
+      "bytes": 8498,
+      "sha256": "17726e8e3010a028efd52138fa96650ff6359c2e926d1510328aec32ea054039"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/evening-e856d17303-3840.webp",
+      "bytes": 307674,
+      "sha256": "b751f76eea4ea57ab88804adf977cf6a168f55fee637af08ed26f21d5f9d0640"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/evening-e856d17303-640.webp",
+      "bytes": 22380,
+      "sha256": "0124d7126e4eace7daff51c84040a4b637178384c621efb0730f64cf570edd89"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/evening-e856d17303-960.webp",
+      "bytes": 41168,
+      "sha256": "b3d98dc6bbb3fe4f30d6963c55550730f5b6060e91f06466b0982dfadd9f9e65"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/glass-wordmark-original-7470146b90-1280.webp",
+      "bytes": 11294,
+      "sha256": "3337eb4ca9f6b1a36cf9cd835294a57c867e98bec83e18c7c72f505d1107ab09"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/glass-wordmark-original-7470146b90-320.webp",
+      "bytes": 1584,
+      "sha256": "40d3b02c9ff0bfab8f6db28bb2c0a37da7b989493c9fc540f37f44dcad4df83b"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/glass-wordmark-original-7470146b90-640.webp",
+      "bytes": 4500,
+      "sha256": "884624680d6b6f24dc88611786c9dc66a5084e103729cbdd71b707a965f845a3"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/glass-wordmark-original-7470146b90-960.webp",
+      "bytes": 7736,
+      "sha256": "30604e7bfedae8db63136498aada2a98d40a84f8dbd12db638634a08c28c8649"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/go-a13296cfba-1006.webp",
+      "bytes": 79780,
+      "sha256": "95ae0d3b5513f5b5513886069826c04db8bb6f9be67984805ba64c9b6ecb5117"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/go-a13296cfba-320.webp",
+      "bytes": 17838,
+      "sha256": "cce424e82fabc070d0fd0b8936f674a5a1dfdba4277e14f1ece5c4d54828f746"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/go-a13296cfba-640.webp",
+      "bytes": 43232,
+      "sha256": "5e5c2cabf2b56316445a5f15eae26bcb98b560d5daee796cc977346b07f1f011"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/go-a13296cfba-960.webp",
+      "bytes": 69986,
+      "sha256": "cbb0847221d2f70336bc7e1df2e4c52be21b6e125b275dca32931b9ef027238f"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/join-crystal-0657744658-1280.webp",
+      "bytes": 29578,
+      "sha256": "0356c4fa6fb850854b37df03d04f013be9f9a37f42feb5270c368c1c569b964f"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/join-crystal-0657744658-1920.webp",
+      "bytes": 58292,
+      "sha256": "daa1a7e951858d397a232ca9248e1b7c4a6d866683fee6d58a74ec592e4d19bd"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/join-crystal-0657744658-2560.webp",
+      "bytes": 84996,
+      "sha256": "74a4cd634aedf3f71a7a8b9d84454d23a544cbcca08e05c1a7215b1c7dbba3b4"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/join-crystal-0657744658-320.webp",
+      "bytes": 2854,
+      "sha256": "f79ddfd04fa8f16ea2b973b9617d6debdb13ac5f15b37c12dca3f1a463d23d0a"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/join-crystal-0657744658-3840.webp",
+      "bytes": 167338,
+      "sha256": "cbc05ed7ed463272ac835ba8f79217d3f085049e4a1e97ab653a2777041eaab8"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/join-crystal-0657744658-640.webp",
+      "bytes": 9242,
+      "sha256": "656f0bdb67f04d04ad62c2a01f14267a0d58e0119d1eec0d2498fe97607c56f1"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/join-crystal-0657744658-960.webp",
+      "bytes": 18314,
+      "sha256": "17dd654c11441a7bc48cfc9db63005d4cb20a3a3307546903e1963e125ac8aca"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/learn-c6ca23a535-1200.webp",
+      "bytes": 183728,
+      "sha256": "9676fc41adea1ac3d36ec9f16c839502b8fa2fec95fdbb18bf8e4bcc5bff1f25"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/learn-c6ca23a535-320.webp",
+      "bytes": 17906,
+      "sha256": "21a2ca43b700d931a1df339d0a3a0b61954cd08959877273ea39bc74ff40adab"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/learn-c6ca23a535-640.webp",
+      "bytes": 55094,
+      "sha256": "da86bb760ccfc9bd6d756079927e9fa6f8d28ae431b95811b4f726506a4801e3"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/learn-c6ca23a535-960.webp",
+      "bytes": 106102,
+      "sha256": "3ffea213950d285ec8040c8054099a954d6546ce18cfbfd5325a90ecc736bfd6"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/morning-fd6f3c3711-1280.webp",
+      "bytes": 104900,
+      "sha256": "8ae9ef93e5abb7baf48f7ead8f6609880b297d86ca7183b19a8bb77b80d00bca"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/morning-fd6f3c3711-1920.webp",
+      "bytes": 207230,
+      "sha256": "20e6cc8322d63b57d8ef7813159acc63c60619f2ac46ddcb420dc12e4ac229ec"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/morning-fd6f3c3711-2560.webp",
+      "bytes": 300760,
+      "sha256": "4029f97cfd965beb18721ede5a3af814a3b6864739995d7ae50a86243c0122eb"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/morning-fd6f3c3711-320.webp",
+      "bytes": 12274,
+      "sha256": "cacecf79f8e16ddd0348ecaa5b3787deb37f7e9d9e2a9427642e0bbed59bf5a7"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/morning-fd6f3c3711-3840.webp",
+      "bytes": 572464,
+      "sha256": "3aa4c9896da08c31cf763c86c2b15a9138231105428a06176fc87c82cac16939"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/morning-fd6f3c3711-640.webp",
+      "bytes": 35400,
+      "sha256": "2d5968a4e70bda5a2da0ce9569e959c95975ea8bbabc8ad5f896e5430429cfd5"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/morning-fd6f3c3711-960.webp",
+      "bytes": 65918,
+      "sha256": "6ac0bab598973e7be6b38e51b53f4d09038547dcdaa8f30a934e62676683b1d8"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest-halo-ccf523040e-320.webp",
+      "bytes": 21670,
+      "sha256": "3de4fed5d30b91b15262e140a7a7ef4028d6360376a0a8725eaf3e57f84b54a9"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest-halo-ccf523040e-640.webp",
+      "bytes": 64938,
+      "sha256": "733eef34cf81f8412ac8ddea6ed2c4d1a624e5aca16549fbb870aacc922a4654"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest-halo-ccf523040e-960.webp",
+      "bytes": 131572,
+      "sha256": "bfabde2efd5c7ede6cf9dee6fd48e7d8c709118f3be6ba8c4e9ef0b341a36b1a"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest15-angle-confirmed-30a369dee9-1280.webp",
+      "bytes": 132452,
+      "sha256": "88847707b1309cb5726da89d7b65c3fd412cb1cc4fed2833dc68a8a6aaa35be5"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest15-angle-confirmed-30a369dee9-320.webp",
+      "bytes": 16370,
+      "sha256": "bc04b9c6910b82c361454cb0c03661e21f0d92fafff2366b2371a330970bcce5"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest15-angle-confirmed-30a369dee9-640.webp",
+      "bytes": 48756,
+      "sha256": "68bc73761c96735315efdb3d30e6282b99b3ff81e9dc4e5b2bc51164fa68b101"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest15-angle-confirmed-30a369dee9-960.webp",
+      "bytes": 87894,
+      "sha256": "68c171924020cca5275eff1a0f267d82625d7b71f132f86e6cac9c61ebf0a100"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest15-confirmed-a20f0ee034-320.webp",
+      "bytes": 13596,
+      "sha256": "bc4c1032db20dff9fc8b008cbbecb8053ae202d7615f31ba9b95e7972efdfa8d"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest15-confirmed-a20f0ee034-640.webp",
+      "bytes": 39138,
+      "sha256": "dbbf739740869346ed1dadb5101cb66704c74af79bec6ed8706b48de3f9aa82d"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/nest15-confirmed-a20f0ee034-958.webp",
+      "bytes": 78506,
+      "sha256": "24da81492fc8bb7933174a6cb0786480bdab84956521da19e705c5ef3190211f"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-c71655311e-320.webp",
+      "bytes": 23766,
+      "sha256": "02ef1e4089564a47bc500d1f3886f62dc2832a67696acc56213f8f5e79366a01"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-c71655311e-640.webp",
+      "bytes": 60780,
+      "sha256": "a33fd90c51989df35e493283c53522fd947a300e9a09a308607f8c8be0e50cfc"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-c71655311e-855.webp",
+      "bytes": 96624,
+      "sha256": "ec26700c1cb68a379464f959e186a71e644ac6848ad6bfbd64ecc90b73c82d40"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-character-9b73308209-320.webp",
+      "bytes": 33506,
+      "sha256": "afba85d51e71f0331cb06ecd8ca9b095a55c3cb7f2641d8a756686ed09538741"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-character-9b73308209-638.webp",
+      "bytes": 99928,
+      "sha256": "2b3bada957a45f9cdbdc22fee4e310961b4d78d0ccbf269c61b2bfb9bb395f9b"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-go-halo-57a0082686-320.webp",
+      "bytes": 21138,
+      "sha256": "cfe0ad1ce1f929ae36157d9556693affdf4bd536fe6ba8665f6797d9281a7004"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-go-halo-57a0082686-640.webp",
+      "bytes": 62126,
+      "sha256": "8944150675b43c87b9124b06e1e70892e2ddc7b236acd6abb8c3e7ca85666979"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-go-halo-57a0082686-960.webp",
+      "bytes": 123984,
+      "sha256": "892ea3add87b8b3b0353de57e63866e4cc39c6dd4bb2c4e0ba6c10b43224be46"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-halo-a60a560b92-320.webp",
+      "bytes": 20632,
+      "sha256": "46b22996bb1a7e17b14c7578937803ebc5a1561076a46c70ccb68fc74c37965c"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-halo-a60a560b92-640.webp",
+      "bytes": 60360,
+      "sha256": "fe3c88778dd156d2e0f4002fa476c9c1a0608136c3d3ab4edaae7f4d018b7626"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-halo-a60a560b92-960.webp",
+      "bytes": 121428,
+      "sha256": "149c34189a3b0b177719aaecfe85d4d2a582c49046e3270327b9bfbc368cfcc3"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-repaired-91c09cbc0d-1280.webp",
+      "bytes": 251730,
+      "sha256": "91b2ffaa2464f52b1b02a785048a0767f481c296abb2f4b44aec50b8117557cd"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-repaired-91c09cbc0d-320.webp",
+      "bytes": 29684,
+      "sha256": "b5774776f9bd856cd9e1de014183457ce20b09661236b8030c03f1d43b577e8e"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-repaired-91c09cbc0d-640.webp",
+      "bytes": 89394,
+      "sha256": "73ed5536f64faf8ef7a1de2eb68392d3fa69f79a52f8913a473df5d664c2d1cb"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/ola-repaired-91c09cbc0d-960.webp",
+      "bytes": 164144,
+      "sha256": "05ff70199582a87f9cb84467b3a51a621599a40e080f37eb6195f1d80fe4f477"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/print-cdfdbcee6d-320.webp",
+      "bytes": 47544,
+      "sha256": "79804aad6595450913aa2184b6c798504167a29f706022700a0708fce42d8ff3"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/print-cdfdbcee6d-640.webp",
+      "bytes": 150086,
+      "sha256": "a96b67c7890db96ab41f3203ddc22ccbdd06acb46dbd8900752ad465318a5d7a"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/print-cdfdbcee6d-889.webp",
+      "bytes": 262994,
+      "sha256": "28b4d507f76f0cacd5aca992d40dba9c00660dc511e7e575b9d41c9d03cec4e6"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/print-halo-4550c2d34b-320.webp",
+      "bytes": 25306,
+      "sha256": "a0ddf33f29ca46f26f6f5ec7bdc6c09e17737d3d93c2d2ce2845589f903883ea"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/print-halo-4550c2d34b-640.webp",
+      "bytes": 78532,
+      "sha256": "a64735923e2b302f4b1c907211831c65899a2c1520151e94adac75c95b87c354"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/print-halo-4550c2d34b-960.webp",
+      "bytes": 165196,
+      "sha256": "531dae1401e3f1ee017ec4682a4f98cf61eaf3b290b47a1b8376964c5aa6f1b3"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/room-full-4k-9182639383-1280.webp",
+      "bytes": 45968,
+      "sha256": "ceb217439ae23d86dc8f7fa10be669ee2eb747e830b26194168288fe3cf0f20c"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/room-full-4k-9182639383-1920.webp",
+      "bytes": 85860,
+      "sha256": "a845460d23b4089d2b644695cc54d98a4311557323f8bfb6bdf75edc6cc01bc3"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/room-full-4k-9182639383-2560.webp",
+      "bytes": 120840,
+      "sha256": "500373e476f0b29dc560bbb999f99a4e6888af1138caf9139ecf8c4d85aecb14"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/room-full-4k-9182639383-320.webp",
+      "bytes": 5864,
+      "sha256": "7ec9e30932298a9c6104516d6c88a3b7ccb0303a6b8559d5eb5e253e02996e81"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/room-full-4k-9182639383-3840.webp",
+      "bytes": 226198,
+      "sha256": "9adf950bbde59e9875e9fdf490bd908f9f03b82255ad0d17f6395ab57d3c36dc"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/room-full-4k-9182639383-640.webp",
+      "bytes": 16204,
+      "sha256": "8a32b96e52f8841b3f1dfb4a5de1dcd8f6b1e8b675d7da495acbd128c9584cb6"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/room-full-4k-9182639383-960.webp",
+      "bytes": 29818,
+      "sha256": "c93802dec24b6dbccd37be634919c39b67edad72f3d9c418a408d8bdbf96d799"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-b4a6740c5b-1136.webp",
+      "bytes": 300596,
+      "sha256": "ec22bd6f47d99d2fa9e786ce0c5b5295778cd2ec5df65a67aa6a0740adec5514"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-b4a6740c5b-320.webp",
+      "bytes": 52192,
+      "sha256": "0ba265c9dc0c7b208e468af97cac8d788478f13f3849e015b861976693439590"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-b4a6740c5b-640.webp",
+      "bytes": 151392,
+      "sha256": "2977eca1884059a958f0af8e59d5945a816b7403d41d7bd5766bae72d4411f62"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-b4a6740c5b-960.webp",
+      "bytes": 267332,
+      "sha256": "270266a2f0e752609848f3683d238ba5576abd16e5b1b092759727f5e0a2c293"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-halo-24b4467f86-320.webp",
+      "bytes": 23488,
+      "sha256": "9bde1a551227322363745046bda50e98fb517118da325dd862f33b12d3e2f16a"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-halo-24b4467f86-640.webp",
+      "bytes": 70160,
+      "sha256": "3dcec239b3ca3118d6a69052dbcbde7aded22b01e68c4d577bc6e95b6331df75"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-halo-24b4467f86-960.webp",
+      "bytes": 141824,
+      "sha256": "06e7ce617036b97aa8a6868e3ba00a3d2cdbd9dccd56357df41a4da7befc7e5f"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-pair-b200cc29cd-1280.webp",
+      "bytes": 168076,
+      "sha256": "7370f06e2898fe962fb2e7ab108f9c63470d929c0ece9085fed7bdfc2e163b61"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-pair-b200cc29cd-320.webp",
+      "bytes": 21786,
+      "sha256": "82edce94450d59e870acd6d3bf06c92086b593d141a07fa4d303528fe762efab"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-pair-b200cc29cd-640.webp",
+      "bytes": 63020,
+      "sha256": "8c706a3fe6452e6b3bac37696bacf819d744ca9476e73341b34710bbf35f9e60"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/tablet-pair-b200cc29cd-960.webp",
+      "bytes": 112522,
+      "sha256": "04e8092500a3c152833bfe8cf8cd1dc8afe22165dfa9c8220d2a97f3c54ce260"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/trust-wide-84ab183d71-1280.webp",
+      "bytes": 43110,
+      "sha256": "159a03c09a640aab268bbe67e838d18210259d31297d036ce7ebf47ec0154c77"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/trust-wide-84ab183d71-1920.webp",
+      "bytes": 81878,
+      "sha256": "b037c6f82b3a4b04b0c1623f2becb3cc6e2f0befb74b69968dc970df55afff40"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/trust-wide-84ab183d71-2560.webp",
+      "bytes": 117192,
+      "sha256": "0ba1f7b11e5f1099a1521798f6e7d081c57152713c2d389102fecdbd9aa9a48e"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/trust-wide-84ab183d71-320.webp",
+      "bytes": 5344,
+      "sha256": "4ba62f8abe40e58a8fea9e1d551ac8e8ebdf7f2fef3e63452899258eb2864db1"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/trust-wide-84ab183d71-3840.webp",
+      "bytes": 218700,
+      "sha256": "f2025c41a35c14886aa9562afe1e4f165a605844f931123fdfea6dcbe9fbef8c"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/trust-wide-84ab183d71-640.webp",
+      "bytes": 14990,
+      "sha256": "d3b45e0111665608b4da2269f78b61bff643fc207a826dbb16a53036dd9cc480"
+    },
+    {
+      "path": "related/website/public/assets/home-responsive-20260907/trust-wide-84ab183d71-960.webp",
+      "bytes": 27776,
+      "sha256": "6c750013d3b67a7a6fa1d613086cdc8b7019370b2edc1fff4b4791a907aa9506"
+    },
+    {
+      "path": "related/website/public/assets/home-rooms-20260907/room-full-4k.webp",
+      "bytes": 558304,
+      "sha256": "91826393833a2f15e3e2bbd1e5eeb6501b8db4ab2e5def6a2461e4e34cddad1b"
+    },
+    {
+      "path": "related/website/public/assets/home-video/brand-end-20260907.webp",
+      "bytes": 117280,
+      "sha256": "d02b4fa9c42dd42c2361cfa62b1313f88dd26a6266647c18c517684f9720fba3"
+    },
+    {
+      "path": "related/website/public/assets/home-video/brand-end-clean-20260907.webp",
+      "bytes": 131814,
+      "sha256": "61ff44fecca9e32f8a5c56a624d178b4680b5ed667201b69ba044998d6235724"
+    },
+    {
+      "path": "related/website/public/assets/home-video/brand-end-position-20260907.webp",
+      "bytes": 170064,
+      "sha256": "ed9946f2ceb696643ea5036b2a8aa2f19245db1672a25925626e283fd868fa5e"
+    },
+    {
+      "path": "related/website/public/assets/home-video/brand-end-user-clean-20260907.webp",
+      "bytes": 142914,
+      "sha256": "35038d577c2014a31cb0c9b981973871688e1c99c82c7e8109e5da5beff2a5fb"
+    },
+    {
+      "path": "related/website/public/assets/home-video/care.webp",
+      "bytes": 269238,
+      "sha256": "6ad5274bf5a32c86448f7ce363c804a7ae8c21cd2f99c605c722340c8a3fa569"
+    },
+    {
+      "path": "related/website/public/assets/home-video/connect.webp",
+      "bytes": 399532,
+      "sha256": "e64201ac2a34ca7255029a8a518d7a6fd2f2a16b419df17ae42cf40903c3a540"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-approved-20260907.webp",
+      "bytes": 342302,
+      "sha256": "5724d20c7c1997ec9734a3c81827567b38a1f5bfc10d1344be68d5d2e9933dff"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-brand-scroll-20260907.mp4",
+      "bytes": 8192790,
+      "sha256": "c5e3dcc22333711c3fd82bda6d3eb01dccb46dbf59a40b544014a39c1319c87f"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-intro-20260907.mp4",
+      "bytes": 3342994,
+      "sha256": "0be691f86889d57c69d43771ebd93bc10dc4f5ee08379b0c9a292de364074255"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-intro-start-20260907.webp",
+      "bytes": 326290,
+      "sha256": "af013d5fdc499afdcf51805e994fd7a0fe4ebe42783491e08c2bd3175eced473"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-intro-user-clean-20260907.webp",
+      "bytes": 292704,
+      "sha256": "3b79a7d900dd0b5b2e8ce3bb654766763931adc82c14f2ce11ad53facf29cf29"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-position-20260907.webp",
+      "bytes": 328792,
+      "sha256": "f4dd87c62d8f5ebbc63a4ba54d99d5f412f1c1626f7ff4e9ec6a95f00a90d567"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-rest-20260907.webp",
+      "bytes": 296802,
+      "sha256": "a30084b065475e08aba14d9fba1069913e2fd67279d10df7661517525c7f985d"
+    },
+    {
+      "path": "related/website/public/assets/home-video/hero-user-clean-20260907.webp",
+      "bytes": 337722,
+      "sha256": "c13318caaa3ee9f8c013a3a9ef52b7af1ee1472e6ce326ce89aed61b393dacde"
+    },
+    {
+      "path": "related/website/public/assets/home-video/learn.webp",
+      "bytes": 373398,
+      "sha256": "c6ca23a53540ec22cbb994d4fcf54ef9a1c48112ec2df82331de66abca28c5ee"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-end.webp",
+      "bytes": 117280,
+      "sha256": "d02b4fa9c42dd42c2361cfa62b1313f88dd26a6266647c18c517684f9720fba3"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-mixed-clean-brand-h3-20260907.mp4",
+      "bytes": 9555308,
+      "sha256": "62960cc6f38534e7460e2a17cc797d9fe62cb937fa4f4ed6d3a4ac8d60008af8"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-mixed-h3-20260907.mp4",
+      "bytes": 11435690,
+      "sha256": "13caadd4c95422daebbad8059f920373572122b336b9c968e5c3fa1ee40d42f9"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-position-h3-20260907.mp4",
+      "bytes": 21835944,
+      "sha256": "dd0d7b0b50070c6a043de8cf8c6f785339ed162825c069d12cd6afca99ed3095"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-scroll.mp4",
+      "bytes": 10366983,
+      "sha256": "544a9591bb2a0c91619b7c6da7e2e53be4a9b0ed5879d42af59f3717effe963c"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-start.webp",
+      "bytes": 374832,
+      "sha256": "97ab6b0a442fd586467a8c93012cc18d54e34e935331d180bcd9622aa7169505"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-user-clean-float60-20260907.mp4",
+      "bytes": 28824307,
+      "sha256": "d3084827bd5ff554faa79241af3e3850bbdda1a3297421147d9d1b5d27c556e8"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-user-clean-h3-20260907.mp4",
+      "bytes": 26746401,
+      "sha256": "4160e831858c35619a395359fd48a9d71c3283ab6924c8c79b18775cc26b4af9"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-user-clean-idle60-20260907.mp4",
+      "bytes": 27899846,
+      "sha256": "3b013b2de78d35efc24d6a345accf40c5721d41cbf22e7b5e6718493b4651bc8"
+    },
+    {
+      "path": "related/website/public/assets/home-video/opening-web-20260907.mp4",
+      "bytes": 7236026,
+      "sha256": "53f86fdf4ec17dbb2f0fbcf6b0d276704b8b8e9c2df3d2fab8291926467bff02"
+    },
+    {
+      "path": "related/website/public/assets/letters/ola-metal-a.png",
+      "bytes": 1434501,
+      "sha256": "40b27b46d0d842af077404f996de70cee7108149a9b67b62bd060f09671c3428"
+    },
+    {
+      "path": "related/website/public/assets/letters/ola-metal-l.png",
+      "bytes": 860456,
+      "sha256": "0e02a909953a92150089f767c88baa1386e680681d95a2631db511ae1e97e243"
+    },
+    {
+      "path": "related/website/public/assets/letters/ola-metal-o.png",
+      "bytes": 1526988,
+      "sha256": "5cb5c31e56269cc7a8ab20f22814f610d0257b025a40b7a1a71227ee4e255b85"
+    },
+    {
+      "path": "related/website/public/assets/nest-detail/generated/nest-evening-home-v2.png",
+      "bytes": 1727904,
+      "sha256": "0f806b2c009a0203d2b9220123d191311619016792535672a43c67e944556d19"
+    },
+    {
+      "path": "related/website/public/assets/nest-detail/generated/nest-family-kitchen-v2.png",
+      "bytes": 1731922,
+      "sha256": "45cc6728962863292dffe4b99b2fa96107ab91b3eaeac8437b8dbc32ad8694a0"
+    },
+    {
+      "path": "related/website/public/assets/nest-detail/generated/nest-routine-closeup-v2.png",
+      "bytes": 1577308,
+      "sha256": "64c4b642980287fd5515d3497f504b5ae29c36bf7c8ef85de22e20b3a3f6b41b"
+    },
+    {
+      "path": "related/website/public/assets/nest15/nest15-black-angle.png",
+      "bytes": 1614188,
+      "sha256": "c171c4a94286ac3873336c81888cd2551b04d9605d0d4b0b836b49b278463c61"
+    },
+    {
+      "path": "related/website/public/assets/nest15/nest15-black-front.png",
+      "bytes": 1360423,
+      "sha256": "a9b81eb5691ff3306ba858b925ff35d02e8b2863c4fbbef9ebbfae0b57334546"
+    },
+    {
+      "path": "related/website/public/assets/nest15/nest15-oak-angle.png",
+      "bytes": 1881121,
+      "sha256": "38453b6efeaa37f0ae564d986fc2de2d21a9ccc8c604987bc4e5e87ed8c7e023"
+    },
+    {
+      "path": "related/website/public/assets/nest15/nest15-oak-front.png",
+      "bytes": 1732588,
+      "sha256": "d6089ab1ad43f064a6d1ea57aefec96faa28e7a4215211cfb6da429bf0348be2"
+    },
+    {
+      "path": "related/website/public/assets/nest15/nest15-rear.png",
+      "bytes": 1592645,
+      "sha256": "9b2e5d442d86fddb1fdb87ce9984d2d0ddf9485944dce1035f9689ace1da2626"
+    },
+    {
+      "path": "related/website/public/assets/nest15/nest15-walnut-angle.png",
+      "bytes": 1770863,
+      "sha256": "cc226445b4ddee236f603a7b89a15171efab6da998cf17537a18f6a7fcb34349"
+    },
+    {
+      "path": "related/website/public/assets/nest15/nest15-walnut-front.png",
+      "bytes": 1531104,
+      "sha256": "68901dd5d9fa8bae01b415cbd40c58dc24b646c69071170f3322fc2f0b7edefe"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/generated/ola-bedtime-story-v2.png",
+      "bytes": 1796163,
+      "sha256": "7ecfa2df8c649715ed6638410a449dbb9a7e30c2af327058061578ba04e36545"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/generated/ola-family-kitchen-v2.png",
+      "bytes": 1843103,
+      "sha256": "5b1fac472287b2c22421ce01caad1d66e9eecab0b0b29f60fe3e571f97ce59ee"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/generated/ola-senior-reminder-v2.png",
+      "bytes": 1764978,
+      "sha256": "7c6ee060e211cfa2c838a250bced1cc955171a7856330b326b6fe725bee87f93"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/lumiq-ola-angle-feishu-v3.png",
+      "bytes": 6044182,
+      "sha256": "145cbe1b4337167b0a29e67191f6b725166e1d6bd57776b01cd133253ab381a3"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/lumiq-ola-bedroom.png",
+      "bytes": 1617413,
+      "sha256": "cce262927b1fed440d7e061398da2b852a6215304b59e1dc47a4888ce5fd034e"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/lumiq-ola-study.png",
+      "bytes": 1660625,
+      "sha256": "dce99ddd6ebab341a6a9ebd9075a0529338f12ced7babd700041e2e25c80b315"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/lumiq-ola-upright-transparent.png",
+      "bytes": 1051001,
+      "sha256": "80926c12ed5471c911110886cc29300916a8233155b562551f13ac27f3723417"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/lumiq-ola-white-pedestal-v1.png",
+      "bytes": 1568497,
+      "sha256": "ddd8ca9e6371b93d5cd804d69f0d6643edf7d765f3ac414f79d72faf6f4826c3"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/ola-hero-mobile-cutout-v10.png",
+      "bytes": 1926690,
+      "sha256": "27b2dd56b486c35486806c452eea7e6d953ee6a2d8770afc0c0e45252567bd2b"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/ola-way-bedtime-v1.png",
+      "bytes": 1779255,
+      "sha256": "2017e637a119af360631abbc8aea18947072782f65fcdd0389c815986c6f81fa"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/ola-way-desk-work-v1.png",
+      "bytes": 1849078,
+      "sha256": "55426f692e1a56f15a7a14aa188eef8265ff3a341d7a5f5918627f82bf57b7ba"
+    },
+    {
+      "path": "related/website/public/assets/ola-detail/ola-way-family-blocks-v1.png",
+      "bytes": 1990030,
+      "sha256": "78a40263bf89f601707ed8739a2ebd0e5873590d360adf29ffe33a29b9b67ccf"
+    },
+    {
+      "path": "related/website/public/assets/ola-go-detail/generated/ola-go-bedside-journal-v3.png",
+      "bytes": 1917360,
+      "sha256": "676712e6b777ad4f6ce2370aaf25beacf43e8f2d800457aa3110554474753975"
+    },
+    {
+      "path": "related/website/public/assets/ola-go-detail/generated/ola-go-return-home-v3.png",
+      "bytes": 2137291,
+      "sha256": "7610783de803d718f0e4ba641b900cb4950a4ded823ab55cfe0b149e28b32262"
+    },
+    {
+      "path": "related/website/public/assets/ola-go-detail/generated/ola-go-schoolbag-v2.png",
+      "bytes": 1889859,
+      "sha256": "3b36d8c301f8c1470caadf643de703e048db5d889abce3c275ca8b8fd56c3249"
+    },
+    {
+      "path": "related/website/public/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png",
+      "bytes": 1949657,
+      "sha256": "cc8e96a6d6fa64033c8e6484bcef7a7665b0b820fb382b1febfe89f66d8b70c8"
+    },
+    {
+      "path": "related/website/public/assets/ola/ola-display.png",
+      "bytes": 1011007,
+      "sha256": "427c4b2d7826ff61eccaf77e1325e7512a9c380e0351a12ff7ace97c65bea265"
+    },
+    {
+      "path": "related/website/public/assets/ola/ola-go.png",
+      "bytes": 1381181,
+      "sha256": "946bda1bfa8acfb8a6e9b90199740f7145bc3334f80262e97ff395f524721790"
+    },
+    {
+      "path": "related/website/public/assets/ola/ola-hero-front.png",
+      "bytes": 15012912,
+      "sha256": "d3f251683bf7bf64f06f362e09b9e45bf6109974a1730bb6ce99604f6f140137"
+    },
+    {
+      "path": "related/website/public/assets/ola/ola-hero.png",
+      "bytes": 1014693,
+      "sha256": "49ba90ecaf609f7f9e5d88e89b96bb52a3f05bb9507751f24bd6140d631a66e9"
+    },
+    {
+      "path": "related/website/public/assets/ola/ola-high-angle.png",
+      "bytes": 863323,
+      "sha256": "3e81d951aea9a0331721880881b2a707d571897bb6186c71fae1affd089462be"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/consistent-20260907/craft.webp",
+      "bytes": 284876,
+      "sha256": "0de1c3f65224588d65ddc4aca316da51f5550c0c9ca48130847745a682c50f4c"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/consistent-20260907/gift.webp",
+      "bytes": 180548,
+      "sha256": "02a235d5969c1d6bcf309ff5dd911b216f35828fdf1bde8f4fa2e409262e585b"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/consistent-20260907/pages.webp",
+      "bytes": 374836,
+      "sha256": "4057391f0b561f8ad333691f2fd5302260f4bd28a7203834afbe1a1e93593c55"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/consistent-20260907/reading.webp",
+      "bytes": 244098,
+      "sha256": "af03eb5d98b76a7c79734dc4bf7cabbcf39841c85b903ba2ba3bf1ff22762e1a"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/generated/print-child-receives-book-v2.png",
+      "bytes": 1988592,
+      "sha256": "4932dc34ba27b70305ee3cb0a9908fad0b328284f66858123dc55abb407bd77a"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/generated/print-craft-detail-v2.png",
+      "bytes": 1926679,
+      "sha256": "03274182304c3e7fade06d66b6c51294fb98898e16b001fa64cca3b883e3de73"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/generated/print-family-reading-v2.png",
+      "bytes": 1993970,
+      "sha256": "2f5f83cf9ed3c657e4b1472953098cbab7375c3b3c20c58161aaf3ec0b483c8c"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/generated/print-personalized-page-closeup-v2.png",
+      "bytes": 1919599,
+      "sha256": "9f2b301e6aab7e8a74dae7656ddf08c64957e12b9e04a48232453a1734424cac"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/lumiq-print-navy-plinth-v2.png",
+      "bytes": 1963516,
+      "sha256": "834d8357edebd0e3c02d92aec913247345db95c957e924a968f2173bcb7f3443"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/lumiq-print-open-spread-v1.png",
+      "bytes": 1818585,
+      "sha256": "a762e4b8c4a843d1c5ec43fab90a981973b6c0246042b8055de49988055c887b"
+    },
+    {
+      "path": "related/website/public/assets/print-detail/lumiq-print-sunlit-cover-v1.png",
+      "bytes": 1900962,
+      "sha256": "02db39322100e75c27ab7dd8b2bc0df95234c8ad63b05ee2234e458e4b939352"
+    },
+    {
+      "path": "related/website/public/assets/products/lumiq-ola-go.png",
+      "bytes": 1098589,
+      "sha256": "a5c072fa7ebcfbacb83d1db36c7d867ee3b6382de32d2e24833d9ea0e34fb15c"
+    },
+    {
+      "path": "related/website/public/assets/products/lumiq-ola-tablet-hero.webp",
+      "bytes": 199578,
+      "sha256": "1a3ec23aca84b00191548ac59cb6339068028ce44cb5b7de3903873eb78bef0e"
+    },
+    {
+      "path": "related/website/public/assets/products/lumiq-print.png",
+      "bytes": 2156756,
+      "sha256": "ff0a62337ada681351b7199a56b7f0f9889803cd0d11722227c727f6bf235b5e"
+    },
+    {
+      "path": "related/website/public/assets/products/lumiq-tablet.png",
+      "bytes": 1484917,
+      "sha256": "d488384f93a628e7c45b5197ccf3fa71edc6fc69a44f266089c7f742962b9b43"
+    },
+    {
+      "path": "related/website/public/assets/story/lumiq-brand-film.mp4",
+      "bytes": 22231476,
+      "sha256": "98f7ef07b216875f00cc44c848a27fe31420f87e3d96f7d649725badd7f10fb9"
+    },
+    {
+      "path": "related/website/public/assets/story/lumiq-story-family-v2.webp",
+      "bytes": 140518,
+      "sha256": "0e8e791f38adb2c92c771621b47638646f7426225322f2d26e0dd3c248d618eb"
+    },
+    {
+      "path": "related/website/public/assets/story/lumiq-story-family-v3.webp",
+      "bytes": 181448,
+      "sha256": "1ba5e30d88f1262a221b90a26c7177fe7905012c238809a33673f25cf5b19501"
+    },
+    {
+      "path": "related/website/public/assets/story/lumiq-story-triptych-16x9.jpg",
+      "bytes": 694965,
+      "sha256": "de6ff0bf3650f12341f9bc0d238f4853ae552ecb55bdb77f3ba5dabceb48f5eb"
+    },
+    {
+      "path": "related/website/public/assets/story/story-ola-go-panel.png",
+      "bytes": 1020704,
+      "sha256": "5a9a923358c1536461d9df5c978de43730d8ef6b924149c99fa78aa34944d8bb"
+    },
+    {
+      "path": "related/website/public/assets/story/story-ola-go-source.png",
+      "bytes": 2543853,
+      "sha256": "9e1ea79fa85b715ff230ae1a0236495aa3c970fdeb4a6fc151ef3f8768e4b389"
+    },
+    {
+      "path": "related/website/public/assets/story/story-print-delivery-panel.png",
+      "bytes": 963226,
+      "sha256": "a471da15ba84616b19a6a2fba1a457ddc3c5d9eadae3dd6ae88994cf7ca6b5cc"
+    },
+    {
+      "path": "related/website/public/assets/story/story-print-delivery-source.png",
+      "bytes": 2313062,
+      "sha256": "1abca8627c0d469a1167551f8d564ab28b41f377ce873263b4095d02c0e616c4"
+    },
+    {
+      "path": "related/website/public/assets/story/story-tablet-child-panel.png",
+      "bytes": 925223,
+      "sha256": "361aa5c2772e470e913b67600901f460cd59ff25ad3f726184e911a773751d87"
+    },
+    {
+      "path": "related/website/public/assets/story/story-tablet-child-source.png",
+      "bytes": 2128915,
+      "sha256": "84567f74d2a690aa9cff1e064a80c9bf0b9389611277c03a2f7595f537eae95a"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/five-ways/classical-story-v1.jpg",
+      "bytes": 209940,
+      "sha256": "0af3aec597444257a388899ade0284495c15430722835609555052a9b1c56ab3"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/five-ways/imagime-v1.jpg",
+      "bytes": 337137,
+      "sha256": "82f86f8c0e149fae280a60ed069c7879455d7d32715bc2a2444fd44749105f4e"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/five-ways/lumiq-original-v1.jpg",
+      "bytes": 457295,
+      "sha256": "f7be1604a30ef44820eda551520398796544d70f465767663e68517a00934ffb"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/five-ways/reimagined-v1.jpg",
+      "bytes": 346748,
+      "sha256": "db6dd456eb4c2a0a25571ffe8a7be4ebe1651883b962939d6918337878f53703"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/five-ways/storyquest-v1.jpg",
+      "bytes": 411576,
+      "sha256": "6d10e8a2f5ecd02f4cb7ea4a65fdd407c0399eda89ef6a1840b770fcfe04390c"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/generated/tablet-active-story-time-v2.png",
+      "bytes": 2062173,
+      "sha256": "7b3c9b4962259ae92baa199010dcfe10ce5f6729a57e0754c1ab0547d5cab744"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/generated/tablet-parent-controls-v2.png",
+      "bytes": 1726432,
+      "sha256": "ff464de82aacb23ae87e3a062988ed54bea00a807922e842468c137d5e7c770b"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png",
+      "bytes": 1624618,
+      "sha256": "879189ee0ca3e8d8efd65297511f42979bc0c70584d4e67659592d1548d5b687"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png",
+      "bytes": 1859243,
+      "sha256": "a2042454885ebd1f4e5e024cf796ed714269b5bb8e4e9f30a11faf5eabd3a51c"
+    },
+    {
+      "path": "related/website/public/assets/tablet-detail/lumiq-tablet-pedestal-v1.png",
+      "bytes": 1678494,
+      "sha256": "5d5d85efc68fea22f6ec1640bb7bf8a2f03ae33f28a2a39fb6f8dd21669b471a"
+    },
+    {
+      "path": "related/website/public/assets/tablet/01-imagime-ready-library.jpg",
+      "bytes": 335779,
+      "sha256": "219319fb66488d3795209448e0e310986474e7bfcbbe4a2c4b7587e5c2a41f69"
+    },
+    {
+      "path": "related/website/public/assets/tablet/02-story-detail-imagime-entry.jpg",
+      "bytes": 291270,
+      "sha256": "22eb0ffe78bb38af53895176c8f9a693b86e64f3f098e5aeeb4ecd6bffd482c3"
+    },
+    {
+      "path": "related/website/public/assets/tablet/03-character-and-book-setup.jpg",
+      "bytes": 153289,
+      "sha256": "56e45d96170dbec5d16974e58be6e0bd61f284a292e848c8f0c23c7fbef9f4eb"
+    },
+    {
+      "path": "related/website/public/assets/tablet/04-choose-photo.jpg",
+      "bytes": 72554,
+      "sha256": "579b360d220aa1112ba42f4e034e2162e362fe71b9628d9310026b327d8d0c77"
+    },
+    {
+      "path": "related/website/public/assets/tablet/05-roles-assigned.jpg",
+      "bytes": 183243,
+      "sha256": "2c140a08be1bd19d083e567615d09967f3ed31abb9bc47cbb5437fa2dd89f4ed"
+    },
+    {
+      "path": "related/website/public/assets/tablet/06-generation-confirmation.jpg",
+      "bytes": 104562,
+      "sha256": "cdb2691c7b0a3c24383efeace60d40dcbe49e4621064849fa0a6bc8d0ab33534"
+    },
+    {
+      "path": "related/website/public/assets/tablet/07-magic-book-launching.jpg",
+      "bytes": 94549,
+      "sha256": "564e72211229fb3408b1f0d72743d8b94517a429e2d9937225dc3986f4dbe110"
+    },
+    {
+      "path": "related/website/public/assets/tablet/08-background-creation-progress.jpg",
+      "bytes": 352647,
+      "sha256": "a268b530e17b6940bc00a69205d93ceab57333277aad5dfe4f91f4d77dc2f55b"
+    },
+    {
+      "path": "related/website/public/assets/web/lumiq-ola-card.webp",
+      "bytes": 419698,
+      "sha256": "24b5539c806323a6334dcadadc71173a1e139f86734231d0a096b940d56304cb"
+    },
+    {
+      "path": "related/website/public/assets/web/lumiq-ola-go.webp",
+      "bytes": 48134,
+      "sha256": "b5fdf7117084e59664e939e299a082d31e73b5d5bcb0c23b2c8bf403fc1e7a37"
+    },
+    {
+      "path": "related/website/public/assets/web/lumiq-print-card.webp",
+      "bytes": 71326,
+      "sha256": "3c1019a6578ed654aba8438b7a2e4e314fba36bdfc8c06cd96ed88c82354c553"
+    },
+    {
+      "path": "related/website/public/assets/web/lumiq-print.webp",
+      "bytes": 126420,
+      "sha256": "262e7756e84772c3616505aadcb67e73f96aba4dde8422243941ae0b509da058"
+    },
+    {
+      "path": "related/website/public/assets/web/lumiq-tablet-hero.webp",
+      "bytes": 60052,
+      "sha256": "18367491ea432d3fa859355d5932adaf4cb14bdbaa0c9ea8ae72d0c5bfc1230f"
+    },
+    {
+      "path": "related/website/public/assets/web/lumiq-tablet.webp",
+      "bytes": 210252,
+      "sha256": "3de453c224926b8664fc001de8bc9ba7a79079e7f87995b743a6d660d7c8b8b8"
+    },
+    {
+      "path": "related/website/public/assets/web/nest15-black-angle.webp",
+      "bytes": 57330,
+      "sha256": "6aaa0aa470cdcbd8fd1e2b89e77f61bedb9c57d462ae654f6824a437f9c2577a"
+    },
+    {
+      "path": "related/website/public/assets/web/nest15-black-front.webp",
+      "bytes": 46624,
+      "sha256": "e94c2685ade2089438d7177c19712251b421be6d9c2ad8de9259c8e39d035f12"
+    },
+    {
+      "path": "related/website/public/assets/web/nest15-oak-angle.webp",
+      "bytes": 71674,
+      "sha256": "bf7389c0157c24ba628ceade0e664de46e3d90e43c3b404ed570e6b463dd81f3"
+    },
+    {
+      "path": "related/website/public/assets/web/nest15-oak-front.webp",
+      "bytes": 64276,
+      "sha256": "9e7fad1944a6464969674cc10d3bf945b59fca9464fac81081193b40ef4b1125"
+    },
+    {
+      "path": "related/website/public/assets/web/nest15-rear.webp",
+      "bytes": 54502,
+      "sha256": "a31dbbb7ea055464c0e5eb2cce0a6da1788009c87383d6873a742bb3c2da1c98"
+    },
+    {
+      "path": "related/website/public/assets/web/nest15-walnut-angle.webp",
+      "bytes": 66518,
+      "sha256": "f6c186e8bd2d856911c4fa33275a8ebf5740f50aff3da145ba6f69a78d7fb090"
+    },
+    {
+      "path": "related/website/public/assets/web/nest15-walnut-front.webp",
+      "bytes": 55132,
+      "sha256": "0fb37983078fe5a05bf9cf8c6cc2a806f1dd43a562f35b7de32887972cc319fd"
+    },
+    {
+      "path": "related/website/public/assets/web/ola-hero-front.webp",
+      "bytes": 120140,
+      "sha256": "753261e36f318bbe8ce90329d6b677b6106ed3b97be8146f453b37b5d0876839"
+    },
+    {
+      "path": "related/website/public/assets/web/ola-metal-a.webp",
+      "bytes": 101490,
+      "sha256": "9ead7598925b95d4c1b25ac14a3958746e41f549bca6e0a3320d227867090714"
+    },
+    {
+      "path": "related/website/public/assets/web/ola-metal-l.webp",
+      "bytes": 48878,
+      "sha256": "01405fc2b1489edcd8cee9a69686687c224059a92d3f859fc4bbe8018647a795"
+    },
+    {
+      "path": "related/website/public/assets/web/ola-metal-o.webp",
+      "bytes": 97886,
+      "sha256": "d2c73bf20b51fa07267b17267be2d4d90519452fbb8168f6330f6740b08c183d"
+    }
+  ]
+}
