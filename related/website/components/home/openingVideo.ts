@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { mountOpeningAnchors } from "./openingAnchors";
 
 export const openingVideoQuery =
   "(min-width: 1101px) and (min-height: 600px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
@@ -162,16 +163,9 @@ export function mountOpeningVideo(root: HTMLElement) {
       userScrolled = true;
       if (introInitialized && !introFinished) finishIntro();
     };
-    const onWheel = (event: WheelEvent) => { if (event.deltaY !== 0) scrollIntent(); };
     const interruptSnap = () => {
       const snapping = scroll?.getTween(true);
       if (snapping) snapping.kill();
-    };
-    const onKey = (event: KeyboardEvent) => {
-      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
-        scrollIntent();
-        interruptSnap();
-      }
     };
     video.addEventListener("loadeddata", ready);
     video.addEventListener("error", failed);
@@ -183,8 +177,6 @@ export function mountOpeningVideo(root: HTMLElement) {
     window.addEventListener("lumiq:home-enter", ready);
     document.addEventListener("visibilitychange", visibility);
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("keydown", onKey);
     window.addEventListener("pointerdown", interruptSnap, { passive: true });
     layer.dataset.intro = introFinished ? "complete" : "pending";
     video.muted = true;
@@ -210,18 +202,17 @@ export function mountOpeningVideo(root: HTMLElement) {
         scrub: 0.4,
         snap: {
           snapTo: (value: number, self?: ScrollTrigger) => {
-            if (document.hidden || !introFinished) return value;
-            // Both compositions have an anchor. Only finish a deliberate transition;
-            // small scrolls remain free, and scrolling past screen two always exits.
-            if (self?.direction === 1 && value >= 0.28 && value < anchorAt) return anchorAt;
+            if (document.hidden || !introFinished || root.dataset.openingTravel) return value;
+            // Scrollbar/native scrolling also settles at a complete composition.
+            if (self?.direction === 1 && value > 0.002 && value < anchorAt) return anchorAt;
             if (self?.direction === -1 && value > anchorAt && value < 1) return anchorAt;
-            if (self?.direction === -1 && value > 0 && value < 0.64) return 0;
+            if (self?.direction === -1 && value > 0 && value < anchorAt) return 0;
             return value;
           },
           inertia: false,
           delay: 0.2,
-          duration: { min: 0.4, max: 1.1 },
-          ease: "power2.inOut",
+          duration: { min: 1.8, max: 2.8 },
+          ease: "sine.inOut",
         },
         invalidateOnRefresh: true,
         refreshPriority: 2,
@@ -248,6 +239,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       );
     });
     const scroll = timeline.scrollTrigger;
+    const disposeAnchors = mountOpeningAnchors(root, scroll!, anchorAt, scrollIntent);
     const resetFrame = requestAnimationFrame(() => {
       ScrollTrigger.refresh();
       if (!handledAnchor && window.location.hash === "#ola")
@@ -276,6 +268,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     update();
     return () => {
       alive = false;
+      disposeAnchors();
       stopIdle();
       clearTimeout(loadDeadline);
       clearTimeout(bufferDelay);
@@ -286,8 +279,6 @@ export function mountOpeningVideo(root: HTMLElement) {
       video.removeEventListener("ended", finishIntro);
       document.removeEventListener("visibilitychange", visibility);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("keydown", onKey);
       window.removeEventListener("pointerdown", interruptSnap);
       video.removeEventListener("seeked", decoded);
       video.removeEventListener("canplay", decoded);
