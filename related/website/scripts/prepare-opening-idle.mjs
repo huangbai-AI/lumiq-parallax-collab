@@ -10,14 +10,14 @@ execFileSync("ffmpeg", [
   "-i", path.join(assets, "opening-user-clean-h3-20260907.mp4"),
   "-filter_complex",
   "[0:v]split[opening][tail];" +
-  "[opening]trim=end=6.5,setpts=PTS-STARTPTS[a];" +
-  "[tail]trim=start=6.25,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop_duration=0.15," +
+  "[opening]trim=end=6,setpts=PTS-STARTPTS[a];" +
+  "[tail]trim=start=5.75,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop_duration=0.15," +
   "minterpolate=fps=60:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1," +
-  "trim=start=0.25:end=1.041667,setpts=PTS-STARTPTS[b];" +
+  "trim=start=0.25:end=1.541667,setpts=PTS-STARTPTS[b];" +
   "[a][b]concat=n=2:v=1:a=0[out]",
   "-map", "[out]", "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "19",
   "-pix_fmt", "yuv420p", "-g", "1", "-bf", "0", "-level:v", "5.1",
   "-enc_time_base", "1:120", "-fps_mode", "vfr",
   "-video_track_timescale", "120000", "-movflags", "+faststart",
-  path.join(assets, "opening-user-clean-idle60-20260907.mp4"),
+  path.join(assets, "opening-user-clean-float60-20260907.mp4"),
 ], { stdio: "inherit" });

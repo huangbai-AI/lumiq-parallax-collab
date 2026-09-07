@@ -20,7 +20,8 @@ export function mountOpeningVideo(root: HTMLElement) {
   if (new URLSearchParams(window.location.search).get("opening") === "code")
     return () => {};
   let handledAnchor = false;
-  let introFinished = window.scrollY > 40 || !!window.location.hash;
+  let introInitialized = false;
+  let introFinished = false;
 
   mm.add(openingVideoQuery, () => {
     opening.dataset.videoMode = "true";
@@ -36,6 +37,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     let idle: gsap.core.Timeline | undefined;
     let handoffAt = 0;
     let handoffFrom = 0;
+    let userScrolled = false;
     let targetTime = introEnd;
     const playhead = { progress: 0 };
     const ambient = { time: 0 };
@@ -57,9 +59,10 @@ export function mountOpeningVideo(root: HTMLElement) {
         if (!alive || idle || document.hidden || video.error || video.readyState < 2 ||
           !introFinished || playhead.progress < 0.999 || !scroll ||
           window.scrollY < scroll.start + (scroll.end - scroll.start) * settleAt - 1 ||
-          window.scrollY > scroll.end + 1 || Math.abs(scroll.getVelocity()) > 20) return;
+          window.scrollY > scroll.end + 1) return;
         const end = endTime();
-        const start = end - 0.5;
+        // The earlier shot is still transitioning; 1.1s stays inside the clean scene.
+        const start = end - 1.1;
         if (video.seeking || Math.abs(video.currentTime - end) > 0.025) {
           schedule();
           queueIdle();
@@ -68,17 +71,13 @@ export function mountOpeningVideo(root: HTMLElement) {
         ambient.time = end;
         handoffAt = 0;
         video.dataset.motion = "idle";
-        // Smooth endpoints in both directions; the longer outgoing tail decelerates
-        // almost to stillness. This timeline never writes to the scroll/card timeline.
-        const glide = (p: number) => 1 - Math.pow(1 - p, 4) * (1 + 4 * p);
-        const turn = (p: number) => p * p * p * (p * (p * 6 - 15) + 10);
+        // A continuous breathing curve turns without the former long near-still hold.
+        // It never writes to the scroll/card timeline.
         idle = gsap.timeline({ repeat: -1, onUpdate: schedule })
-          .to(ambient, { time: start, duration: 1.25, ease: turn })
-          .to(ambient, { time: end, duration: 1.55, ease: glide })
-          .to(ambient, { time: start, duration: 1.05, ease: turn })
-          .to(ambient, { time: end, duration: 1.8, ease: glide });
+          .to(ambient, { time: start, duration: 1.35, ease: "sine.inOut" })
+          .to(ambient, { time: end, duration: 1.35, ease: "sine.inOut" });
         schedule();
-      }, 450);
+      }, 220);
     };
     const finishIntro = () => {
       if (!alive) return;
@@ -90,7 +89,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     };
     const tick = () => {
       frame = 0;
-      if (!alive || document.hidden || video.error || video.readyState < 2) return;
+      if (!alive || !introInitialized || document.hidden || video.error || video.readyState < 2) return;
       if (!introFinished) {
         if (video.currentTime >= introEnd) finishIntro();
         else schedule();
@@ -116,15 +115,17 @@ export function mountOpeningVideo(root: HTMLElement) {
       brandCopy.inert = cards.inert = playhead.progress < 0.68;
       targetTime = introEnd + playhead.progress * (endTime() - introEnd);
       video.dataset.scrollProgress = String(playhead.progress);
-      // Scrolling or an anchor can skip the intro, but never replays it backwards.
-      if (playhead.progress > 0.03 && !introFinished) finishIntro();
+      // Layout refresh/scroll restoration is not an intentional skip of the entrance.
+      if (introInitialized && playhead.progress > 0.03 && !introFinished &&
+        (userScrolled || window.scrollY > window.innerHeight * 0.6)) finishIntro();
       schedule();
     };
     const ready = () => {
-      if (!alive) return;
+      if (!alive || !introInitialized || video.readyState < 2) return;
       clearTimeout(loadDeadline);
       if (introFinished) { update(); queueIdle(); return; }
       layer.dataset.ready = "true";
+      video.playbackRate = 1.2;
       if (!document.hidden) void video.play().then(schedule).catch(finishIntro);
     };
     const failed = () => {
@@ -140,13 +141,20 @@ export function mountOpeningVideo(root: HTMLElement) {
       schedule();
     };
     const onScroll = () => { stopIdle(); queueIdle(); };
+    const scrollIntent = () => {
+      userScrolled = true;
+      if (introInitialized && !introFinished) finishIntro();
+    };
+    const onWheel = (event: WheelEvent) => { if (event.deltaY !== 0) scrollIntent(); };
     const interruptSnap = () => {
       const snapping = scroll?.getTween(true);
       if (snapping) snapping.kill();
     };
     const onKey = (event: KeyboardEvent) => {
-      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key))
+      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
+        scrollIntent();
         interruptSnap();
+      }
     };
     video.addEventListener("loadeddata", ready);
     video.addEventListener("error", failed);
@@ -155,14 +163,16 @@ export function mountOpeningVideo(root: HTMLElement) {
     video.addEventListener("canplay", schedule);
     document.addEventListener("visibilitychange", visibility);
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("keydown", onKey);
     window.addEventListener("pointerdown", interruptSnap, { passive: true });
     layer.dataset.intro = introFinished ? "complete" : "pending";
     video.muted = true;
     // The 2.4-second letter entrance plays in two seconds.
     video.playbackRate = 1.2;
+    video.defaultPlaybackRate = 1.2;
     video.preload = "auto";
-    video.src = "/assets/home-video/opening-user-clean-idle60-20260907.mp4";
+    video.src = "/assets/home-video/opening-user-clean-float60-20260907.mp4";
     video.load();
     // Slow or blocked loading leaves the approved static composition usable.
     const loadDeadline = setTimeout(failed, 8000);
@@ -177,14 +187,17 @@ export function mountOpeningVideo(root: HTMLElement) {
         scrub: 0.4,
         snap: {
           snapTo: (value: number, self?: ScrollTrigger) => {
-            if (document.hidden) return value;
-            if (self?.direction === 1 && value >= 0.82 && value < anchorAt) return anchorAt;
-            if (self?.direction === -1 && value > 0 && value < 0.07) return 0;
+            if (document.hidden || !introFinished) return value;
+            // Both compositions have an anchor. Only finish a deliberate transition;
+            // small scrolls remain free, and scrolling past screen two always exits.
+            if (self?.direction === 1 && value >= 0.28 && value < anchorAt) return anchorAt;
+            if (self?.direction === -1 && value > anchorAt && value < 1) return anchorAt;
+            if (self?.direction === -1 && value > 0 && value < 0.64) return 0;
             return value;
           },
           inertia: false,
           delay: 0.2,
-          duration: { min: 0.35, max: 0.65 },
+          duration: { min: 0.4, max: 1.1 },
           ease: "power2.inOut",
         },
         invalidateOnRefresh: true,
@@ -217,6 +230,25 @@ export function mountOpeningVideo(root: HTMLElement) {
       if (!handledAnchor && window.location.hash === "#ola")
         window.scrollTo({ top: scroll!.start + (scroll!.end - scroll!.start) * anchorAt, behavior: "instant" });
       handledAnchor = true;
+      if (!introInitialized) {
+        const target = document.getElementById(window.location.hash.slice(1));
+        const hero = opening.querySelector(".lh-hero")!;
+        const lowerAnchor = !!target && target !== root && !hero.contains(target);
+        introFinished = lowerAnchor || window.scrollY > window.innerHeight * 0.6;
+        introInitialized = true;
+        if (!introFinished) {
+          // A refresh within the opening returns to its first frame, even when the
+          // browser restores a small scroll offset or the URL carries #top.
+          window.scrollTo({ top: 0, behavior: "instant" });
+          scroll?.update();
+          const scrub = scroll?.getTween();
+          if (scrub) scrub.progress(1);
+          timeline.progress(0);
+        }
+        layer.dataset.intro = introFinished ? "complete" : "pending";
+      }
+      update();
+      ready();
     });
     update();
     return () => {
@@ -230,6 +262,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       video.removeEventListener("ended", finishIntro);
       document.removeEventListener("visibilitychange", visibility);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("pointerdown", interruptSnap);
       video.removeEventListener("seeked", schedule);
