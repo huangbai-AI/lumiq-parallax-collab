@@ -1,5 +1,11 @@
 {
   "HomeRefresh": {
+    "loading": {
+      "label": "正在準備與你的相遇",
+      "error": "部分畫面未能載入，請重試。",
+      "retry": "重新載入",
+      "continue": "使用預覽圖繼續"
+    },
     "previousMoment": "上一個家庭時刻",
     "nextMoment": "下一個家庭時刻",
     "brandTitle": "同一個家，",

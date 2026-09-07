@@ -22,6 +22,7 @@ import "./home-ending.css";
 import "./home-immersive.css";
 import "./home-anchored.css";
 import "./home-typography.css";
+import "./home-loading.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.

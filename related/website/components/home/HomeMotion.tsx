@@ -1,5 +1,5 @@
 "use client";
-import { useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,13 +7,26 @@ import { mountEndingChapters } from "./endingChapters";
 import { mountProductRail } from "./productRail";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
 import { preloadScenes } from "./preloadScenes";
+import HomeLoading from "./HomeLoading";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Native scrolling drives either the video opening or the preserved code option. */
 export default function HomeMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLElement>(null);
+  const [gate, setGate] = useState("loading");
+  const [hydrated, setHydrated] = useState(false);
+  const prepared = gate !== "loading";
+  const onPrepared = useCallback(() => setGate("revealing"), []);
+  const onOpened = useCallback(() => setGate("open"), []);
+  useEffect(() => { setHydrated(true); }, []);
+  useEffect(() => {
+    if (gate === "open") window.dispatchEvent(new Event("lumiq:home-enter"));
+  }, [gate]);
   useGSAP(
     () => {
+      if (!prepared) return;
+      const fontsChanged = () => ScrollTrigger.refresh();
+      document.fonts.addEventListener("loadingdone", fontsChanged);
       const releaseImages = root.current ? preloadScenes(root.current) : () => {};
       const releaseOpening = root.current
         ? mountOpeningVideo(root.current)
@@ -240,6 +253,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         },
       );
       return () => {
+        document.fonts.removeEventListener("loadingdone", fontsChanged);
         releaseImages();
         mm.revert();
         releaseEnding();
@@ -247,11 +261,14 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releaseOpening();
       };
     },
-    { scope: root },
+    { scope: root, dependencies: [prepared], revertOnUpdate: true },
   );
   return (
-    <main ref={root} id="main-content" className="lh-home" tabIndex={-1}>
+    <>
+    <HomeLoading root={root} onPrepared={onPrepared} onOpened={onOpened} />
+    <main ref={root} id="main-content" className="lh-home" data-home-state={gate} inert={hydrated && gate !== "open"} tabIndex={-1}>
       {children}
     </main>
+    </>
   );
 }

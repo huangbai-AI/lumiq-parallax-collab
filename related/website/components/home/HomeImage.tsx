@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type ImageProps } from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import images from "@/lib/home-image-manifest.json";
 
 type Asset = { base: string; widths: number[]; preview: string };
@@ -11,6 +11,11 @@ const assets: Record<string, Asset> = images;
 export default function HomeImage(props: ImageProps) {
   const asset = typeof props.src === "string" ? assets[props.src] : undefined;
   const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    const retry = () => setFailed(false);
+    window.addEventListener("lumiq:retry-images", retry);
+    return () => window.removeEventListener("lumiq:retry-images", retry);
+  }, []);
   if (!asset) return <Image {...props} alt={props.alt} />;
   return (
     <Image

@@ -1,5 +1,11 @@
 {
   "HomeRefresh": {
+    "loading": {
+      "label": "あなたを迎える準備をしています",
+      "error": "一部の画像を読み込めませんでした。",
+      "retry": "もう一度試す",
+      "continue": "プレビューで続ける"
+    },
     "previousMoment": "前の家族の時間",
     "nextMoment": "次の家族の時間",
     "brandTitle": "ひとつの家族。",

@@ -128,6 +128,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     };
     const ready = () => {
       if (!alive || !introInitialized || video.readyState < 2) return;
+      if (root.dataset.homeState && root.dataset.homeState !== "open") return;
       if (introFinished) { update(); queueIdle(); return; }
       layer.dataset.ready = "true";
       video.playbackRate = 1.2;
@@ -177,6 +178,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     video.addEventListener("canplay", decoded);
     video.addEventListener("waiting", buffering);
     video.addEventListener("stalled", buffering);
+    window.addEventListener("lumiq:home-enter", ready);
     document.addEventListener("visibilitychange", visibility);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -188,8 +190,11 @@ export function mountOpeningVideo(root: HTMLElement) {
     video.playbackRate = 1.2;
     video.defaultPlaybackRate = 1.2;
     video.preload = "auto";
-    video.src = "/assets/home-video/opening-web-20260907.mp4";
-    video.load();
+    const source = video.dataset.preparedSrc || "/assets/home-video/opening-web-20260907.mp4";
+    if (video.getAttribute("src") !== source) {
+      video.src = source;
+      video.load();
+    }
     // Slow or blocked loading leaves the approved static composition usable.
     const loadDeadline = setTimeout(failed, 8000);
 
@@ -286,6 +291,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       video.removeEventListener("canplay", decoded);
       video.removeEventListener("waiting", buffering);
       video.removeEventListener("stalled", buffering);
+      window.removeEventListener("lumiq:home-enter", ready);
       delete video.dataset.scrollProgress;
       delete video.dataset.motion;
       video.pause();

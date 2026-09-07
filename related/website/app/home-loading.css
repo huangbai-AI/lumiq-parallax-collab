@@ -1,0 +1,33 @@
+.lh-loader {
+  --load-progress: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: #f5f2f8 url("/assets/home-interactive/pearl-light.webp") center / cover no-repeat;
+  color: #152439;
+  opacity: 1;
+  transition: opacity var(--load-exit, 550ms) cubic-bezier(.22, 1, .36, 1), visibility var(--load-exit, 550ms);
+  font-family: "Lumiq Manrope", Arial, sans-serif;
+}
+.lh-loader[data-state="revealing"] { opacity: 0; pointer-events: none; }
+.lh-loader[data-state="hidden"] { display: none; }
+.lh-loader-center { width: min(320px, calc(100vw - 80px)); transform: translateY(-3vh); text-align: center; }
+.lh-loader-wordmark { position: relative; width: 100%; aspect-ratio: 3.2; }
+.lh-loader-wordmark::before { content: ""; position: absolute; inset: 0; background: url("/assets/brand/lumiq-logo-transparent-dark.png") center / contain no-repeat; opacity: .12; }
+.lh-loader-wordmark span { position: absolute; inset: 0; background: url("/assets/brand/lumiq-logo-transparent-dark.png") center / contain no-repeat;
+  mask-image: linear-gradient(90deg, #000 calc(var(--load-progress) * 115% - 12%), transparent calc(var(--load-progress) * 115%)); }
+.lh-loader-progress { display: flex; align-items: center; gap: 28px; margin-top: 36px; }
+.lh-loader-rule { display: block; flex: 1; height: 1px; background: #15243920; overflow: hidden; }
+.lh-loader-rule i { display: block; height: 100%; background: linear-gradient(90deg, #152439, #9b80d8); transform: scaleX(var(--load-progress)); transform-origin: left; }
+.lh-loader-percent { min-width: 4.2em; text-align: right; font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.lh-loader-percent small { margin-left: 5px; font-size: 12px; color: #687389; }
+.lh-loader-label { min-height: 2.8em; margin: 22px 0 0; color: #687389; font-size: 12px; line-height: 1.7; letter-spacing: .08em; }
+.lh-loader-actions { display: flex; justify-content: center; gap: 16px; margin-top: 18px; }
+.lh-loader-actions button { padding: 10px 14px; border: 1px solid #15243935; border-radius: 22px; background: #ffffff90; color: #152439; font-size: 12px; cursor: pointer; }
+.lh-loader-actions button:focus-visible { outline: 2px solid #8f70c9; outline-offset: 4px; }
+.lh-home[data-home-state="loading"] { visibility: hidden; }
+html:has(.lh-loader:not([data-state="hidden"])), body:has(.lh-loader:not([data-state="hidden"])) { overflow: hidden; }
+body:has(.lh-loader:is([data-state="loading"], [data-state="error"])) :is(.site-nav, .footer) { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .lh-loader { transition: none; } }

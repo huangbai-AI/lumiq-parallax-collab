@@ -1,5 +1,11 @@
 {
   "HomeRefresh": {
+    "loading": {
+      "label": "Preparing your experience",
+      "error": "Some media could not load. Please try again.",
+      "retry": "Try again",
+      "continue": "Continue with previews"
+    },
     "previousMoment": "Previous family moment",
     "nextMoment": "Next family moment",
     "brandTitle": "One family.",
