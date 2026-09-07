@@ -1,5 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { readingStop } from "./readingStops";
+import { guardReadingStop } from "./readingGuard";
 
 /** Progressive enhancement: the server-rendered rail works without motion or JS. */
 export function mountProductRail(root: HTMLElement) {
@@ -21,18 +23,20 @@ export function mountProductRail(root: HTMLElement) {
     ".lh-products-progress span",
   )!;
   let pin: ScrollTrigger | undefined;
-  let tween: gsap.core.Tween | undefined;
+  let tween: gsap.core.Timeline | undefined;
+  let hold = 0;
   let travel = 0;
   let stride = 1;
   const measure = () => {
     travel = Math.max(0, track.scrollWidth - viewport.clientWidth);
     stride = Math.max(1, slots[1].offsetLeft - slots[0].offsetLeft);
+    hold = Math.max(480, window.innerHeight * 0.8);
   };
   measure();
   const distance = () => travel;
   const step = () => stride;
   const position = () =>
-    pin ? pin.progress * distance() : viewport.scrollLeft;
+    pin ? Math.min(distance(), pin.progress * (distance() + hold)) : viewport.scrollLeft;
   const update = () => {
     const offset = position();
     const max = distance();
@@ -53,7 +57,7 @@ export function mountProductRail(root: HTMLElement) {
       window.scrollTo({
         top:
           pin.start +
-          (distance() ? target / distance() : 0) * (pin.end - pin.start),
+          target + (target >= distance() - 2 ? hold * 0.2 : 0),
         behavior: immediate ? "instant" : "smooth",
       });
       if (immediate) {
@@ -93,26 +97,45 @@ export function mountProductRail(root: HTMLElement) {
     () => {
       viewport.scrollLeft = 0;
       section.dataset.pinned = "true";
-      tween = gsap.to(track, {
-        x: () => -distance(),
-        ease: "none",
+      tween = gsap.timeline({
         scrollTrigger: {
           id: "home-products-horizontal",
           trigger: stage,
           pin: stage,
           start: "top top",
-          end: () => `+=${distance()}`,
+          end: () => `+=${distance() + hold}`,
           scrub: 0.55,
           invalidateOnRefresh: true,
           anticipatePin: 1,
           refreshPriority: 1,
           onUpdate: update,
           onRefresh: update,
+          snap: {
+            snapTo: (value: number, self?: ScrollTrigger) => {
+              const total = distance() + hold;
+              const stops = [...new Set(slots.map((slot) => Math.min(distance(), slot.offsetLeft)))];
+              // The final product has its own reading point inside the exit hold.
+              stops[stops.length - 1] = distance() + hold * 0.2;
+              return readingStop(value, stops.map((offset) => offset / total), self?.direction ?? 1, (step() + hold * 0.2) / total);
+            },
+            inertia: false, delay: 0.18, duration: { min: 0.35, max: 0.8 }, ease: "sine.inOut",
+          },
         },
-      });
+      }).to(track, { x: () => -distance(), duration: distance(), ease: "none" })
+        .to({}, { duration: hold });
+      // Refresh both durations when width changes, preserving the same pixel mapping.
+      const resizeTimeline = () => {
+        const parts = tween?.getChildren();
+        parts?.[0]?.duration(distance());
+        if (parts?.[1]) { parts[1].startTime(distance()); parts[1].duration(hold); }
+      };
+      ScrollTrigger.addEventListener("refreshInit", resizeTimeline);
       pin = tween.scrollTrigger;
+      const releaseGuard = pin ? guardReadingStop(root, pin, () => pin!.start + distance() + hold * 0.2) : () => {};
       update();
       return () => {
+        releaseGuard();
+        ScrollTrigger.removeEventListener("refreshInit", resizeTimeline);
         pin = undefined;
         tween = undefined;
         delete section.dataset.pinned;
