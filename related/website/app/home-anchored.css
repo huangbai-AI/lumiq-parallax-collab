@@ -69,6 +69,9 @@
 .lh-home .lh-safety .lh-principle h3 { font-size: clamp(17px, 1.5vw, 22px); margin-bottom: 8px; line-height: 1.25; }
 .lh-home .lh-safety .lh-principle p { font-size: 13px; line-height: 1.6; }
 .lh-safety .lh-principle p { position: relative; }
+/* Editorial line breaks keep all four principles equally concise. The sheen
+   inherits the same wrapping, so it stays aligned with the visible copy. */
+.lh-safety .lh-principle :is(h3, p) { white-space: pre-line; }
 .lh-principle-sheen { display: none; }
 [data-anchored="true"] .lh-principle-sheen {
   display: block;

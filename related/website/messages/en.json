@@ -130,20 +130,20 @@
     "safetySeal": "Considered for families, from the start.",
     "trust": {
       "privacy": {
-        "title": "Privacy comes first.",
-        "body": "Respect for your data and choices."
+        "title": "Privacy\ncomes first.",
+        "body": "Your data.\nYour choices."
       },
       "children": {
-        "title": "Childhood deserves care.",
-        "body": "Thoughtful experiences for every age."
+        "title": "Care for\nchildhood.",
+        "body": "Thoughtful care\nfor every age."
       },
       "parents": {
-        "title": "Parents stay involved.",
-        "body": "Clear choices for content and screen time."
+        "title": "Parents\nstay close.",
+        "body": "Choose content\nand screen time."
       },
       "responsible": {
-        "title": "AI with people in mind.",
-        "body": "Technology that supports imagination and connection."
+        "title": "AI for\npeople.",
+        "body": "More imagination.\nMore connection."
       }
     },
     "familyKicker": "Our reason for being",
