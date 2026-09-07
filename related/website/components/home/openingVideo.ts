@@ -39,6 +39,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     );
     const at = (progress: number) => cue(progress) * settleAt;
     let idleDelay: ReturnType<typeof setTimeout> | undefined;
+    let bufferDelay: ReturnType<typeof setTimeout> | undefined;
     let idle: gsap.core.Timeline | undefined;
     let handoffAt = 0;
     let handoffFrom = 0;
@@ -127,7 +128,6 @@ export function mountOpeningVideo(root: HTMLElement) {
     };
     const ready = () => {
       if (!alive || !introInitialized || video.readyState < 2) return;
-      clearTimeout(loadDeadline);
       if (introFinished) { update(); queueIdle(); return; }
       layer.dataset.ready = "true";
       video.playbackRate = 1.2;
@@ -138,6 +138,15 @@ export function mountOpeningVideo(root: HTMLElement) {
       finishIntro();
       delete layer.dataset.ready;
     };
+    const buffering = () => {
+      clearTimeout(bufferDelay);
+      // Brief seeks keep the decoded frame; a real network stall reveals the
+      // approved poster instead of hiding every alternative behind the video.
+      bufferDelay = setTimeout(() => {
+        if (alive && (video.seeking || video.readyState < 3)) delete layer.dataset.ready;
+      }, 350);
+    };
+    const decoded = () => { clearTimeout(bufferDelay); schedule(); };
     const visibility = () => {
       stopIdle();
       if (document.hidden) video.pause();
@@ -164,8 +173,10 @@ export function mountOpeningVideo(root: HTMLElement) {
     video.addEventListener("loadeddata", ready);
     video.addEventListener("error", failed);
     video.addEventListener("ended", finishIntro);
-    video.addEventListener("seeked", schedule);
-    video.addEventListener("canplay", schedule);
+    video.addEventListener("seeked", decoded);
+    video.addEventListener("canplay", decoded);
+    video.addEventListener("waiting", buffering);
+    video.addEventListener("stalled", buffering);
     document.addEventListener("visibilitychange", visibility);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -177,7 +188,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     video.playbackRate = 1.2;
     video.defaultPlaybackRate = 1.2;
     video.preload = "auto";
-    video.src = "/assets/home-video/opening-user-clean-float60-20260907.mp4";
+    video.src = "/assets/home-video/opening-web-20260907.mp4";
     video.load();
     // Slow or blocked loading leaves the approved static composition usable.
     const loadDeadline = setTimeout(failed, 8000);
@@ -260,6 +271,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       alive = false;
       stopIdle();
       clearTimeout(loadDeadline);
+      clearTimeout(bufferDelay);
       cancelAnimationFrame(resetFrame);
       cancelAnimationFrame(frame);
       video.removeEventListener("loadeddata", ready);
@@ -270,8 +282,10 @@ export function mountOpeningVideo(root: HTMLElement) {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("pointerdown", interruptSnap);
-      video.removeEventListener("seeked", schedule);
-      video.removeEventListener("canplay", schedule);
+      video.removeEventListener("seeked", decoded);
+      video.removeEventListener("canplay", decoded);
+      video.removeEventListener("waiting", buffering);
+      video.removeEventListener("stalled", buffering);
       delete video.dataset.scrollProgress;
       delete video.dataset.motion;
       video.pause();

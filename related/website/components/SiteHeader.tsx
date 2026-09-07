@@ -137,7 +137,7 @@ export default function SiteHeader() {
         </a>
       )}
       <div className="container nav-inner">
-        <Link href="/" className="nav-logo" onClick={closeMenu}>
+        <Link prefetch={isHomepage ? false : undefined} href="/" className="nav-logo" onClick={closeMenu}>
           <Image
             src="/assets/brand/lumiq-logo-transparent-dark.png"
             alt="LumiQ Studio"
@@ -154,6 +154,7 @@ export default function SiteHeader() {
         >
           {nav.map((l) => (
             <Link
+              prefetch={isHomepage ? false : undefined}
               key={l.href}
               href={l.href}
               className={isActive(l.href) ? "active" : ""}
@@ -196,6 +197,7 @@ export default function SiteHeader() {
             )}
           </div>
           <Link
+              prefetch={isHomepage ? false : undefined}
             href="/prelaunch"
             onClick={closeMenu}
             className="btn btn-ghost-navy login-btn site-login-btn"
@@ -240,6 +242,7 @@ export default function SiteHeader() {
         </div>
         {nav.map((l) => (
           <Link
+              prefetch={isHomepage ? false : undefined}
             key={l.href}
             href={l.href}
             role="menuitem"
