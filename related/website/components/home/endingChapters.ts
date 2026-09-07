@@ -1,5 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { readingStop } from "./readingStops";
+import { guardReadingStop } from "./readingGuard";
 
 export const endingMotionQuery =
   "(min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)";
@@ -77,7 +79,7 @@ export function mountEndingChapters(root: HTMLElement) {
 
       column(navigation, maxWidth);
       const headingHeight = heading.offsetHeight;
-      const familyWidth = Math.min(maxWidth, Math.max(200, viewport - headingHeight - navigation.offsetHeight - 68) * 16 / 9);
+      const familyWidth = Math.min(maxWidth, Math.max(200, viewport - headingHeight - navigation.offsetHeight - 92) * 16 / 9);
       column(navigation, familyWidth);
       const familyHeight = familyWidth * 9 / 16;
       const compositionHeight = headingHeight + 24 + familyHeight + 18 + navigation.offsetHeight;
@@ -87,7 +89,7 @@ export function mountEndingChapters(root: HTMLElement) {
       navigation.style.top = `${familyBox.top + familyHeight + 18}px`;
       const familyHeightTotal = Math.max(viewport, headingTop + compositionHeight + 24);
       stage.style.setProperty("--stage-height", `${familyHeightTotal}px`);
-      familyTravel = viewport * (compact ? 1.8 : 2.4);
+      familyTravel = viewport * (compact ? 2.2 : 2.8);
       track.style.height = `${familyHeightTotal + familyTravel}px`;
     };
     measure();
@@ -104,13 +106,12 @@ export function mountEndingChapters(root: HTMLElement) {
         scrub: 0.45, invalidateOnRefresh: true,
         snap: {
           snapTo: (value: number, self?: ScrollTrigger) => {
-            // Settle only toward the reading point; never pull back someone leaving.
             const anchor = 1 / 1.4;
-            return self?.direction === 1 && value >= 0.63 && value < anchor &&
-              !document.hidden && room.offsetHeight <= viewport + 1 ? anchor : value;
+            return !document.hidden && room.offsetHeight <= viewport + 1
+              ? readingStop(value, [anchor], self?.direction ?? 1, 0.72) : value;
           },
           inertia: false, delay: 0.2,
-          duration: { min: 0.25, max: 0.45 }, ease: "power2.inOut",
+          duration: { min: 0.4, max: 1.1 }, ease: "sine.inOut",
         },
       },
     });
@@ -144,6 +145,8 @@ export function mountEndingChapters(root: HTMLElement) {
 
     const buttons = Array.from(navigation.querySelectorAll<HTMLElement>('[role="tab"]'));
     const shrinkEnd = 0.36;
+    const familyDuration = 1.2;
+    const chapterStops = [0, 1, 2].map((index) => (shrinkEnd + ((index + 0.5) / 3) * (1 - shrinkEnd)) / familyDuration);
     let active = -1;
     const render = (progress: number) => {
       const chapters = gsap.utils.clamp(0, 1, (progress - shrinkEnd) / (1 - shrinkEnd));
@@ -162,8 +165,13 @@ export function mountEndingChapters(root: HTMLElement) {
         id: "home-family-chapters", trigger: track,
         start: () => `top ${navHeight()}`, end: () => `+=${familyTravel}`,
         scrub: 0.45, invalidateOnRefresh: true,
-        onUpdate: (self) => render(self.progress),
-        onRefresh: (self) => render(self.progress),
+        onUpdate: (self) => render(self.progress * familyDuration),
+        onRefresh: (self) => render(self.progress * familyDuration),
+        snap: {
+          snapTo: (value: number, self?: ScrollTrigger) => stage.offsetHeight <= viewport + 1
+            ? readingStop(value, chapterStops, self?.direction ?? 1, 0.4) : value,
+          inertia: false, delay: 0.2, duration: { min: 0.4, max: 0.9 }, ease: "sine.inOut",
+        },
       },
     });
     familyTimeline
@@ -174,20 +182,29 @@ export function mountEndingChapters(root: HTMLElement) {
       }, 0.03)
       .fromTo(heading, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.26)
       .fromTo(navigation, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.24)
-      .to({}, { duration: 1 - shrinkEnd });
+      .to({}, { duration: familyDuration - shrinkEnd });
 
     const scroll = familyTimeline.scrollTrigger!;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    const guards = finePointer ? [
+      guardReadingStop(root, trustTimeline.scrollTrigger!, () => trustTimeline.scrollTrigger!.start + trustTravel / 1.4),
+      ...chapterStops.map((point) => guardReadingStop(root, scroll, () => scroll.start + familyTravel * point)),
+    ] : [];
     const select = (event: Event) => {
       const index = (event as CustomEvent<number>).detail;
       if (!Number.isInteger(index) || index < 0 || index > 2) return;
-      const progress = shrinkEnd + ((index + 0.5) / 3) * (1 - shrinkEnd);
+      const snapping = scroll.getTween(true);
+      if (snapping) snapping.kill();
+      const progress = chapterStops[index];
       window.scrollTo({ top: scroll.start + progress * (scroll.end - scroll.start), behavior: "instant" });
       ScrollTrigger.update();
-      render(scroll.progress);
+      familyTimeline.progress(scroll.progress);
+      render(scroll.progress * familyDuration);
     };
     family.addEventListener("lumiq:chapter-select", select);
-    render(scroll.progress);
+    render(scroll.progress * familyDuration);
     return () => {
+      guards.forEach((release) => release());
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("pointerdown", interruptTrustSnap);
       ScrollTrigger.removeEventListener("refreshInit", measure);

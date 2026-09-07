@@ -42,6 +42,16 @@
 .lh-room-label > span { display: block; font-size: clamp(11px,.9vw,17px); text-transform: uppercase; font-weight: 500; letter-spacing: .01em; }
 .lh-room-label small { display: block; font-size: clamp(10px,.8vw,15px); margin-top: 4px; color: #637186; }
 .lh-room-mobile-links { display: none; }
+.lh-room-layout[data-reading=true] { min-height: var(--room-height); height: var(--room-height); }
+.lh-room-layout[data-reading=true] .lh-room-canvas {
+  width: min(100%,calc((var(--room-height) - 48px)*16/9));
+  height: min(1080px,56.25vw,calc(var(--room-height) - 48px));
+  right: 0; margin-top: 0; translate: 0 -50%;
+}
+.lh-room-layout[data-reading=true] .lh-room-background {
+  mask-image: linear-gradient(transparent,#000 8%,#000 92%,transparent),linear-gradient(90deg,transparent,#000 12%);
+  mask-composite: intersect;
+}
 @media (min-width:1921px) {
   .lh-room-background { mask-image: linear-gradient(transparent,#000 8%,#000 92%,transparent),linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-composite: intersect; }
 }

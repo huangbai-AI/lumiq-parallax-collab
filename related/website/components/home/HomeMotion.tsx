@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountEndingChapters } from "./endingChapters";
 import { mountProductRail } from "./productRail";
+import { mountRoomAnchor, mountJoinAnchor } from "./roomAnchor";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
 import { preloadScenes } from "./preloadScenes";
 import HomeLoading from "./HomeLoading";
@@ -35,7 +36,9 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       const releaseProducts = root.current
         ? mountProductRail(root.current)
         : () => {};
+      const releaseRoom = root.current ? mountRoomAnchor(root.current) : () => {};
       const releaseEnding = root.current ? mountEndingChapters(root.current) : () => {};
+      const releaseJoin = root.current ? mountJoinAnchor(root.current) : () => {};
       const mm = gsap.matchMedia();
       mm.add(
         {
@@ -252,11 +255,24 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
           return () => cleanups.forEach((cleanup) => cleanup());
         },
       );
+      // Native hash positioning runs before the pinned floors reserve their
+      // scroll distance. Re-align deep links while the loading veil is present.
+      const anchorFrame = requestAnimationFrame(() => {
+        const target = document.getElementById(window.location.hash.slice(1));
+        if (!target || !root.current?.contains(target) || target === root.current || target.closest('.lh-opening')) return;
+        ScrollTrigger.refresh();
+        const nav = document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 86;
+        window.scrollTo({ top: scrollY + target.getBoundingClientRect().top - nav, behavior: 'instant' });
+        ScrollTrigger.update();
+      });
       return () => {
+        cancelAnimationFrame(anchorFrame);
         document.fonts.removeEventListener("loadingdone", fontsChanged);
         releaseImages();
         mm.revert();
+        releaseJoin();
         releaseEnding();
+        releaseRoom();
         releaseProducts();
         releaseOpening();
       };

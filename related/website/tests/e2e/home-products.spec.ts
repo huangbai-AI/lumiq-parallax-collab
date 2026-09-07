@@ -21,6 +21,8 @@ test("desktop products pin, move sideways, release and reverse", async ({
       return {
         start: spacer.getBoundingClientRect().top + scrollY,
         distance: track.scrollWidth - viewport.clientWidth,
+        pinnedDistance: spacer.getBoundingClientRect().height - stage.offsetHeight,
+        stride: document.querySelector<HTMLElement>(".lh-product-slot")!.offsetWidth + 24,
         width:
           document.querySelector<HTMLElement>(".lh-product-slot")!.offsetWidth,
         count:
@@ -30,7 +32,7 @@ test("desktop products pin, move sideways, release and reverse", async ({
             24),
       };
     });
-  const { start, distance, width, count } = await measure();
+  const { start, distance, pinnedDistance, stride, width, count } = await measure();
   expect(width).toBe(480);
   expect(count).toBeGreaterThan(2.3);
   expect(count).toBeLessThan(3);
@@ -41,7 +43,7 @@ test("desktop products pin, move sideways, release and reverse", async ({
     );
     await page.waitForTimeout(850); // allow the intentional scrub catch-up to settle
   };
-  await scroll(start + distance / 2);
+  await scroll(start + stride);
   expect(
     (await page.locator(".lh-products-stage").boundingBox())!.y,
   ).toBeCloseTo(0, 0);
@@ -49,7 +51,7 @@ test("desktop products pin, move sideways, release and reverse", async ({
     page
       .locator(".lh-products-track")
       .evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).m41);
-  expect(await transformX()).toBeCloseTo(-distance / 2, -1);
+  expect(await transformX()).toBeCloseTo(-stride, -1);
   await scroll(start + distance);
   const last = (await page.locator(".lh-product").last().boundingBox())!;
   const viewport = (await page.locator(".lh-products-viewport").boundingBox())!;
@@ -57,6 +59,8 @@ test("desktop products pin, move sideways, release and reverse", async ({
     viewport.x + viewport.width + 2,
   );
   await scroll(start + distance + 250);
+  expect((await page.locator(".lh-products-stage").boundingBox())!.y).toBeCloseTo(0, 0);
+  await scroll(start + pinnedDistance + 250);
   expect(
     (await page.locator(".lh-products-stage").boundingBox())!.y,
   ).toBeLessThan(-240);
