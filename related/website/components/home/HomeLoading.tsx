@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { useTranslations } from "next-intl";
 import { prepareHome } from "./prepareHome";
+import LoadingWordmark from "./LoadingWordmark";
 
 const visitKey = "lumiq-home-ready-20260907-v1";
 
@@ -30,11 +31,11 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
     let url: string | undefined;
     let frame = 0;
     let exitTimer: ReturnType<typeof setTimeout>;
-    const started = performance.now();
+    let wordmarkStarted: number | undefined;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let returning = false;
     try { returning = sessionStorage.getItem(visitKey) === "ready"; } catch { /* storage is optional */ }
-    overlay.current?.style.setProperty("--load-exit", returning ? "220ms" : "550ms");
+    overlay.current?.setAttribute("data-returning", String(returning));
     target.current = shown.current = 0;
     complete.current = opened.current = false;
     setPercent(0);
@@ -52,15 +53,18 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
         setPhase("hidden");
         shell.forEach((element, i) => { element.inert = wasInert[i]; });
         onOpened();
-      }, reduced ? 0 : returning ? 220 : 550);
+      }, reduced ? 0 : 1100);
     };
     const tick = () => {
+      if (wordmarkStarted === undefined && overlay.current?.querySelector('.lh-loader-wordmark[data-ready="true"]')) {
+        wordmarkStarted = performance.now();
+      }
       shown.current += (target.current - shown.current) * (reduced || returning ? 1 : 0.12);
       if (target.current - shown.current < 0.08) shown.current = target.current;
       const value = Math.floor(shown.current);
       setPercent(value);
-      overlay.current?.style.setProperty("--load-progress", String(shown.current / 100));
-      if (complete.current && value === 100 && performance.now() - started >= (returning || reduced ? 0 : 850)) {
+      if (complete.current && value === 100 && wordmarkStarted !== undefined &&
+        performance.now() - wordmarkStarted >= (reduced ? 0 : returning ? 750 : 1750)) {
         reveal();
         return;
       }
@@ -117,13 +121,12 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
 
   return <>
     <div ref={overlay} className="lh-loader" data-state={phase} role="dialog" aria-modal={phase !== "hidden"} aria-label={t("label")}>
-      <div className="lh-loader-center">
-        <div className="lh-loader-wordmark" aria-hidden="true"><span /></div>
+      <div className="lh-loader-center" key={attempt}>
+        <LoadingWordmark />
         <div className="lh-loader-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent} aria-label={t("label")}>
-          <span className="lh-loader-rule"><i /></span>
           <span className="lh-loader-percent">{percent}<small>%</small></span>
         </div>
-        <p className="lh-loader-label" aria-live="polite">{phase === "error" ? t("error") : t("label")}</p>
+        {phase === "error" && <p className="lh-loader-label" role="alert">{t("error")}</p>}
         {phase === "error" && <div className="lh-loader-actions">
           <button ref={retryButton} onClick={() => setAttempt(value => value + 1)}>{t("retry")}</button>
           <button onClick={() => overlay.current?.dispatchEvent(new Event("lumiq:continue"))}>{t("continue")}</button>

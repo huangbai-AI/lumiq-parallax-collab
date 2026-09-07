@@ -1,7 +1,6 @@
 import { openingVideoQuery } from "./openingVideo";
 
 export const openingVideoSource = "/assets/home-video/opening-web-20260907.mp4";
-export const loadingBackground = "/assets/home-interactive/pearl-light.webp";
 export const loadingLogo = "/assets/brand/lumiq-logo-transparent-dark.png";
 
 function abortable<T>(promise: Promise<T>, signal: AbortSignal): Promise<T> {
@@ -67,7 +66,7 @@ export async function prepareHome(
     new URLSearchParams(location.search).get("opening") !== "code";
   const images = Array.from(root.querySelectorAll<HTMLImageElement>("img[data-home-image]"))
     .filter(image => !useVideo || !image.closest(".lh-glass-word, .lh-hero-stage, .lh-brand-character"));
-  const extraSources = [loadingBackground, loadingLogo, ...(useVideo ? [
+  const extraSources = [loadingLogo, ...(useVideo ? [
     "/assets/home-video/hero-intro-user-clean-20260907.webp",
     "/assets/home-video/hero-rest-20260907.webp",
     "/assets/home-video/brand-end-user-clean-20260907.webp",
