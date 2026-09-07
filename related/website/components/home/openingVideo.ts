@@ -28,11 +28,16 @@ export function mountOpeningVideo(root: HTMLElement) {
     let alive = true;
     let frame = 0;
     // Measured on the continuous H3 movie; no source or element swap here.
-    const introEnd = 2.4;
+    const introEnd = 3.8;
     const frameDuration = 1 / 60;
     // Finish the composition before unpinning, leaving room to rest on screen two.
     const settleAt = 0.86;
     const anchorAt = 0.92;
+    // Keep copy/card cues on the same movie frames when moving the hero rest frame.
+    const cue = (progress: number) => Math.max(0,
+      (2.4 + progress * (7.238333 - 2.4) - introEnd) / (7.238333 - introEnd),
+    );
+    const at = (progress: number) => cue(progress) * settleAt;
     let idleDelay: ReturnType<typeof setTimeout> | undefined;
     let idle: gsap.core.Timeline | undefined;
     let handoffAt = 0;
@@ -61,8 +66,8 @@ export function mountOpeningVideo(root: HTMLElement) {
           window.scrollY < scroll.start + (scroll.end - scroll.start) * settleAt - 1 ||
           window.scrollY > scroll.end + 1) return;
         const end = endTime();
-        // The earlier shot is still transitioning; 1.1s stays inside the clean scene.
-        const start = end - 1.1;
+        // A smaller clean-scene range keeps the float subtle without endpoint holds.
+        const start = end - 0.75;
         if (video.seeking || Math.abs(video.currentTime - end) > 0.025) {
           schedule();
           queueIdle();
@@ -111,8 +116,8 @@ export function mountOpeningVideo(root: HTMLElement) {
       if (!frame && alive) frame = requestAnimationFrame(tick);
     };
     const update = () => {
-      heroCopy.inert = playhead.progress > 0.5;
-      brandCopy.inert = cards.inert = playhead.progress < 0.68;
+      heroCopy.inert = playhead.progress > cue(0.5);
+      brandCopy.inert = cards.inert = playhead.progress < cue(0.68);
       targetTime = introEnd + playhead.progress * (endTime() - introEnd);
       video.dataset.scrollProgress = String(playhead.progress);
       // Layout refresh/scroll restoration is not an intentional skip of the entrance.
@@ -168,7 +173,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     window.addEventListener("pointerdown", interruptSnap, { passive: true });
     layer.dataset.intro = introFinished ? "complete" : "pending";
     video.muted = true;
-    // The 2.4-second letter entrance plays in two seconds.
+    // Let the existing letter entrance and light sweep finish before holding.
     video.playbackRate = 1.2;
     video.defaultPlaybackRate = 1.2;
     video.preload = "auto";
@@ -211,17 +216,17 @@ export function mountOpeningVideo(root: HTMLElement) {
       .to(playhead, { progress: 1, duration: settleAt, ease: "none", onUpdate: update }, 0)
       .to({}, { duration: 1 - settleAt }, settleAt)
       // This shot holds the products until about 4.4s; keep the copy through the hold.
-      .to(heroCopy, { autoAlpha: 0, y: -45, duration: 0.2 * settleAt, ease: "none" }, 0.3 * settleAt)
+      .to(heroCopy, { autoAlpha: 0, y: -45, duration: at(0.5) - at(0.3), ease: "none" }, at(0.3))
       // Posters are only a fallback beneath the decoded movie.
-      .to(".lh-video-end-poster", { opacity: 1, duration: 0.3 * settleAt, ease: "none" }, 0.38 * settleAt)
+      .to(".lh-video-end-poster", { opacity: 1, duration: at(0.68) - at(0.38), ease: "none" }, at(0.38))
       .fromTo(brandCopy, { y: 35, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.2 * settleAt, ease: "power1.out" }, 0.64 * settleAt);
+        { y: 0, autoAlpha: 1, duration: at(0.84) - at(0.64), ease: "power1.out" }, at(0.64));
     rhythmCards.forEach((card, index) => {
       timeline.fromTo(
         card,
         { y: 90 + index * 28, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.18 * settleAt, ease: "power2.out" },
-        (0.68 + index * 0.07) * settleAt,
+        { y: 0, autoAlpha: 1, duration: at(0.86 + index * 0.07) - at(0.68 + index * 0.07), ease: "power2.out" },
+        at(0.68 + index * 0.07),
       );
     });
     const scroll = timeline.scrollTrigger;
