@@ -1,11 +1,60 @@
-/* Shared sizes; each page keeps its established typeface and composition. */
+@font-face {
+  font-family: "Lumiq Manrope";
+  src: url("/assets/fonts/manrope-latin.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+/* The homepage supplies the shared type and colour language. */
 .lumiq-root {
+  --font-sans: "Lumiq Manrope", Arial, "Noto Sans TC", "Noto Sans JP", sans-serif;
   --lq-h1: clamp(44px, 4.8vw, 78px);
   --lq-h2: clamp(36px, 3vw, 52px);
   --lq-h3: clamp(20px, 1.6vw, 26px);
   --lq-body: clamp(16px, 1.05vw, 18px);
   --lq-action: 14px;
 }
+.lumiq-root main:not(.lh-home) {
+  --font-serif: var(--font-sans);
+  --ink: #152439;
+  --ink-2: #465568;
+  --ink-3: #626f80;
+  --ink-4: #6b7889;
+  --navy: #1b3043;
+  --gold: #52677d;
+  --pd-ink: #152439;
+  --pd-muted: #626f80;
+  --pd-accent: #52677d;
+  font-family: var(--font-sans);
+}
+.lumiq-root main:not(.lh-home) :is(h1, h2, h3) {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.lumiq-root main:not(.lh-home) :is(h1, h2) em {
+  font-style: normal;
+  color: var(--ink-3);
+}
+.lumiq-root .subpage .subpage-title { margin: .75rem 0 1.25rem; }
+.lumiq-root .prod-page .prod-hero-text h1 { margin-bottom: 1.5rem; }
+.lumiq-root .product-detail-light .pd-hero-copy h1 span {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1.2;
+}
+.lumiq-root main:not(.lh-home) .pd-primary-action { background: var(--navy); letter-spacing: 0; }
+.lumiq-root main:not(.lh-home) :is(.btn, .pd-primary-action, .pd-secondary-action, .prod-product-link) {
+  min-height: 48px;
+  font-weight: 600;
+}
+.lumiq-root main:not(.lh-home) :is(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #52677d;
+  outline-offset: 4px;
+}
+.lumiq-root main:not(.lh-home) :is(input, select, textarea) { min-width: 0; }
+.lumiq-root .contact-card a { overflow-wrap: anywhere; }
 .lumiq-root main:is(.editorial-page, .product-detail-light, .subpage):not(.lh-home) h1 {
   font-size: var(--lq-h1);
   line-height: 1.08;
