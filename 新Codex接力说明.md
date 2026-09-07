@@ -1,5 +1,9 @@
 # 新 Codex 接力说明
 
+## 最新：已发布 Vercel 生产环境（2026-09-07）
+
+用户已明确确认上传范围和生产目标。仅从 `related/website` 发布至已绑定的 `lumiq-home-pearl-preview` 项目，Vercel 返回 `READY`、`target: production`，正式域名已绑定为 https://lumiq-home-pearl-preview.vercel.app 。发布编号 `dpl_8zA3N7idfQ7Ad9FttBwqXPMdhztx`，独立版本地址 https://lumiq-home-pearl-preview-mdq5r723v-huangbais-projects.vercel.app 。发布代码包含 `8ff7547` 四点两行排版及此前首屏停帧、第二屏小幅浮动等本分支累计修改；发布时 Git 为 `025ca18`，远端构建、类型和代码检查通过，87个静态页面生成完成。此前发布审批阻塞已解决，无需用户登录。分支仍为 `codex/trust-copy-lines-deploy-2026-09-07`，未推送Git或合并分支。
+
 ## 最新：四点文案统一行数（2026-09-07）
 
 从 `30a58b7` 新开分支 `codex/trust-copy-lines-deploy-2026-09-07`。首页第五层四项改为两行标题、两行说明，英/繁中/日文均按语意显式换行，保留统一字号与扫光。构建、类型、代码、913个翻译键检查通过；实测1920×1080、1440×900、1280×720、375×812、320×740，修正最窄屏英文/日文额外换行后复查通过。截图：`output/playwright/trust-copy-lines-2026-09-07/`。本地4211已更新，修改提交 `8ff7547`。用户本次再次要求上线，但发布命令仍被自动审批在执行前拒绝：要求明确授权具体项目、生产环境及网站内容发送范围。尚未上传或发布；待用户确认仅将 `related/website` 发布到 `lumiq-home-pearl-preview.vercel.app` 生产环境。没有绕过拒绝，没有推送Git或合并分支。
