@@ -280,10 +280,34 @@
 .lumiq-root .navbar.site-nav,
 .lumiq-root .navbar.site-nav.scrolled {
   padding: 0;
-  background: #ffffffed;
-  backdrop-filter: blur(18px);
+  background: #fff;
+  backdrop-filter: none;
   border-bottom: 1px solid #1823310c;
   box-shadow: none;
+}
+/* The homepage fades into the hero; scrolling or opening the menu restores white. */
+.lumiq-root .navbar.site-nav.home-nav {
+  isolation: isolate;
+  background: transparent;
+  border-bottom-color: transparent;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+.lumiq-root .site-nav.home-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -64px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, #fff 0%, #fffffffa 38%, #ffffffc7 62%, #ffffff4d 82%, #ffffff00 100%);
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+.lumiq-root .navbar.site-nav.home-nav.scrolled {
+  background: #fff;
+  border-bottom-color: #1823310c;
+}
+.lumiq-root .site-nav.home-nav.scrolled::before {
+  opacity: 0;
 }
 .lumiq-root .site-nav .nav-inner {
   max-width: 1664px;
@@ -414,6 +438,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .lumiq-root .site-nav,
+  .lumiq-root .site-nav::before,
   .lumiq-root .site-nav * {
     transition: none;
   }

@@ -16,7 +16,6 @@ export function mountOpeningVideo(root: HTMLElement) {
   const rhythmCards = Array.from(
     opening.querySelectorAll<HTMLElement>(".lh-rhythm-card"),
   );
-  const cue = opening.querySelector<HTMLAnchorElement>(".lh-scroll-cue")!;
   const mm = gsap.matchMedia();
   if (new URLSearchParams(window.location.search).get("opening") === "code")
     return () => {};
@@ -118,7 +117,6 @@ export function mountOpeningVideo(root: HTMLElement) {
       .to(playhead, { progress: 1, duration: 1, ease: "none", onUpdate: update }, 0)
       // This shot holds the products until about 4.4s; keep the copy through the hold.
       .to(heroCopy, { autoAlpha: 0, y: -45, duration: 0.2, ease: "none" }, 0.3)
-      .to(cue, { autoAlpha: 0, duration: 0.08 }, 0.25)
       // Posters are only a fallback beneath the decoded movie.
       .to(".lh-video-end-poster", { opacity: 1, duration: 0.3, ease: "none" }, 0.38)
       .fromTo(brandCopy, { y: 35, autoAlpha: 0 },
@@ -131,19 +129,10 @@ export function mountOpeningVideo(root: HTMLElement) {
         0.68 + index * 0.07,
       );
     });
-    const trigger = timeline.scrollTrigger!;
-    const closer = (event: MouseEvent) => {
-      event.preventDefault();
-      window.scrollTo({
-        top: trigger.start + (trigger.end - trigger.start) * 0.95,
-        behavior: "smooth",
-      });
-    };
-    cue.addEventListener("click", closer);
     const resetFrame = requestAnimationFrame(() => {
       ScrollTrigger.refresh();
       if (!handledAnchor && window.location.hash === "#ola")
-        window.scrollTo({ top: trigger.end, behavior: "instant" });
+        window.scrollTo({ top: timeline.scrollTrigger!.end, behavior: "instant" });
       handledAnchor = true;
     });
     update();
@@ -152,7 +141,6 @@ export function mountOpeningVideo(root: HTMLElement) {
       clearTimeout(loadDeadline);
       cancelAnimationFrame(resetFrame);
       cancelAnimationFrame(frame);
-      cue.removeEventListener("click", closer);
       video.removeEventListener("loadeddata", ready);
       video.removeEventListener("error", failed);
       video.removeEventListener("ended", finishIntro);

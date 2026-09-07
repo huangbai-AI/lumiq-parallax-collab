@@ -83,8 +83,7 @@
     .lh-opening-atmosphere,
     .lh-glass-word,
     .lh-hero-stage,
-    .lh-brand-character,
-    .lh-section-index
+    .lh-brand-character
   ) {
   display: none;
 }
@@ -147,15 +146,6 @@
   :is(.lh-hero-copy, .lh-ola-copy, .lh-rhythm-cards) {
   pointer-events: auto;
 }
-.lh-opening[data-video-mode] .lh-scroll-cue {
-  position: absolute;
-  display: flex;
-  top: auto;
-  bottom: 34px;
-  left: var(--lh-gutter);
-  width: fit-content;
-  pointer-events: auto;
-}
 .lh-opening[data-video-mode] .lh-rhythm-photo {
   aspect-ratio: 3 / 4;
 }
@@ -174,5 +164,4 @@
     padding-block: 100px 32px;
   }
   .lh-opening[data-video-mode] .lh-rhythm-photo { aspect-ratio: 1 / 1.1; }
-  .lh-opening[data-video-mode] .lh-scroll-cue { bottom: 18px; }
 }

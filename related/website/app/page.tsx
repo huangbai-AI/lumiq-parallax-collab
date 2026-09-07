@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import {
-  ArrowDown,
   ArrowLeft,
   ArrowUpRight,
   ArrowRight,
@@ -162,15 +161,6 @@ export default async function Home() {
                 </div>
               </div>
             </div>
-            <a className="lh-scroll-cue" href="#ola">
-              <span>
-                <ArrowDown size={17} />
-              </span>
-              {t("scroll")}
-            </a>
-            <span className="lh-section-index" aria-hidden="true">
-              01 — 07
-            </span>
           </section>
           <section
             id="ola"
@@ -180,7 +170,7 @@ export default async function Home() {
           >
             <div className="lh-wrap lh-ola-layout">
               <div className="lh-ola-copy" data-home-reveal>
-                <p className="lh-eyebrow">02 / {t("olaKicker")}</p>
+                <p className="lh-eyebrow">{t("olaKicker")}</p>
                 <h2 id="ola-title">
                   {t("brandTitle")}
                   <br />
@@ -201,7 +191,7 @@ export default async function Home() {
                 />
               </div>
               <div className="lh-rhythm-cards">
-                {(["learn", "connect", "care"] as const).map((key, i) => (
+                {(["learn", "connect", "care"] as const).map((key) => (
                   <article
                     className={"lh-rhythm-card lh-rhythm-" + key}
                     key={key}
@@ -215,7 +205,6 @@ export default async function Home() {
                       />
                     </div>
                     <div className="lh-rhythm-copy">
-                      <span className="lh-micro-index">0{i + 1}</span>
                       <h3>{t(`rhythms.${key}.title`)}</h3>
                       <p>{t(`rhythms.${key}.body`)}</p>
                     </div>
@@ -235,15 +224,10 @@ export default async function Home() {
         <div className="lh-products-stage">
           <div className="lh-products-heading">
             <h2 id="products-title">{t("productsHeading")}</h2>
-            <span className="lh-products-count" aria-hidden="true">
-              <span data-products-current>01</span>
-              <span>—</span>
-              <span>05</span>
-            </span>
           </div>
           <div className="lh-products-viewport" id="home-products-rail">
             <div className="lh-products-track">
-              {collection.map((id, index) => (
+              {collection.map((id) => (
                 <div
                   className={"lh-product-slot lh-product-slot-" + id}
                   key={id}
@@ -277,9 +261,6 @@ export default async function Home() {
                       <span className="lh-product-arrow">
                         <ArrowUpRight size={19} />
                       </span>
-                    </span>
-                    <span className="lh-product-number" aria-hidden="true">
-                      0{index + 1}
                     </span>
                   </Link>
                 </div>
@@ -345,7 +326,7 @@ export default async function Home() {
               />
             </div>
             <div className="lh-wrap lh-safety-copy">
-              <p className="lh-eyebrow">05 / {t("safetyKicker")}</p>
+              <p className="lh-eyebrow">{t("safetyKicker")}</p>
               <h2 id="safety-title">
                 {t("safetyTitle")}
                 <br />
@@ -356,14 +337,13 @@ export default async function Home() {
             <div className="lh-wrap lh-trust-notes">
               <p className="lh-trust-caption">{t("safetySeal")}</p>
               <div className="lh-principles">
-                {principles.map(({ key, icon: Icon, href }, index) => (
+                {principles.map(({ key, icon: Icon, href }) => (
                   <Link
                     href={href}
                     key={key}
                     className="lh-principle"
                   >
                     <span className="lh-principle-top" aria-hidden="true">
-                      <span className="lh-principle-number">0{index + 1}</span>
                       <Icon size={22} strokeWidth={1.3} />
                     </span>
                     <h3>{t(`trust.${key}.title`)}</h3>
@@ -390,7 +370,7 @@ export default async function Home() {
           <div className="lh-family-anchor">
             <div className="lh-wrap lh-family-heading">
               <div>
-                <p className="lh-eyebrow">06 / {t("familyKicker")}</p>
+                <p className="lh-eyebrow">{t("familyKicker")}</p>
                 <h2 id="family-title">
                   {t("familyTitle")}
                   <br />
@@ -426,7 +406,7 @@ export default async function Home() {
         </div>
         <div className="lh-wrap lh-join-layout">
           <div className="lh-join-copy" data-home-reveal>
-            <p className="lh-eyebrow">07 / {t("joinKicker")}</p>
+            <p className="lh-eyebrow">{t("joinKicker")}</p>
             <h2 id="join-title">
               {t("joinTitle")}
               <br />

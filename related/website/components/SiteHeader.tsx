@@ -40,11 +40,11 @@ export default function SiteHeader() {
     languages.find((item) => item.locale === locale) ?? languages[0];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > (isHomepage ? 64 : 8));
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHomepage]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -129,7 +129,7 @@ export default function SiteHeader() {
     <nav
       ref={navRef}
       aria-label={t("primaryNavigation")}
-      className={`navbar site-nav${scrolled || menuOpen ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
+      className={`navbar site-nav${isHomepage ? " home-nav" : ""}${scrolled || menuOpen ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
     >
       {isHomepage && (
         <a href="#main-content" className="lh-skip">

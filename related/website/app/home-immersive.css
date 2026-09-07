@@ -69,11 +69,6 @@
   color: #65777f;
   margin-bottom: 24px;
 }
-.lh-principle-number {
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.08em;
-}
 .lh-home .lh-safety .lh-principle h3 {
   font-size: clamp(22px, 1.9vw, 29px);
   line-height: 1.3;
@@ -181,7 +176,6 @@
 .lh-chapter-navigation button[aria-selected="true"]::before { transform: scaleX(1); }
 .lh-chapter-navigation button:hover { background: #ffffff0f; }
 .lh-chapter-navigation button:focus-visible { outline: 2px solid #fff; outline-offset: -6px; }
-.lh-chapter-number { font-size: 11px; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
 
 @media (min-width: 2201px) {
   .lh-trust-room { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
@@ -228,7 +222,6 @@
   .lh-safety .lh-principles { grid-template-columns: 1fr; gap: 24px; }
   .lh-safety .lh-principle { padding: 20px 0 0 36px; }
   .lh-principle-top { margin-bottom: 16px; }
-  .lh-principle-number { position: absolute; left: 0; top: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .lh-family-scene, .lh-chapter-navigation button::before, .lh-principle-arrow { transition: none; }

@@ -5,7 +5,6 @@
 .lh-products .lh-product-copy { order: 0; text-align: center; }
 .lh-products .lh-product-art { order: 1; margin: 26px 0 22px; }
 .lh-products .lh-product-bottom { order: 2; justify-content: center; gap: 8px; margin: 0; padding-top: 18px; border-top: 1px solid #1d1d1f12; color: #394f67; font-size: 13px; font-weight: 400; }
-.lh-products .lh-product-number,
 .lh-products .lh-product-type { display: none; }
 .lh-home .lh-products .lh-product h3 { font-size: 32px; letter-spacing: -.025em; color: #1d1d1f; }
 .lh-home .lh-products .lh-product p { max-width: 28ch; margin: 10px auto 0; font-size: 14px; color: #77777c; line-height: 1.45; }

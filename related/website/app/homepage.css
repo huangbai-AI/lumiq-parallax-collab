@@ -306,33 +306,6 @@ html:has(.lh-home) {
     0 37px 0 -4px #fff,
     0 50px 44px #9ca6c02c;
 }
-.lh-scroll-cue {
-  position: absolute;
-  left: max(var(--lh-gutter), calc((100vw - 1480px) / 2));
-  bottom: 26px;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  min-height: 44px;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-}
-.lh-scroll-cue > span {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #9ca9bc50;
-  border-radius: 50%;
-}
-.lh-section-index {
-  position: absolute;
-  bottom: 40px;
-  right: var(--lh-gutter);
-  font-family: "Lumiq Space", sans-serif;
-  font-size: 11px;
-  color: #67768a;
-}
 .lh-ola-layout {
   min-height: 850px;
   display: grid;
@@ -405,14 +378,6 @@ html:has(.lh-home) {
   padding: 22px 19px 26px;
   min-height: 184px;
 }
-.lh-micro-index {
-  display: block;
-  color: #6a7c90;
-  font-family: "Lumiq Space", sans-serif;
-  font-size: 10px;
-  margin-bottom: 14px;
-  letter-spacing: 0.1em;
-}
 .lh-home .lh-rhythm-copy h3 {
   font-size: 21px;
   margin-bottom: 12px;
@@ -440,15 +405,6 @@ html:has(.lh-home) {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-}
-.lh-products-count {
-  display: flex;
-  gap: 18px;
-  font:
-    14px "Lumiq Space",
-    sans-serif;
-  letter-spacing: 0.04em;
-  flex-shrink: 0;
 }
 .lh-products-viewport {
   margin-left: var(--rail-gutter);
@@ -589,15 +545,6 @@ html:has(.lh-home) {
   color: white;
   transform: rotate(6deg);
 }
-.lh-product-number {
-  position: absolute;
-  left: 24px;
-  top: 22px;
-  font:
-    10px "Lumiq Space",
-    sans-serif;
-  color: #8797ac;
-}
 .lh-products-footer {
   min-height: 44px;
 }
@@ -724,10 +671,6 @@ html:has(.lh-home) {
     gap: 20px;
     align-items: flex-end;
   }
-  .lh-products-count {
-    gap: 8px;
-    font-size: 11px;
-  }
   .lh-products-footer {
     gap: 20px;
   }
@@ -753,9 +696,6 @@ html:has(.lh-home) {
   }
 }
 @media (max-width: 380px) {
-  .lh-products-count {
-    display: none;
-  }
   .lh-product {
     padding: 24px;
   }
@@ -1389,10 +1329,6 @@ html:has(.lh-home) {
   .lh-actions {
     gap: 23px;
     margin-top: 25px;
-  }
-  .lh-scroll-cue,
-  .lh-section-index {
-    display: none;
   }
   .lh-hero-ola {
     height: 91%;

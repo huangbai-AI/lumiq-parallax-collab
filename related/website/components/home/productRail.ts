@@ -20,9 +20,6 @@ export function mountProductRail(root: HTMLElement) {
   const meter = section.querySelector<HTMLElement>(
     ".lh-products-progress span",
   )!;
-  const counter = section.querySelector<HTMLElement>(
-    "[data-products-current]",
-  )!;
   let pin: ScrollTrigger | undefined;
   let tween: gsap.core.Tween | undefined;
   let travel = 0;
@@ -39,8 +36,6 @@ export function mountProductRail(root: HTMLElement) {
   const update = () => {
     const offset = position();
     const max = distance();
-    const first = Math.min(slots.length, Math.floor((offset + 2) / step()) + 1);
-    counter.textContent = String(first).padStart(2, "0");
     meter.style.transform = `scaleX(${max ? offset / max : 1})`;
     previous.disabled = offset < 2;
     next.disabled = offset >= max - 2;

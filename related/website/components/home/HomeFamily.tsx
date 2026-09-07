@@ -58,7 +58,6 @@ export default function HomeFamily() {
             onKeyDown={(event) => navigate(event, index)}
           >
             <span className="lh-chapter-progress" aria-hidden="true" />
-            <span className="lh-chapter-number" aria-hidden="true">0{index + 1}</span>
             <span>{t(`familyMoments.${key}`)}</span>
           </button>
         ))}
