@@ -57,7 +57,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       if (!frame && alive) frame = requestAnimationFrame(tick);
     };
     const update = () => {
-      heroCopy.inert = playhead.progress > 0.3;
+      heroCopy.inert = playhead.progress > 0.5;
       brandCopy.inert = cards.inert = playhead.progress < 0.68;
       const endTime = Number.isFinite(video.duration)
         ? Math.max(introEnd, video.duration - 0.045) : introEnd;
@@ -96,7 +96,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     // The 2.4-second letter entrance plays in two seconds.
     video.playbackRate = 1.2;
     video.preload = "auto";
-    video.src = "/assets/home-video/opening-position-h3-20260907.mp4";
+    video.src = "/assets/home-video/opening-user-clean-h3-20260907.mp4";
     video.load();
     // Slow or blocked loading leaves the approved static composition usable.
     const loadDeadline = setTimeout(failed, 8000);
@@ -116,8 +116,9 @@ export function mountOpeningVideo(root: HTMLElement) {
     });
     timeline
       .to(playhead, { progress: 1, duration: 1, ease: "none", onUpdate: update }, 0)
-      .to(heroCopy, { autoAlpha: 0, y: -45, duration: 0.2, ease: "none" }, 0.08)
-      .to(cue, { autoAlpha: 0, duration: 0.08 }, 0.04)
+      // This shot holds the products until about 4.4s; keep the copy through the hold.
+      .to(heroCopy, { autoAlpha: 0, y: -45, duration: 0.2, ease: "none" }, 0.3)
+      .to(cue, { autoAlpha: 0, duration: 0.08 }, 0.25)
       // Posters are only a fallback beneath the decoded movie.
       .to(".lh-video-end-poster", { opacity: 1, duration: 0.3, ease: "none" }, 0.38)
       .fromTo(brandCopy, { y: 35, autoAlpha: 0 },

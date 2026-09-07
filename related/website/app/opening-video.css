@@ -59,13 +59,13 @@
   }
 }
 .lh-video-start-poster {
-  background-image: url("/assets/home-video/hero-position-20260907.webp");
+  background-image: url("/assets/home-video/hero-user-clean-20260907.webp");
 }
 .lh-video-layer[data-intro="pending"] .lh-video-start-poster {
-  background-image: url("/assets/home-video/hero-intro-start-20260907.webp");
+  background-image: url("/assets/home-video/hero-intro-user-clean-20260907.webp");
 }
 .lh-video-end-poster {
-  background-image: url("/assets/home-video/brand-end-position-20260907.webp");
+  background-image: url("/assets/home-video/brand-end-user-clean-20260907.webp");
   opacity: 0;
 }
 .lh-opening-video {

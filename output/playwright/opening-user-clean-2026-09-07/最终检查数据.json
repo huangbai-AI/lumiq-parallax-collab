@@ -1,0 +1,234 @@
+{
+  "chromium": [
+    {
+      "progress": "0.249861",
+      "time": 3.625,
+      "heroOpacity": "1",
+      "inert": false,
+      "cards": [
+        {
+          "top": 324.125,
+          "bottom": 811.875,
+          "opacity": "0"
+        },
+        {
+          "top": 352.125,
+          "bottom": 839.875,
+          "opacity": "0"
+        },
+        {
+          "top": 380.125,
+          "bottom": 867.875,
+          "opacity": "0"
+        }
+      ]
+    },
+    {
+      "progress": "0.49987",
+      "time": 4.833333,
+      "heroOpacity": "0.0007",
+      "inert": false,
+      "cards": [
+        {
+          "top": 324.125,
+          "bottom": 811.875,
+          "opacity": "0"
+        },
+        {
+          "top": 352.125,
+          "bottom": 839.875,
+          "opacity": "0"
+        },
+        {
+          "top": 380.125,
+          "bottom": 867.875,
+          "opacity": "0"
+        }
+      ]
+    },
+    {
+      "progress": "0.999168",
+      "time": 7.246667,
+      "heroOpacity": "0",
+      "inert": true,
+      "cards": [
+        {
+          "top": 234.1259765625,
+          "bottom": 721.8759765625,
+          "opacity": "1"
+        },
+        {
+          "top": 234.1259765625,
+          "bottom": 721.8759765625,
+          "opacity": "1"
+        },
+        {
+          "top": 234.1259765625,
+          "bottom": 721.8759765625,
+          "opacity": "1"
+        }
+      ]
+    }
+  ],
+  "webkit": {
+    "out": [
+      {
+        "size": {
+          "width": 1280,
+          "height": 720
+        },
+        "before": {
+          "time": 2.427652125330636,
+          "src": "http://127.0.0.1:4211/assets/home-video/opening-user-clean-h3-20260907.mp4",
+          "ready": 4,
+          "error": null,
+          "edge": "0px",
+          "overflow": false
+        },
+        "end": {
+          "time": 7.247,
+          "duration": 7.292,
+          "progress": "0.999995",
+          "src": "http://127.0.0.1:4211/assets/home-video/opening-user-clean-h3-20260907.mp4",
+          "cards": [
+            {
+              "top": 169.3291015625,
+              "bottom": 606.6728515625,
+              "opacity": "1"
+            },
+            {
+              "top": 169.3291015625,
+              "bottom": 606.6728515625,
+              "opacity": "1"
+            },
+            {
+              "top": 169.3291015625,
+              "bottom": 606.6728515625,
+              "opacity": "1"
+            }
+          ],
+          "overflow": false
+        },
+        "reverse": true
+      },
+      {
+        "size": {
+          "width": 1440,
+          "height": 900
+        },
+        "before": {
+          "time": 2.4248223333288657,
+          "src": "http://127.0.0.1:4211/assets/home-video/opening-user-clean-h3-20260907.mp4",
+          "ready": 4,
+          "error": null,
+          "edge": "0px",
+          "overflow": false
+        },
+        "end": {
+          "time": 7.247,
+          "duration": 7.292,
+          "progress": "0.999995",
+          "src": "http://127.0.0.1:4211/assets/home-video/opening-user-clean-h3-20260907.mp4",
+          "cards": [
+            {
+              "top": 234.1259765625,
+              "bottom": 721.8603515625,
+              "opacity": "1"
+            },
+            {
+              "top": 234.1259765625,
+              "bottom": 721.8603515625,
+              "opacity": "1"
+            },
+            {
+              "top": 234.1259765625,
+              "bottom": 721.8603515625,
+              "opacity": "1"
+            }
+          ],
+          "overflow": false
+        },
+        "reverse": true
+      },
+      {
+        "size": {
+          "width": 2560,
+          "height": 1080
+        },
+        "before": {
+          "time": 2.4247203746575177,
+          "src": "http://127.0.0.1:4211/assets/home-video/opening-user-clean-h3-20260907.mp4",
+          "ready": 4,
+          "error": null,
+          "edge": "clamp(0px,calc((100vw - 200svh) * 0.5),96px)",
+          "overflow": false
+        },
+        "end": {
+          "time": 7.247,
+          "duration": 7.292,
+          "progress": "1",
+          "src": "http://127.0.0.1:4211/assets/home-video/opening-user-clean-h3-20260907.mp4",
+          "cards": [
+            {
+              "top": 244.4228515625,
+              "bottom": 891.5634765625,
+              "opacity": "1"
+            },
+            {
+              "top": 244.4228515625,
+              "bottom": 891.5634765625,
+              "opacity": "1"
+            },
+            {
+              "top": 244.4228515625,
+              "bottom": 891.5634765625,
+              "opacity": "1"
+            }
+          ],
+          "overflow": false
+        },
+        "reverse": true
+      },
+      {
+        "mobile": true,
+        "src": null,
+        "overflow": false,
+        "title": "同一個家，\n各自的生活節奏。"
+      },
+      {
+        "reduced": true,
+        "src": null,
+        "overflow": false
+      }
+    ],
+    "errors": [
+      "/127.0.0.1:4211/zh-hant/products?_rsc=Eddt0RMhQMjqkFOZ due to access control checks.",
+      "/127.0.0.1:4211/zh-hant/plans?_rsc=Eddt0RMhQMjqkFOZ due to access control checks.",
+      "/127.0.0.1:4211/zh-hant/media?_rsc=Eddt0RMhQMjqkFOZ due to access control checks.",
+      "/127.0.0.1:4211/zh-hant/faq?_rsc=Eddt0RMhQMjqkFOZ due to access control checks."
+    ]
+  },
+  "motion": {
+    "samples": 177,
+    "p50Ms": 6.9,
+    "p95Ms": 7.8,
+    "maxMs": 11,
+    "videoError": null
+  },
+  "webkitFollowup": {
+    "routes": [
+      "products",
+      "plans",
+      "media",
+      "faq"
+    ],
+    "statuses": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "pageErrors": [],
+    "cancelledPrefetches": 1
+  }
+}
