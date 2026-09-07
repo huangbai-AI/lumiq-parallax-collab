@@ -1,0 +1,1838 @@
+[
+  {
+    "lang": "en",
+    "route": "products",
+    "width": 320,
+    "garbled": false,
+    "h1": "AI. Interaction.Reimagined.",
+    "overflow": false,
+    "textLength": 13642
+  },
+  {
+    "lang": "en",
+    "route": "products/ola",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq OlaHolographic Companion",
+    "overflow": false,
+    "textLength": 2255
+  },
+  {
+    "lang": "en",
+    "route": "products/ola-go",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Ola GoA little companion for the road.",
+    "overflow": false,
+    "textLength": 1794
+  },
+  {
+    "lang": "en",
+    "route": "products/tablet",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq TabletA Tablet Built for Wonder",
+    "overflow": false,
+    "textLength": 3574
+  },
+  {
+    "lang": "en",
+    "route": "products/print",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq PrintYour Child, The Hero",
+    "overflow": false,
+    "textLength": 2524
+  },
+  {
+    "lang": "en",
+    "route": "products/nest",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Nest 15Give every day a shared place.",
+    "overflow": false,
+    "textLength": 2190
+  },
+  {
+    "lang": "en",
+    "route": "story",
+    "width": 320,
+    "garbled": false,
+    "h1": "A studio shaped by the question: how do we enhance the things we use?",
+    "overflow": false,
+    "textLength": 13532
+  },
+  {
+    "lang": "en",
+    "route": "plans",
+    "width": 320,
+    "garbled": false,
+    "h1": "Pick the way you want to live with us.",
+    "overflow": false,
+    "textLength": 7935
+  },
+  {
+    "lang": "en",
+    "route": "media",
+    "width": 320,
+    "garbled": false,
+    "h1": "What people are saying.",
+    "overflow": false,
+    "textLength": 3465
+  },
+  {
+    "lang": "en",
+    "route": "faq",
+    "width": 320,
+    "garbled": false,
+    "h1": "Questions, gently answered.",
+    "overflow": false,
+    "textLength": 3059
+  },
+  {
+    "lang": "en",
+    "route": "prelaunch",
+    "width": 320,
+    "garbled": false,
+    "h1": "Coming soon.",
+    "overflow": false,
+    "textLength": 622
+  },
+  {
+    "lang": "en",
+    "route": "about",
+    "width": 320,
+    "garbled": false,
+    "h1": "LumiqStudio by Arpha",
+    "overflow": false,
+    "textLength": 1555
+  },
+  {
+    "lang": "en",
+    "route": "contact",
+    "width": 320,
+    "garbled": false,
+    "h1": "Say hello",
+    "overflow": false,
+    "textLength": 343
+  },
+  {
+    "lang": "en",
+    "route": "legal/privacy",
+    "width": 320,
+    "garbled": false,
+    "h1": "Privacy Policy",
+    "overflow": false,
+    "textLength": 773
+  },
+  {
+    "lang": "en",
+    "route": "legal/terms",
+    "width": 320,
+    "garbled": false,
+    "h1": "Terms of Service",
+    "overflow": false,
+    "textLength": 582
+  },
+  {
+    "lang": "en",
+    "route": "legal/cookies",
+    "width": 320,
+    "garbled": false,
+    "h1": "Cookie Policy",
+    "overflow": false,
+    "textLength": 461
+  },
+  {
+    "lang": "en",
+    "route": "legal/child-safety",
+    "width": 320,
+    "garbled": false,
+    "h1": "Child Safety",
+    "overflow": false,
+    "textLength": 878
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products",
+    "width": 320,
+    "garbled": false,
+    "h1": "AI，互動。重新想像。",
+    "overflow": false,
+    "textLength": 12845
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Ola全息 陪伴裝置",
+    "overflow": false,
+    "textLength": 757
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola-go",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Ola Go一路同行的小夥伴。",
+    "overflow": false,
+    "textLength": 608
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/tablet",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Tablet為驚奇而生的 平板",
+    "overflow": false,
+    "textLength": 1183
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/print",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Print你的孩子， 故事主角",
+    "overflow": false,
+    "textLength": 918
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/nest",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Nest 15讓每一天 都有共享的位置。",
+    "overflow": false,
+    "textLength": 762
+  },
+  {
+    "lang": "zh-hant",
+    "route": "story",
+    "width": 320,
+    "garbled": false,
+    "h1": "一間由這個問題塑造的工作室： 我們如何讓日常使用的事物變得更好？",
+    "overflow": false,
+    "textLength": 11854
+  },
+  {
+    "lang": "zh-hant",
+    "route": "plans",
+    "width": 320,
+    "garbled": false,
+    "h1": "選擇與 Lumiq 一起生活的方式。",
+    "overflow": false,
+    "textLength": 6736
+  },
+  {
+    "lang": "zh-hant",
+    "route": "media",
+    "width": 320,
+    "garbled": false,
+    "h1": "大家怎麼說。",
+    "overflow": false,
+    "textLength": 3016
+  },
+  {
+    "lang": "zh-hant",
+    "route": "faq",
+    "width": 320,
+    "garbled": false,
+    "h1": "溫柔解答你的疑問。",
+    "overflow": false,
+    "textLength": 2491
+  },
+  {
+    "lang": "zh-hant",
+    "route": "prelaunch",
+    "width": 320,
+    "garbled": false,
+    "h1": "即將登場。",
+    "overflow": false,
+    "textLength": 430
+  },
+  {
+    "lang": "zh-hant",
+    "route": "about",
+    "width": 320,
+    "garbled": false,
+    "h1": "Arpha 旗下的 LumiqStudio",
+    "overflow": false,
+    "textLength": 523
+  },
+  {
+    "lang": "zh-hant",
+    "route": "contact",
+    "width": 320,
+    "garbled": false,
+    "h1": "來打聲招呼",
+    "overflow": false,
+    "textLength": 186
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/privacy",
+    "width": 320,
+    "garbled": false,
+    "h1": "隱私權政策",
+    "overflow": false,
+    "textLength": 288
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/terms",
+    "width": 320,
+    "garbled": false,
+    "h1": "服務條款",
+    "overflow": false,
+    "textLength": 216
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/cookies",
+    "width": 320,
+    "garbled": false,
+    "h1": "Cookie 政策",
+    "overflow": false,
+    "textLength": 200
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/child-safety",
+    "width": 320,
+    "garbled": false,
+    "h1": "兒童安全",
+    "overflow": false,
+    "textLength": 284
+  },
+  {
+    "lang": "ja",
+    "route": "products",
+    "width": 320,
+    "garbled": false,
+    "h1": "AI。インタラクション。その先を想像する。",
+    "overflow": false,
+    "textLength": 13035
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Olaホログラフィック コンパニオン",
+    "overflow": false,
+    "textLength": 1105
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola-go",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Ola Go外出にも、小さなコンパニオンを。",
+    "overflow": false,
+    "textLength": 705
+  },
+  {
+    "lang": "ja",
+    "route": "products/tablet",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Tablet驚きのために作られた タブレット",
+    "overflow": false,
+    "textLength": 1591
+  },
+  {
+    "lang": "ja",
+    "route": "products/print",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Printお子さまが、 物語の主人公に",
+    "overflow": false,
+    "textLength": 1060
+  },
+  {
+    "lang": "ja",
+    "route": "products/nest",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq Nest 15毎日に 共有できる場所を。",
+    "overflow": false,
+    "textLength": 1053
+  },
+  {
+    "lang": "ja",
+    "route": "story",
+    "width": 320,
+    "garbled": false,
+    "h1": "ひとつの問いから形づくられたスタジオ。 日々使うものを、どうすればより良くできるだろう？",
+    "overflow": false,
+    "textLength": 12176
+  },
+  {
+    "lang": "ja",
+    "route": "plans",
+    "width": 320,
+    "garbled": false,
+    "h1": "Lumiq と暮らす方法を選びましょう。",
+    "overflow": false,
+    "textLength": 7010
+  },
+  {
+    "lang": "ja",
+    "route": "media",
+    "width": 320,
+    "garbled": false,
+    "h1": "寄せられた声。",
+    "overflow": false,
+    "textLength": 3089
+  },
+  {
+    "lang": "ja",
+    "route": "faq",
+    "width": 320,
+    "garbled": false,
+    "h1": "疑問に、やさしくお答えします。",
+    "overflow": false,
+    "textLength": 2617
+  },
+  {
+    "lang": "ja",
+    "route": "prelaunch",
+    "width": 320,
+    "garbled": false,
+    "h1": "まもなく登場。",
+    "overflow": false,
+    "textLength": 479
+  },
+  {
+    "lang": "ja",
+    "route": "about",
+    "width": 320,
+    "garbled": false,
+    "h1": "Arpha の LumiqStudio",
+    "overflow": false,
+    "textLength": 728
+  },
+  {
+    "lang": "ja",
+    "route": "contact",
+    "width": 320,
+    "garbled": false,
+    "h1": "お気軽にご連絡ください",
+    "overflow": false,
+    "textLength": 227
+  },
+  {
+    "lang": "ja",
+    "route": "legal/privacy",
+    "width": 320,
+    "garbled": false,
+    "h1": "プライバシーポリシー",
+    "overflow": false,
+    "textLength": 388
+  },
+  {
+    "lang": "ja",
+    "route": "legal/terms",
+    "width": 320,
+    "garbled": false,
+    "h1": "利用規約",
+    "overflow": false,
+    "textLength": 319
+  },
+  {
+    "lang": "ja",
+    "route": "legal/cookies",
+    "width": 320,
+    "garbled": false,
+    "h1": "Cookie ポリシー",
+    "overflow": false,
+    "textLength": 261
+  },
+  {
+    "lang": "ja",
+    "route": "legal/child-safety",
+    "width": 320,
+    "garbled": false,
+    "h1": "子どもの安全",
+    "overflow": false,
+    "textLength": 416
+  },
+  {
+    "lang": "en",
+    "route": "products",
+    "width": 768,
+    "garbled": false,
+    "h1": "AI. Interaction.Reimagined.",
+    "overflow": false,
+    "textLength": 13642
+  },
+  {
+    "lang": "en",
+    "route": "products/ola",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq OlaHolographic Companion",
+    "overflow": false,
+    "textLength": 2255
+  },
+  {
+    "lang": "en",
+    "route": "products/ola-go",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Ola GoA little companion for the road.",
+    "overflow": false,
+    "textLength": 1794
+  },
+  {
+    "lang": "en",
+    "route": "products/tablet",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq TabletA Tablet Built for Wonder",
+    "overflow": false,
+    "textLength": 3574
+  },
+  {
+    "lang": "en",
+    "route": "products/print",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq PrintYour Child, The Hero",
+    "overflow": false,
+    "textLength": 2524
+  },
+  {
+    "lang": "en",
+    "route": "products/nest",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Nest 15Give every day a shared place.",
+    "overflow": false,
+    "textLength": 2190
+  },
+  {
+    "lang": "en",
+    "route": "story",
+    "width": 768,
+    "garbled": false,
+    "h1": "A studio shaped by the question: how do we enhance the things we use?",
+    "overflow": false,
+    "textLength": 13532
+  },
+  {
+    "lang": "en",
+    "route": "plans",
+    "width": 768,
+    "garbled": false,
+    "h1": "Pick the way you want to live with us.",
+    "overflow": false,
+    "textLength": 7935
+  },
+  {
+    "lang": "en",
+    "route": "media",
+    "width": 768,
+    "garbled": false,
+    "h1": "What people are saying.",
+    "overflow": false,
+    "textLength": 3465
+  },
+  {
+    "lang": "en",
+    "route": "faq",
+    "width": 768,
+    "garbled": false,
+    "h1": "Questions, gently answered.",
+    "overflow": false,
+    "textLength": 3059
+  },
+  {
+    "lang": "en",
+    "route": "prelaunch",
+    "width": 768,
+    "garbled": false,
+    "h1": "Coming soon.",
+    "overflow": false,
+    "textLength": 622
+  },
+  {
+    "lang": "en",
+    "route": "about",
+    "width": 768,
+    "garbled": false,
+    "h1": "LumiqStudio by Arpha",
+    "overflow": false,
+    "textLength": 1555
+  },
+  {
+    "lang": "en",
+    "route": "contact",
+    "width": 768,
+    "garbled": false,
+    "h1": "Say hello",
+    "overflow": false,
+    "textLength": 343
+  },
+  {
+    "lang": "en",
+    "route": "legal/privacy",
+    "width": 768,
+    "garbled": false,
+    "h1": "Privacy Policy",
+    "overflow": false,
+    "textLength": 773
+  },
+  {
+    "lang": "en",
+    "route": "legal/terms",
+    "width": 768,
+    "garbled": false,
+    "h1": "Terms of Service",
+    "overflow": false,
+    "textLength": 582
+  },
+  {
+    "lang": "en",
+    "route": "legal/cookies",
+    "width": 768,
+    "garbled": false,
+    "h1": "Cookie Policy",
+    "overflow": false,
+    "textLength": 461
+  },
+  {
+    "lang": "en",
+    "route": "legal/child-safety",
+    "width": 768,
+    "garbled": false,
+    "h1": "Child Safety",
+    "overflow": false,
+    "textLength": 878
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products",
+    "width": 768,
+    "garbled": false,
+    "h1": "AI，互動。重新想像。",
+    "overflow": false,
+    "textLength": 12845
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Ola全息 陪伴裝置",
+    "overflow": false,
+    "textLength": 757
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola-go",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Ola Go一路同行的小夥伴。",
+    "overflow": false,
+    "textLength": 608
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/tablet",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Tablet為驚奇而生的 平板",
+    "overflow": false,
+    "textLength": 1183
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/print",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Print你的孩子， 故事主角",
+    "overflow": false,
+    "textLength": 918
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/nest",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Nest 15讓每一天 都有共享的位置。",
+    "overflow": false,
+    "textLength": 762
+  },
+  {
+    "lang": "zh-hant",
+    "route": "story",
+    "width": 768,
+    "garbled": false,
+    "h1": "一間由這個問題塑造的工作室： 我們如何讓日常使用的事物變得更好？",
+    "overflow": false,
+    "textLength": 11854
+  },
+  {
+    "lang": "zh-hant",
+    "route": "plans",
+    "width": 768,
+    "garbled": false,
+    "h1": "選擇與 Lumiq 一起生活的方式。",
+    "overflow": false,
+    "textLength": 6736
+  },
+  {
+    "lang": "zh-hant",
+    "route": "media",
+    "width": 768,
+    "garbled": false,
+    "h1": "大家怎麼說。",
+    "overflow": false,
+    "textLength": 3016
+  },
+  {
+    "lang": "zh-hant",
+    "route": "faq",
+    "width": 768,
+    "garbled": false,
+    "h1": "溫柔解答你的疑問。",
+    "overflow": false,
+    "textLength": 2491
+  },
+  {
+    "lang": "zh-hant",
+    "route": "prelaunch",
+    "width": 768,
+    "garbled": false,
+    "h1": "即將登場。",
+    "overflow": false,
+    "textLength": 430
+  },
+  {
+    "lang": "zh-hant",
+    "route": "about",
+    "width": 768,
+    "garbled": false,
+    "h1": "Arpha 旗下的 LumiqStudio",
+    "overflow": false,
+    "textLength": 523
+  },
+  {
+    "lang": "zh-hant",
+    "route": "contact",
+    "width": 768,
+    "garbled": false,
+    "h1": "來打聲招呼",
+    "overflow": false,
+    "textLength": 186
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/privacy",
+    "width": 768,
+    "garbled": false,
+    "h1": "隱私權政策",
+    "overflow": false,
+    "textLength": 288
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/terms",
+    "width": 768,
+    "garbled": false,
+    "h1": "服務條款",
+    "overflow": false,
+    "textLength": 216
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/cookies",
+    "width": 768,
+    "garbled": false,
+    "h1": "Cookie 政策",
+    "overflow": false,
+    "textLength": 200
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/child-safety",
+    "width": 768,
+    "garbled": false,
+    "h1": "兒童安全",
+    "overflow": false,
+    "textLength": 284
+  },
+  {
+    "lang": "ja",
+    "route": "products",
+    "width": 768,
+    "garbled": false,
+    "h1": "AI。インタラクション。その先を想像する。",
+    "overflow": false,
+    "textLength": 13035
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Olaホログラフィック コンパニオン",
+    "overflow": false,
+    "textLength": 1105
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola-go",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Ola Go外出にも、小さなコンパニオンを。",
+    "overflow": false,
+    "textLength": 705
+  },
+  {
+    "lang": "ja",
+    "route": "products/tablet",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Tablet驚きのために作られた タブレット",
+    "overflow": false,
+    "textLength": 1591
+  },
+  {
+    "lang": "ja",
+    "route": "products/print",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Printお子さまが、 物語の主人公に",
+    "overflow": false,
+    "textLength": 1060
+  },
+  {
+    "lang": "ja",
+    "route": "products/nest",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq Nest 15毎日に 共有できる場所を。",
+    "overflow": false,
+    "textLength": 1053
+  },
+  {
+    "lang": "ja",
+    "route": "story",
+    "width": 768,
+    "garbled": false,
+    "h1": "ひとつの問いから形づくられたスタジオ。 日々使うものを、どうすればより良くできるだろう？",
+    "overflow": false,
+    "textLength": 12176
+  },
+  {
+    "lang": "ja",
+    "route": "plans",
+    "width": 768,
+    "garbled": false,
+    "h1": "Lumiq と暮らす方法を選びましょう。",
+    "overflow": false,
+    "textLength": 7010
+  },
+  {
+    "lang": "ja",
+    "route": "media",
+    "width": 768,
+    "garbled": false,
+    "h1": "寄せられた声。",
+    "overflow": false,
+    "textLength": 3089
+  },
+  {
+    "lang": "ja",
+    "route": "faq",
+    "width": 768,
+    "garbled": false,
+    "h1": "疑問に、やさしくお答えします。",
+    "overflow": false,
+    "textLength": 2617
+  },
+  {
+    "lang": "ja",
+    "route": "prelaunch",
+    "width": 768,
+    "garbled": false,
+    "h1": "まもなく登場。",
+    "overflow": false,
+    "textLength": 479
+  },
+  {
+    "lang": "ja",
+    "route": "about",
+    "width": 768,
+    "garbled": false,
+    "h1": "Arpha の LumiqStudio",
+    "overflow": false,
+    "textLength": 728
+  },
+  {
+    "lang": "ja",
+    "route": "contact",
+    "width": 768,
+    "garbled": false,
+    "h1": "お気軽にご連絡ください",
+    "overflow": false,
+    "textLength": 227
+  },
+  {
+    "lang": "ja",
+    "route": "legal/privacy",
+    "width": 768,
+    "garbled": false,
+    "h1": "プライバシーポリシー",
+    "overflow": false,
+    "textLength": 388
+  },
+  {
+    "lang": "ja",
+    "route": "legal/terms",
+    "width": 768,
+    "garbled": false,
+    "h1": "利用規約",
+    "overflow": false,
+    "textLength": 319
+  },
+  {
+    "lang": "ja",
+    "route": "legal/cookies",
+    "width": 768,
+    "garbled": false,
+    "h1": "Cookie ポリシー",
+    "overflow": false,
+    "textLength": 261
+  },
+  {
+    "lang": "ja",
+    "route": "legal/child-safety",
+    "width": 768,
+    "garbled": false,
+    "h1": "子どもの安全",
+    "overflow": false,
+    "textLength": 416
+  },
+  {
+    "lang": "en",
+    "route": "products",
+    "width": 1280,
+    "garbled": false,
+    "h1": "AI. Interaction.Reimagined.",
+    "overflow": false,
+    "textLength": 13642
+  },
+  {
+    "lang": "en",
+    "route": "products/ola",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq OlaHolographic Companion",
+    "overflow": false,
+    "textLength": 2255
+  },
+  {
+    "lang": "en",
+    "route": "products/ola-go",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Ola GoA little companion for the road.",
+    "overflow": false,
+    "textLength": 1794
+  },
+  {
+    "lang": "en",
+    "route": "products/tablet",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq TabletA Tablet Built for Wonder",
+    "overflow": false,
+    "textLength": 3574
+  },
+  {
+    "lang": "en",
+    "route": "products/print",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq PrintYour Child, The Hero",
+    "overflow": false,
+    "textLength": 2524
+  },
+  {
+    "lang": "en",
+    "route": "products/nest",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Nest 15Give every day a shared place.",
+    "overflow": false,
+    "textLength": 2190
+  },
+  {
+    "lang": "en",
+    "route": "story",
+    "width": 1280,
+    "garbled": false,
+    "h1": "A studio shaped by the question: how do we enhance the things we use?",
+    "overflow": false,
+    "textLength": 13532
+  },
+  {
+    "lang": "en",
+    "route": "plans",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Pick the way you want to live with us.",
+    "overflow": false,
+    "textLength": 7935
+  },
+  {
+    "lang": "en",
+    "route": "media",
+    "width": 1280,
+    "garbled": false,
+    "h1": "What people are saying.",
+    "overflow": false,
+    "textLength": 3465
+  },
+  {
+    "lang": "en",
+    "route": "faq",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Questions, gently answered.",
+    "overflow": false,
+    "textLength": 3059
+  },
+  {
+    "lang": "en",
+    "route": "prelaunch",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Coming soon.",
+    "overflow": false,
+    "textLength": 622
+  },
+  {
+    "lang": "en",
+    "route": "about",
+    "width": 1280,
+    "garbled": false,
+    "h1": "LumiqStudio by Arpha",
+    "overflow": false,
+    "textLength": 1555
+  },
+  {
+    "lang": "en",
+    "route": "contact",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Say hello",
+    "overflow": false,
+    "textLength": 343
+  },
+  {
+    "lang": "en",
+    "route": "legal/privacy",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Privacy Policy",
+    "overflow": false,
+    "textLength": 773
+  },
+  {
+    "lang": "en",
+    "route": "legal/terms",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Terms of Service",
+    "overflow": false,
+    "textLength": 582
+  },
+  {
+    "lang": "en",
+    "route": "legal/cookies",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Cookie Policy",
+    "overflow": false,
+    "textLength": 461
+  },
+  {
+    "lang": "en",
+    "route": "legal/child-safety",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Child Safety",
+    "overflow": false,
+    "textLength": 878
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products",
+    "width": 1280,
+    "garbled": false,
+    "h1": "AI，互動。重新想像。",
+    "overflow": false,
+    "textLength": 12845
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Ola全息 陪伴裝置",
+    "overflow": false,
+    "textLength": 757
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola-go",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Ola Go一路同行的小夥伴。",
+    "overflow": false,
+    "textLength": 608
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/tablet",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Tablet為驚奇而生的 平板",
+    "overflow": false,
+    "textLength": 1183
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/print",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Print你的孩子， 故事主角",
+    "overflow": false,
+    "textLength": 918
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/nest",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Nest 15讓每一天 都有共享的位置。",
+    "overflow": false,
+    "textLength": 762
+  },
+  {
+    "lang": "zh-hant",
+    "route": "story",
+    "width": 1280,
+    "garbled": false,
+    "h1": "一間由這個問題塑造的工作室： 我們如何讓日常使用的事物變得更好？",
+    "overflow": false,
+    "textLength": 11854
+  },
+  {
+    "lang": "zh-hant",
+    "route": "plans",
+    "width": 1280,
+    "garbled": false,
+    "h1": "選擇與 Lumiq 一起生活的方式。",
+    "overflow": false,
+    "textLength": 6736
+  },
+  {
+    "lang": "zh-hant",
+    "route": "media",
+    "width": 1280,
+    "garbled": false,
+    "h1": "大家怎麼說。",
+    "overflow": false,
+    "textLength": 3016
+  },
+  {
+    "lang": "zh-hant",
+    "route": "faq",
+    "width": 1280,
+    "garbled": false,
+    "h1": "溫柔解答你的疑問。",
+    "overflow": false,
+    "textLength": 2491
+  },
+  {
+    "lang": "zh-hant",
+    "route": "prelaunch",
+    "width": 1280,
+    "garbled": false,
+    "h1": "即將登場。",
+    "overflow": false,
+    "textLength": 430
+  },
+  {
+    "lang": "zh-hant",
+    "route": "about",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Arpha 旗下的 LumiqStudio",
+    "overflow": false,
+    "textLength": 523
+  },
+  {
+    "lang": "zh-hant",
+    "route": "contact",
+    "width": 1280,
+    "garbled": false,
+    "h1": "來打聲招呼",
+    "overflow": false,
+    "textLength": 186
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/privacy",
+    "width": 1280,
+    "garbled": false,
+    "h1": "隱私權政策",
+    "overflow": false,
+    "textLength": 288
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/terms",
+    "width": 1280,
+    "garbled": false,
+    "h1": "服務條款",
+    "overflow": false,
+    "textLength": 216
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/cookies",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Cookie 政策",
+    "overflow": false,
+    "textLength": 200
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/child-safety",
+    "width": 1280,
+    "garbled": false,
+    "h1": "兒童安全",
+    "overflow": false,
+    "textLength": 284
+  },
+  {
+    "lang": "ja",
+    "route": "products",
+    "width": 1280,
+    "garbled": false,
+    "h1": "AI。インタラクション。その先を想像する。",
+    "overflow": false,
+    "textLength": 13035
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Olaホログラフィック コンパニオン",
+    "overflow": false,
+    "textLength": 1105
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola-go",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Ola Go外出にも、小さなコンパニオンを。",
+    "overflow": false,
+    "textLength": 705
+  },
+  {
+    "lang": "ja",
+    "route": "products/tablet",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Tablet驚きのために作られた タブレット",
+    "overflow": false,
+    "textLength": 1591
+  },
+  {
+    "lang": "ja",
+    "route": "products/print",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Printお子さまが、 物語の主人公に",
+    "overflow": false,
+    "textLength": 1060
+  },
+  {
+    "lang": "ja",
+    "route": "products/nest",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq Nest 15毎日に 共有できる場所を。",
+    "overflow": false,
+    "textLength": 1053
+  },
+  {
+    "lang": "ja",
+    "route": "story",
+    "width": 1280,
+    "garbled": false,
+    "h1": "ひとつの問いから形づくられたスタジオ。 日々使うものを、どうすればより良くできるだろう？",
+    "overflow": false,
+    "textLength": 12176
+  },
+  {
+    "lang": "ja",
+    "route": "plans",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Lumiq と暮らす方法を選びましょう。",
+    "overflow": false,
+    "textLength": 7010
+  },
+  {
+    "lang": "ja",
+    "route": "media",
+    "width": 1280,
+    "garbled": false,
+    "h1": "寄せられた声。",
+    "overflow": false,
+    "textLength": 3089
+  },
+  {
+    "lang": "ja",
+    "route": "faq",
+    "width": 1280,
+    "garbled": false,
+    "h1": "疑問に、やさしくお答えします。",
+    "overflow": false,
+    "textLength": 2617
+  },
+  {
+    "lang": "ja",
+    "route": "prelaunch",
+    "width": 1280,
+    "garbled": false,
+    "h1": "まもなく登場。",
+    "overflow": false,
+    "textLength": 479
+  },
+  {
+    "lang": "ja",
+    "route": "about",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Arpha の LumiqStudio",
+    "overflow": false,
+    "textLength": 728
+  },
+  {
+    "lang": "ja",
+    "route": "contact",
+    "width": 1280,
+    "garbled": false,
+    "h1": "お気軽にご連絡ください",
+    "overflow": false,
+    "textLength": 227
+  },
+  {
+    "lang": "ja",
+    "route": "legal/privacy",
+    "width": 1280,
+    "garbled": false,
+    "h1": "プライバシーポリシー",
+    "overflow": false,
+    "textLength": 388
+  },
+  {
+    "lang": "ja",
+    "route": "legal/terms",
+    "width": 1280,
+    "garbled": false,
+    "h1": "利用規約",
+    "overflow": false,
+    "textLength": 319
+  },
+  {
+    "lang": "ja",
+    "route": "legal/cookies",
+    "width": 1280,
+    "garbled": false,
+    "h1": "Cookie ポリシー",
+    "overflow": false,
+    "textLength": 261
+  },
+  {
+    "lang": "ja",
+    "route": "legal/child-safety",
+    "width": 1280,
+    "garbled": false,
+    "h1": "子どもの安全",
+    "overflow": false,
+    "textLength": 416
+  },
+  {
+    "lang": "en",
+    "route": "products",
+    "width": 1920,
+    "garbled": false,
+    "h1": "AI. Interaction.Reimagined.",
+    "overflow": false,
+    "textLength": 13642
+  },
+  {
+    "lang": "en",
+    "route": "products/ola",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq OlaHolographic Companion",
+    "overflow": false,
+    "textLength": 2255
+  },
+  {
+    "lang": "en",
+    "route": "products/ola-go",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Ola GoA little companion for the road.",
+    "overflow": false,
+    "textLength": 1794
+  },
+  {
+    "lang": "en",
+    "route": "products/tablet",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq TabletA Tablet Built for Wonder",
+    "overflow": false,
+    "textLength": 3574
+  },
+  {
+    "lang": "en",
+    "route": "products/print",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq PrintYour Child, The Hero",
+    "overflow": false,
+    "textLength": 2524
+  },
+  {
+    "lang": "en",
+    "route": "products/nest",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Nest 15Give every day a shared place.",
+    "overflow": false,
+    "textLength": 2190
+  },
+  {
+    "lang": "en",
+    "route": "story",
+    "width": 1920,
+    "garbled": false,
+    "h1": "A studio shaped by the question: how do we enhance the things we use?",
+    "overflow": false,
+    "textLength": 13532
+  },
+  {
+    "lang": "en",
+    "route": "plans",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Pick the way you want to live with us.",
+    "overflow": false,
+    "textLength": 7935
+  },
+  {
+    "lang": "en",
+    "route": "media",
+    "width": 1920,
+    "garbled": false,
+    "h1": "What people are saying.",
+    "overflow": false,
+    "textLength": 3465
+  },
+  {
+    "lang": "en",
+    "route": "faq",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Questions, gently answered.",
+    "overflow": false,
+    "textLength": 3059
+  },
+  {
+    "lang": "en",
+    "route": "prelaunch",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Coming soon.",
+    "overflow": false,
+    "textLength": 622
+  },
+  {
+    "lang": "en",
+    "route": "about",
+    "width": 1920,
+    "garbled": false,
+    "h1": "LumiqStudio by Arpha",
+    "overflow": false,
+    "textLength": 1555
+  },
+  {
+    "lang": "en",
+    "route": "contact",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Say hello",
+    "overflow": false,
+    "textLength": 343
+  },
+  {
+    "lang": "en",
+    "route": "legal/privacy",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Privacy Policy",
+    "overflow": false,
+    "textLength": 773
+  },
+  {
+    "lang": "en",
+    "route": "legal/terms",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Terms of Service",
+    "overflow": false,
+    "textLength": 582
+  },
+  {
+    "lang": "en",
+    "route": "legal/cookies",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Cookie Policy",
+    "overflow": false,
+    "textLength": 461
+  },
+  {
+    "lang": "en",
+    "route": "legal/child-safety",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Child Safety",
+    "overflow": false,
+    "textLength": 878
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products",
+    "width": 1920,
+    "garbled": false,
+    "h1": "AI，互動。重新想像。",
+    "overflow": false,
+    "textLength": 12845
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Ola全息 陪伴裝置",
+    "overflow": false,
+    "textLength": 757
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/ola-go",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Ola Go一路同行的小夥伴。",
+    "overflow": false,
+    "textLength": 608
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/tablet",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Tablet為驚奇而生的 平板",
+    "overflow": false,
+    "textLength": 1183
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/print",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Print你的孩子， 故事主角",
+    "overflow": false,
+    "textLength": 918
+  },
+  {
+    "lang": "zh-hant",
+    "route": "products/nest",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Nest 15讓每一天 都有共享的位置。",
+    "overflow": false,
+    "textLength": 762
+  },
+  {
+    "lang": "zh-hant",
+    "route": "story",
+    "width": 1920,
+    "garbled": false,
+    "h1": "一間由這個問題塑造的工作室： 我們如何讓日常使用的事物變得更好？",
+    "overflow": false,
+    "textLength": 11854
+  },
+  {
+    "lang": "zh-hant",
+    "route": "plans",
+    "width": 1920,
+    "garbled": false,
+    "h1": "選擇與 Lumiq 一起生活的方式。",
+    "overflow": false,
+    "textLength": 6736
+  },
+  {
+    "lang": "zh-hant",
+    "route": "media",
+    "width": 1920,
+    "garbled": false,
+    "h1": "大家怎麼說。",
+    "overflow": false,
+    "textLength": 3016
+  },
+  {
+    "lang": "zh-hant",
+    "route": "faq",
+    "width": 1920,
+    "garbled": false,
+    "h1": "溫柔解答你的疑問。",
+    "overflow": false,
+    "textLength": 2491
+  },
+  {
+    "lang": "zh-hant",
+    "route": "prelaunch",
+    "width": 1920,
+    "garbled": false,
+    "h1": "即將登場。",
+    "overflow": false,
+    "textLength": 430
+  },
+  {
+    "lang": "zh-hant",
+    "route": "about",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Arpha 旗下的 LumiqStudio",
+    "overflow": false,
+    "textLength": 523
+  },
+  {
+    "lang": "zh-hant",
+    "route": "contact",
+    "width": 1920,
+    "garbled": false,
+    "h1": "來打聲招呼",
+    "overflow": false,
+    "textLength": 186
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/privacy",
+    "width": 1920,
+    "garbled": false,
+    "h1": "隱私權政策",
+    "overflow": false,
+    "textLength": 288
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/terms",
+    "width": 1920,
+    "garbled": false,
+    "h1": "服務條款",
+    "overflow": false,
+    "textLength": 216
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/cookies",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Cookie 政策",
+    "overflow": false,
+    "textLength": 200
+  },
+  {
+    "lang": "zh-hant",
+    "route": "legal/child-safety",
+    "width": 1920,
+    "garbled": false,
+    "h1": "兒童安全",
+    "overflow": false,
+    "textLength": 284
+  },
+  {
+    "lang": "ja",
+    "route": "products",
+    "width": 1920,
+    "garbled": false,
+    "h1": "AI。インタラクション。その先を想像する。",
+    "overflow": false,
+    "textLength": 13035
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Olaホログラフィック コンパニオン",
+    "overflow": false,
+    "textLength": 1105
+  },
+  {
+    "lang": "ja",
+    "route": "products/ola-go",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Ola Go外出にも、小さなコンパニオンを。",
+    "overflow": false,
+    "textLength": 705
+  },
+  {
+    "lang": "ja",
+    "route": "products/tablet",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Tablet驚きのために作られた タブレット",
+    "overflow": false,
+    "textLength": 1591
+  },
+  {
+    "lang": "ja",
+    "route": "products/print",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Printお子さまが、 物語の主人公に",
+    "overflow": false,
+    "textLength": 1060
+  },
+  {
+    "lang": "ja",
+    "route": "products/nest",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq Nest 15毎日に 共有できる場所を。",
+    "overflow": false,
+    "textLength": 1053
+  },
+  {
+    "lang": "ja",
+    "route": "story",
+    "width": 1920,
+    "garbled": false,
+    "h1": "ひとつの問いから形づくられたスタジオ。 日々使うものを、どうすればより良くできるだろう？",
+    "overflow": false,
+    "textLength": 12176
+  },
+  {
+    "lang": "ja",
+    "route": "plans",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Lumiq と暮らす方法を選びましょう。",
+    "overflow": false,
+    "textLength": 7010
+  },
+  {
+    "lang": "ja",
+    "route": "media",
+    "width": 1920,
+    "garbled": false,
+    "h1": "寄せられた声。",
+    "overflow": false,
+    "textLength": 3089
+  },
+  {
+    "lang": "ja",
+    "route": "faq",
+    "width": 1920,
+    "garbled": false,
+    "h1": "疑問に、やさしくお答えします。",
+    "overflow": false,
+    "textLength": 2617
+  },
+  {
+    "lang": "ja",
+    "route": "prelaunch",
+    "width": 1920,
+    "garbled": false,
+    "h1": "まもなく登場。",
+    "overflow": false,
+    "textLength": 479
+  },
+  {
+    "lang": "ja",
+    "route": "about",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Arpha の LumiqStudio",
+    "overflow": false,
+    "textLength": 728
+  },
+  {
+    "lang": "ja",
+    "route": "contact",
+    "width": 1920,
+    "garbled": false,
+    "h1": "お気軽にご連絡ください",
+    "overflow": false,
+    "textLength": 227
+  },
+  {
+    "lang": "ja",
+    "route": "legal/privacy",
+    "width": 1920,
+    "garbled": false,
+    "h1": "プライバシーポリシー",
+    "overflow": false,
+    "textLength": 388
+  },
+  {
+    "lang": "ja",
+    "route": "legal/terms",
+    "width": 1920,
+    "garbled": false,
+    "h1": "利用規約",
+    "overflow": false,
+    "textLength": 319
+  },
+  {
+    "lang": "ja",
+    "route": "legal/cookies",
+    "width": 1920,
+    "garbled": false,
+    "h1": "Cookie ポリシー",
+    "overflow": false,
+    "textLength": 261
+  },
+  {
+    "lang": "ja",
+    "route": "legal/child-safety",
+    "width": 1920,
+    "garbled": false,
+    "h1": "子どもの安全",
+    "overflow": false,
+    "textLength": 416
+  }
+]
