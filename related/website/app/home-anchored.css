@@ -68,7 +68,26 @@
 .lh-principle-top svg { width: 18px; height: 18px; }
 .lh-home .lh-safety .lh-principle h3 { font-size: clamp(17px, 1.5vw, 22px); margin-bottom: 8px; line-height: 1.25; }
 .lh-home .lh-safety .lh-principle p { font-size: 13px; line-height: 1.6; }
+.lh-safety .lh-principle p { position: relative; }
+.lh-principle-sheen { display: none; }
+[data-anchored="true"] .lh-principle-sheen {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(110deg, transparent 40%, #b17e4e 49%, #e1c5a3 52%, transparent 60%);
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  opacity: 0.85;
+}
 .lh-safety .lh-principle-arrow { top: 14px; width: 16px; height: 16px; }
+@media (min-width: 900px) {
+  .lh-home .lh-safety .lh-principle h3 { min-height: 2.5em; }
+}
 .lh-family-chapters { width: min(calc(100% - 48px), 1480px); max-width: none; background: transparent; }
 .lh-chapter-navigation {
   flex: none;

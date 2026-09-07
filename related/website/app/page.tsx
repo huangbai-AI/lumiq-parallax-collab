@@ -347,7 +347,12 @@ export default async function Home() {
                       <Icon size={22} strokeWidth={1.3} />
                     </span>
                     <h3>{t(`trust.${key}.title`)}</h3>
-                    <p>{t(`trust.${key}.body`)}</p>
+                    <p>
+                      {t(`trust.${key}.body`)}
+                      <span className="lh-principle-sheen" aria-hidden="true">
+                        {t(`trust.${key}.body`)}
+                      </span>
+                    </p>
                     <ArrowUpRight
                       className="lh-principle-arrow"
                       size={19}

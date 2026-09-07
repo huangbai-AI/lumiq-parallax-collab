@@ -27,6 +27,7 @@ export function mountEndingChapters(root: HTMLElement) {
   ScrollTrigger.addEventListener("refreshInit", measureNav);
   const mm = gsap.matchMedia();
   mm.add(endingMotionQuery, () => {
+    const sheens = Array.from(notes.querySelectorAll<HTMLElement>(".lh-principle-sheen"));
     const elements = [trust, room, photo, copy, notes, track, stage, frame, heading, navigation];
     const styles = elements.map((element) => element.getAttribute("style"));
     trust.dataset.anchored = "true";
@@ -70,7 +71,8 @@ export function mountEndingChapters(root: HTMLElement) {
       notes.style.top = `${trustTop + trustHeight + 4}px`;
       const trustHeightTotal = Math.max(viewport, trustTop + trustHeight + notes.offsetHeight + 28);
       room.style.setProperty("--stage-height", `${trustHeightTotal}px`);
-      trustTravel = viewport * 0.95;
+      // Preserve the shrink distance, then add a short reading/exit beat.
+      trustTravel = viewport * 1.35;
       trust.style.height = `${trustHeightTotal + trustTravel}px`;
 
       column(navigation, maxWidth);
@@ -100,6 +102,16 @@ export function mountEndingChapters(root: HTMLElement) {
         id: "home-trust-anchor", trigger: trust,
         start: () => `top ${navHeight()}`, end: () => `+=${trustTravel}`,
         scrub: 0.45, invalidateOnRefresh: true,
+        snap: {
+          snapTo: (value: number, self?: ScrollTrigger) => {
+            // Settle only toward the reading point; never pull back someone leaving.
+            const anchor = 1 / 1.4;
+            return self?.direction === 1 && value >= 0.63 && value < anchor &&
+              !document.hidden && room.offsetHeight <= viewport + 1 ? anchor : value;
+          },
+          inertia: false, delay: 0.2,
+          duration: { min: 0.25, max: 0.45 }, ease: "power2.inOut",
+        },
       },
     });
     trustTimeline
@@ -112,7 +124,23 @@ export function mountEndingChapters(root: HTMLElement) {
       .fromTo(copy, { top: 30 }, { top: () => copyTop, duration: 0.82 }, 0.06)
       .fromTo(notes, { top: () => viewport + 4 }, { top: () => trustBox.top + trustBox.height + 4, duration: 0.82 }, 0.06)
       .fromTo(notes, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.58 }, 0.3)
-      .to({}, { duration: 0.12 });
+      .to({}, { duration: 0.12 }, 0.88)
+      // A single warm sweep follows the extra scroll, then clears before release.
+      .fromTo(sheens, { backgroundPosition: "100% 0%" }, {
+        backgroundPosition: "0% 0%", duration: 0.18, stagger: 0.04,
+      }, 1.04)
+      .to({}, { duration: 0.06 }, 1.34);
+
+    const interruptTrustSnap = () => {
+      const snapping = trustTimeline.scrollTrigger?.getTween(true);
+      if (snapping) snapping.kill();
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key))
+        interruptTrustSnap();
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", interruptTrustSnap, { passive: true });
 
     const buttons = Array.from(navigation.querySelectorAll<HTMLElement>('[role="tab"]'));
     const shrinkEnd = 0.36;
@@ -160,6 +188,8 @@ export function mountEndingChapters(root: HTMLElement) {
     family.addEventListener("lumiq:chapter-select", select);
     render(scroll.progress);
     return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", interruptTrustSnap);
       ScrollTrigger.removeEventListener("refreshInit", measure);
       family.removeEventListener("lumiq:chapter-select", select);
       delete trust.dataset.anchored;
