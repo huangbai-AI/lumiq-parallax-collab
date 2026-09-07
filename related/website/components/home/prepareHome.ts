@@ -102,6 +102,9 @@ export async function prepareHome(
       signal.addEventListener("abort", clean, { once: true });
       if (video.readyState >= 2) loaded();
     }), signal);
+    // Put the decoded movie beneath the opaque loader before it starts fading.
+    // Otherwise the fallback artwork is exposed first, then jumps to frame zero.
+    root.querySelector<HTMLElement>(".lh-video-layer")!.dataset.ready = "true";
   } });
   const values = tasks.map(() => 0);
   const total = tasks.reduce((sum, task) => sum + task.weight, 0);

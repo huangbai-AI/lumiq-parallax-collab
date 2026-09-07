@@ -128,9 +128,11 @@ export function mountOpeningVideo(root: HTMLElement) {
     };
     const ready = () => {
       if (!alive || !introInitialized || video.readyState < 2) return;
+      // Visibility and playback are separate: reveal the same decoded frame
+      // under the loading veil, then play it only after the veil has gone.
+      layer.dataset.ready = "true";
       if (root.dataset.homeState && root.dataset.homeState !== "open") return;
       if (introFinished) { update(); queueIdle(); return; }
-      layer.dataset.ready = "true";
       video.playbackRate = 1.2;
       if (!document.hidden) void video.play().then(schedule).catch(finishIntro);
     };
