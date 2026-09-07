@@ -244,6 +244,7 @@ html:has(.lh-home) {
   height: clamp(440px, 40vw, 680px);
   perspective: 1100px;
 }
+.lh-mobile-hero-art { display: none; }
 .lh-hero-object {
   position: absolute;
   filter: drop-shadow(0 24px 16px #2c334321);
@@ -407,10 +408,10 @@ html:has(.lh-home) {
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: #899aad #e7edf4;
+  scrollbar-width: none;
   padding-block: 8px 18px;
 }
+.lh-products-viewport::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .lh-products-track {
   display: flex;
   position: relative;
