@@ -288,9 +288,14 @@
 }
 
 .product-detail-light.pd-print .pd-hero-visual img {
-  object-fit: cover !important;
-  padding: 0;
+  object-fit: contain !important;
+  padding: clamp(24px,3vw,48px);
   mix-blend-mode: normal;
+}
+.product-detail-light.pd-print .pd-hero-visual { background: #edf2f7; }
+.product-detail-light.pd-print .pd-dark-visual img {
+  object-fit: contain !important;
+  padding: clamp(24px,3vw,48px);
 }
 .product-detail-light.pd-ola .pd-hero-visual,
 .product-detail-light.pd-tablet .pd-hero-visual {
@@ -319,7 +324,6 @@
   transform: scale(1.36);
   transform-origin: center;
 }
-.product-detail-light.pd-print .pd-dark-visual img,
 .product-detail-light.pd-tablet .pd-feature-visual img,
 .product-detail-light.pd-tablet .pd-dark-visual img {
   object-fit: cover !important;

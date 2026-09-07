@@ -9,6 +9,7 @@ export type ProductVisual = {
   alt: string;
   fit?: "cover" | "contain";
   position?: string;
+  unoptimized?: boolean;
 };
 
 export type ProductIndexItem = {
@@ -83,6 +84,7 @@ function ProductImage({
       height={1200}
       sizes={sizes}
       priority={priority}
+      unoptimized={visual.unoptimized}
       style={{
         width: "100%",
         height: "100%",

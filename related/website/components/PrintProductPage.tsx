@@ -7,8 +7,8 @@ export default function PrintProductPage() {
   return (
     <ProductDetailTemplate
       slug="print"
-      accent="#9d7a3c"
-      accentSoft="#eee1c8"
+      accent="#336a9d"
+      accentSoft="#e1edf5"
       backLabel={t("all")}
       productName="Lumiq Print"
       title={`${t("titleBefore")} ${t("titleEm")}`}
@@ -17,16 +17,19 @@ export default function PrintProductPage() {
       priceLabel="USD 69"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/print-detail/lumiq-print-sunlit-cover-v1.png",
+        src: "/assets/home-interactive/print.webp",
         alt: t("alt"),
+        fit: "contain",
+        unoptimized: true,
       }}
       story={{
         eyebrow: t("eyebrow"),
         title: t("sectionTitle"),
         body: t("body"),
         image: {
-          src: "/assets/print-detail/generated/print-child-receives-book-v2.png",
+          src: "/assets/print-detail/consistent-20260907/gift.webp",
           alt: t("alt"),
+          unoptimized: true,
         },
         bullets: [1, 2, 3, 4].map((number) => t(`s${number}`)),
       }}
@@ -38,8 +41,9 @@ export default function PrintProductPage() {
           title: t("titleEm"),
           body: t("lede"),
           image: {
-            src: "/assets/print-detail/generated/print-craft-detail-v2.png",
+            src: "/assets/print-detail/consistent-20260907/craft.webp",
             alt: t("alt"),
+            unoptimized: true,
           },
         },
         {
@@ -47,8 +51,9 @@ export default function PrintProductPage() {
           title: t("sectionTitle"),
           body: t("body"),
           image: {
-            src: "/assets/print-detail/generated/print-family-reading-v2.png",
+            src: "/assets/print-detail/consistent-20260907/reading.webp",
             alt: t("alt"),
+            unoptimized: true,
           },
         },
       ]}
@@ -61,8 +66,9 @@ export default function PrintProductPage() {
           body: t(`s${number}Body`),
         })),
         image: {
-          src: "/assets/print-detail/generated/print-personalized-page-closeup-v2.png",
+          src: "/assets/print-detail/consistent-20260907/pages.webp",
           alt: t("alt"),
+          unoptimized: true,
         },
       }}
       darkSection={{
@@ -74,8 +80,10 @@ export default function PrintProductPage() {
           body: t(`s${number}Body`),
         })),
         image: {
-          src: "/assets/print-detail/lumiq-print-navy-plinth-v2.png",
+          src: "/assets/home-interactive/print.webp",
           alt: t("alt"),
+          fit: "contain",
+          unoptimized: true,
         },
       }}
       finalTitle={`${t("titleBefore")} ${t("titleEm")}`}
