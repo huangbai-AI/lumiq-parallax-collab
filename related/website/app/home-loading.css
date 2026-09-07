@@ -39,12 +39,16 @@
   animation: lh-letter-arrive 1050ms cubic-bezier(.16, 1, .3, 1) calc(100ms + var(--letter-index) * 90ms) both;
 }
 .lh-loader-letter-float {
-  animation: lh-letter-float 2800ms ease-in-out calc(1600ms + var(--letter-index) * 110ms) infinite;
+  animation: lh-letter-float 4800ms ease-in-out calc(2700ms + var(--letter-index) * 90ms) infinite;
 }
 .lh-loader-studio { animation-name: lh-studio-arrive; animation-duration: 850ms; animation-delay: calc(640ms + var(--letter-index) * 65ms); }
-.lh-loader-studio .lh-loader-letter-float { animation: none; }
+.lh-loader-studio .lh-loader-letter-float { animation-name: lh-studio-float; animation-delay: calc(3000ms + var(--letter-index) * 65ms); }
 .lh-loader-accent { animation-name: lh-accent-arrive; animation-delay: 600ms; transform-origin: 2960px 455px; }
-.lh-loader-accent .lh-loader-letter-float { animation-name: lh-accent-float; }
+.lh-loader-accent .lh-loader-letter-float {
+  transform-origin: 2960px 455px;
+  animation-name: lh-accent-float;
+  animation-delay: 1800ms;
+}
 .lh-loader-wordmark:not([data-ready="true"]) :is(.lh-loader-letter, .lh-loader-letter-float) { animation-play-state: paused; }
 .lh-loader-progress { margin-top: 28px; animation: lh-progress-arrive 900ms ease 850ms both; }
 .lh-loader-percent { color: #71748a; font-size: 12px; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
@@ -66,17 +70,31 @@
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes lh-accent-arrive {
-  0% { opacity: 0; transform: translateY(130px) rotate(-22deg) scale(.6); }
-  60% { opacity: 1; transform: translateY(-36px) rotate(7deg) scale(1.04); }
+  0% { opacity: 0; transform: translateY(145px) rotate(-22deg) scale(.6); }
+  42% { opacity: 1; transform: translateY(-125px) rotate(9deg) scale(.98, 1.05); }
+  65% { opacity: 1; transform: translateY(9px) rotate(-3deg) scale(1.1, .9); }
+  82% { opacity: 1; transform: translateY(-38px) rotate(3deg) scale(1); }
   100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
 }
+/* A 4.8-second phrase: accent double-hop, a travelling letter wave, then rest.
+   The logo stays readable throughout; no loop resets its entrance or opacity. */
 @keyframes lh-letter-float {
-  0%, 100% { transform: translateY(0); }
-  45% { transform: translateY(-34px); }
+  0%, 8%, 42%, 100% { transform: translateY(0); }
+  18% { transform: translateY(-62px); }
+  29% { transform: translateY(10px); }
+  36% { transform: translateY(-5px); }
+}
+@keyframes lh-studio-float {
+  0%, 8%, 38%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-24px); }
 }
 @keyframes lh-accent-float {
-  0%, 100% { transform: translateY(0); }
-  45% { transform: translateY(-57px); }
+  0%, 34%, 100% { transform: translateY(0) rotate(0) scale(1); }
+  4% { transform: translateY(12px) rotate(0) scale(1.06, .9); }
+  10% { transform: translateY(-160px) rotate(-10deg) scale(.96, 1.04); }
+  18% { transform: translateY(0) rotate(0) scale(1.1, .88); }
+  22% { transform: translateY(-72px) rotate(6deg) scale(1); }
+  29% { transform: translateY(0) rotate(0) scale(1.04, .95); }
 }
 @keyframes lh-progress-arrive { from { opacity: 0; } to { opacity: 1; } }
 .lh-home[data-home-state="loading"] { visibility: hidden; }
