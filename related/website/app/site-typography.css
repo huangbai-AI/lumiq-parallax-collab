@@ -36,6 +36,8 @@
 .lumiq-root main:not(.lh-home) :is(h1, h2) em {
   font-style: normal;
   color: var(--ink-3);
+  letter-spacing: -.025em;
+  line-height: 1.2;
 }
 .lumiq-root .subpage .subpage-title { margin: .75rem 0 1.25rem; }
 .lumiq-root .prod-page .prod-hero-text h1 { margin-bottom: 1.5rem; }

@@ -391,7 +391,8 @@
     "alreadyRegistered": "這個電子郵件已經在 Lumiq 候補名單中。",
     "invalid": "請輸入有效的電子郵件地址。",
     "unavailable": "登記服務暫時無法使用，請稍後再試。你的輸入仍會保留。",
-    "consent": "提交即表示你同意我們的<privacy>隱私政策</privacy>並接收上市通知。你可隨時申請刪除資料或取消訂閱。"
+    "consent": "提交即表示你同意我們的<privacy>隱私政策</privacy>並接收上市通知。你可隨時申請刪除資料或取消訂閱。",
+    "contactInstead": "透過電郵聯絡我們"
   },
   "NotFound": {
     "eyebrow": "在故事裡迷路了",

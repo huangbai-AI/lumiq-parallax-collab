@@ -131,6 +131,11 @@ export default function PrelaunchPage() {
         >
           {message}
         </p>
+        {status === "error" && (
+          <p style={{ margin: ".75rem auto", fontSize: ".9rem" }}>
+            <a href="mailto:hello@lumiqstudio.com" style={{ color: "var(--ink)", textDecoration: "underline", textUnderlineOffset: 4 }}>{t("contactInstead")}</a>
+          </p>
+        )}
         <p style={{ maxWidth: 520, margin: ".6rem auto 0", color: "var(--ink-3)", fontSize: ".78rem", lineHeight: 1.6 }}>
           {t.rich("consent", {
             privacy: (chunks) => <Link href="/legal/privacy" style={{ textDecoration: "underline", textUnderlineOffset: 2 }}>{chunks}</Link>,

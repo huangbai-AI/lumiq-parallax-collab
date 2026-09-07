@@ -391,7 +391,8 @@
     "alreadyRegistered": "This email is already on the Lumiq waitlist.",
     "invalid": "Enter a valid email address.",
     "unavailable": "Registration is temporarily unavailable. Your email is still here; please try again.",
-    "consent": "By submitting, you agree to our <privacy>Privacy Policy</privacy> and to receive launch updates. You can request deletion or unsubscribe at any time."
+    "consent": "By submitting, you agree to our <privacy>Privacy Policy</privacy> and to receive launch updates. You can request deletion or unsubscribe at any time.",
+    "contactInstead": "Contact our team by email"
   },
   "NotFound": {
     "eyebrow": "Lost in the story",

@@ -67,7 +67,6 @@ export default function StoryPage() {
               <span className="kicker">{t("principlesEyebrow")}</span>
               <h2 className="serif">{t("principlesTitle")}</h2>
             </div>
-            <p>{t("origin3")}</p>
           </div>
           <div className="story-principle-grid">
             {principles.map((principle) => (
