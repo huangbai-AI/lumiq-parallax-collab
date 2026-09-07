@@ -5,6 +5,7 @@ import "./product-detail-template.css";
 import "./navigation.css";
 import "./site-typography.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
+import ExternalFonts from "@/components/ExternalFonts";
 
 export const metadata: Metadata = {
   title: {
@@ -32,6 +33,7 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang[locale] ?? "en"} suppressHydrationWarning>
       <body>
+        <ExternalFonts />
         {children}
       </body>
     </html>
