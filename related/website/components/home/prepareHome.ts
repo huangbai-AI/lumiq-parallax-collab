@@ -65,6 +65,7 @@ export async function prepareHome(
   const useVideo = window.matchMedia(openingVideoQuery).matches &&
     new URLSearchParams(location.search).get("opening") !== "code";
   const images = Array.from(root.querySelectorAll<HTMLImageElement>("img[data-home-image]"))
+    .filter(image => image.getClientRects().length > 0)
     .filter(image => !useVideo || !image.closest(".lh-glass-word, .lh-hero-stage, .lh-brand-character"));
   const extraSources = [loadingLogo, ...(useVideo ? [
     "/assets/home-video/hero-intro-user-clean-20260907.webp",

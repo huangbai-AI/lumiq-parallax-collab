@@ -123,6 +123,15 @@ export default async function Home() {
                 aria-label={t("heroAlt")}
                 role="img"
               >
+                <div className="lh-mobile-hero-art">
+                  <Image
+                    src="/assets/home-mobile-20260907/hero.webp"
+                    alt=""
+                    fill
+                    sizes="(max-width: 1100px) 100vw, 1px"
+                    priority
+                  />
+                </div>
                 <div className="lh-hero-plinth" aria-hidden="true" />
                 <div className="lh-hero-object lh-hero-nest">
                   <Image
