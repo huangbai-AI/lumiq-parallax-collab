@@ -131,19 +131,19 @@
     "trust": {
       "privacy": {
         "title": "Privacy comes first.",
-        "body": "Respect for personal information and meaningful consent guide our approach to data."
+        "body": "Respect for your data and choices."
       },
       "children": {
         "title": "Childhood deserves care.",
-        "body": "Age-appropriate experiences and thoughtful boundaries are part of our design principles."
+        "body": "Thoughtful experiences for every age."
       },
       "parents": {
         "title": "Parents stay involved.",
-        "body": "We design towards clear choices for families around content, time and everyday use."
+        "body": "Clear choices for content and screen time."
       },
       "responsible": {
         "title": "AI with people in mind.",
-        "body": "Technology should support imagination and connection, with people at the center."
+        "body": "Technology that supports imagination and connection."
       }
     },
     "familyKicker": "Our reason for being",
