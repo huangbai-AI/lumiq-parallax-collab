@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/home/HomeImage";
 import { getTranslations } from "next-intl/server";
 import {
   ArrowLeft,
@@ -111,7 +111,7 @@ export default async function Home() {
                     {t("discover")}
                     <ArrowRight size={18} />
                   </a>
-                  <Link href="/story#brand-film" className="lh-text-link">
+                  <Link prefetch={false} href="/story#brand-film" className="lh-text-link">
                     {t("ourStory")}
                     <ArrowUpRight size={18} />
                   </Link>
@@ -177,7 +177,7 @@ export default async function Home() {
                   <span className="lh-muted">{t("brandAccent")}</span>
                 </h2>
                 <p className="lh-lead">{t("brandBody")}</p>
-                <Link className="lh-text-link" href="/products/ola">
+                <Link prefetch={false} className="lh-text-link" href="/products/ola">
                   {t("meetOla")}
                   <ArrowRight size={18} />
                 </Link>
@@ -233,6 +233,7 @@ export default async function Home() {
                   key={id}
                 >
                   <Link
+                    prefetch={false}
                     href={PRODUCT_BY_ID[id].href}
                     className={"lh-product lh-product-" + id}
                   >
@@ -339,6 +340,7 @@ export default async function Home() {
               <div className="lh-principles">
                 {principles.map(({ key, icon: Icon, href }) => (
                   <Link
+                    prefetch={false}
                     href={href}
                     key={key}
                     className="lh-principle"
@@ -384,7 +386,7 @@ export default async function Home() {
               </div>
               <div className="lh-section-intro">
                 <p>{t("familyBody")}</p>
-                <Link href="/story" className="lh-text-link">
+                <Link prefetch={false} href="/story" className="lh-text-link">
                   {t("ourStory")}
                   <ArrowRight size={18} />
                 </Link>

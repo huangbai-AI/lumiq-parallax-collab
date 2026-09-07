@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/home/HomeImage";
 import { useTranslations } from "next-intl";
 import { useState, type CSSProperties } from "react";
 import { Link } from "@/i18n/navigation";
@@ -46,7 +46,7 @@ export default function HomeExperiences() {
           </svg>
           <div className="lh-room-products" role="group" aria-label={t("roomExplore")}>
             {products.map(({id,x,y}) => (
-              <Link key={id} href={`/products/${id}`} className={`lh-room-product lh-room-product-${id}`}
+              <Link prefetch={false} key={id} href={`/products/${id}`} className={`lh-room-product lh-room-product-${id}`}
                 style={{"--room-x":`${x}%`,"--room-y":`${y}%`} as CSSProperties}
                 aria-label={`${t(`products.${id}.name`)} · ${t(`roomLabels.${id}.title`)} ${t(`roomLabels.${id}.subtitle`)}`}
                 onMouseEnter={()=>setActive(id)} onMouseLeave={()=>setActive(null)} onFocus={()=>setActive(id)} onBlur={()=>setActive(null)}>
@@ -61,7 +61,7 @@ export default function HomeExperiences() {
       </div>
       <div className="lh-room-mobile-links" aria-label={t("roomExplore")}>
         {products.map(({id}) => (
-          <Link href={`/products/${id}`} key={id}>
+          <Link prefetch={false} href={`/products/${id}`} key={id}>
             <strong>{t(`products.${id}.name`)}</strong>
             <span>{t(`roomLabels.${id}.title`)} {t(`roomLabels.${id}.subtitle`)}</span>
           </Link>

@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/home/HomeImage";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 

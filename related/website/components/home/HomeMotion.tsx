@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountEndingChapters } from "./endingChapters";
 import { mountProductRail } from "./productRail";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
+import { preloadScenes } from "./preloadScenes";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Native scrolling drives either the video opening or the preserved code option. */
@@ -13,6 +14,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLElement>(null);
   useGSAP(
     () => {
+      const releaseImages = root.current ? preloadScenes(root.current) : () => {};
       const releaseOpening = root.current
         ? mountOpeningVideo(root.current)
         : () => {};
@@ -238,6 +240,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         },
       );
       return () => {
+        releaseImages();
         mm.revert();
         releaseEnding();
         releaseProducts();
