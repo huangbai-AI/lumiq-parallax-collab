@@ -329,7 +329,7 @@ export default async function Home() {
           <div className="lh-trust-room">
             <div className="lh-safety-photo">
               <Image
-                src="/assets/home-immersive-2026-09-07/trust-wide.webp"
+                src="/assets/western-scenes-20260908/trust-wide.webp"
                 alt={t("trustAlt")}
                 fill
                 quality={90}

@@ -76,7 +76,7 @@ export default function HomeFamily() {
             data-active={index === active}
           >
             <Image
-              src={`/assets/home-immersive-2026-09-07/${key}.webp`}
+              src={`/assets/western-scenes-20260908/${key}.webp`}
               alt={t(`familyMoments.${key}`)}
               fill
               quality={90}

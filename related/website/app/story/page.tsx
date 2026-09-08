@@ -43,7 +43,7 @@ export default function StoryPage() {
           eyebrow={t("principlesEyebrow")}
           label={t("heroVideoLabel")}
           playLabel={t("heroVideoPlay")}
-          poster="/assets/story/lumiq-story-family-v3.webp"
+          poster="/assets/western-scenes-20260908/lumiq-story-family-v3.webp"
           quote={t("quote")}
           src="/assets/story/lumiq-brand-film.mp4"
         />
