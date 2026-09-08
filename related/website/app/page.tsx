@@ -12,12 +12,13 @@ import {
 import { Link } from "@/i18n/navigation";
 import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
 import HomeMotion from "@/components/home/HomeMotion";
-import HomeExperiences from "@/components/home/HomeExperiences";
+import HomeFilms from "@/components/home/HomeFilms";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
 import "./opening-video.css";
 import "./home-floors-3-4.css";
+import "./home-films.css";
 import "./home-ending.css";
 import "./home-immersive.css";
 import "./home-anchored.css";
@@ -313,11 +314,11 @@ export default async function Home() {
       </section>
       <section
         id="experiences"
-        className="lh-experiences lh-room-section"
+        className="lh-experiences lh-films-section"
         aria-labelledby="experiences-title"
         data-home-section
       >
-        <HomeExperiences />
+        <HomeFilms />
       </section>
       <section
         id="safety"

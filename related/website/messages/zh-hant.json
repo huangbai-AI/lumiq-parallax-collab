@@ -1066,5 +1066,25 @@
     "parent4Body": "孩子完成故事即可獲得點數與獎章，鼓勵多閱讀、少滑動。",
     "parent5Title": "商店",
     "parent5Body": "使用點數或金錢取得 Lumiq 加購內容與合作優惠券，每次結帳都需要家長 PIN 碼。"
+  },
+  "HomeFilms": {
+    "eyebrow": "LUMIQ 生活故事",
+    "heading": "讓每一天，更親近。",
+    "carousel": "影片輪播",
+    "previous": "上一支影片",
+    "next": "下一支影片",
+    "open": "開啟影片",
+    "everyday-companion": {
+      "title": "日常裡，一直有你。",
+      "body": "從清晨的日常到夜晚的陪伴，看看 OLA 與 Go 如何融入生活。"
+    },
+    "worlds-together": {
+      "title": "走進故事，陪伴生活。",
+      "body": "從孩子的想像世界，到不同世代共享的時光，感受 LumiQ 的陪伴。"
+    },
+    "welcome-home": {
+      "title": "歡迎回家。",
+      "body": "透過智慧門鎖、熟悉的面孔與日常片刻，看見家的溫度。"
+    }
   }
 }

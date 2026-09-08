@@ -1066,5 +1066,25 @@
     "parent4Body": "Children earn points and badges for finishing stories, encouraging more reading and less scrolling.",
     "parent5Title": "Shop",
     "parent5Body": "Use points or money for Lumiq add-ons and partner coupons. Every checkout requires the Parent PIN."
+  },
+  "HomeFilms": {
+    "eyebrow": "LUMIQ STORIES",
+    "heading": "A little closer. Every day.",
+    "carousel": "Video carousel",
+    "previous": "Previous film",
+    "next": "Next film",
+    "open": "Open film",
+    "everyday-companion": {
+      "title": "A companion for every day.",
+      "body": "From morning routines to quiet evenings, discover everyday moments with OLA and Go."
+    },
+    "worlds-together": {
+      "title": "A world of stories. A life together.",
+      "body": "Follow LumiQ from a child’s imagination to the moments shared across generations."
+    },
+    "welcome-home": {
+      "title": "Welcome home.",
+      "body": "A closer look at the smart lock, familiar faces and the moments that make a house a home."
+    }
   }
 }
