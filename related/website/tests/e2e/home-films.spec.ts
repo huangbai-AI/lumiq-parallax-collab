@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('one film at a time; switching stops the old film and wraps', async ({ page }) => {
-  await page.goto('/en?films=1#experiences');
+  await page.goto('/en?films=1#films');
   const section = page.locator('.lh-films');
   await section.scrollIntoViewIfNeeded();
   const film = section.locator('video');

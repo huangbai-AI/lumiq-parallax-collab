@@ -27,10 +27,10 @@ export default function HomeFilms() {
     return () => { element.pause(); observer.disconnect(); document.removeEventListener("visibilitychange", onHidden); };
   }, [active]);
   return (
-    <div className="lh-films" role="region" aria-roledescription={t("carousel")} aria-labelledby="experiences-title">
+    <div className="lh-films" role="region" aria-roledescription={t("carousel")} aria-labelledby="films-title">
       <header className="lh-films-heading">
         <p className="lh-eyebrow">{t("eyebrow")}</p>
-        <h2 id="experiences-title">{t("heading")}</h2>
+        <h2 id="films-title">{t("heading")}</h2>
       </header>
       <article className="lh-film-card" key={films[active]} aria-label={`${active + 1} / ${films.length}`}>
         <video ref={video} controls playsInline preload="none" poster={`/assets/films-20260908/${films[active]}.jpg`} aria-label={t(`${films[active]}.title`)}>

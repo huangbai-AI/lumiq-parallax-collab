@@ -13,6 +13,7 @@ import { Link } from "@/i18n/navigation";
 import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
 import HomeMotion from "@/components/home/HomeMotion";
 import HomeFilms from "@/components/home/HomeFilms";
+import HomeExperiences from "@/components/home/HomeExperiences";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
@@ -314,10 +315,13 @@ export default async function Home() {
       </section>
       <section
         id="experiences"
-        className="lh-experiences lh-films-section"
+        className="lh-experiences lh-room-section"
         aria-labelledby="experiences-title"
         data-home-section
       >
+        <HomeExperiences />
+      </section>
+      <section id="films" className="lh-films-section" aria-labelledby="films-title" data-home-section>
         <HomeFilms />
       </section>
       <section
