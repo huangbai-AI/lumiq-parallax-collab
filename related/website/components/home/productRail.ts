@@ -1,158 +1,73 @@
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { readingStop } from "./readingStops";
-import { guardReadingStop } from "./readingGuard";
-
-/** Progressive enhancement: the server-rendered rail works without motion or JS. */
+/** Five real product links, presented as a circular glass carousel on desktop. */
 export function mountProductRail(root: HTMLElement) {
   const section = root.querySelector<HTMLElement>(".lh-products");
-  const stage = section?.querySelector<HTMLElement>(".lh-products-stage");
   const viewport = section?.querySelector<HTMLElement>(".lh-products-viewport");
   const track = section?.querySelector<HTMLElement>(".lh-products-track");
-  if (!section || !stage || !viewport || !track) return () => {};
-  const slots = Array.from(
-    track.querySelectorAll<HTMLElement>(".lh-product-slot"),
-  );
-  const previous = section.querySelector<HTMLButtonElement>(
-    "[data-products-previous]",
-  )!;
-  const next = section.querySelector<HTMLButtonElement>(
-    "[data-products-next]",
-  )!;
-  const meter = section.querySelector<HTMLElement>(
-    ".lh-products-progress span",
-  )!;
-  let pin: ScrollTrigger | undefined;
-  let tween: gsap.core.Timeline | undefined;
-  let hold = 0;
-  let travel = 0;
-  let stride = 1;
-  const measure = () => {
-    travel = Math.max(0, track.scrollWidth - viewport.clientWidth);
-    stride = Math.max(1, slots[1].offsetLeft - slots[0].offsetLeft);
-    hold = Math.max(480, window.innerHeight * 0.8);
+  if (!section || !viewport || !track) return () => {};
+  const slots = [...track.querySelectorAll<HTMLElement>(".lh-product-slot")];
+  if (!slots.length) return () => {};
+  const previous = section.querySelector<HTMLButtonElement>("[data-products-previous]")!;
+  const next = section.querySelector<HTMLButtonElement>("[data-products-next]")!;
+  const meter = section.querySelector<HTMLElement>(".lh-products-progress span")!;
+  const desktop = matchMedia("(min-width: 768px)");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  const events = new AbortController();
+  const options = { signal: events.signal };
+  let active = 0;
+  let hover: ReturnType<typeof setTimeout> | undefined;
+  let lockedUntil = 0;
+  const cancelHover = () => clearTimeout(hover);
+  const render = () => {
+    section.dataset.carousel = String(desktop.matches);
+    section.dataset.activeProduct = String(active);
+    slots.forEach((slot, i) => {
+      let offset = (i - active + slots.length) % slots.length;
+      if (offset > slots.length / 2) offset -= slots.length;
+      slot.dataset.offset = String(offset);
+      slot.dataset.active = String(i === active);
+      slot.inert = desktop.matches && Math.abs(offset) > 1;
+    });
+    meter.style.transform = `scaleX(${(active + 1) / slots.length})`;
+    previous.disabled = next.disabled = false;
   };
-  measure();
-  const distance = () => travel;
-  const step = () => stride;
-  const position = () =>
-    pin ? Math.min(distance(), pin.progress * (distance() + hold)) : viewport.scrollLeft;
-  const update = () => {
-    const offset = position();
-    const max = distance();
-    meter.style.transform = `scaleX(${max ? offset / max : 1})`;
-    previous.disabled = offset < 2;
-    next.disabled = offset >= max - 2;
+  const select = (index: number) => {
+    cancelHover();
+    active = (index + slots.length) % slots.length;
+    lockedUntil = performance.now() + (reduced.matches ? 0 : 650);
+    render();
+    if (!desktop.matches) viewport.scrollTo({ left: slots[active].offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
   };
-  const resize = new ResizeObserver(() => { measure(); update(); });
-  resize.observe(viewport);
-  resize.observe(track);
-  ScrollTrigger.addEventListener("refreshInit", measure);
-  const go = (offset: number, immediate = false) => {
-    const target = gsap.utils.clamp(0, distance(), offset);
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (pin) {
-      window.scrollTo({
-        top:
-          pin.start +
-          target + (target >= distance() - 2 ? hold * 0.2 : 0),
-        behavior: immediate ? "instant" : "smooth",
-      });
-      if (immediate) {
-        ScrollTrigger.update();
-        tween?.progress(pin.progress);
-      }
-    } else {
-      viewport.scrollTo({
-        left: target,
-        behavior: immediate || reduced ? "instant" : "smooth",
-      });
-    }
-  };
-  const back = () => go(position() - step());
-  const forward = () => go(position() + step());
-  const focus = (event: FocusEvent) => {
-    const link = (event.target as HTMLElement).closest<HTMLElement>(
-      ".lh-product",
-    );
-    if (!link || !pin) return;
-    // Browser focus scrolling must not compete with the transform-driven rail.
-    viewport.scrollLeft = 0;
-    const box = link.getBoundingClientRect();
-    const bounds = viewport.getBoundingClientRect();
-    if (box.left < bounds.left - 2 || box.right > bounds.right + 2) {
-      go(link.parentElement!.offsetLeft, true);
-    }
-  };
-  previous.addEventListener("click", back);
-  next.addEventListener("click", forward);
-  viewport.addEventListener("scroll", update, { passive: true });
-  track.addEventListener("focusin", focus);
+  slots.forEach((slot, index) => {
+    slot.addEventListener("pointerenter", (event) => {
+      if (!desktop.matches || event.pointerType !== "mouse" || index === active || performance.now() < lockedUntil) return;
+      hover = setTimeout(() => select(index), 180);
+    }, options);
+    slot.addEventListener("pointerleave", cancelHover, options);
+    slot.addEventListener("focusin", () => { if (desktop.matches && index !== active) select(index); }, options);
+    slot.addEventListener("click", (event) => {
+      if (desktop.matches && index !== active) { event.preventDefault(); select(index); }
+    }, options);
+  });
+  previous.addEventListener("click", () => select(active - 1), options);
+  next.addEventListener("click", () => select(active + 1), options);
+  viewport.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    select(active + (event.key === "ArrowRight" ? 1 : -1));
+    slots[active].querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
+  }, options);
+  viewport.addEventListener("scroll", () => {
+    if (desktop.matches) return;
+    active = slots.reduce((best, slot, i) => Math.abs(slot.offsetLeft - viewport.scrollLeft) < Math.abs(slots[best].offsetLeft - viewport.scrollLeft) ? i : best, 0);
+    render();
+  }, { ...options, passive: true });
+  const resize = () => { viewport.scrollLeft = 0; active = 0; render(); };
+  desktop.addEventListener("change", resize, options);
   section.dataset.enhanced = "true";
-  const mm = gsap.matchMedia();
-  mm.add(
-    "(min-width: 1101px) and (min-height: 720px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-    () => {
-      viewport.scrollLeft = 0;
-      section.dataset.pinned = "true";
-      tween = gsap.timeline({
-        scrollTrigger: {
-          id: "home-products-horizontal",
-          trigger: stage,
-          pin: stage,
-          start: "top top",
-          end: () => `+=${distance() + hold}`,
-          scrub: 0.55,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-          refreshPriority: 1,
-          onUpdate: update,
-          onRefresh: update,
-          snap: {
-            snapTo: (value: number, self?: ScrollTrigger) => {
-              const total = distance() + hold;
-              const stops = [...new Set(slots.map((slot) => Math.min(distance(), slot.offsetLeft)))];
-              // The final product has its own reading point inside the exit hold.
-              stops[stops.length - 1] = distance() + hold * 0.2;
-              return readingStop(value, stops.map((offset) => offset / total), self?.direction ?? 1, (step() + hold * 0.2) / total);
-            },
-            inertia: false, delay: 0.18, duration: { min: 0.35, max: 0.8 }, ease: "sine.inOut",
-          },
-        },
-      }).to(track, { x: () => -distance(), duration: distance(), ease: "none" })
-        .to({}, { duration: hold });
-      // Refresh both durations when width changes, preserving the same pixel mapping.
-      const resizeTimeline = () => {
-        const parts = tween?.getChildren();
-        parts?.[0]?.duration(distance());
-        if (parts?.[1]) { parts[1].startTime(distance()); parts[1].duration(hold); }
-      };
-      ScrollTrigger.addEventListener("refreshInit", resizeTimeline);
-      pin = tween.scrollTrigger;
-      const releaseGuard = pin ? guardReadingStop(root, pin, () => pin!.start + distance() + hold * 0.2) : () => {};
-      update();
-      return () => {
-        releaseGuard();
-        ScrollTrigger.removeEventListener("refreshInit", resizeTimeline);
-        pin = undefined;
-        tween = undefined;
-        delete section.dataset.pinned;
-        viewport.scrollLeft = 0;
-        update();
-      };
-    },
-  );
-  update();
+  render();
   return () => {
-    mm.revert();
-    resize.disconnect();
-    ScrollTrigger.removeEventListener("refreshInit", measure);
-    delete section.dataset.enhanced;
-    previous.removeEventListener("click", back);
-    next.removeEventListener("click", forward);
-    viewport.removeEventListener("scroll", update);
-    track.removeEventListener("focusin", focus);
+    cancelHover(); events.abort();
+    delete section.dataset.enhanced; delete section.dataset.carousel; delete section.dataset.activeProduct;
+    slots.forEach(slot => { slot.inert = false; delete slot.dataset.offset; delete slot.dataset.active; });
   };
 }

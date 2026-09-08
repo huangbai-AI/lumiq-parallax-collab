@@ -1,23 +1,61 @@
-/* 第3–4屏：开放式产品陈列与固定比例光晕合成图。 */
-.lh-home .lh-products { background: linear-gradient(#f7f7fa, #fff 35%, #fafafa); }
-.lh-products .lh-product { border: 0; border-radius: 0; background: transparent; padding: 24px 32px 20px; box-shadow: none; }
-.lh-products .lh-product:where(:hover,:focus-visible) { background: transparent; box-shadow: none; }
-.lh-products .lh-product-copy { order: 0; text-align: center; }
-.lh-products .lh-product-art { order: 1; margin: 26px 0 22px; }
-.lh-products .lh-product-bottom { order: 2; justify-content: center; gap: 8px; margin: 0; padding-top: 18px; border-top: 1px solid #1d1d1f12; color: #394f67; font-size: 13px; font-weight: 400; }
+/* Third floor: quiet pearl glass, original product renders and circular navigation. */
+.lh-home .lh-products {
+  background: #f5f3f9 url('/assets/home-interactive/pearl-light.webp') center / cover no-repeat;
+}
+.lh-products .lh-products-stage { min-height: 100svh; padding: 110px 0 36px; gap: 24px; }
+.lh-products .lh-products-heading { justify-content: center; text-align: center; }
+.lh-products .lh-products-heading h2 { letter-spacing: -.045em; }
+.lh-products .lh-product {
+  border: 1px solid #fff9; border-radius: 32px; padding: 24px 28px;
+  background: linear-gradient(145deg, #ffffff70, #ffffff24);
+  backdrop-filter: blur(22px) saturate(115%); -webkit-backdrop-filter: blur(22px) saturate(115%);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 #ffffff90, 0 16px 40px #685a8312;
+  transition: background .4s, box-shadow .4s, border-color .4s;
+}
+.lh-products .lh-product:where(:hover, :focus-visible),
+.lh-products .lh-product-slot[data-active=true] .lh-product {
+  background: linear-gradient(145deg, #ffffffa6, #ffffff52);
+  border-color: #fff;
+  box-shadow: inset 0 0 24px #ffffff80, 0 0 0 1px #ffffff80, 0 0 36px #ffffffda, 0 24px 50px #75678d1c;
+}
+.lh-products .lh-product:focus-visible { outline: 2px solid #65758d; outline-offset: 5px; }
+.lh-products .lh-product-art { order: 0; margin: 0 0 20px; min-height: 130px; }
+.lh-products .lh-product-copy { order: 1; text-align: center; }
+.lh-products .lh-product-bottom { order: 2; justify-content: center; gap: 8px; margin: 18px 0 0; padding: 12px 0 0; border-top: 1px solid #ffffffb3; color: #4c5d73; font-size: 12px; }
 .lh-products .lh-product-type { display: none; }
-.lh-home .lh-products .lh-product h3 { font-size: 32px; letter-spacing: -.025em; color: #1d1d1f; }
-.lh-home .lh-products .lh-product p { max-width: 28ch; margin: 10px auto 0; font-size: 14px; color: #77777c; line-height: 1.45; }
+.lh-home .lh-products .lh-product h3 { font-size: clamp(23px, 2vw, 30px); letter-spacing: -.035em; color: #202d40; }
+.lh-home .lh-products .lh-product p { max-width: 27ch; margin: 9px auto 0; min-height: 42px; font-size: 14px; color: #657083; line-height: 1.5; }
 .lh-products .lh-product-arrow { width: 24px; height: 24px; border: 0; }
-.lh-products .lh-product:where(:hover,:focus-visible) .lh-product-arrow { color: #1d1d1f; background: transparent; transform: translate(2px,-2px); }
+.lh-products .lh-product:where(:hover,:focus-visible) .lh-product-arrow { background: transparent; color: #1d1d1f; transform: translate(2px,-2px); }
 .lh-products .lh-product-float { inset: 2% -3%; }
-.lh-products .lh-product-ola .lh-product-float { inset: -2% 12%; }
+.lh-products .lh-product-ola .lh-product-float { inset: 0 13%; }
 .lh-products .lh-product-ola-go .lh-product-float { inset: 12% 18%; }
 .lh-products .lh-product-nest .lh-product-float { inset: 6% -4%; }
 .lh-products .lh-product-print .lh-product-float { inset: 5% 17%; }
 .lh-products .lh-product-float img { filter: drop-shadow(0 18px 16px #26394e15); }
-.lh-products .lh-product:where(:hover,:focus-visible) .lh-product-float img { transform: translateY(-6px) scale(1.02); filter: drop-shadow(0 25px 19px #26394e20); }
-.lh-products .lh-products-heading h2 { letter-spacing: -.045em; }
+.lh-products .lh-product:where(:hover,:focus-visible) .lh-product-float img { transform: translateY(-4px); }
+.lh-products .lh-products-footer { justify-content: center; gap: 24px; }
+.lh-products .lh-products-hint { display: none; }
+.lh-products[data-enhanced] .lh-products-progress { display: block; flex: 0 1 100px; height: 2px; background: #bac0d23d; }
+.lh-products .lh-products-progress span { background: #8d99ae; transition: transform .4s; }
+.lh-products .lh-products-controls button { background: #ffffff60; border-color: #fff; backdrop-filter: blur(12px); }
+.lh-products .lh-products-controls button:hover:not(:disabled) { background: #fff; color: #23344a; box-shadow: 0 0 24px #fff; }
+.lh-products[data-carousel=true] .lh-products-viewport { margin: 0; overflow: clip; padding: 24px 0 36px; scroll-snap-type: none; mask-image: none; }
+.lh-products[data-carousel=true] .lh-products-track { position: relative; width: 100%; height: clamp(410px, calc(100svh - 300px), 580px); padding: 0; display: block; perspective: 1600px; }
+.lh-products[data-carousel=true] .lh-product-slot {
+  position: absolute; top: 0; left: 50%; width: min(30vw, 410px); height: 100%;
+  transform: translateX(-50%); opacity: 1;
+  transition: transform .65s cubic-bezier(.22,.68,0,1), opacity .45s;
+}
+.lh-products[data-carousel=true] .lh-product { height: 100%; }
+.lh-products[data-carousel=true] .lh-product-slot[data-offset='0'] { z-index: 3; }
+.lh-products[data-carousel=true] .lh-product-slot[data-offset='-1'] { transform: translateX(-147%) translateY(20px) scale(.86) rotateY(5deg); z-index: 2; }
+.lh-products[data-carousel=true] .lh-product-slot[data-offset='1'] { transform: translateX(47%) translateY(20px) scale(.86) rotateY(-5deg); z-index: 2; }
+.lh-products[data-carousel=true] .lh-product-slot[data-offset='-2'] { transform: translateX(-225%) scale(.75); opacity: 0; pointer-events: none; z-index: 0; }
+.lh-products[data-carousel=true] .lh-product-slot[data-offset='2'] { transform: translateX(125%) scale(.75); opacity: 0; pointer-events: none; z-index: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .lh-products[data-carousel=true] .lh-product-slot, .lh-products .lh-product, .lh-products .lh-products-progress span { transition: none; }
+}
 
 .lh-home .lh-room-section { padding: 0; background: #f0edf5; isolation: isolate; }
 .lh-room-layout { position: relative; isolation: isolate; max-width: 1920px; min-height: max(780px, min(56.25vw,1080px)); margin: auto; display: grid; grid-template-columns: 28% 1fr; align-items: center; padding: 80px 5%; }
