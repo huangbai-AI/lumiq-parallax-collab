@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /** A small vertical gesture commits to one complete opening transition. */
-export function mountOpeningAnchors(root: HTMLElement, scroll: ScrollTrigger, anchor: number, onIntent: () => void) {
+export function mountOpeningAnchors(root: HTMLElement, scroll: ScrollTrigger, anchor: number, onIntent: (to: number) => void, duration: () => number) {
   let tween: gsap.core.Tween | undefined;
   let lastWheel = 0;
   let accumulated = 0;
@@ -28,7 +28,7 @@ export function mountOpeningAnchors(root: HTMLElement, scroll: ScrollTrigger, an
     return undefined;
   };
   const navigate = (to: number) => {
-    onIntent();
+    onIntent(to);
     // ScrollTrigger also returns 0 after a completed snap (despite its types).
     const snapping = scroll.getTween(true);
     if (snapping) snapping.kill();
@@ -37,13 +37,13 @@ export function mountOpeningAnchors(root: HTMLElement, scroll: ScrollTrigger, an
     root.dataset.openingTravel = "true";
     tween = gsap.to(motion, {
       progress: 1,
-      duration: 2.8,
-      ease: "sine.inOut",
+      duration: duration() * Math.abs((to ? anchorY() : scroll.start) - from) / Math.max(1, anchorY() - scroll.start),
+      ease: "none",
       onUpdate: () => {
         const end = to ? anchorY() : scroll.start;
         window.scrollTo({ top: from + (end - from) * motion.progress, behavior: "instant" });
         ScrollTrigger.update();
-        // The gesture already has easing; avoid adding a second catch-up delay.
+        // Keep the video and scroll on the same clock without a catch-up delay.
         const scrub = scroll.getTween();
         if (scrub) scrub.progress(1);
       },
@@ -76,6 +76,7 @@ export function mountOpeningAnchors(root: HTMLElement, scroll: ScrollTrigger, an
     if (!eligible(event.target) || event.metaKey || event.ctrlKey || event.altKey) return;
     if (event.target instanceof Element && event.target.closest('a, button, [role="button"]')) return;
     if (event.key === "Home" || event.key === "End") {
+      onIntent(0);
       tween?.kill();
       tween = undefined;
       cooling = false;

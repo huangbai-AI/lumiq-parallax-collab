@@ -1,6 +1,5 @@
-import { openingVideoQuery } from "./openingVideo";
+import { openingVideoQuery, openingVideoSource } from "./openingVideo";
 
-export const openingVideoSource = "/assets/home-video/opening-web-20260907.mp4";
 export const loadingLogo = "/assets/brand/lumiq-logo-transparent-dark.png";
 
 function abortable<T>(promise: Promise<T>, signal: AbortSignal): Promise<T> {
@@ -68,9 +67,8 @@ export async function prepareHome(
     .filter(image => image.getClientRects().length > 0)
     .filter(image => !useVideo || !image.closest(".lh-glass-word, .lh-hero-stage, .lh-brand-character"));
   const extraSources = [loadingLogo, ...(useVideo ? [
-    "/assets/home-video/hero-intro-user-clean-20260907.webp",
-    "/assets/home-video/hero-rest-20260907.webp",
-    "/assets/home-video/brand-end-user-clean-20260907.webp",
+    "/assets/home-video/ola-scroll-start-20260908.webp",
+    "/assets/home-video/ola-scroll-end-20260908.webp",
   ] : [])];
   const tasks: { weight: number; run: (progress: (value: number) => void) => Promise<unknown> }[] = [
     ...images.map(image => ({ weight: 1, run: () => decodeImage(image, signal) })),
