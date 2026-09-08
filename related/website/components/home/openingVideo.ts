@@ -44,6 +44,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       heroCopy.inert = playhead.progress > 0.4;
       brandCopy.inert = cards.inert = playhead.progress < 0.65;
       video.dataset.scrollProgress = String(playhead.progress);
+      layer.style.setProperty("--scene-progress", String(playhead.progress));
       if (forward && playhead.progress >= 1) { forward = false; video.pause(); }
       schedule();
     };
@@ -113,6 +114,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       delete opening.dataset.videoMode;
       delete layer.dataset.ready;
       delete layer.dataset.intro;
+      layer.style.removeProperty("--scene-progress");
       heroCopy.inert = brandCopy.inert = cards.inert = false;
     };
   });
