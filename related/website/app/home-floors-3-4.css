@@ -6,18 +6,38 @@
 .lh-products .lh-products-heading { justify-content: center; text-align: center; }
 .lh-products .lh-products-heading h2 { letter-spacing: -.045em; }
 .lh-products .lh-product {
+  overflow: hidden;
   border: 1px solid #ffffffb3; border-radius: 38px; padding: 32px 36px;
-  background: linear-gradient(145deg, #ffffff26, #ffffff08);
+  background: linear-gradient(145deg, #ffffff45, #ffffff24);
   backdrop-filter: blur(8px) saturate(110%); -webkit-backdrop-filter: blur(8px) saturate(110%);
   box-shadow: inset 0 1px 2px #ffffffc9, inset 0 -1px 2px #ffffff66, 0 20px 48px #685a831a;
   transition: background .4s, box-shadow .4s, border-color .4s, backdrop-filter .4s;
 }
 .lh-products .lh-product:where(:hover, :focus-visible),
 .lh-products .lh-product-slot[data-active=true] .lh-product {
-  background: linear-gradient(145deg, #ffffff85, #ffffff38);
+  background: linear-gradient(145deg, #ffffffb3, #ffffff66);
   border-color: #fff;
   backdrop-filter: blur(26px) saturate(115%); -webkit-backdrop-filter: blur(26px) saturate(115%);
   box-shadow: inset 0 0 36px #ffffffd9, inset 0 0 5px 2px #fff, 0 0 0 2px #ffffffcc, 0 0 24px #fff, 0 0 64px #ffffffd9, 0 32px 64px #75678d26;
+}
+/* The slow sheen sits behind the product and copy, never over their detail. */
+.lh-products .lh-product::before {
+  content: ""; position: absolute; inset: -55%; z-index: -1; pointer-events: none;
+  background: linear-gradient(125deg, transparent 30%, #c9c0f333 39%, #fff2 43%, #fffffff2 47%, #f6dfe65c 51%, #c8e9ef40 55%, transparent 64%);
+  opacity: 0; transform: translateX(-16%) rotate(-8deg); transition: opacity .6s;
+}
+.lh-products .lh-product-slot[data-active=true] .lh-product::before,
+.lh-products .lh-product:where(:hover,:focus-visible)::before {
+  opacity: 1; animation: lh-pearl-sheen 14s ease-in-out infinite alternate;
+}
+@keyframes lh-pearl-sheen {
+  from { transform: translateX(-16%) rotate(-8deg); }
+  to { transform: translateX(16%) rotate(8deg); }
+}
+.lh-products .lh-product-slot[data-active=true] .lh-product-float img,
+.lh-products .lh-product:where(:hover,:focus-visible) .lh-product-float img {
+  transform: translateY(-6px) scale(1.025);
+  filter: brightness(1.035) contrast(1.035) drop-shadow(0 28px 22px #40345138);
 }
 .lh-products .lh-product:focus-visible { outline: 2px solid #65758d; outline-offset: 5px; }
 .lh-products .lh-product-art { order: 0; margin: 0 0 20px; min-height: 130px; }
@@ -55,6 +75,7 @@
 .lh-products[data-carousel=true] .lh-product-slot[data-offset='-2'] { transform: translateX(-225%) scale(.75); opacity: 0; pointer-events: none; z-index: 0; }
 .lh-products[data-carousel=true] .lh-product-slot[data-offset='2'] { transform: translateX(125%) scale(.75); opacity: 0; pointer-events: none; z-index: 0; }
 @media (prefers-reduced-motion: reduce) {
+  .lh-products .lh-product::before { animation: none !important; transition: none; }
   .lh-products[data-carousel=true] .lh-product-slot, .lh-products .lh-product, .lh-products .lh-products-progress span { transition: none; }
 }
 
