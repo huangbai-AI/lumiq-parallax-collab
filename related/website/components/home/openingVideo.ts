@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountOpeningAnchors } from "./openingAnchors";
 
-export const openingVideoSource = "/assets/home-video/ola-scroll-20260908.mp4";
+export const openingVideoSource = "/assets/home-video/ola-scroll-v6-20260908.mp4";
 export const openingVideoQuery =
   "(min-width: 1101px) and (min-height: 600px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
@@ -24,6 +24,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     let frame = 0;
     let forward = false;
     const anchor = 0.92;
+    const playbackRate = 2;
     const playhead = { progress: 0 };
     const duration = () => Number.isFinite(video.duration) ? video.duration : 6;
     const endTime = () => Math.max(0, duration() - 1 / 30);
@@ -44,7 +45,6 @@ export function mountOpeningVideo(root: HTMLElement) {
       heroCopy.inert = playhead.progress > 0.4;
       brandCopy.inert = cards.inert = playhead.progress < 0.65;
       video.dataset.scrollProgress = String(playhead.progress);
-      layer.style.setProperty("--scene-progress", String(playhead.progress));
       if (forward && playhead.progress >= 1) { forward = false; video.pause(); }
       schedule();
     };
@@ -58,7 +58,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     const intent = (to: number) => {
       forward = to > 0 && video.readyState >= 2;
       if (forward) {
-        video.playbackRate = 1;
+        video.playbackRate = playbackRate;
         void video.play().catch(() => { forward = false; schedule(); });
       } else video.pause();
     };
@@ -76,7 +76,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     if (video.getAttribute("src") !== source) { video.src = source; video.load(); }
     const timeline = gsap.timeline({ scrollTrigger: {
       id: "home-opening-video", trigger: stage, pin: stage, start: "top top",
-      end: () => `+=${window.innerHeight * 1.9}`, scrub: true,
+      end: () => `+=${window.innerHeight * 0.95}`, scrub: true,
       invalidateOnRefresh: true, refreshPriority: 2, onRefresh: update,
     } });
     timeline
@@ -87,7 +87,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       .fromTo(brandCopy, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.62)
       .fromTo(cards, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.68);
     const scroll = timeline.scrollTrigger!;
-    const disposeAnchors = mountOpeningAnchors(root, scroll, anchor, intent, duration);
+    const disposeAnchors = mountOpeningAnchors(root, scroll, anchor, intent, () => duration() / playbackRate);
     const resetFrame = requestAnimationFrame(() => {
       ScrollTrigger.refresh();
       if (window.location.hash === "#ola")
@@ -114,7 +114,6 @@ export function mountOpeningVideo(root: HTMLElement) {
       delete opening.dataset.videoMode;
       delete layer.dataset.ready;
       delete layer.dataset.intro;
-      layer.style.removeProperty("--scene-progress");
       heroCopy.inert = brandCopy.inert = cards.inert = false;
     };
   });

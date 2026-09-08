@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("opening holds, plays continuously at normal speed, and stops on screen two", async ({ page }, info) => {
+test("opening holds, plays continuously at double speed, and stops on screen two", async ({ page }, info) => {
   test.skip(info.project.name !== "desktop", "desktop scroll film only");
   await page.goto("/en");
   await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state', 'open', { timeout: 60000 });
@@ -16,7 +16,7 @@ test("opening holds, plays continuously at normal speed, and stops on screen two
   const started = Date.now();
   await page.waitForTimeout(700);
   const after = await state();
-  expect(Math.abs((after.time - before.time) - (Date.now() - started) / 1000)).toBeLessThan(0.2);
+  expect(Math.abs((after.time - before.time) - (Date.now() - started) / 500)).toBeLessThan(0.2);
   await expect.poll(async () => {
     const s = await state();
     return s.paused && Math.abs(s.time - s.duration) < 0.06;

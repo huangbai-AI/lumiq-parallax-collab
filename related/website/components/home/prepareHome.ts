@@ -67,8 +67,8 @@ export async function prepareHome(
     .filter(image => image.getClientRects().length > 0)
     .filter(image => !useVideo || !image.closest(".lh-glass-word, .lh-hero-stage, .lh-brand-character"));
   const extraSources = [loadingLogo, ...(useVideo ? [
-    "/assets/home-video/ola-scroll-start-20260908.webp",
-    "/assets/home-video/ola-scroll-end-20260908.webp",
+    "/assets/home-video/ola-scroll-v6-start-20260908.webp",
+    "/assets/home-video/ola-scroll-v6-end-20260908.webp",
   ] : [])];
   const tasks: { weight: number; run: (progress: (value: number) => void) => Promise<unknown> }[] = [
     ...images.map(image => ({ weight: 1, run: () => decodeImage(image, signal) })),

@@ -72,13 +72,13 @@
   }
 }
 .lh-video-start-poster {
-  background-image: url("/assets/home-video/ola-scroll-start-20260908.webp");
+  background-image: url("/assets/home-video/ola-scroll-v6-start-20260908.webp");
 }
 .lh-video-layer[data-intro="pending"] .lh-video-start-poster {
-  background-image: url("/assets/home-video/ola-scroll-start-20260908.webp");
+  background-image: url("/assets/home-video/ola-scroll-v6-start-20260908.webp");
 }
 .lh-video-end-poster {
-  background-image: url("/assets/home-video/ola-scroll-end-20260908.webp");
+  background-image: url("/assets/home-video/ola-scroll-v6-end-20260908.webp");
   opacity: 0;
 }
 .lh-opening-video {
@@ -186,25 +186,12 @@
 
 .lh-opening[data-video-mode] .lh-ola-copy .lh-lead { max-width: 580px; }
 
-/* Preserve the full product; softly extend the scene behind the fitted film. */
+/* Cover the stage without stretching or synthetic side backgrounds. */
+.lh-opening[data-video-mode] .lh-video-layer { mask-image: none; }
 .lh-opening[data-video-mode] :is(.lh-video-start-poster, .lh-video-end-poster, .lh-opening-video) {
-  width: min(var(--hero-width), calc((100svh - 86px) * 16 / 9));
-  mask-image: linear-gradient(90deg, transparent, #000 80px, #000 calc(100% - 80px), transparent), linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
-  mask-composite: intersect;
-  z-index: 1;
-  top: calc(50% + 43px);
+  width: max(100vw, calc(100svh * 16 / 9));
+  top: 50%;
+  mask-image: none;
 }
 .lh-opening[data-video-mode] .lh-ola-copy { max-width: none; }
 .lh-opening[data-video-mode] .lh-ola-copy :is(h2, .lh-lead) { padding-right: 0; }
-
-.lh-opening[data-video-mode] .lh-video-layer::before,
-.lh-opening[data-video-mode] .lh-video-layer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #ebe8f3, #e6ddeb 30%, #e0d2e6 60%, #bdb5c9);
-}
-.lh-opening[data-video-mode] .lh-video-layer::after {
-  background: linear-gradient(180deg, #ccc8df, #d8d3e3 30%, #dfd8e6 60%, #e1d9e8);
-  opacity: var(--scene-progress, 0);
-}
