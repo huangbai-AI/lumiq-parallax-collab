@@ -8,17 +8,17 @@
 .lh-products .lh-product {
   overflow: hidden;
   border: 1px solid #ffffffb3; border-radius: 38px; padding: 32px 36px;
-  background: rgb(255 255 255 / 10%);
-  backdrop-filter: blur(3px) saturate(110%); -webkit-backdrop-filter: blur(3px) saturate(110%);
-  box-shadow: inset 0 1px 2px #ffffffc9, inset 0 -1px 2px #ffffff66, 0 22px 48px #5544652b, 0 4px 12px #5544650d;
+  background: rgb(255 255 255 / 2%);
+  backdrop-filter: blur(.75px) saturate(105%); -webkit-backdrop-filter: blur(.75px) saturate(105%);
+  box-shadow: inset 1px 1px 1px #fffffff2, inset -1px -1px 1px #9aacc340, inset 0 0 0 3px #ffffff20, 0 22px 48px #5544652b, 0 4px 12px #5544650d;
   transition: background .4s, box-shadow .4s, border-color .4s, backdrop-filter .4s;
 }
 .lh-products .lh-product:where(:hover, :focus-visible),
 .lh-products .lh-product-slot[data-active=true] .lh-product {
-  background: linear-gradient(145deg, #ffffffb3, #ffffff66);
+  background: rgb(255 255 255 / 30%);
   border-color: #fff;
-  backdrop-filter: blur(26px) saturate(115%); -webkit-backdrop-filter: blur(26px) saturate(115%);
-  box-shadow: inset 0 0 36px #ffffffd9, inset 0 0 5px 2px #fff, 0 0 0 2px #ffffffcc, 0 0 24px #fff, 0 0 64px #ffffffd9, 0 32px 64px #75678d26;
+  backdrop-filter: blur(12px) saturate(115%); -webkit-backdrop-filter: blur(12px) saturate(115%);
+  box-shadow: inset 0 0 18px #ffffff30, inset 0 0 3px 1px #ffffffcc, 0 0 0 1px #ffffff99, 0 0 20px #ffffff66, 0 32px 64px #75678d26;
 }
 /* The slow sheen sits behind the product and copy, never over their detail. */
 .lh-products .lh-product::before {
@@ -28,7 +28,7 @@
 }
 .lh-products .lh-product-slot[data-active=true] .lh-product::before,
 .lh-products .lh-product:where(:hover,:focus-visible)::before {
-  opacity: 1; animation: lh-pearl-sheen 14s ease-in-out infinite alternate;
+  opacity: .24; animation: lh-pearl-sheen 14s ease-in-out infinite alternate;
 }
 @keyframes lh-pearl-sheen {
   from { transform: translateX(-16%) rotate(-8deg); }
