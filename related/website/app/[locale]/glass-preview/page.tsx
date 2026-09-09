@@ -46,7 +46,7 @@ function GlassScene({ selected, select, sideView, content }: {
   }, []);
   useEffect(() => () => geometry.dispose(), [geometry]);
   useEffect(() => {
-    (camera as PerspectiveCamera).fov = MathUtils.radToDeg(2 * Math.atan(Math.max(7.2, 11.5 * size.height / size.width) / (2 * Math.hypot(12, 3.1))));
+    (camera as PerspectiveCamera).fov = MathUtils.radToDeg(2 * Math.atan(Math.max(7.2, 11.5 * size.height / size.width) / (2 * Math.hypot(36, 2.2))));
     camera.lookAt(0, -.9, 0);
     camera.updateProjectionMatrix();
   }, [camera, size]);
@@ -81,10 +81,11 @@ function GlassCard({ geometry, index, active, select, sideView, content, buffer 
   const group = useRef<Group>(null);
   useFrame((_, delta) => {
     if (!group.current) return;
-    const angle = sideView ? .82 : (1 - index) * .23;
+    const angle = sideView ? .82 : index === 2 ? -.28 : .28;
     group.current.rotation.y = MathUtils.damp(group.current.rotation.y, angle, 7, delta);
   });
-  return <group ref={group} position={[(index - 1) * 3.55, active ? .06 : -.13, 0]} scale={active ? 1 : .9}>
+  // Keep the beveled bottom on the reflecting floor at either card scale.
+  return <group ref={group} position={[(index - 1) * 3.55, -2.28 + 2.285 * (active ? 1 : .9), 0]} scale={active ? 1 : .9}>
     <GlassShadow />
     <mesh geometry={geometry} onPointerOver={() => select(index)} onClick={() => select(index)}>
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
@@ -191,7 +192,7 @@ export default function GlassPreview() {
       <button aria-pressed={!content} onClick={() => setContent(!content)}>只看玻璃</button>
     </div>
     <div className="glass-preview-scroll"><div className="glass-preview-canvas">
-      <Canvas camera={{ position: [0, 2.2, 12], fov: 30, near: .1, far: 100 }} dpr={[1, 1.5]}
+      <Canvas camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: false, toneMapping: NoToneMapping }} fallback={<p>此样板需要启用 WebGL 的浏览器。</p>}>
         <color attach="background" args={["#f5f3f9"]} />
         <Suspense fallback={<Html center>正在加载玻璃材质…</Html>}>
