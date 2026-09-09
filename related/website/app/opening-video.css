@@ -72,13 +72,13 @@
   }
 }
 .lh-video-start-poster {
-  background-image: url("/assets/home-video/ola-scroll-v6-start-20260908.webp");
+  background-image: url("/assets/home-video/ola-scroll-v16-start-20260909.webp");
 }
 .lh-video-layer[data-intro="pending"] .lh-video-start-poster {
-  background-image: url("/assets/home-video/ola-scroll-v6-start-20260908.webp");
+  background-image: url("/assets/home-video/ola-scroll-v16-start-20260909.webp");
 }
 .lh-video-end-poster {
-  background-image: url("/assets/home-video/ola-scroll-v6-end-20260908.webp");
+  background-image: url("/assets/home-video/ola-scroll-v16-end-20260909.webp");
   opacity: 0;
 }
 .lh-opening-video {

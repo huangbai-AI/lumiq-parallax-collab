@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountOpeningAnchors } from "./openingAnchors";
 
-export const openingVideoSource = "/assets/home-video/ola-scroll-v6-20260908.mp4";
+export const openingVideoSource = "/assets/home-video/ola-scroll-v16-20260909.mp4";
 export const openingVideoQuery =
   "(min-width: 1101px) and (min-height: 600px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
