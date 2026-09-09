@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO, useTexture } from "@react-three/drei";
-import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, Vector2 } from "three";
+import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture } from "three";
 import "./preview.css";
 
 const products = [
@@ -110,7 +110,7 @@ function GlassCard({ geometry, index, active, select, sideView, content, buffer,
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
         samples={16} resolution={512} backsideResolution={256} color="#ffffff" />
     </mesh>
-    <PearlFlow index={index} active={active} reflected={reflected} pointer={pointer} />
+    <PearlFlow index={index} reflected={reflected} />
     {content && <CardArtwork index={index} active={active} reflected={reflected} />}
     {content && !reflected && <Html transform position={[0, 0, .16]} distanceFactor={4}>
       <button className="glass-sample-content" onMouseEnter={() => select(index)} onFocus={() => select(index)}
@@ -175,45 +175,33 @@ function CardArtwork({ index, active, reflected }: { index: number; active: bool
   </>;
 }
 
-function PearlFlow({ index, active, reflected, pointer }: { index: number; active: boolean; reflected: boolean; pointer: CardPointer }) {
+function PearlFlow({ index, reflected }: { index: number; reflected: boolean }) {
   const material = useRef<ShaderMaterial>(null);
-  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: .1 }, cursor: { value: new Vector2(.5, .5) }, hover: { value: 0 } }), []);
-  useFrame(({ clock }, delta) => {
+  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 } }), []);
+  useFrame(({ clock }) => {
     if (!material.current) return;
     const live = material.current.uniforms;
     live.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
-    live.strength.value = (active ? .32 : .23) * (reflected ? .55 : 1);
-    live.cursor.value.x = MathUtils.damp(live.cursor.value.x, .5 + pointer.x * .47, 9, delta);
-    live.cursor.value.y = MathUtils.damp(live.cursor.value.y, .5 + pointer.y * .48, 9, delta);
-    live.hover.value = MathUtils.damp(live.hover.value, pointer.hovered ? (reflected ? .5 : 1) : 0, 8, delta);
+    live.strength.value = reflected ? .55 : 1;
   });
   return <mesh position={[0, 0, .2]} renderOrder={3} raycast={() => {}}>
-    <planeGeometry args={[3.45, 4.85]} />
+    <planeGeometry args={[3.95, 5.35]} />
     <shaderMaterial ref={material} transparent depthWrite={false} uniforms={uniforms}
       vertexShader={`varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`}
-      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength; uniform vec2 cursor; uniform float hover;
+      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength;
         void main(){
-          vec2 p=(vUv-.5)*vec2(3.45,4.85);
+          vec2 p=(vUv-.5)*vec2(3.95,5.35);
           vec2 q=abs(p)-vec2(1.33,2.03);
           float d=length(max(q,0.))+min(max(q.x,q.y),0.)-.295;
           float edge=1.-smoothstep(-.03,0.,d);
           float x=vUv.x+vUv.y*.42-.7-.38*sin(time);
           float band=exp(-x*x*30.);
-          vec3 tint=mix(vec3(.8,.75,.94),vec3(.76,.89,.96),vUv.y);
-          tint=mix(tint,vec3(1.,.85,.91),.5+.5*sin(time+vUv.y*3.));
-          float rim=exp(-abs(d)*70.);
-          float halo=exp(-abs(d)*14.)*.4;
-          float shimmer=.7+.3*sin(time*1.7+vUv.y*5.+vUv.x*3.);
-          float light=(rim+halo)*shimmer;
-          vec2 offset=(vUv-cursor)*vec2(1.,1.4);
-          float spot=exp(-dot(offset,offset)*12.);
-          float core=exp(-dot(offset,offset)*65.);
-          float shade=edge*hover*(1.-spot)*.1;
-          float glow=edge*hover*(spot*.3+core*.3);
-          float base=min(.7,edge*band*strength*.5+light*strength*(2.4+hover*spot*5.));
-          float alpha=min(.85,base+shade+glow);
-          vec3 color=(mix(tint,vec3(1.),.35+.5*rim)*base+vec3(.35,.33,.47)*shade+vec3(1.)*glow)/max(.001,base+shade+glow);
-          gl_FragColor=vec4(color,alpha);
+          vec3 tint=mix(vec3(.78,.72,.94),vec3(.73,.88,.98),vUv.y);
+          tint=mix(tint,vec3(1.,.82,.9),.5+.5*sin(time+vUv.y*3.));
+          float rim=exp(-abs(d)*60.);
+          float halo=exp(-abs(d)*12.)*.65;
+          float alpha=min(.95,(rim*.95+halo+edge*band*.06)*strength);
+          gl_FragColor=vec4(mix(tint,vec3(1.),.35+.65*rim),alpha);
         }`} />
   </mesh>;
 }
