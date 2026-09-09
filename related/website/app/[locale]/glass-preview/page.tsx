@@ -105,7 +105,7 @@ function GlassCard({ geometry, index, active, select, sideView, content, buffer,
     }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; }}
       onPointerOver={reflected ? undefined : () => select(index)} onClick={reflected ? undefined : () => select(index)}>
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
-        transmission={1} roughness={active ? .7 : .1} ior={1.65} transparent opacity={reflected ? .45 : 1}
+        transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={reflected ? .45 : 1}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
         samples={16} resolution={512} backsideResolution={256} color="#ffffff" />
@@ -122,7 +122,7 @@ function GlassCard({ geometry, index, active, select, sideView, content, buffer,
           pointer.hovered = true;
         }} onPointerLeave={() => { pointer.hovered = false; }}
         onClick={() => select(index)} aria-pressed={active}>
-        <span className="glass-accessible-label">{products[index].name} · {active ? "选中 · 70% 磨砂" : "未选中 · 10% 磨砂"}</span>
+        <span className="glass-accessible-label">{products[index].name} · {active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂"}</span>
       </button>
     </Html>}
   </group>;
@@ -158,7 +158,7 @@ function CardArtwork({ index, active, reflected }: { index: number; active: bool
     ctx.font = "600 74px Arial, sans-serif";
     ctx.fillText(products[index].name, 512, 100);
     ctx.fillStyle = "#687286"; ctx.font = "38px Arial, sans-serif";
-    ctx.fillText(active ? "选中 · 70% 磨砂" : "未选中 · 10% 磨砂", 512, 192);
+    ctx.fillText(active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂", 512, 192);
     const map = new CanvasTexture(canvas); map.colorSpace = SRGBColorSpace;
     return map;
   }, [index, active]);
@@ -185,12 +185,12 @@ function PearlFlow({ index, reflected }: { index: number; reflected: boolean }) 
     live.strength.value = reflected ? .55 : 1;
   });
   return <mesh position={[0, 0, .2]} renderOrder={3} raycast={() => {}}>
-    <planeGeometry args={[3.95, 5.35]} />
+    <planeGeometry args={[4.85, 6.25]} />
     <shaderMaterial ref={material} transparent depthWrite={false} uniforms={uniforms}
       vertexShader={`varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`}
       fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength;
         void main(){
-          vec2 p=(vUv-.5)*vec2(3.95,5.35);
+          vec2 p=(vUv-.5)*vec2(4.85,6.25);
           vec2 q=abs(p)-vec2(1.33,2.03);
           float d=length(max(q,0.))+min(max(q.x,q.y),0.)-.295;
           float edge=1.-smoothstep(-.03,0.,d);
@@ -198,10 +198,12 @@ function PearlFlow({ index, reflected }: { index: number; reflected: boolean }) 
           float band=exp(-x*x*30.);
           vec3 tint=mix(vec3(.78,.72,.94),vec3(.73,.88,.98),vUv.y);
           tint=mix(tint,vec3(1.,.82,.9),.5+.5*sin(time+vUv.y*3.));
-          float rim=exp(-abs(d)*60.);
-          float halo=exp(-abs(d)*12.)*.65;
-          float alpha=min(.95,(rim*.95+halo+edge*band*.06)*strength);
-          gl_FragColor=vec4(mix(tint,vec3(1.),.35+.65*rim),alpha);
+          float rim=exp(-abs(d)*35.);
+          float bloom=exp(-d*d/ .022)*.48;
+          float diffusion=exp(-d*d/ .14)*.24;
+          float inner=exp(-abs(d)*3.)*edge*.1;
+          float alpha=min(.86,(rim*.22+bloom+diffusion+inner+edge*band*.05)*strength);
+          gl_FragColor=vec4(mix(tint,vec3(1.),.78+.22*rim),alpha);
         }`} />
   </mesh>;
 }
@@ -212,7 +214,7 @@ export default function GlassPreview() {
   const [content, setContent] = useState(true);
   return <main className="glass-preview">
     <header><p>材质样板 · 尚未替换首页</p><h1>玻璃、微光与倒影。</h1>
-      <p>选中 70% 磨砂 · 未选中 10% 磨砂。悬停或点击切换。</p></header>
+      <p>选中 70% 磨砂 · 未选中 38% 磨砂。悬停或点击切换。</p></header>
     <div className="glass-preview-controls">
       {products.map((p, i) => <button key={p.name} aria-pressed={selected === i} onClick={() => select(i)}>{p.name}</button>)}
       <button aria-pressed={sideView} onClick={() => setSideView(!sideView)}>侧面查看厚度</button>
