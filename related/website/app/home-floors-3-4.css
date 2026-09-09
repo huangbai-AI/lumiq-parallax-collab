@@ -73,10 +73,30 @@
   height: 100%;
   -webkit-box-reflect: below 12px linear-gradient(to bottom, transparent 76%, rgb(255 255 255 / 22%));
 }
+/* A soft halo outside the glass; the card keeps its existing transparency. */
+.lh-products[data-carousel=true] .lh-product-slot::before {
+  content: ""; position: absolute; inset: -3px; border-radius: 41px;
+  pointer-events: none; z-index: -1;
+  box-shadow: -12px -5px 28px #d2c7ed55, 12px 8px 30px #c5e3ed55, 0 12px 26px #efd4df44;
+  opacity: .45;
+  animation: lh-glass-halo 22s ease-in-out infinite alternate;
+}
+.lh-products .lh-product-slot:nth-child(2n)::before { animation-delay: -8s; }
+.lh-products .lh-product-slot:nth-child(3n)::before { animation-delay: -15s; }
+@keyframes lh-glass-halo {
+  from { transform: translate(-3px, -4px); opacity: .35; }
+  to { transform: translate(4px, 3px); opacity: .65; }
+}
+@keyframes lh-glass-edge {
+  from { background-position: 0% 20%; }
+  to { background-position: 100% 80%; }
+}
 .lh-products .lh-product::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
   border: 5px solid transparent;
-  background: linear-gradient(130deg, #fffffff2, #ffffff18 24%, #b5c5da50 42%, #ffffffc9 53%, #ffffff12 70%, #fff) border-box;
+  background: linear-gradient(130deg, #fffffff2, #ddd4ed45 24%, #c6dfe955 42%, #ffffffe0 53%, #f0dae54d 70%, #fff) border-box;
+  background-size: 240% 240%;
+  animation: lh-glass-edge 22s ease-in-out infinite alternate;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); mask-composite: exclude;
 }
 .lh-products[data-carousel=true] .lh-product-slot[data-offset='0'] { z-index: 3; }
@@ -85,7 +105,8 @@
 .lh-products[data-carousel=true] .lh-product-slot[data-offset='-2'] { transform: translateX(-225%) scale(.75); opacity: 0; pointer-events: none; z-index: 0; }
 .lh-products[data-carousel=true] .lh-product-slot[data-offset='2'] { transform: translateX(125%) scale(.75); opacity: 0; pointer-events: none; z-index: 0; }
 @media (prefers-reduced-motion: reduce) {
-  .lh-products .lh-product::before { animation: none !important; transition: none; }
+  .lh-products .lh-product::before, .lh-products .lh-product::after,
+  .lh-products[data-carousel=true] .lh-product-slot::before { animation: none !important; transition: none; }
   .lh-products[data-carousel=true] .lh-product-slot, .lh-products .lh-product, .lh-products .lh-products-progress span { transition: none; }
 }
 
