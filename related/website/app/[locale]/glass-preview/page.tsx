@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO, useTexture } from "@react-three/drei";
-import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture } from "three";
+import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, Vector2 } from "three";
 import "./preview.css";
 
 const products = [
@@ -12,11 +12,14 @@ const products = [
   { name: "LumiQ OLA", image: "/assets/home-products-refined-20260907/ola-original-transparent.webp" },
 ];
 
+type CardPointer = { x: number; y: number; hovered: boolean };
+
 function GlassScene({ selected, select, sideView, content }: {
   selected: number; select: (index: number) => void; sideView: boolean; content: boolean;
 }) {
   const { camera, size } = useThree();
   const opticalObjects = useRef<Group>(null);
+  const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), []);
   const buffer = useFBO(768, 768);
   useFrame(({ gl, scene }) => {
     if (!opticalObjects.current) return;
@@ -64,39 +67,60 @@ function GlassScene({ selected, select, sideView, content }: {
     </Environment>
     <group ref={opticalObjects}>
     {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index}
-      active={selected === index} select={select} sideView={sideView} content={content} buffer={buffer.texture} />)}
+      active={selected === index} select={select} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} />)}
     {/* Mirror geometry across the contact plane; keep the original backdrop continuous. */}
     <group position={[0, -4.56, 0]} scale={[1, -1, 1]}>
       {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index}
-        active={selected === index} select={select} sideView={sideView} content={content} buffer={buffer.texture} reflected />)}
+        active={selected === index} select={select} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} reflected />)}
     </group>
     </group>
   </>;
 }
 
-function GlassCard({ geometry, index, active, select, sideView, content, buffer, reflected = false }: {
-  geometry: ExtrudeGeometry; index: number; active: boolean; select: (index: number) => void; sideView: boolean; content: boolean; buffer: Texture; reflected?: boolean;
+function GlassCard({ geometry, index, active, select, sideView, content, buffer, pointer, reflected = false }: {
+  geometry: ExtrudeGeometry; index: number; active: boolean; select: (index: number) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
 }) {
   const group = useRef<Group>(null);
   useFrame((_, delta) => {
     if (!group.current) return;
     const angle = sideView ? .82 : index === 2 ? -.28 : .28;
-    group.current.rotation.y = MathUtils.damp(group.current.rotation.y, angle, 7, delta);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hovering = pointer.hovered && !reduced;
+    group.current.rotation.y = MathUtils.damp(group.current.rotation.y, angle + (hovering ? pointer.x * .07 : 0), 7, delta);
+    group.current.rotation.x = MathUtils.damp(group.current.rotation.x, hovering ? -pointer.y * .045 : 0, 7, delta);
+    group.current.updateMatrix();
+    const m = group.current.matrix.elements;
+    group.current.position.y = -2.28 + Math.abs(m[1]) * 1.625 + Math.abs(m[5]) * 2.325 + Math.abs(m[9]) * .125;
   });
   // Keep the beveled bottom on the reflecting floor at either card scale.
   return <group ref={group} position={[(index - 1) * 3.55, -2.28 + 2.325 * (active ? 1 : .9), 0]} scale={active ? 1 : .9}>
     {!reflected && <GlassShadow />}
-    <mesh geometry={geometry} onPointerOver={reflected ? undefined : () => select(index)} onClick={reflected ? undefined : () => select(index)}>
+    <mesh geometry={geometry} onPointerMove={reflected ? undefined : e => {
+      e.stopPropagation();
+      const local = group.current!.worldToLocal(e.point.clone());
+      pointer.x = MathUtils.clamp(local.x / 1.625, -1, 1);
+      pointer.y = MathUtils.clamp(local.y / 2.325, -1, 1);
+      pointer.hovered = true;
+      select(index);
+    }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; }}
+      onPointerOver={reflected ? undefined : () => select(index)} onClick={reflected ? undefined : () => select(index)}>
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
         transmission={1} roughness={active ? .7 : .1} ior={1.65} transparent opacity={reflected ? .45 : 1}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
         samples={16} resolution={512} backsideResolution={256} color="#ffffff" />
     </mesh>
-    <PearlFlow index={index} active={active} reflected={reflected} />
+    <PearlFlow index={index} active={active} reflected={reflected} pointer={pointer} />
     {content && <CardArtwork index={index} active={active} reflected={reflected} />}
     {content && !reflected && <Html transform position={[0, 0, .16]} distanceFactor={4}>
       <button className="glass-sample-content" onMouseEnter={() => select(index)} onFocus={() => select(index)}
+        onPointerMove={e => {
+          if (e.pointerType === "touch") return;
+          const rect = e.currentTarget.getBoundingClientRect();
+          pointer.x = MathUtils.clamp((e.clientX - rect.left) / rect.width * 2 - 1, -1, 1);
+          pointer.y = MathUtils.clamp(1 - (e.clientY - rect.top) / rect.height * 2, -1, 1);
+          pointer.hovered = true;
+        }} onPointerLeave={() => { pointer.hovered = false; }}
         onClick={() => select(index)} aria-pressed={active}>
         <span className="glass-accessible-label">{products[index].name} · {active ? "选中 · 70% 磨砂" : "未选中 · 10% 磨砂"}</span>
       </button>
@@ -151,19 +175,23 @@ function CardArtwork({ index, active, reflected }: { index: number; active: bool
   </>;
 }
 
-function PearlFlow({ index, active, reflected }: { index: number; active: boolean; reflected: boolean }) {
+function PearlFlow({ index, active, reflected, pointer }: { index: number; active: boolean; reflected: boolean; pointer: CardPointer }) {
   const material = useRef<ShaderMaterial>(null);
-  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: .1 } }), []);
-  useFrame(({ clock }) => {
+  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: .1 }, cursor: { value: new Vector2(.5, .5) }, hover: { value: 0 } }), []);
+  useFrame(({ clock }, delta) => {
     if (!material.current) return;
-    uniforms.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
-    uniforms.strength.value = (active ? .32 : .23) * (reflected ? .55 : 1);
+    const live = material.current.uniforms;
+    live.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
+    live.strength.value = (active ? .32 : .23) * (reflected ? .55 : 1);
+    live.cursor.value.x = MathUtils.damp(live.cursor.value.x, .5 + pointer.x * .47, 9, delta);
+    live.cursor.value.y = MathUtils.damp(live.cursor.value.y, .5 + pointer.y * .48, 9, delta);
+    live.hover.value = MathUtils.damp(live.hover.value, pointer.hovered ? (reflected ? .5 : 1) : 0, 8, delta);
   });
-  return <mesh position={[0, 0, .13]}>
+  return <mesh position={[0, 0, .2]} renderOrder={3} raycast={() => {}}>
     <planeGeometry args={[3.45, 4.85]} />
     <shaderMaterial ref={material} transparent depthWrite={false} uniforms={uniforms}
       vertexShader={`varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`}
-      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength;
+      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength; uniform vec2 cursor; uniform float hover;
         void main(){
           vec2 p=(vUv-.5)*vec2(3.45,4.85);
           vec2 q=abs(p)-vec2(1.33,2.03);
@@ -177,7 +205,15 @@ function PearlFlow({ index, active, reflected }: { index: number; active: boolea
           float halo=exp(-abs(d)*14.)*.4;
           float shimmer=.7+.3*sin(time*1.7+vUv.y*5.+vUv.x*3.);
           float light=(rim+halo)*shimmer;
-          gl_FragColor=vec4(mix(tint,vec3(1.),.35+.5*rim),min(.9,edge*band*strength+light*strength*2.4));
+          vec2 offset=(vUv-cursor)*vec2(1.,1.4);
+          float spot=exp(-dot(offset,offset)*12.);
+          float core=exp(-dot(offset,offset)*65.);
+          float shade=edge*hover*(1.-spot)*.1;
+          float glow=edge*hover*(spot*.3+core*.3);
+          float base=min(.7,edge*band*strength*.5+light*strength*(2.4+hover*spot*5.));
+          float alpha=min(.85,base+shade+glow);
+          vec3 color=(mix(tint,vec3(1.),.35+.5*rim)*base+vec3(.35,.33,.47)*shade+vec3(1.)*glow)/max(.001,base+shade+glow);
+          gl_FragColor=vec4(color,alpha);
         }`} />
   </mesh>;
 }
