@@ -1,0 +1,14 @@
+.glass-preview { padding: 130px 0 36px; background: #f5f3f9; color: #203047; min-height: 100vh; }
+.glass-preview header { text-align: center; padding: 0 24px; }
+.glass-preview h1 { font-size: clamp(28px,3vw,42px); font-weight: 600; margin: 8px 0; letter-spacing: -.04em; }
+.glass-preview header p { font-size: 14px; color: #6b7484; }
+.glass-preview-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 24px 20px 4px; }
+.glass-preview-controls button { border: 1px solid #cbd1dd; padding: 9px 16px; border-radius: 24px; background: #ffffff70; font-size: 13px; }
+.glass-preview-controls button[aria-pressed=true] { color: white; background: #233448; border-color: #233448; }
+.glass-preview button:focus-visible { outline: 2px solid #7384bb; outline-offset: 4px; }
+.glass-preview-scroll { overflow-x: auto; }
+.glass-preview-canvas { height: clamp(520px,70vh,820px); min-width: 850px; position: relative; }
+.glass-sample-content { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 285px; height: 420px; padding: 16px; border: 0; background: transparent; color: #233448; cursor: pointer; }
+.glass-sample-content img { width: 245px; height: 290px; object-fit: contain; margin-bottom: 20px; }
+.glass-sample-content strong { font-size: 24px; font-weight: 600; letter-spacing: -.035em; }
+.glass-sample-content span { margin-top: 10px; font-size: 13px; color: #5c687c; }
