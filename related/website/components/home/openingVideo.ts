@@ -43,7 +43,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     const schedule = () => { if (alive && !frame) frame = requestAnimationFrame(tick); };
     const update = () => {
       heroCopy.inert = playhead.progress > 0.4;
-      brandCopy.inert = cards.inert = playhead.progress < 0.65;
+      brandCopy.inert = cards.inert = playhead.progress < 0.43;
       video.dataset.scrollProgress = String(playhead.progress);
       if (forward && playhead.progress >= 1) { forward = false; video.pause(); }
       schedule();
@@ -84,8 +84,9 @@ export function mountOpeningVideo(root: HTMLElement) {
       .to({}, { duration: 1 - anchor }, anchor)
       .to(heroCopy, { autoAlpha: 0, y: -35, duration: 0.25, ease: "none" }, 0.05)
       .to(".lh-video-end-poster", { opacity: 1, duration: 0.25, ease: "none" }, 0.4)
-      .fromTo(brandCopy, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.62)
-      .fromTo(cards, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.68);
+      // Advance both reveals by ~0.7s in the current 3.3s, double-speed transition.
+      .fromTo(brandCopy, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.42)
+      .fromTo(cards, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.48);
     const scroll = timeline.scrollTrigger!;
     const disposeAnchors = mountOpeningAnchors(root, scroll, anchor, intent, () => duration() / playbackRate);
     const resetFrame = requestAnimationFrame(() => {
