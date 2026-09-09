@@ -1,5 +1,5 @@
 import Image from "@/components/home/HomeImage";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -12,6 +12,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
 import HomeMotion from "@/components/home/HomeMotion";
+import HomeGlassProducts from "@/components/home/HomeGlassProducts";
 import HomeFilms from "@/components/home/HomeFilms";
 import HomeExperiences from "@/components/home/HomeExperiences";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
@@ -51,6 +52,7 @@ const principles = [
 
 export default async function Home() {
   const t = await getTranslations("HomeRefresh");
+  const locale = await getLocale();
   return (
     <HomeMotion>
       <div className="lh-opening">
@@ -237,6 +239,10 @@ export default async function Home() {
           <div className="lh-products-heading">
             <h2 id="products-title">{t("productsHeading")}</h2>
           </div>
+          <HomeGlassProducts products={collection.map(id => ({
+            name: t(`products.${id}.name`), body: t(`products.${id}.body`),
+            image: "/assets/" + artwork[id] + ".webp", href: `/${locale}${PRODUCT_BY_ID[id].href}`, explore: t("explore"),
+          }))} />
           <div className="lh-products-viewport" id="home-products-rail">
             <div className="lh-products-track">
               {collection.map((id) => (

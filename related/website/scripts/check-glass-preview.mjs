@@ -11,7 +11,7 @@ try {
   assert.equal(await page.locator(".glass-sample-content").count(), 3);
   const go = page.locator(".glass-preview-controls button").filter({ hasText: "LumiQ Go" });
   await go.click();
-  assert.equal(await page.locator(".glass-sample-content").first().getAttribute("aria-pressed"), "true");
+  assert.equal(await page.locator(".glass-sample-content").first().getAttribute("data-active"), "true");
   assert.match(await page.locator(".glass-sample-content").first().innerText(), /70%/);
   const card = page.locator(".glass-sample-content").filter({ hasText: "LumiQ Go" });
   const transform = () => card.evaluate(el => el.parentElement.parentElement.style.transform);

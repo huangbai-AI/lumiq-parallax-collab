@@ -48,6 +48,10 @@ export function mountProductRail(root: HTMLElement) {
       if (desktop.matches && index !== active) { event.preventDefault(); select(index); }
     }, options);
   });
+  section.addEventListener("lumiq:product-select", (event) => {
+    const index = (event as CustomEvent<number>).detail;
+    if (Number.isInteger(index) && index >= 0 && index < slots.length && index !== active && performance.now() >= lockedUntil) select(index);
+  }, options);
   previous.addEventListener("click", () => select(active - 1), options);
   next.addEventListener("click", () => select(active + 1), options);
   viewport.addEventListener("keydown", (event) => {

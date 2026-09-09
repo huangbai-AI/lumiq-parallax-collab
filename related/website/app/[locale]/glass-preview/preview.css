@@ -11,3 +11,7 @@
 .glass-preview-canvas::after { content: ""; position: absolute; inset: auto 0 0; height: 23%; background: linear-gradient(transparent, #f5f3f9); pointer-events: none; }
 .glass-sample-content { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 285px; height: 420px; padding: 16px; border: 0; background: transparent; color: #233448; cursor: pointer; }
 .glass-accessible-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.glass-sample-content { position: relative; }
+.glass-product-hit { position: absolute; inset: 0; display: block; border: 0; background: transparent; cursor: pointer; }
+.glass-product-hit:focus-visible { outline: 2px solid #7384bb; outline-offset: 8px; border-radius: 22px; }

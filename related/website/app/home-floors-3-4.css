@@ -190,3 +190,11 @@
   .lh-room-product-art,.lh-room-lines g { transition: none; }
   .lh-room-product:where(:hover,:focus-visible) .lh-room-product-art { transform: none; }
 }
+
+/* Shared volumetric material; existing rail remains the mobile/WebGL fallback. */
+.lh-glass-products { display: none; }
+.lh-products[data-glass-3d] .lh-products-viewport { display: none; }
+.lh-products[data-glass-3d] .lh-glass-products { display: block; position: relative; height: clamp(560px, 76svh, 1000px); width: 100%; }
+.lh-products[data-glass-3d] .lh-glass-products::after { content: ""; position: absolute; inset: auto 0 0; height: 20%; pointer-events: none; background: linear-gradient(transparent, #f5f3f9); }
+.lh-home .lh-products[data-glass-3d] { background: #f5f3f9; }
+.lh-products[data-glass-3d] .lh-products-stage { gap: 8px; }
