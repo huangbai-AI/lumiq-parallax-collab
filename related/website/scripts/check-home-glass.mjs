@@ -11,6 +11,26 @@ try {
   await page.locator(".lh-glass-products a").first().waitFor();
   await page.waitForTimeout(1200);
   assert.equal(await page.locator(".lh-products-viewport").isVisible(), false);
+  const active = () => page.locator("#products").getAttribute("data-active-product");
+  const moveTo = async locator => {
+    const rect = await locator.boundingBox();
+    await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  };
+  await moveTo(page.locator('.lh-glass-products [data-active="true"] a'));
+  await page.waitForTimeout(1300);
+  assert.equal(await active(), "0", "Hovering the center must not switch products");
+  await moveTo(page.locator('.lh-glass-products a[href="/en/products/ola"]'));
+  await page.waitForTimeout(250);
+  assert.equal(await active(), "0", "Side hover must not switch immediately");
+  await moveTo(page.locator('.lh-glass-products [data-active="true"] a'));
+  await page.waitForTimeout(850);
+  assert.equal(await active(), "0", "Leaving the side cancels the pending switch");
+  await moveTo(page.locator('.lh-glass-products a[href="/en/products/ola"]'));
+  await page.waitForTimeout(850);
+  assert.equal(await active(), "1", "Side dwell should switch after 700ms");
+  await page.waitForTimeout(2200);
+  assert.equal(await active(), "1", "A stationary pointer must not cascade through products");
+  await page.mouse.move(20, 150);
   const names = new Set();
   for (let i = 0; i < 5; i++) {
     const link = page.locator('.lh-glass-products [data-active="true"] a');

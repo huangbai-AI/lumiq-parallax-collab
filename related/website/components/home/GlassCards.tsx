@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO, useTexture } from "@react-three/drei";
 import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture } from "three";
@@ -20,6 +20,29 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   selected: number; select: (index: number) => void; sideView: boolean; content: boolean; products: GlassProduct[]; carousel?: boolean;
 }) {
   const { camera, size } = useThree();
+  const pending = useRef<{ index: number; timer: ReturnType<typeof setTimeout> } | null>(null);
+  const blockedUntil = useRef(0);
+  const cancelHover = useCallback(() => {
+    if (pending.current) clearTimeout(pending.current.timer);
+    pending.current = null;
+  }, []);
+  useEffect(() => {
+    cancelHover();
+    blockedUntil.current = performance.now() + 1000;
+    return cancelHover;
+  }, [selected, cancelHover]);
+  const hover = useCallback((index: number | null) => {
+    if (index === null || index === selected || performance.now() < blockedUntil.current) {
+      cancelHover(); return;
+    }
+    if (pending.current?.index === index) return;
+    cancelHover();
+    pending.current = { index, timer: setTimeout(() => {
+      pending.current = null;
+      blockedUntil.current = performance.now() + 1000;
+      select(index);
+    }, 700) };
+  }, [selected, select, cancelHover]);
   const opticalObjects = useRef<Group>(null);
   const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), [products]);
   const buffer = useFBO(768, 768);
@@ -69,20 +92,21 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     </Environment>
     <group ref={opticalObjects}>
     {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
-      active={selected === index} select={select} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} />)}
+      active={selected === index} select={select} hover={hover} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} />)}
     {/* Mirror geometry across the contact plane; keep the original backdrop continuous. */}
     <group position={[0, -4.56, 0]} scale={[1, -1, 1]}>
       {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
-        active={selected === index} select={select} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} reflected />)}
+        active={selected === index} select={select} hover={hover} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} reflected />)}
     </group>
     </group>
   </>;
 }
 
-function GlassCard({ geometry, index, product, offset, active, select, sideView, content, buffer, pointer, reflected = false }: {
-  geometry: ExtrudeGeometry; index: number; product: GlassProduct; offset: number; active: boolean; select: (index: number) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
+function GlassCard({ geometry, index, product, offset, active, select, hover, sideView, content, buffer, pointer, reflected = false }: {
+  geometry: ExtrudeGeometry; index: number; product: GlassProduct; offset: number; active: boolean; select: (index: number) => void; hover: (index: number | null) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
 }) {
   const group = useRef<Group>(null);
+  const initialX = useRef(offset * 3.55);
   useFrame((_, delta) => {
     if (!group.current) return;
     const angle = sideView ? .82 : offset > 0 ? -.28 : .28;
@@ -98,17 +122,17 @@ function GlassCard({ geometry, index, product, offset, active, select, sideView,
     group.current.position.y = -2.28 + Math.abs(m[1]) * 1.625 + Math.abs(m[5]) * 2.325 + Math.abs(m[9]) * .125;
   });
   // Keep the beveled bottom on the reflecting floor at either card scale.
-  return <group ref={group} visible={Math.abs(offset) <= 1}>
+  return <group ref={group} position={[initialX.current, 0, 0]} visible={Math.abs(offset) <= 1}>
     {!reflected && <GlassShadow />}
-    <mesh geometry={geometry} onPointerMove={reflected ? undefined : e => {
+    <mesh geometry={geometry} raycast={reflected || Math.abs(offset) > 1 ? () => {} : undefined} onPointerMove={reflected ? undefined : e => {
       e.stopPropagation();
       const local = group.current!.worldToLocal(e.point.clone());
       pointer.x = MathUtils.clamp(local.x / 1.625, -1, 1);
       pointer.y = MathUtils.clamp(local.y / 2.325, -1, 1);
       pointer.hovered = true;
-      select(index);
-    }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; }}
-      onPointerOver={reflected ? undefined : () => select(index)} onClick={reflected ? undefined : () => select(index)}>
+      hover(index);
+    }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; hover(null); }}
+      onPointerOver={reflected ? undefined : e => { e.stopPropagation(); hover(index); }} onClick={reflected ? undefined : e => { e.stopPropagation(); select(index); }}>
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
         transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={reflected ? .45 : 1}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
@@ -118,14 +142,15 @@ function GlassCard({ geometry, index, product, offset, active, select, sideView,
     <PearlFlow index={index} reflected={reflected} />
     {content && <CardArtwork product={product} active={active} reflected={reflected} />}
     {content && !reflected && Math.abs(offset) <= 1 && <Html transform position={[0, 0, .16]} distanceFactor={4}>
-      <div className="glass-sample-content" onMouseEnter={() => select(index)} onFocus={() => select(index)}
+      <div className="glass-sample-content" onMouseEnter={() => hover(index)} onFocus={() => select(index)}
         onPointerMove={e => {
           if (e.pointerType === "touch") return;
           const rect = e.currentTarget.getBoundingClientRect();
           pointer.x = MathUtils.clamp((e.clientX - rect.left) / rect.width * 2 - 1, -1, 1);
           pointer.y = MathUtils.clamp(1 - (e.clientY - rect.top) / rect.height * 2, -1, 1);
           pointer.hovered = true;
-        }} onPointerLeave={() => { pointer.hovered = false; }} data-active={active}>
+          hover(index);
+        }} onPointerLeave={() => { pointer.hovered = false; hover(null); }} data-active={active}>
         {product.href ? <a href={product.href} className="glass-product-hit"
           onClick={e => { if (!active) { e.preventDefault(); select(index); } }}
           aria-label={`${product.name}. ${product.body}. ${product.explore}`} /> :
