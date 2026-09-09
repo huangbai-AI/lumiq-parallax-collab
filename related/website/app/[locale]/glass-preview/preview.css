@@ -7,8 +7,7 @@
 .glass-preview-controls button[aria-pressed=true] { color: white; background: #233448; border-color: #233448; }
 .glass-preview button:focus-visible { outline: 2px solid #7384bb; outline-offset: 4px; }
 .glass-preview-scroll { overflow-x: auto; }
-.glass-preview-canvas { height: clamp(520px,70vh,820px); min-width: 850px; position: relative; }
+.glass-preview-canvas { height: clamp(600px,78vh,940px); min-width: 850px; position: relative; }
+.glass-preview-canvas::after { content: ""; position: absolute; inset: auto 0 0; height: 23%; background: linear-gradient(transparent, #f5f3f9); pointer-events: none; }
 .glass-sample-content { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 285px; height: 420px; padding: 16px; border: 0; background: transparent; color: #233448; cursor: pointer; }
-.glass-sample-content img { width: 245px; height: 290px; object-fit: contain; margin-bottom: 20px; }
-.glass-sample-content strong { font-size: 24px; font-weight: 600; letter-spacing: -.035em; }
-.glass-sample-content span { margin-top: 10px; font-size: 13px; color: #5c687c; }
+.glass-accessible-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
