@@ -20,17 +20,19 @@ try {
   await page.waitForTimeout(1300);
   assert.equal(await active(), "0", "Hovering the center must not switch products");
   await moveTo(page.locator('.lh-glass-products a[href="/en/products/ola"]'));
-  await page.waitForTimeout(250);
+  await page.waitForTimeout(150);
   assert.equal(await active(), "0", "Side hover must not switch immediately");
   await moveTo(page.locator('.lh-glass-products [data-active="true"] a'));
   await page.waitForTimeout(850);
   assert.equal(await active(), "0", "Leaving the side cancels the pending switch");
   await moveTo(page.locator('.lh-glass-products a[href="/en/products/ola"]'));
-  await page.waitForTimeout(850);
-  assert.equal(await active(), "1", "Side dwell should switch after 700ms");
+  await page.waitForTimeout(550);
+  assert.equal(await active(), "1", "Side dwell should switch after 420ms");
   await page.waitForTimeout(2200);
   assert.equal(await active(), "1", "A stationary pointer must not cascade through products");
   await page.mouse.move(20, 150);
+  assert.deepEqual(await page.locator("#products, #films, #experiences").evaluateAll(es => es.map(e => e.id)),
+    ["products", "films", "experiences"], "Films must follow products, with the room afterwards");
   const names = new Set();
   for (let i = 0; i < 5; i++) {
     const link = page.locator('.lh-glass-products [data-active="true"] a');

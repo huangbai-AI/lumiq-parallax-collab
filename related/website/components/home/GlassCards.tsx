@@ -41,7 +41,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
       pending.current = null;
       blockedUntil.current = performance.now() + 1000;
       select(index);
-    }, 700) };
+    }, 420) };
   }, [selected, select, cancelHover]);
   const opticalObjects = useRef<Group>(null);
   const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), [products]);

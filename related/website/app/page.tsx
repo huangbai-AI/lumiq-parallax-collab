@@ -319,6 +319,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      <section id="films" className="lh-films-section" aria-labelledby="films-title" data-home-section>
+        <HomeFilms />
+      </section>
       <section
         id="experiences"
         className="lh-experiences lh-room-section"
@@ -326,9 +329,6 @@ export default async function Home() {
         data-home-section
       >
         <HomeExperiences />
-      </section>
-      <section id="films" className="lh-films-section" aria-labelledby="films-title" data-home-section>
-        <HomeFilms />
       </section>
       <section
         id="safety"
