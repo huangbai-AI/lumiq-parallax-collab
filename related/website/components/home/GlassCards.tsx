@@ -45,16 +45,19 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     }, 420) };
   }, [selected, select, cancelHover]);
   const opticalObjects = useRef<Group>(null);
+  const refractionBackground = useRef<Group>(null);
   const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), [products]);
   const buffer = useFBO(768, 768);
   useFrame(({ gl, scene }) => {
     if (!opticalObjects.current) return;
     const previous = gl.getRenderTarget();
     opticalObjects.current.visible = false;
+    if (refractionBackground.current) refractionBackground.current.visible = true;
     gl.setRenderTarget(buffer);
     gl.render(scene, camera);
     gl.setRenderTarget(previous);
     opticalObjects.current.visible = true;
+    if (refractionBackground.current) refractionBackground.current.visible = !carousel;
   }, -1);
   const background = useTexture(carousel ? chapterImage("products") : "/assets/home-interactive/pearl-light.webp");
   const geometry = useMemo(() => {
@@ -81,7 +84,9 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   }, [camera, size, carousel]);
   return <>
     <ambientLight intensity={2} />
-    <ViewportBackground texture={background} fixed={carousel} />
+    <group ref={refractionBackground} visible={!carousel}>
+      <ViewportBackground texture={background} fixed={carousel} />
+    </group>
     <Environment resolution={256}>
       <color attach="background" args={["#b8b3c5"]} />
       <Lightformer form="rect" intensity={4} position={[-4, 3, 4]} scale={[1.2, 8, 1]} color="#fff4fc" />
@@ -106,7 +111,7 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
   const material = useRef<ShaderMaterial>(null);
   const { gl } = useThree();
   const uniforms = useMemo(() => ({ map: { value: texture }, nextMap: { value: nextTexture }, blend: { value: 0 }, viewport: { value: [1, 1] },
-    canvasOrigin: { value: [0, 0] }, canvasHeight: { value: 1 }, pixelRatio: { value: 1 }, imageSize: { value: [1, 1] } }), [texture, nextTexture]);
+    canvasOrigin: { value: [0, 0] }, canvasSize: { value: [1, 1] }, canvasHeight: { value: 1 }, pixelRatio: { value: 1 }, imageSize: { value: [1, 1] } }), [texture, nextTexture]);
   useFrame(() => {
     if (!material.current) return;
     const rect = gl.domElement.getBoundingClientRect();
@@ -115,16 +120,17 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
     u.viewport.value = fixed ? [innerWidth, innerHeight] : [rect.width, rect.height];
     u.blend.value = fixed ? chapterBlend(document.getElementById("films")?.getBoundingClientRect().top ?? innerHeight, innerHeight) : 0;
     u.canvasOrigin.value = fixed ? [rect.left, rect.top] : [0, 0]; u.canvasHeight.value = rect.height;
+    u.canvasSize.value = [rect.width, rect.height];
     u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = [image.width, image.height];
   }, -2);
   return <mesh frustumCulled={false} renderOrder={-10} raycast={() => {}}>
     <planeGeometry args={[2, 2]} />
     <shaderMaterial ref={material} uniforms={uniforms} depthWrite={false} depthTest={false}
-      vertexShader={`void main(){gl_Position=vec4(position.xy,.999,1.);}`}
+      vertexShader={`varying vec2 screenUv; void main(){screenUv=uv;gl_Position=vec4(position.xy,.999,1.);}`}
       fragmentShader={`uniform sampler2D map; uniform sampler2D nextMap; uniform float blend; uniform vec2 viewport; uniform vec2 canvasOrigin; uniform vec2 imageSize;
-        uniform float canvasHeight; uniform float pixelRatio;
+        varying vec2 screenUv; uniform vec2 canvasSize;
         void main(){
-          vec2 screen=vec2(gl_FragCoord.x/pixelRatio,canvasHeight-gl_FragCoord.y/pixelRatio)+canvasOrigin;
+          vec2 screen=vec2(screenUv.x,1.-screenUv.y)*canvasSize+canvasOrigin;
           float scale=max(viewport.x/imageSize.x,viewport.y/imageSize.y);
           vec2 uv=(screen-viewport*.5)/(imageSize*scale)+.5;
           gl_FragColor=mix(texture2D(map,vec2(uv.x,1.-uv.y)),texture2D(nextMap,vec2(uv.x,1.-uv.y)),blend);
@@ -300,8 +306,8 @@ export function GlassCanvas({ selected, select, products = demoProducts, sideVie
   selected: number; select: (index: number) => void; products?: GlassProduct[]; sideView?: boolean; content?: boolean; carousel?: boolean; running?: boolean;
 }) {
   return <Canvas frameloop={running ? "always" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.5]}
-    gl={{ antialias: true, alpha: false, toneMapping: NoToneMapping }} fallback={<p>此样板需要启用 WebGL 的浏览器。</p>}>
-    <color attach="background" args={["#f5f3f9"]} />
+    gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={<p>此样板需要启用 WebGL 的浏览器。</p>}>
+    {!carousel && <color attach="background" args={["#f5f3f9"]} />}
     <Suspense fallback={null}><GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense>
   </Canvas>;
 }
