@@ -631,3 +631,8 @@
 .locale-ja .plans-table {
   min-width: 720px;
 }
+
+/* Word reveals never move the surrounding text layout. */
+[data-word-pending] { opacity: 0; }
+.scroll-word { display: inline-block; }
+@media (prefers-reduced-motion: reduce) { [data-word-pending] { opacity: 1; } }

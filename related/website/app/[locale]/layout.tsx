@@ -3,6 +3,7 @@ import {getMessages, setRequestLocale} from "next-intl/server";
 import {notFound} from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import ScrollWords from "@/components/ScrollWords";
 import LocaleDocument from "@/components/LocaleDocument";
 import {routing} from "@/i18n/routing";
 
@@ -31,6 +32,7 @@ export default async function LocaleLayout({
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />
+        <ScrollWords />
       </div>
     </NextIntlClientProvider>
   );

@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {chromium} from 'playwright';
+const browser=await chromium.launch({channel:'chrome',headless:true});
+try {
+  const page=await browser.newPage({viewport:{width:1440,height:900}});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:4211/en');
+  await page.waitForFunction(()=>document.querySelector('.lh-home')?.dataset.homeState==='open');
+  const heading=page.locator('#films h2');
+  const text=await heading.textContent();
+  assert.equal(await heading.getAttribute('data-word-pending'),'');
+  await heading.scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>document.querySelector('#films h2 .scroll-word'));
+  const progress=await heading.locator('.scroll-word').evaluateAll(words=>words.map(w=>Number(getComputedStyle(w).opacity)));
+  assert.ok(progress.length>2);
+  assert.ok(progress[0]>=progress.at(-1));
+  await page.waitForFunction(()=>!document.querySelector('#films h2 .scroll-word'));
+  assert.equal(await heading.textContent(),text);
+  assert.equal(await heading.getAttribute('data-word-pending'),null);
+  await heading.scrollIntoViewIfNeeded();
+  assert.equal(await heading.locator('.scroll-word').count(),0);
+  await page.goto('http://127.0.0.1:4211/en/products/tablet');
+  await page.waitForTimeout(1600);
+  assert.ok((await page.locator('h1').textContent()).trim());
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.reload();
+  await page.waitForTimeout(500);
+  assert.equal(await page.locator('[data-word-pending],.scroll-word').count(),0);
+  assert.deepEqual(errors,[]);
+  console.log('Scroll words: stagger, text restoration, one-time reveal, detail route and reduced motion passed.');
+}finally{await browser.close();}
