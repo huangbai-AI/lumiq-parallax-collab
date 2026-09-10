@@ -633,6 +633,6 @@
 }
 
 /* Word reveals never move the surrounding text layout. */
-[data-word-pending] { opacity: 0; }
+[data-word-pending] { opacity: 0 !important; }
 .scroll-word { display: inline-block; }
-@media (prefers-reduced-motion: reduce) { [data-word-pending] { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { [data-word-pending] { opacity: 1 !important; } }

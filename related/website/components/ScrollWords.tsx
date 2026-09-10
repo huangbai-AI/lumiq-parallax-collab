@@ -18,7 +18,6 @@ export default function ScrollWords() {
     const reveal = (element: HTMLElement) => {
       waiting.delete(element);
       observer.unobserve(element);
-      element.removeAttribute("data-word-pending");
       const label = element.getAttribute("aria-label");
       element.setAttribute("aria-label", element.textContent || "");
       const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
@@ -41,11 +40,13 @@ export default function ScrollWords() {
         node.before(fragment); node.data = "";
         restore.push(() => { inserted.forEach(n => n.parentNode?.removeChild(n)); if (!node.data) node.data = text; });
       }
-      const step = Math.min(42, 850 / Math.max(1, words.length - 1));
+      const step = Math.min(65, 1100 / Math.max(1, words.length - 1));
       const animations = words.map((word, i) => word.animate([
-        { opacity: 0, transform: "translateY(5px)", filter: "blur(2px)" },
-        { opacity: 1, transform: "translateY(0)", filter: "blur(0)" },
-      ], { duration: 600, delay: i * step, easing: "cubic-bezier(.22,1,.36,1)", fill: "both" }));
+        { opacity: 0, transform: "translateY(.8em)" },
+        { opacity: 1, transform: "translateY(0)" },
+      ], { duration: 950, delay: i * step, easing: "cubic-bezier(.25,.65,.25,1)", fill: "both" }));
+      // Reveal the container only after every delayed word has its initial pose.
+      element.removeAttribute("data-word-pending");
       const cleanup = () => {
         animations.forEach(a => a.cancel()); restore.forEach(fn => fn());
         if (label === null) element.removeAttribute("aria-label"); else element.setAttribute("aria-label", label);

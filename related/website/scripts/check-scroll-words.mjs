@@ -11,9 +11,21 @@ try {
   assert.equal(await heading.getAttribute('data-word-pending'),'');
   await heading.scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('#films h2 .scroll-word'));
-  const progress=await heading.locator('.scroll-word').evaluateAll(words=>words.map(w=>Number(getComputedStyle(w).opacity)));
-  assert.ok(progress.length>2);
-  assert.ok(progress[0]>=progress.at(-1));
+  const motion=await heading.locator('.scroll-word').evaluateAll(words=>{
+    const animations=words.map(w=>w.getAnimations()[0]);
+    animations.forEach(a=>a.pause());
+    const first=animations[0];
+    const y=()=>new DOMMatrixReadOnly(getComputedStyle(words[0]).transform).m42;
+    first.currentTime=0;const start=y();
+    first.currentTime=475;const middle=y();
+    first.currentTime=950;const end=y();
+    const delay=animations.at(-1).effect.getTiming().delay;
+    animations.forEach(a=>a.play());
+    return {start,middle,end,delay,count:words.length};
+  });
+  assert.ok(motion.count>2 && motion.start>20);
+  assert.ok(motion.middle>0 && motion.middle<motion.start);
+  assert.ok(Math.abs(motion.end)<.01 && motion.delay>0);
   await page.waitForFunction(()=>!document.querySelector('#films h2 .scroll-word'));
   assert.equal(await heading.textContent(),text);
   assert.equal(await heading.getAttribute('data-word-pending'),null);
