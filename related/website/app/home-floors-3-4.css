@@ -199,10 +199,14 @@
 .lh-home .lh-products[data-glass-3d] { background: #f5f3f9; }
 .lh-products[data-glass-3d] .lh-products-stage { gap: 8px; }
 
-/* Character behind the product carousel, independent of card selection. */
-.lh-products-stage { position: relative; isolation: isolate; }
-.lh-product-character { position: absolute; z-index: 1; top: 160px; left: 0; width: 100%; height: clamp(620px,84svh,1100px); object-fit: contain; pointer-events: none; background: transparent; }
-.lh-glass-products, .lh-products-viewport { z-index: 2; position: relative; }
-.lh-products-heading { z-index: 3; position: relative; }
-@media(max-width:767px) { .lh-product-character { top: 130px; height: 460px; width: 160%; left: -30%; } }
+/* Keep the source video's right crop exactly on the viewport edge at entry. */
+.lh-products-stage { position: relative; isolation: isolate; overflow: clip; }
+.lh-product-character { position: absolute; z-index: 3; top: 120px; right: 0; width: auto; height: clamp(620px,84svh,1000px); aspect-ratio: 16/9; max-width: none; pointer-events: none; background: transparent; transform: translateX(calc(var(--girl-arrival, 0) * 26%)); }
+.lh-glass-products, .lh-products-viewport { z-index: 2; position: relative; transform: translateX(calc(var(--girl-arrival, 0) * -12%)); }
+.lh-home .lh-products .lh-glass-products { mask-image: linear-gradient(transparent, #000 6%, #000 87%, transparent), linear-gradient(to right, #000 0%, #000 calc(100% - var(--girl-arrival, 0) * 34%), transparent calc(101% - var(--girl-arrival, 0) * 16%)); mask-composite: intersect; }
+.lh-products-heading { z-index: 4; position: relative; }
+@media(max-width:767px) {
+  .lh-product-character { top: 180px; height: 320px; transform: translateX(calc(var(--girl-arrival, 0) * 36%)); }
+  .lh-products-viewport { mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - var(--girl-arrival, 0) * 34%), transparent calc(101% - var(--girl-arrival, 0) * 16%)); }
+}
 @media(prefers-reduced-motion:reduce) { .lh-product-character { display: none; } }

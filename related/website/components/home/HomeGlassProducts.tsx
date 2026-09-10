@@ -28,24 +28,35 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
   }, []);
   useEffect(() => {
     const clip = character.current;
-    const target = host.current?.closest(".lh-products");
+    const target = host.current?.closest<HTMLElement>(".lh-products");
     if (!clip || !target) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let visible = false;
+    let frame = 0;
+    const position = () => {
+      const progress = Math.max(0, Math.min(1, (clip.currentTime - 2.2) / 2.3));
+      target.style.setProperty("--girl-arrival", String(progress));
+      if (!clip.paused && !clip.ended) frame = requestAnimationFrame(position);
+    };
+    const onPlay = () => { cancelAnimationFrame(frame); position(); };
+    clip.addEventListener("play", onPlay);
+    clip.addEventListener("seeked", onPlay);
     const sync = () => {
       if (!visible || document.hidden || reduced.matches) clip.pause();
       else if (!clip.ended) void clip.play().catch(() => {});
     };
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
-      if (!visible) { clip.pause(); clip.currentTime = 0; }
+      if (!visible) { clip.pause(); clip.currentTime = 0; target.style.setProperty("--girl-arrival", "0"); }
       sync();
     }, { threshold: 0.35 });
     observer.observe(target);
     document.addEventListener("visibilitychange", sync);
     reduced.addEventListener("change", sync);
     return () => {
-      clip.pause(); observer.disconnect();
+      clip.pause(); observer.disconnect(); cancelAnimationFrame(frame);
+      clip.removeEventListener("play", onPlay); clip.removeEventListener("seeked", onPlay);
+      target.style.removeProperty("--girl-arrival");
       document.removeEventListener("visibilitychange", sync);
       reduced.removeEventListener("change", sync);
     };

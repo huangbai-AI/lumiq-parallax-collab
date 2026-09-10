@@ -12,6 +12,13 @@ try {
  assert.equal(await clip.evaluate(v=>v.muted),true);
  const alpha=await clip.evaluate(v=>{const c=document.createElement('canvas');c.width=100;c.height=56;const x=c.getContext('2d');x.drawImage(v,0,0,100,56);return x.getImageData(0,0,1,1).data[3];});
  assert.equal(alpha,0,'video background must decode transparent');
+ await clip.evaluate(v=>{v.pause();v.currentTime=0;});
+ await page.waitForFunction(()=>Number(document.querySelector('.lh-products').style.getPropertyValue('--girl-arrival'))===0);
+ assert.ok(Math.abs(await clip.evaluate(v=>v.getBoundingClientRect().right-innerWidth))<1,'entry crop must meet viewport edge');
+ await clip.evaluate(v=>{v.currentTime=7;});
+ await page.waitForFunction(()=>document.querySelector('.lh-products').style.getPropertyValue('--girl-arrival')==='1');
+ assert.ok(await page.locator('.lh-glass-products').evaluate(v=>v.getBoundingClientRect().left<0),'cards move left to make room');
+ assert.ok(await page.locator('.lh-glass-products').evaluate(v=>getComputedStyle(v).maskImage.includes('to right')),'right cards fade toward girl');
  await page.screenshot({path:'/tmp/lumiq-product-character.png'});
  await page.evaluate(()=>window.scrollTo(0,0));
  await page.waitForFunction(()=>document.querySelector('.lh-product-character').paused);
@@ -23,5 +30,5 @@ try {
  assert.equal(await clip.evaluate(v=>getComputedStyle(v).display),'none');
  await page.setViewportSize({width:390,height:844});
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
- console.log('PASS: viewport playback, leave reset, re-entry replay, decoded alpha, no pointer interception, reduced motion, mobile width');
+ console.log('PASS: edge entry, left shift, right fade, viewport playback, leave reset, re-entry replay, decoded alpha, no pointer interception, reduced motion, mobile width');
 } finally {await browser.close();}
