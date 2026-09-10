@@ -234,7 +234,7 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
   const [fontReady, setFontReady] = useState(false);
   useEffect(() => {
     let alive = true;
-    document.fonts.load('700 74px "Lumiq Space"').then(() => { if (alive) setFontReady(true); }).catch(() => {});
+    document.fonts.load('700 74px "Lumiq Manrope"').then(() => { if (alive) setFontReady(true); }).catch(() => {});
     return () => { alive = false; };
   }, []);
   const image = texture.image as HTMLImageElement;
@@ -245,7 +245,7 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
     canvas.width = 1024; canvas.height = product.body ? 512 : 256;
     const ctx = canvas.getContext("2d")!;
     ctx.textAlign = "center"; ctx.fillStyle = active ? "#10243b" : "#233448";
-    ctx.font = `700 74px ${fontReady ? '"Lumiq Space"' : 'Arial'}, sans-serif`;
+    ctx.font = `700 74px ${fontReady ? '"Lumiq Manrope"' : 'Arial'}, sans-serif`;
     ctx.fillText(product.name, 512, 100);
     ctx.fillStyle = active ? "#35465c" : "#687286"; ctx.font = `${active ? 500 : 400} 38px Arial, sans-serif`;
     if (product.body) {

@@ -198,3 +198,11 @@
 .lh-products[data-glass-3d] .lh-glass-products::after { content: ""; position: absolute; inset: auto 0 0; height: 20%; pointer-events: none; background: linear-gradient(transparent, #f5f3f9); }
 .lh-home .lh-products[data-glass-3d] { background: #f5f3f9; }
 .lh-products[data-glass-3d] .lh-products-stage { gap: 8px; }
+
+/* Character behind the product carousel, independent of card selection. */
+.lh-products-stage { position: relative; isolation: isolate; }
+.lh-product-character { position: absolute; z-index: 1; top: 160px; left: 0; width: 100%; height: clamp(620px,84svh,1100px); object-fit: contain; pointer-events: none; background: transparent; }
+.lh-glass-products, .lh-products-viewport { z-index: 2; position: relative; }
+.lh-products-heading { z-index: 3; position: relative; }
+@media(max-width:767px) { .lh-product-character { top: 130px; height: 460px; width: 160%; left: -30%; } }
+@media(prefers-reduced-motion:reduce) { .lh-product-character { display: none; } }

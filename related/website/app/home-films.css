@@ -22,8 +22,3 @@
 @media(max-width:767px) { .lh-films-heading { width: calc(100% - 40px); align-items: flex-start; flex-direction: column; } .lh-films-stage { width: 86vw; } .lh-films-heading { margin-bottom: 48px; } .lh-film-preview-left { right: calc(100% + 22px); } .lh-film-preview-right { left: calc(100% + 22px); } .lh-home .lh-films-section { padding: 64px 0; } .lh-film-card { border-radius: 18px; } .lh-film-toggle { width: 54px; height: 54px; } }
 @media(prefers-reduced-motion:reduce) { .lh-film-card { animation: none; } }
 @media(hover:none) { .lh-film-card[data-playing=true] .lh-film-toggle { opacity: 1; } }
-
-/* The character sits behind the cards, with her head and raised hand above them. */
-.lh-film-character { position: absolute; z-index: 1; width: 120%; height: 120%; left: -10%; top: -34%; object-fit: contain; pointer-events: none; background: transparent; }
-.lh-film-preview { z-index: 2; }
-@media (prefers-reduced-motion: reduce) { .lh-film-character { display: none; } }

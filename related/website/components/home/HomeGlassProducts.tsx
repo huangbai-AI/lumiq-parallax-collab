@@ -6,6 +6,7 @@ import type { GlassProduct } from "./GlassCards";
 const GlassCanvas = dynamic(() => import("./GlassCards").then(m => m.GlassCanvas), { ssr: false });
 
 export default function HomeGlassProducts({ products }: { products: GlassProduct[] }) {
+  const character = useRef<HTMLVideoElement>(null);
   const host = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
   const [running, setRunning] = useState(false);
@@ -25,11 +26,39 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
     visibility.observe(section); desktop.addEventListener("change", resize); resize(); sync();
     return () => { observer.disconnect(); visibility.disconnect(); desktop.removeEventListener("change", resize); section.removeAttribute("data-glass-3d"); };
   }, []);
+  useEffect(() => {
+    const clip = character.current;
+    const target = host.current?.closest(".lh-products");
+    if (!clip || !target) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
+    const sync = () => {
+      if (!visible || document.hidden || reduced.matches) clip.pause();
+      else if (!clip.ended) void clip.play().catch(() => {});
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+      if (!visible) { clip.pause(); clip.currentTime = 0; }
+      sync();
+    }, { threshold: 0.35 });
+    observer.observe(target);
+    document.addEventListener("visibilitychange", sync);
+    reduced.addEventListener("change", sync);
+    return () => {
+      clip.pause(); observer.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+      reduced.removeEventListener("change", sync);
+    };
+  }, []);
   const select = (index: number) => host.current?.dispatchEvent(new CustomEvent("lumiq:product-select", { bubbles: true, detail: index }));
-  return <div ref={host} className="lh-glass-products" onKeyDown={e => {
+  return <>
+    <video ref={character} className="lh-product-character" muted playsInline preload="none" aria-hidden="true" poster="/assets/character-20260910/ola-girl-poster.png">
+      <source src="/assets/character-20260910/ola-girl-alpha.webm" type="video/webm" />
+    </video>
+    <div ref={host} className="lh-glass-products" onKeyDown={e => {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault(); select((selected + (e.key === "ArrowRight" ? 1 : products.length - 1)) % products.length);
   }}>
     {enabled && <GlassCanvas selected={selected} select={select} products={products} carousel running={running} />}
-  </div>;
+  </div></>;
 }
