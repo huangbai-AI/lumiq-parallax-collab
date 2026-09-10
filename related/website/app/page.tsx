@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
+import HomeBackgrounds from "@/components/home/HomeBackgrounds";
 import HomeMotion from "@/components/home/HomeMotion";
 import HomeGlassProducts from "@/components/home/HomeGlassProducts";
 import HomeFilms from "@/components/home/HomeFilms";
@@ -56,6 +57,7 @@ export default async function Home() {
   const locale = await getLocale();
   return (
     <HomeMotion>
+      <HomeBackgrounds />
       <div className="lh-opening">
         <div className="lh-opening-stage">
           <div className="lh-video-layer" aria-hidden="true">

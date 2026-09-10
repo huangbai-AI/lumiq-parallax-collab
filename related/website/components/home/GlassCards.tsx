@@ -1,4 +1,5 @@
 "use client";
+import { chapterBlend, chapterImage } from "./HomeBackgrounds";
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -55,7 +56,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     gl.setRenderTarget(previous);
     opticalObjects.current.visible = true;
   }, -1);
-  const background = useTexture("/assets/home-interactive/pearl-light.webp");
+  const background = useTexture(carousel ? chapterImage("products") : "/assets/home-interactive/pearl-light.webp");
   const geometry = useMemo(() => {
     const w = 3.1, h = 4.5, r = .22;
     const s = new Shape();
@@ -80,7 +81,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   }, [camera, size, carousel]);
   return <>
     <ambientLight intensity={2} />
-    <ViewportBackground texture={background} />
+    <ViewportBackground texture={background} fixed={carousel} />
     <Environment resolution={256}>
       <color attach="background" args={["#b8b3c5"]} />
       <Lightformer form="rect" intensity={4} position={[-4, 3, 4]} scale={[1.2, 8, 1]} color="#fff4fc" />
@@ -99,32 +100,34 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   </>;
 }
 
-// Background belongs to the product section and scrolls with it, including its refraction buffer.
-function ViewportBackground({ texture }: { texture: Texture }) {
+// Refraction uses the same fixed viewport coordinates and crossfade as the page background.
+function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boolean }) {
+  const nextTexture = useTexture(chapterImage("films"));
   const material = useRef<ShaderMaterial>(null);
   const { gl } = useThree();
-  const uniforms = useMemo(() => ({ map: { value: texture }, viewport: { value: [1, 1] },
-    canvasOrigin: { value: [0, 0] }, canvasHeight: { value: 1 }, pixelRatio: { value: 1 }, imageSize: { value: [1, 1] } }), [texture]);
+  const uniforms = useMemo(() => ({ map: { value: texture }, nextMap: { value: nextTexture }, blend: { value: 0 }, viewport: { value: [1, 1] },
+    canvasOrigin: { value: [0, 0] }, canvasHeight: { value: 1 }, pixelRatio: { value: 1 }, imageSize: { value: [1, 1] } }), [texture, nextTexture]);
   useFrame(() => {
     if (!material.current) return;
     const rect = gl.domElement.getBoundingClientRect();
     const u = material.current.uniforms;
     const image = texture.image as HTMLImageElement;
-    u.viewport.value = [rect.width, rect.height];
-    u.canvasOrigin.value = [0, 0]; u.canvasHeight.value = rect.height;
+    u.viewport.value = fixed ? [innerWidth, innerHeight] : [rect.width, rect.height];
+    u.blend.value = fixed ? chapterBlend(document.getElementById("films")?.getBoundingClientRect().top ?? innerHeight, innerHeight) : 0;
+    u.canvasOrigin.value = fixed ? [rect.left, rect.top] : [0, 0]; u.canvasHeight.value = rect.height;
     u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = [image.width, image.height];
   }, -2);
   return <mesh frustumCulled={false} renderOrder={-10} raycast={() => {}}>
     <planeGeometry args={[2, 2]} />
     <shaderMaterial ref={material} uniforms={uniforms} depthWrite={false} depthTest={false}
       vertexShader={`void main(){gl_Position=vec4(position.xy,.999,1.);}`}
-      fragmentShader={`uniform sampler2D map; uniform vec2 viewport; uniform vec2 canvasOrigin; uniform vec2 imageSize;
+      fragmentShader={`uniform sampler2D map; uniform sampler2D nextMap; uniform float blend; uniform vec2 viewport; uniform vec2 canvasOrigin; uniform vec2 imageSize;
         uniform float canvasHeight; uniform float pixelRatio;
         void main(){
           vec2 screen=vec2(gl_FragCoord.x/pixelRatio,canvasHeight-gl_FragCoord.y/pixelRatio)+canvasOrigin;
           float scale=max(viewport.x/imageSize.x,viewport.y/imageSize.y);
           vec2 uv=(screen-viewport*.5)/(imageSize*scale)+.5;
-          gl_FragColor=texture2D(map,vec2(uv.x,1.-uv.y));
+          gl_FragColor=mix(texture2D(map,vec2(uv.x,1.-uv.y)),texture2D(nextMap,vec2(uv.x,1.-uv.y)),blend);
           #include <colorspace_fragment>
         }`} />
   </mesh>;

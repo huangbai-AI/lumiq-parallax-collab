@@ -1,4 +1,4 @@
-/* Each chapter has its own flowing pearl composition, feathered into a shared base. */
+/* Independent full-screen images stay fixed; only their opacity changes between chapters. */
 .lumiq-root:has(.lh-home) { isolation: isolate; background: transparent; }
 .lumiq-root .lh-home,
 .lumiq-root .lh-home :is(.lh-opening, .lh-hero, .lh-ola, .lh-products, .lh-experiences, .lh-films-section, .lh-safety, .lh-family, .lh-join),
@@ -12,16 +12,6 @@
 .lumiq-root:has(.lh-home) > .footer { border-top-color: #ffffff70; }
 @media(max-width:767px) { .lh-home .lh-room-background { mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent); } }
 
-.lh-home :is(.lh-products, .lh-films-section, .lh-experiences, .lh-safety, .lh-family, .lh-join) { position: relative; isolation: isolate; }
-.lh-home :is(.lh-products, .lh-films-section, .lh-experiences, .lh-safety, .lh-family, .lh-join)::before {
-  content: ""; display: block; position: absolute; inset: 0; height: auto; z-index: -1; pointer-events: none;
-  background: url('/assets/home-interactive/pearl-light.webp') var(--pearl-position, center) / var(--pearl-size, cover) no-repeat;
-  transform: scaleX(var(--pearl-flip, 1));
-  mask-image: linear-gradient(transparent, #000 16%, #000 82%, transparent);
-}
-.lh-home .lh-films-section { --pearl-position: 65% 38%; --pearl-size: 140% auto; --pearl-flip: -1; }
-.lh-home .lh-experiences { --pearl-position: 25% 65%; --pearl-size: 120% auto; }
-.lh-home .lh-safety { --pearl-position: 70% 50%; --pearl-size: auto 150%; --pearl-flip: -1; }
-.lh-home .lh-family { --pearl-position: 20% 75%; --pearl-size: auto 125%; }
-.lh-home .lh-join { --pearl-position: 70% 80%; --pearl-size: 135% auto; --pearl-flip: -1; }
-@media(max-width:767px) { .lh-home :is(.lh-films-section, .lh-experiences, .lh-safety, .lh-family, .lh-join) { --pearl-size: auto 130%; } }
+.lh-fixed-backgrounds { position: fixed; inset: 0; pointer-events: none; background: #f8f7fc; }
+.lh-fixed-backgrounds > div { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
+.lh-home :is(.lh-products, .lh-films-section, .lh-experiences, .lh-safety, .lh-family, .lh-join)::before { display: none; }

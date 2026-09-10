@@ -22,16 +22,31 @@ try {
   await p.locator('.lh-film-preview-right').click();
   assert.match(await p.locator('.lh-films source').getAttribute('src'),/worlds-together/);
   assert.equal(await old.evaluate(e=>e.paused),true);
-  const bg=await p.locator('.bg-layer').evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {image:s.backgroundImage,width:r.width,height:r.height,position:s.position};});
-  assert.match(bg.image,/gradient/);assert.equal(bg.width,1600);assert.ok(bg.height>1100);assert.equal(bg.position,'absolute');
-  const chapter = await p.locator('#films').evaluate(e=>{const s=getComputedStyle(e,'::before');return {image:s.backgroundImage,position:s.position,transform:s.transform};});
-  assert.match(chapter.image,/pearl-light/);assert.equal(chapter.position,'absolute');
-  assert.notEqual(chapter.transform,await p.locator('#family').evaluate(e=>getComputedStyle(e,'::before').transform));
+  const bg=p.locator('.lh-fixed-backgrounds');
+  assert.equal(await bg.evaluate(e=>getComputedStyle(e).position),'fixed');
+  const layers=p.locator('[data-chapter-background]');
+  assert.equal(await layers.count(),6);
+  const images=await layers.evaluateAll(es=>es.map(e=>e.style.backgroundImage));
+  assert.equal(new Set(images).size,6);
+  for (const id of ['products','films','experiences','safety','family','join']) {
+    await p.locator('#'+id).scrollIntoViewIfNeeded();await p.waitForTimeout(700);
+    const rect=await bg.boundingBox();
+    assert.deepEqual(rect,{x:0,y:0,width:1600,height:1100});
+    await p.waitForFunction(id=>Number(document.querySelector('[data-chapter-background="'+id+'"]').style.opacity) > .99,id);
+  }
+  // During a boundary crossing, both full-viewport images coexist without moving edges.
+  await p.locator('#films').evaluate(e=>window.scrollTo({top:scrollY+e.getBoundingClientRect().top-innerHeight*.5,behavior:'instant'}));
+  await p.waitForTimeout(200);
+  const blend=Number(await p.locator('[data-chapter-background="films"]').evaluate(e=>e.style.opacity));
+  assert.ok(blend>0 && blend<1);
+  assert.deepEqual(await bg.boundingBox(),{x:0,y:0,width:1600,height:1100});
+  await p.screenshot({path:'/tmp/chapter-boundary.png'});
+  await p.locator('#films').scrollIntoViewIfNeeded();await p.waitForTimeout(700);
   await p.mouse.move(20,100);await p.screenshot({path:'/tmp/films-final-pearl.png'});
   await p.locator('#experiences').scrollIntoViewIfNeeded();await p.waitForTimeout(700);await p.screenshot({path:'/tmp/room-final-pearl.png'});
   await p.setViewportSize({width:390,height:844});await p.locator('#films').scrollIntoViewIfNeeded();await p.waitForTimeout(700);
   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await p.screenshot({path:'/tmp/films-mobile-pearl.png'});
   assert.deepEqual(errors,[]);
-  console.log('Films: side previews, controls without timeline, playback/pause/switch, scrolling chapter backgrounds and mobile width passed.');
+  console.log('Films: side previews, controls without timeline, playback/pause/switch, independent fixed chapter backgrounds and seamless crossfade and mobile width passed.');
 }finally{await b.close();}
