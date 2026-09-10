@@ -31,6 +31,10 @@ export default function ScrollWords() {
         const fragment = document.createDocumentFragment();
         const inserted: Node[] = [];
         for (const part of segmenter.segment(text)) {
+          if (!part.isWordLike && part.segment.trim() && inserted.length && inserted.at(-1)?.textContent?.trim()) {
+            inserted.at(-1)!.textContent += part.segment;
+            continue;
+          }
           const span = document.createElement("span");
           span.textContent = part.segment;
           span.setAttribute("aria-hidden", "true");

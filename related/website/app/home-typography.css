@@ -46,3 +46,18 @@
   .lh-ola-copy .lh-lead { padding-right: 88px; }
   .lh-brand-character { width: 105px; height: 240px; right: -8px; }
 }
+
+/* Hardware-editorial title: geometric capitals and a compact, deliberate three-line block. */
+.lumiq-root .lh-home .lh-hero h1:lang(en) {
+  font-family: "Lumiq Space", "Lumiq Manrope", sans-serif;
+  font-size: clamp(38px, 4vw, 68px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -.055em;
+  line-height: 1.02;
+  text-wrap: initial;
+}
+.lumiq-root .lh-home .lh-hero h1 .lh-hero-accent { color: #627185; }
+@media(max-width:767px) {
+  .lumiq-root .lh-home .lh-hero h1:lang(en) { font-size: clamp(32px, 8.7vw, 48px); line-height: 1.06; letter-spacing: -.045em; }
+}

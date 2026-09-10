@@ -111,7 +111,7 @@ export default async function Home() {
                   <br />
                   {t("hero2")}
                   <br />
-                  <span>{t("hero3")}</span>
+                  <span className="lh-hero-accent">{t("hero3")}</span>
                 </h1>
                 <p className="lh-lead">{t("heroBody")}</p>
                 <div className="lh-actions">

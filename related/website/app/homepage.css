@@ -197,7 +197,7 @@ html:has(.lh-home) {
   font-weight: 650;
   letter-spacing: -0.055em;
 }
-.lh-hero h1 span {
+.lh-hero h1 .lh-hero-accent {
   color: #738092;
 }
 .lh-hero .lh-lead {
