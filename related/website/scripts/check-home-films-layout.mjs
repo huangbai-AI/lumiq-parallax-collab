@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import {chromium} from 'playwright';
+const b=await chromium.launch({channel:'chrome',headless:true});
+try {
+  const p=await b.newPage({viewport:{width:1600,height:1100}});
+  const errors=[];p.on('pageerror',e=>errors.push(e.message));
+  await p.goto('http://127.0.0.1:4211/en');
+  await p.locator('.lh-glass-products canvas').waitFor();
+  await p.locator('#films').scrollIntoViewIfNeeded(); await p.waitForTimeout(2200);
+  assert.equal(await p.locator('.lh-film-copy').count(),0);
+  assert.equal(await p.locator('.lh-film-preview').count(),2);
+  for (const side of await p.locator('.lh-film-preview').all()) assert.equal(await side.evaluate(e=>getComputedStyle(e).opacity),'0.45');
+  const video=p.locator('.lh-films video');
+  assert.equal(await video.evaluate(e=>e.controls),false);
+  await video.evaluate(e=>{e.muted=true;});
+  await p.getByRole('button',{name:'Play film',exact:true}).click();
+  await p.waitForFunction(()=>!document.querySelector('.lh-films video').paused);
+  await p.getByRole('button',{name:'Pause film',exact:true}).focus();
+  await p.keyboard.press('Enter');
+  assert.equal(await video.evaluate(e=>e.paused),true);
+  const old=await video.elementHandle();
+  await p.locator('.lh-film-preview-right').click();
+  assert.match(await p.locator('.lh-films source').getAttribute('src'),/worlds-together/);
+  assert.equal(await old.evaluate(e=>e.paused),true);
+  const bg=await p.locator('.bg-layer').evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {image:s.backgroundImage,width:r.width,height:r.height,position:s.position};});
+  assert.match(bg.image,/pearl-light/);assert.equal(bg.width,1600);assert.equal(bg.height,1100);assert.equal(bg.position,'fixed');
+  await p.mouse.move(20,100);await p.screenshot({path:'/tmp/films-final-pearl.png'});
+  await p.locator('#experiences').scrollIntoViewIfNeeded();await p.waitForTimeout(700);await p.screenshot({path:'/tmp/room-final-pearl.png'});
+  await p.setViewportSize({width:390,height:844});await p.locator('#films').scrollIntoViewIfNeeded();await p.waitForTimeout(700);
+  assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await p.screenshot({path:'/tmp/films-mobile-pearl.png'});
+  assert.deepEqual(errors,[]);
+  console.log('Films: side previews, controls without timeline, playback/pause/switch, fixed full-width background and mobile width passed.');
+}finally{await b.close();}

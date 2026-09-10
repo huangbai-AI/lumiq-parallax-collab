@@ -33,12 +33,13 @@ try {
   await page.mouse.move(20, 150);
   assert.deepEqual(await page.locator("#products, #films, #experiences").evaluateAll(es => es.map(e => e.id)),
     ["products", "films", "experiences"], "Films must follow products, with the room afterwards");
+  assert.deepEqual(await page.locator(".lh-glass-products .glass-sample-content").evaluateAll(es => es.map(e => Number(e.dataset.scale)).sort()), [.4, .4, .7, .7, 1.2]);
   const names = new Set();
   for (let i = 0; i < 5; i++) {
     const link = page.locator('.lh-glass-products [data-active="true"] a');
     names.add(await link.getAttribute("href"));
     assert.match(await link.getAttribute("href"), /^\/en\/products\//);
-    assert.equal(await page.locator(".lh-glass-products a").count(), 3);
+    assert.equal(await page.locator(".lh-glass-products a").count(), 5);
     await page.locator("[data-products-next]").click();
     await page.waitForTimeout(750);
   }

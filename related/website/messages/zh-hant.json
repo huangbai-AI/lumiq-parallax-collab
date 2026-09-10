@@ -1068,6 +1068,8 @@
     "parent5Body": "使用點數或金錢取得 Lumiq 加購內容與合作優惠券，每次結帳都需要家長 PIN 碼。"
   },
   "HomeFilms": {
+    "play": "播放影片",
+    "pause": "暫停影片",
     "eyebrow": "LUMIQ 生活故事",
     "heading": "讓每一天，更親近。",
     "carousel": "影片輪播",

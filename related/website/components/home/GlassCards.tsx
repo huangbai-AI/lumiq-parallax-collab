@@ -74,16 +74,13 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   }, []);
   useEffect(() => () => geometry.dispose(), [geometry]);
   useEffect(() => {
-    (camera as PerspectiveCamera).fov = MathUtils.radToDeg(2 * Math.atan(Math.max(7.2, 11.5 * size.height / size.width) / (2 * Math.hypot(36, 2.2))));
-    camera.lookAt(0, -.9, 0);
+    (camera as PerspectiveCamera).fov = MathUtils.radToDeg(2 * Math.atan(Math.max(carousel ? 8.8 : 7.2, (carousel ? 12.8 : 11.5) * size.height / size.width) / (2 * Math.hypot(36, 2.2))));
+    camera.lookAt(0, carousel ? -.45 : -.9, 0);
     camera.updateProjectionMatrix();
-  }, [camera, size]);
+  }, [camera, size, carousel]);
   return <>
     <ambientLight intensity={2} />
-    <mesh position={[0, 0, -2]}>
-      <planeGeometry args={[17, 9.56]} />
-      <meshBasicMaterial map={background} toneMapped={false} />
-    </mesh>
+    <ViewportBackground texture={background} />
     <Environment resolution={256}>
       <color attach="background" args={["#b8b3c5"]} />
       <Lightformer form="rect" intensity={4} position={[-4, 3, 4]} scale={[1.2, 8, 1]} color="#fff4fc" />
@@ -91,22 +88,56 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
       <Lightformer form="rect" intensity={2} position={[0, 6, 2]} rotation={[Math.PI / 2, 0, 0]} scale={[12, 2, 1]} />
     </Environment>
     <group ref={opticalObjects}>
-    {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
+    {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} five={carousel} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
       active={selected === index} select={select} hover={hover} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} />)}
     {/* Mirror geometry across the contact plane; keep the original backdrop continuous. */}
     <group position={[0, -4.56, 0]} scale={[1, -1, 1]}>
-      {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
+      {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} five={carousel} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
         active={selected === index} select={select} hover={hover} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} reflected />)}
     </group>
     </group>
   </>;
 }
 
-function GlassCard({ geometry, index, product, offset, active, select, hover, sideView, content, buffer, pointer, reflected = false }: {
-  geometry: ExtrudeGeometry; index: number; product: GlassProduct; offset: number; active: boolean; select: (index: number) => void; hover: (index: number | null) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
+// Match the page-wide fixed background in screen coordinates, including the refraction buffer.
+function ViewportBackground({ texture }: { texture: Texture }) {
+  const material = useRef<ShaderMaterial>(null);
+  const { gl } = useThree();
+  const uniforms = useMemo(() => ({ map: { value: texture }, viewport: { value: [1, 1] },
+    canvasOrigin: { value: [0, 0] }, canvasHeight: { value: 1 }, pixelRatio: { value: 1 }, imageSize: { value: [1, 1] } }), [texture]);
+  useFrame(() => {
+    if (!material.current) return;
+    const rect = gl.domElement.getBoundingClientRect();
+    const u = material.current.uniforms;
+    const image = texture.image as HTMLImageElement;
+    u.viewport.value = [window.innerWidth, window.innerHeight];
+    u.canvasOrigin.value = [rect.left, rect.top]; u.canvasHeight.value = rect.height;
+    u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = [image.width, image.height];
+  }, -2);
+  return <mesh frustumCulled={false} renderOrder={-10} raycast={() => {}}>
+    <planeGeometry args={[2, 2]} />
+    <shaderMaterial ref={material} uniforms={uniforms} depthWrite={false} depthTest={false}
+      vertexShader={`void main(){gl_Position=vec4(position.xy,.999,1.);}`}
+      fragmentShader={`uniform sampler2D map; uniform vec2 viewport; uniform vec2 canvasOrigin; uniform vec2 imageSize;
+        uniform float canvasHeight; uniform float pixelRatio;
+        void main(){
+          vec2 screen=vec2(gl_FragCoord.x/pixelRatio,canvasHeight-gl_FragCoord.y/pixelRatio)+canvasOrigin;
+          float scale=max(viewport.x/imageSize.x,viewport.y/imageSize.y);
+          vec2 uv=(screen-viewport*.5)/(imageSize*scale)+.5;
+          gl_FragColor=texture2D(map,vec2(uv.x,1.-uv.y));
+          #include <colorspace_fragment>
+        }`} />
+  </mesh>;
+}
+
+function GlassCard({ geometry, index, product, offset, five, active, select, hover, sideView, content, buffer, pointer, reflected = false }: {
+  geometry: ExtrudeGeometry; index: number; product: GlassProduct; offset: number; five: boolean; active: boolean; select: (index: number) => void; hover: (index: number | null) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
 }) {
   const group = useRef<Group>(null);
-  const initialX = useRef(offset * 3.55);
+  const targetX = five ? Math.sign(offset) * ([0, 3.25, 5.25][Math.abs(offset)] ?? 5.25) : offset * 3.55;
+  const targetScale = five ? [1.2, .7, .4][Math.abs(offset)] : active ? 1 : .9;
+  const opacity = five && !active ? .7 : 1;
+  const initialX = useRef(targetX);
   useFrame((_, delta) => {
     if (!group.current) return;
     const angle = sideView ? .82 : offset > 0 ? -.28 : .28;
@@ -115,16 +146,16 @@ function GlassCard({ geometry, index, product, offset, active, select, hover, si
     group.current.rotation.y = MathUtils.damp(group.current.rotation.y, angle + (hovering ? pointer.x * .07 : 0), 7, delta);
     group.current.rotation.x = MathUtils.damp(group.current.rotation.x, hovering ? -pointer.y * .045 : 0, 7, delta);
     const ease = reduced ? 1 : 1 - Math.exp(-7 * delta);
-    group.current.position.x = MathUtils.lerp(group.current.position.x, offset * 3.55, ease);
-    group.current.scale.setScalar(MathUtils.lerp(group.current.scale.x, active ? 1 : .9, ease));
+    group.current.position.x = MathUtils.lerp(group.current.position.x, targetX, ease);
+    group.current.scale.setScalar(MathUtils.lerp(group.current.scale.x, targetScale, ease));
     group.current.updateMatrix();
     const m = group.current.matrix.elements;
     group.current.position.y = -2.28 + Math.abs(m[1]) * 1.625 + Math.abs(m[5]) * 2.325 + Math.abs(m[9]) * .125;
   });
   // Keep the beveled bottom on the reflecting floor at either card scale.
-  return <group ref={group} position={[initialX.current, 0, 0]} visible={Math.abs(offset) <= 1}>
+  return <group ref={group} position={[initialX.current, 0, 0]} visible={Math.abs(offset) <= (five ? 2 : 1)}>
     {!reflected && <GlassShadow />}
-    <mesh geometry={geometry} raycast={reflected || Math.abs(offset) > 1 ? () => {} : undefined} onPointerMove={reflected ? undefined : e => {
+    <mesh geometry={geometry} raycast={reflected || Math.abs(offset) > (five ? 2 : 1) ? () => {} : undefined} onPointerMove={reflected ? undefined : e => {
       e.stopPropagation();
       const local = group.current!.worldToLocal(e.point.clone());
       pointer.x = MathUtils.clamp(local.x / 1.625, -1, 1);
@@ -134,14 +165,14 @@ function GlassCard({ geometry, index, product, offset, active, select, hover, si
     }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; hover(null); }}
       onPointerOver={reflected ? undefined : e => { e.stopPropagation(); hover(index); }} onClick={reflected ? undefined : e => { e.stopPropagation(); select(index); }}>
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
-        transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={reflected ? .45 : 1}
+        transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={(reflected ? .45 : 1) * opacity}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
         samples={16} resolution={512} backsideResolution={256} color="#ffffff" />
     </mesh>
-    <PearlFlow index={index} reflected={reflected} />
-    {content && <CardArtwork product={product} active={active} reflected={reflected} />}
-    {content && !reflected && Math.abs(offset) <= 1 && <Html transform position={[0, 0, .16]} distanceFactor={4}>
+    <PearlFlow index={index} reflected={reflected} opacity={opacity} />
+    {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} />}
+    {content && !reflected && Math.abs(offset) <= (five ? 2 : 1) && <Html transform position={[0, 0, .16]} distanceFactor={4}>
       <div className="glass-sample-content" onMouseEnter={() => hover(index)} onFocus={() => select(index)}
         onPointerMove={e => {
           if (e.pointerType === "touch") return;
@@ -150,7 +181,7 @@ function GlassCard({ geometry, index, product, offset, active, select, hover, si
           pointer.y = MathUtils.clamp(1 - (e.clientY - rect.top) / rect.height * 2, -1, 1);
           pointer.hovered = true;
           hover(index);
-        }} onPointerLeave={() => { pointer.hovered = false; hover(null); }} data-active={active}>
+        }} onPointerLeave={() => { pointer.hovered = false; hover(null); }} data-active={active} data-offset={offset} data-scale={targetScale}>
         {product.href ? <a href={product.href} className="glass-product-hit"
           onClick={e => { if (!active) { e.preventDefault(); select(index); } }}
           aria-label={`${product.name}. ${product.body}. ${product.explore}`} /> :
@@ -180,7 +211,7 @@ function GlassShadow() {
 }
 
 /* Original artwork participates in the mirrored card as well as the foreground. */
-function CardArtwork({ product, active, reflected }: { product: GlassProduct; active: boolean; reflected: boolean }) {
+function CardArtwork({ product, active, reflected, opacity }: { product: GlassProduct; active: boolean; reflected: boolean; opacity: number }) {
   const texture = useTexture(product.image);
   const image = texture.image as HTMLImageElement;
   const aspect = image.width / image.height;
@@ -210,23 +241,23 @@ function CardArtwork({ product, active, reflected }: { product: GlassProduct; ac
   return <>
     <mesh position={[0, product.body ? .65 : .45, .16]}>
       <planeGeometry args={[width, height]} />
-      <meshBasicMaterial map={texture} transparent opacity={reflected ? .55 : 1} depthWrite={false} toneMapped={false} />
+      <meshBasicMaterial map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} depthWrite={false} toneMapped={false} />
     </mesh>
     <mesh position={[0, product.body ? -1.3 : -1.55, .16]}>
       <planeGeometry args={[2.8, product.body ? 1.4 : .7]} />
-      <meshBasicMaterial map={label} transparent opacity={reflected ? .55 : 1} depthWrite={false} toneMapped={false} />
+      <meshBasicMaterial map={label} transparent opacity={(reflected ? .55 : 1) * opacity} depthWrite={false} toneMapped={false} />
     </mesh>
   </>;
 }
 
-function PearlFlow({ index, reflected }: { index: number; reflected: boolean }) {
+function PearlFlow({ index, reflected, opacity }: { index: number; reflected: boolean; opacity: number }) {
   const material = useRef<ShaderMaterial>(null);
   const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 } }), []);
   useFrame(({ clock }) => {
     if (!material.current) return;
     const live = material.current.uniforms;
     live.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
-    live.strength.value = reflected ? .55 : 1;
+    live.strength.value = (reflected ? .55 : 1) * opacity;
   });
   return <mesh position={[0, 0, .2]} renderOrder={3} raycast={() => {}}>
     <planeGeometry args={[4.85, 6.25]} />

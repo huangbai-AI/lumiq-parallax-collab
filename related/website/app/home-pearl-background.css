@@ -1,0 +1,13 @@
+/* A single viewport-aligned pearl backdrop continues through every homepage section. */
+.lumiq-root:has(.lh-home) { isolation: isolate; background: transparent; }
+.lumiq-root .lh-home,
+.lumiq-root .lh-home :is(.lh-opening, .lh-hero, .lh-ola, .lh-products, .lh-experiences, .lh-films-section, .lh-safety, .lh-family, .lh-join),
+.lumiq-root:has(.lh-home) > .footer { background: transparent; }
+.lumiq-root .lh-home .lh-join-art, .lh-home .lh-join::before { display: none; }
+.lh-home .lh-trust-room::after, .lh-home .lh-safety-photo::after, .lh-home .lh-family-stage::after { background: none; }
+.lh-home .lh-room-background { mask-image: radial-gradient(ellipse at center, #000 48%, transparent 73%); }
+.lh-home .lh-safety-photo, .lh-home .lh-family-stage { mask-image: linear-gradient(transparent, #000 6%, #000 94%, transparent); }
+.lh-home .lh-glass-products { mask-image: linear-gradient(transparent, #000 6%, #000 87%, transparent); }
+.lh-home .lh-products[data-glass-3d] .lh-glass-products::after { display: none; }
+.lumiq-root:has(.lh-home) > .footer { border-top-color: #ffffff70; }
+@media(max-width:767px) { .lh-home .lh-room-background { mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent); } }

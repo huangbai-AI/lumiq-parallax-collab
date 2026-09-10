@@ -1068,6 +1068,8 @@
     "parent5Body": "ポイントや料金で Lumiq の追加コンテンツや提携クーポンを利用できます。決済には毎回、保護者 PIN が必要です。"
   },
   "HomeFilms": {
+    "play": "動画を再生",
+    "pause": "動画を一時停止",
     "eyebrow": "LUMIQ STORIES",
     "heading": "毎日を、もっと身近に。",
     "carousel": "動画カルーセル",

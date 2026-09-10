@@ -1068,6 +1068,8 @@
     "parent5Body": "Use points or money for Lumiq add-ons and partner coupons. Every checkout requires the Parent PIN."
   },
   "HomeFilms": {
+    "play": "Play film",
+    "pause": "Pause film",
     "eyebrow": "LUMIQ STORIES",
     "heading": "A little closer. Every day.",
     "carousel": "Video carousel",
