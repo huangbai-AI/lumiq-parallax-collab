@@ -172,7 +172,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
   });
   // Keep the beveled bottom on the reflecting floor at either card scale.
   return <group ref={group} position={[initialX.current, 0, 0]} visible={Math.abs(offset) <= (five ? 2 : 1)}>
-    {!reflected && <GlassShadow />}
+    {!reflected && <GlassShadow active={active} />}
     <mesh geometry={geometry} raycast={reflected || Math.abs(offset) > (five ? 2 : 1) ? () => {} : undefined} onPointerMove={reflected ? undefined : e => {
       e.stopPropagation();
       const local = group.current!.worldToLocal(e.point.clone());
@@ -211,7 +211,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
   </group>;
 }
 
-function GlassShadow() {
+function GlassShadow({ active }: { active: boolean }) {
   const texture = useMemo(() => {
     const canvas = document.createElement("canvas"); canvas.width = 512; canvas.height = 768;
     const ctx = canvas.getContext("2d")!;
@@ -222,9 +222,9 @@ function GlassShadow() {
     const map = new CanvasTexture(canvas); map.colorSpace = SRGBColorSpace; return map;
   }, []);
   useEffect(() => () => texture.dispose(), [texture]);
-  return <mesh position={[0, -.03, -.17]}>
+  return <mesh position={[0, active ? -.09 : -.03, -.17]}>
     <planeGeometry args={[3.65, 5.12]} />
-    <meshBasicMaterial map={texture} transparent opacity={.6} depthWrite={false} toneMapped={false} />
+    <meshBasicMaterial map={texture} transparent opacity={active ? 1 : .6} depthWrite={false} toneMapped={false} />
   </mesh>;
 }
 
@@ -238,10 +238,10 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
     const canvas = document.createElement("canvas");
     canvas.width = 1024; canvas.height = product.body ? 512 : 256;
     const ctx = canvas.getContext("2d")!;
-    ctx.textAlign = "center"; ctx.fillStyle = "#233448";
-    ctx.font = "600 74px Arial, sans-serif";
+    ctx.textAlign = "center"; ctx.fillStyle = active ? "#10243b" : "#233448";
+    ctx.font = `${active ? 700 : 600} 74px Arial, sans-serif`;
     ctx.fillText(product.name, 512, 100);
-    ctx.fillStyle = "#687286"; ctx.font = "38px Arial, sans-serif";
+    ctx.fillStyle = active ? "#35465c" : "#687286"; ctx.font = `${active ? 500 : 400} 38px Arial, sans-serif`;
     if (product.body) {
       const lines: string[] = []; let line = "";
       for (const word of product.body.match(/[^\s\u3000-\u9fff]+\s*|[\u3000-\u9fff]/gu) || []) {
@@ -257,11 +257,14 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
   }, [product, active]);
   useEffect(() => () => label.dispose(), [label]);
   return <>
-    <mesh position={[0, product.body ? .65 : .45, .16]}>
+    <mesh position={[0, product.body ? .65 : .45, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[width, height]} />
-      <meshBasicMaterial map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} depthWrite={false} toneMapped={false} />
+      <meshBasicMaterial key={String(active)} map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} depthWrite={false} toneMapped={false}
+        onBeforeCompile={shader => {
+          if (active) shader.fragmentShader = shader.fragmentShader.replace("#include <map_fragment>", "#include <map_fragment>\n diffuseColor.rgb = max(vec3(0.), (diffuseColor.rgb - .18) * 1.12 + .18) * 1.06;");
+        }} />
     </mesh>
-    <mesh position={[0, product.body ? -1.3 : -1.55, .16]}>
+    <mesh position={[0, product.body ? -1.3 : -1.55, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[2.8, product.body ? 1.4 : .7]} />
       <meshBasicMaterial map={label} transparent opacity={(reflected ? .55 : 1) * opacity} depthWrite={false} toneMapped={false} />
     </mesh>
@@ -275,8 +278,8 @@ function PearlFlow({ index, reflected, opacity, active }: { index: number; refle
     if (!material.current) return;
     const live = material.current.uniforms;
     live.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
-    live.strength.value = (reflected ? .55 : 1) * opacity * (active ? 1.7 : .85);
-    live.glowWidth.value = active ? 2.1 : 1;
+    live.strength.value = (reflected ? .55 : 1) * opacity * (active ? 2.4 : .85);
+    live.glowWidth.value = active ? 2.8 : 1;
   });
   return <mesh position={[0, 0, .2]} renderOrder={3} raycast={() => {}}>
     <planeGeometry args={[4.85, 6.25]} />
