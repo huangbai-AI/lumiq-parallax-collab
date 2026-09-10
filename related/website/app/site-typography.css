@@ -1,10 +1,4 @@
 @font-face {
-  font-family: "Lumiq Rounded";
-  src: url("/assets/fonts/nunito-variable.ttf") format("truetype");
-  font-weight: 200 1000;
-  font-display: swap;
-}
-@font-face {
   font-family: "Lumiq Manrope";
   src: url("/assets/fonts/manrope-latin.woff2") format("woff2");
   font-weight: 400 800;
@@ -12,7 +6,7 @@
 }
 /* The homepage supplies the shared type and colour language. */
 .lumiq-root {
-  --font-heading: "Lumiq Rounded", "Hiragino Maru Gothic ProN", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  --font-heading: "Lumiq Space", "Noto Sans TC", "Noto Sans JP", sans-serif;
   --font-sans: "Lumiq Manrope", Arial, "Noto Sans TC", "Noto Sans JP", sans-serif;
   --lq-h1: clamp(44px, 4.8vw, 78px);
   --lq-h2: clamp(36px, 3vw, 52px);
@@ -96,8 +90,9 @@
   letter-spacing: .01em;
 }
 
-/* All editorial headings, including emphasis, use the logo-inspired rounded family. */
+/* All editorial headings, including emphasis, use the geometric family with firm strokes and softly curved bowls. */
 .lumiq-root :is(h1,h2,h3,h4,h5,h6),
 .lumiq-root :is(h1,h2,h3,h4,h5,h6) :is(span,em,strong) {
   font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
 }

@@ -47,7 +47,7 @@
   .lh-brand-character { width: 105px; height: 240px; right: -8px; }
 }
 
-/* Rounded hardware title: soft capitals and a compact, deliberate three-line block. */
+/* Geometric hardware title: bold capitals and a compact, deliberate three-line block. */
 .lumiq-root .lh-home .lh-hero h1:lang(en) {
   font-family: var(--font-heading);
   font-size: clamp(57px, 6vw, 102px);
