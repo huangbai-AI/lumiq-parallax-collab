@@ -231,6 +231,12 @@ function GlassShadow({ active }: { active: boolean }) {
 /* Original artwork participates in the mirrored card as well as the foreground. */
 function CardArtwork({ product, active, reflected, opacity }: { product: GlassProduct; active: boolean; reflected: boolean; opacity: number }) {
   const texture = useTexture(product.image);
+  const [fontReady, setFontReady] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    document.fonts.load('700 74px "Lumiq Rounded"').then(() => { if (alive) setFontReady(true); }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
   const image = texture.image as HTMLImageElement;
   const aspect = image.width / image.height;
   const width = Math.min(2.55, (product.body ? 2.55 : 2.95) * aspect), height = width / aspect;
@@ -239,7 +245,7 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
     canvas.width = 1024; canvas.height = product.body ? 512 : 256;
     const ctx = canvas.getContext("2d")!;
     ctx.textAlign = "center"; ctx.fillStyle = active ? "#10243b" : "#233448";
-    ctx.font = `${active ? 700 : 600} 74px Arial, sans-serif`;
+    ctx.font = `${active ? 700 : 600} 74px ${fontReady ? '"Lumiq Rounded"' : 'Arial'}, sans-serif`;
     ctx.fillText(product.name, 512, 100);
     ctx.fillStyle = active ? "#35465c" : "#687286"; ctx.font = `${active ? 500 : 400} 38px Arial, sans-serif`;
     if (product.body) {
@@ -254,7 +260,7 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
     } else ctx.fillText(active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂", 512, 192);
     const map = new CanvasTexture(canvas); map.colorSpace = SRGBColorSpace;
     return map;
-  }, [product, active]);
+  }, [product, active, fontReady]);
   useEffect(() => () => label.dispose(), [label]);
   return <>
     <mesh position={[0, product.body ? .65 : .45, .24]} renderOrder={active ? 4 : 0}>
