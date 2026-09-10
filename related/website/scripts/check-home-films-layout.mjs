@@ -23,12 +23,15 @@ try {
   assert.match(await p.locator('.lh-films source').getAttribute('src'),/worlds-together/);
   assert.equal(await old.evaluate(e=>e.paused),true);
   const bg=await p.locator('.bg-layer').evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {image:s.backgroundImage,width:r.width,height:r.height,position:s.position};});
-  assert.match(bg.image,/pearl-light/);assert.equal(bg.width,1600);assert.equal(bg.height,1100);assert.equal(bg.position,'fixed');
+  assert.match(bg.image,/gradient/);assert.equal(bg.width,1600);assert.ok(bg.height>1100);assert.equal(bg.position,'absolute');
+  const chapter = await p.locator('#films').evaluate(e=>{const s=getComputedStyle(e,'::before');return {image:s.backgroundImage,position:s.position,transform:s.transform};});
+  assert.match(chapter.image,/pearl-light/);assert.equal(chapter.position,'absolute');
+  assert.notEqual(chapter.transform,await p.locator('#family').evaluate(e=>getComputedStyle(e,'::before').transform));
   await p.mouse.move(20,100);await p.screenshot({path:'/tmp/films-final-pearl.png'});
   await p.locator('#experiences').scrollIntoViewIfNeeded();await p.waitForTimeout(700);await p.screenshot({path:'/tmp/room-final-pearl.png'});
   await p.setViewportSize({width:390,height:844});await p.locator('#films').scrollIntoViewIfNeeded();await p.waitForTimeout(700);
   assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await p.screenshot({path:'/tmp/films-mobile-pearl.png'});
   assert.deepEqual(errors,[]);
-  console.log('Films: side previews, controls without timeline, playback/pause/switch, fixed full-width background and mobile width passed.');
+  console.log('Films: side previews, controls without timeline, playback/pause/switch, scrolling chapter backgrounds and mobile width passed.');
 }finally{await b.close();}

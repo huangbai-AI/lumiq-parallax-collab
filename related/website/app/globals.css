@@ -91,8 +91,8 @@
 .lumiq-root .d3 { transition-delay: 0.3s; } .lumiq-root .d4 { transition-delay: 0.4s; }
 
 .lumiq-root .bg-layer {
-  position: fixed; inset: 0; z-index: -1;
-  background: #f5f3f9 url("/assets/home-interactive/pearl-light.webp") center / cover no-repeat;
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(160deg, #fbfaff, #f3eff8 45%, #f8faff 75%, #fbfaff);
 }
 .lumiq-root .stars { display: none; }
 .lumiq-root .bokeh { display: none; position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: lumiq-drift 14s infinite alternate ease-in-out; }

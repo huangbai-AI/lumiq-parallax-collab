@@ -33,7 +33,7 @@ try {
   await page.mouse.move(20, 150);
   assert.deepEqual(await page.locator("#products, #films, #experiences").evaluateAll(es => es.map(e => e.id)),
     ["products", "films", "experiences"], "Films must follow products, with the room afterwards");
-  assert.deepEqual(await page.locator(".lh-glass-products .glass-sample-content").evaluateAll(es => es.map(e => Number(e.dataset.scale)).sort()), [.4, .4, .7, .7, 1.2]);
+  assert.deepEqual(await page.locator(".lh-glass-products .glass-sample-content").evaluateAll(es => es.map(e => Number(e.dataset.scale)).sort()), [.66, .66, .7, .7, 1.2]);
   const names = new Set();
   for (let i = 0; i < 5; i++) {
     const link = page.locator('.lh-glass-products [data-active="true"] a');
@@ -44,6 +44,15 @@ try {
     await page.waitForTimeout(750);
   }
   assert.equal(names.size, 5, "All five products remain reachable");
+  const wrapped = page.locator('.lh-glass-products [data-offset="-2"] a');
+  const href = await wrapped.getAttribute("href");
+  await page.locator("[data-products-next]").click();
+  const moved = page.locator(`.lh-glass-products a[href="${href}"]`);
+  for (let i = 0; i < 6; i++) {
+    await page.waitForTimeout(50);
+    const box = await moved.boundingBox();
+    assert.ok(Math.abs(box.x + box.width / 2 - 800) > 350, "Wrapped card must never travel across the foreground");
+  }
   await page.screenshot({ path: "/tmp/lumiq-home-glass-final.png" });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(600);

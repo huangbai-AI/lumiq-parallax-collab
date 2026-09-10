@@ -74,7 +74,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   }, []);
   useEffect(() => () => geometry.dispose(), [geometry]);
   useEffect(() => {
-    (camera as PerspectiveCamera).fov = MathUtils.radToDeg(2 * Math.atan(Math.max(carousel ? 8.8 : 7.2, (carousel ? 12.8 : 11.5) * size.height / size.width) / (2 * Math.hypot(36, 2.2))));
+    (camera as PerspectiveCamera).fov = MathUtils.radToDeg(2 * Math.atan(Math.max(carousel ? 8.8 : 7.2, (carousel ? 16.8 : 11.5) * size.height / size.width) / (2 * Math.hypot(36, 2.2))));
     camera.lookAt(0, carousel ? -.45 : -.9, 0);
     camera.updateProjectionMatrix();
   }, [camera, size, carousel]);
@@ -99,7 +99,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   </>;
 }
 
-// Match the page-wide fixed background in screen coordinates, including the refraction buffer.
+// Background belongs to the product section and scrolls with it, including its refraction buffer.
 function ViewportBackground({ texture }: { texture: Texture }) {
   const material = useRef<ShaderMaterial>(null);
   const { gl } = useThree();
@@ -110,8 +110,8 @@ function ViewportBackground({ texture }: { texture: Texture }) {
     const rect = gl.domElement.getBoundingClientRect();
     const u = material.current.uniforms;
     const image = texture.image as HTMLImageElement;
-    u.viewport.value = [window.innerWidth, window.innerHeight];
-    u.canvasOrigin.value = [rect.left, rect.top]; u.canvasHeight.value = rect.height;
+    u.viewport.value = [rect.width, rect.height];
+    u.canvasOrigin.value = [0, 0]; u.canvasHeight.value = rect.height;
     u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = [image.width, image.height];
   }, -2);
   return <mesh frustumCulled={false} renderOrder={-10} raycast={() => {}}>
@@ -134,13 +134,22 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
   geometry: ExtrudeGeometry; index: number; product: GlassProduct; offset: number; five: boolean; active: boolean; select: (index: number) => void; hover: (index: number | null) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
 }) {
   const group = useRef<Group>(null);
-  const targetX = five ? Math.sign(offset) * ([0, 3.25, 5.25][Math.abs(offset)] ?? 5.25) : offset * 3.55;
-  const targetScale = five ? [1.2, .7, .4][Math.abs(offset)] : active ? 1 : .9;
+  const targetX = five ? Math.sign(offset) * ([0, 3.8, 6.6][Math.abs(offset)] ?? 6.6) : offset * 3.55;
+  const targetScale = five ? [1.2, .7, .66][Math.abs(offset)] : active ? 1 : .9;
   const opacity = five && !active ? .7 : 1;
   const initialX = useRef(targetX);
+  const previousOffset = useRef(offset);
   useFrame((_, delta) => {
     if (!group.current) return;
     const angle = sideView ? .82 : offset > 0 ? -.28 : .28;
+    // A wrapped item re-enters at the opposite edge, never travelling across the foreground.
+    if (five && Math.abs(offset - previousOffset.current) > 2) {
+      group.current.position.x = targetX;
+      group.current.rotation.y = angle;
+      group.current.scale.setScalar(targetScale);
+      pointer.hovered = false;
+    }
+    previousOffset.current = offset;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hovering = pointer.hovered && !reduced;
     group.current.rotation.y = MathUtils.damp(group.current.rotation.y, angle + (hovering ? pointer.x * .07 : 0), 7, delta);
@@ -170,7 +179,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
         samples={16} resolution={512} backsideResolution={256} color="#ffffff" />
     </mesh>
-    <PearlFlow index={index} reflected={reflected} opacity={opacity} />
+    <PearlFlow index={index} reflected={reflected} opacity={opacity} active={active} />
     {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} />}
     {content && !reflected && Math.abs(offset) <= (five ? 2 : 1) && <Html transform position={[0, 0, .16]} distanceFactor={4}>
       <div className="glass-sample-content" onMouseEnter={() => hover(index)} onFocus={() => select(index)}
@@ -250,20 +259,21 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
   </>;
 }
 
-function PearlFlow({ index, reflected, opacity }: { index: number; reflected: boolean; opacity: number }) {
+function PearlFlow({ index, reflected, opacity, active }: { index: number; reflected: boolean; opacity: number; active: boolean }) {
   const material = useRef<ShaderMaterial>(null);
-  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 } }), []);
+  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 }, glowWidth: { value: 1 } }), []);
   useFrame(({ clock }) => {
     if (!material.current) return;
     const live = material.current.uniforms;
     live.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
-    live.strength.value = (reflected ? .55 : 1) * opacity;
+    live.strength.value = (reflected ? .55 : 1) * opacity * (active ? 1.7 : .85);
+    live.glowWidth.value = active ? 2.1 : 1;
   });
   return <mesh position={[0, 0, .2]} renderOrder={3} raycast={() => {}}>
     <planeGeometry args={[4.85, 6.25]} />
     <shaderMaterial ref={material} transparent depthWrite={false} uniforms={uniforms}
       vertexShader={`varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`}
-      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength;
+      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength; uniform float glowWidth;
         void main(){
           vec2 p=(vUv-.5)*vec2(4.85,6.25);
           vec2 q=abs(p)-vec2(1.33,2.03);
@@ -274,8 +284,8 @@ function PearlFlow({ index, reflected, opacity }: { index: number; reflected: bo
           vec3 tint=mix(vec3(.78,.72,.94),vec3(.73,.88,.98),vUv.y);
           tint=mix(tint,vec3(1.,.82,.9),.5+.5*sin(time+vUv.y*3.));
           float rim=exp(-abs(d)*35.);
-          float bloom=exp(-d*d/ .022)*.48;
-          float diffusion=exp(-d*d/ .14)*.24;
+          float bloom=exp(-d*d/ (.022*glowWidth))*.48;
+          float diffusion=exp(-d*d/ (.14*glowWidth))*.24;
           float inner=exp(-abs(d)*3.)*edge*.1;
           float alpha=min(.86,(rim*.22+bloom+diffusion+inner+edge*band*.05)*strength);
           gl_FragColor=vec4(mix(tint,vec3(1.),.78+.22*rim),alpha);
