@@ -1,7 +1,5 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { readingStop } from "./readingStops";
-import { guardReadingStop } from "./readingGuard";
 
 export const endingMotionQuery =
   "(min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)";
@@ -104,15 +102,6 @@ export function mountEndingChapters(root: HTMLElement) {
         id: "home-trust-anchor", trigger: trust,
         start: () => `top ${navHeight()}`, end: () => `+=${trustTravel}`,
         scrub: 0.45, invalidateOnRefresh: true,
-        snap: {
-          snapTo: (value: number, self?: ScrollTrigger) => {
-            const anchor = 1 / 1.4;
-            return !document.hidden && room.offsetHeight <= viewport + 1
-              ? readingStop(value, [anchor], self?.direction ?? 1, 0.72) : value;
-          },
-          inertia: false, delay: 0.2,
-          duration: { min: 0.4, max: 1.1 }, ease: "sine.inOut",
-        },
       },
     });
     trustTimeline
@@ -131,17 +120,6 @@ export function mountEndingChapters(root: HTMLElement) {
         backgroundPosition: "0% 0%", duration: 0.18, stagger: 0.04,
       }, 1.04)
       .to({}, { duration: 0.06 }, 1.34);
-
-    const interruptTrustSnap = () => {
-      const snapping = trustTimeline.scrollTrigger?.getTween(true);
-      if (snapping) snapping.kill();
-    };
-    const onKey = (event: KeyboardEvent) => {
-      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key))
-        interruptTrustSnap();
-    };
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("pointerdown", interruptTrustSnap, { passive: true });
 
     const buttons = Array.from(navigation.querySelectorAll<HTMLElement>('[role="tab"]'));
     const shrinkEnd = 0.36;
@@ -167,11 +145,6 @@ export function mountEndingChapters(root: HTMLElement) {
         scrub: 0.45, invalidateOnRefresh: true,
         onUpdate: (self) => render(self.progress * familyDuration),
         onRefresh: (self) => render(self.progress * familyDuration),
-        snap: {
-          snapTo: (value: number, self?: ScrollTrigger) => stage.offsetHeight <= viewport + 1
-            ? readingStop(value, chapterStops, self?.direction ?? 1, 0.4) : value,
-          inertia: false, delay: 0.2, duration: { min: 0.4, max: 0.9 }, ease: "sine.inOut",
-        },
       },
     });
     familyTimeline
@@ -185,11 +158,6 @@ export function mountEndingChapters(root: HTMLElement) {
       .to({}, { duration: familyDuration - shrinkEnd });
 
     const scroll = familyTimeline.scrollTrigger!;
-    const finePointer = window.matchMedia('(pointer: fine)').matches;
-    const guards = finePointer ? [
-      guardReadingStop(root, trustTimeline.scrollTrigger!, () => trustTimeline.scrollTrigger!.start + trustTravel / 1.4),
-      ...chapterStops.map((point) => guardReadingStop(root, scroll, () => scroll.start + familyTravel * point)),
-    ] : [];
     const select = (event: Event) => {
       const index = (event as CustomEvent<number>).detail;
       if (!Number.isInteger(index) || index < 0 || index > 2) return;
@@ -204,9 +172,6 @@ export function mountEndingChapters(root: HTMLElement) {
     family.addEventListener("lumiq:chapter-select", select);
     render(scroll.progress * familyDuration);
     return () => {
-      guards.forEach((release) => release());
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("pointerdown", interruptTrustSnap);
       ScrollTrigger.removeEventListener("refreshInit", measure);
       family.removeEventListener("lumiq:chapter-select", select);
       delete trust.dataset.anchored;

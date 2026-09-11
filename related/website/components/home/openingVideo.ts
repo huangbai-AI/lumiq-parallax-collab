@@ -1,6 +1,5 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { guardReadingStop } from "./readingGuard";
 
 export const openingVideoSource = "/assets/home-video/ola-scroll-v16-20260909.mp4";
 export const openingVideoQuery =
@@ -73,7 +72,6 @@ export function mountOpeningVideo(root: HTMLElement) {
       .fromTo(brandCopy, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.42)
       .fromTo(cards, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.48);
     const scroll = timeline.scrollTrigger!;
-    const releaseReading = guardReadingStop(root, scroll, () => scroll.start + (scroll.end - scroll.start) * anchor);
     const resetFrame = requestAnimationFrame(() => {
       ScrollTrigger.refresh();
       if (window.location.hash === "#ola")
@@ -84,7 +82,6 @@ export function mountOpeningVideo(root: HTMLElement) {
     });
     update();
     return () => {
-      releaseReading();
       alive = false;
       cancelAnimationFrame(resetFrame);
       cancelAnimationFrame(frame);
