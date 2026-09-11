@@ -14,8 +14,17 @@ export function mountCarouselWheelGate(target: HTMLElement, advance: () => void,
   const wheel = (event: WheelEvent) => {
     if (released || event.ctrlKey || event.deltaY <= 0 || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
     const bounds = target.getBoundingClientRect();
-    // Capture only once the carousel composition has entered, without snapping scroll position.
-    if (bounds.top > 180 || bounds.bottom < innerHeight * .55) return;
+    // Stop the entering gesture exactly at the full composition, never pull the page back.
+    const landingTop = target.matches(".lh-products-stage") ? 0 : 86;
+    const remaining = bounds.top - landingTop;
+    const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+    if (remaining < -2 || remaining > delta + 2) return;
+    if (remaining > 2) {
+      event.preventDefault();
+      window.scrollBy({ top: remaining, behavior: "instant" });
+      lastWheel = performance.now();
+      return;
+    }
     const now = performance.now();
     const quiet = now - lastWheel > 350;
     lastWheel = now;

@@ -6,7 +6,7 @@ try {
  await page.goto('http://127.0.0.1:4211/en');
  await page.waitForTimeout(8000);
  const enter=async()=>{
-  await page.locator('.lh-films').evaluate(e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-110));
+  await page.locator('.lh-films').evaluate(e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-86));
   await page.waitForTimeout(500);
  };
  await enter();
