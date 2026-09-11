@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowUp, ArrowDown, Play, Pause } from "lucide-react";
@@ -16,13 +16,22 @@ export default function HomeFilms() {
   const stage = useRef<HTMLDivElement>(null);
   const touchStart = useRef<number | null>(null);
   const lastWheel = useRef(0);
-  const [direction, setDirection] = useState(1);
-  const select = (index: number) => {
-    setDirection(index < active ? -1 : 1);
+  const [travel, setTravel] = useState(0);
+  const switching = useRef(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const select = useCallback((step: number) => {
+    if (switching.current) return;
+    switching.current = true;
     video.current?.pause();
     setPlaying(false);
-    setActive((index + films.length) % films.length);
-  };
+    setTravel(step);
+    timer.current = setTimeout(() => {
+      setActive(index => (index + step + films.length) % films.length);
+      setTravel(0);
+      switching.current = false;
+    }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 800);
+  }, []);
+  useEffect(() => () => clearTimeout(timer.current), []);
   useEffect(() => {
     const target = stage.current;
     if (!target) return;
@@ -33,16 +42,12 @@ export default function HomeFilms() {
       const quiet = now - lastWheel.current > 350;
       lastWheel.current = now;
       if (quiet) {
-        video.current?.pause();
-        setPlaying(false);
-        const step = Math.sign(event.deltaY);
-        setDirection(step);
-        setActive(index => (index + step + films.length) % films.length);
+        select(Math.sign(event.deltaY));
       }
     };
     target.addEventListener("wheel", wheel, { passive: false });
     return () => target.removeEventListener("wheel", wheel);
-  }, []);
+  }, [select]);
   useEffect(() => {
     const element = video.current;
     if (!element) return;
@@ -87,28 +92,25 @@ export default function HomeFilms() {
     <div className="lh-films" role="region" aria-roledescription={t("carousel")} aria-labelledby="films-title">
       <header className="lh-films-heading">
         <div><p className="lh-eyebrow">{t("eyebrow")}</p><h2 id="films-title">{t("heading")}</h2></div>
-        <nav className="lh-films-controls" aria-label={t("carousel")}>
-          <button type="button" onClick={() => select(active - 1)} aria-label={t("previous")}><ArrowUp size={20} /></button>
-          <span aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, "0")} / 03</span>
-          <button type="button" onClick={() => select(active + 1)} aria-label={t("next")}><ArrowDown size={20} /></button>
-        </nav>
       </header>
-      <div ref={stage} className="lh-films-stage" data-direction={direction} onTouchStart={e => { touchStart.current = e.touches[0].clientY; }}
+      <div className="lh-films-layout">
+      <div ref={stage} className="lh-films-stage" data-moving={travel !== 0} onTouchStart={e => { touchStart.current = e.touches[0].clientY; }}
         onTouchEnd={e => {
           if (touchStart.current !== null) {
             const distance = e.changedTouches[0].clientY - touchStart.current;
-            if (Math.abs(distance) > 50) select(active + (distance < 0 ? 1 : -1));
+            if (Math.abs(distance) > 50) select(distance < 0 ? 1 : -1);
           }
           touchStart.current = null;
         }}>
-        {[-1, 1].map(direction => {
-          const index = (active + direction + films.length) % films.length;
-          return <button key={direction} className={`lh-film-preview lh-film-preview-${direction < 0 ? "top" : "bottom"}`}
-            type="button" onClick={() => select(active + direction)} aria-label={`${t(direction < 0 ? "previous" : "next")}: ${t(`${films[index]}.title`)}`}>
+        {[-2, -1, 0, 1, 2].map(offset => {
+          const index = (active + offset + films.length) % films.length;
+          const slot = offset - travel;
+          return <div key={`${active}-${offset}`} className="lh-film-slot" style={{ "--slot": slot, "--card-scale": slot === 0 ? 1 : 70 / 91, "--card-height": slot === 0 ? 1 : .8, "--card-opacity": slot === 0 ? 1 : .45 } as CSSProperties} aria-hidden={Math.abs(slot) > 1}>
+          {offset !== 0 ? <button className={`lh-film-preview lh-film-preview-${offset < 0 ? "top" : "bottom"}`}
+            tabIndex={Math.abs(slot) > 1 || travel !== 0 ? -1 : 0} disabled={travel !== 0}
+            type="button" onClick={() => select(Math.sign(offset))} aria-label={`${t(offset < 0 ? "previous" : "next")}: ${t(`${films[index]}.title`)}`}>
             <Image src={`/assets/films-20260908/${films[index]}.jpg`} alt="" width={1280} height={720} unoptimized />
-          </button>;
-        })}
-        <article className="lh-film-card" key={films[active]} aria-label={`${active + 1} / ${films.length}`} data-playing={playing}>
+          </button> : <article className="lh-film-card" aria-label={`${active + 1} / ${films.length}`} data-playing={playing}>
           <video ref={video} playsInline preload="none" poster={`/assets/films-20260908/${films[active]}.jpg`}
             aria-label={t(`${films[active]}.title`)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}>
             <source src={`/assets/films-20260908/${films[active]}.mp4`} type="video/mp4" />
@@ -117,7 +119,15 @@ export default function HomeFilms() {
           <button className="lh-film-toggle" type="button" onClick={toggle} aria-label={t(playing ? "pause" : "play")}>
             {playing ? <Pause size={26} /> : <Play size={30} fill="currentColor" />}
           </button>
-        </article>
+        </article>}
+        </div>;
+        })}
+      </div>
+      <nav className="lh-films-controls" aria-label={t("carousel")}>
+        <button type="button" onClick={() => select(-1)} disabled={travel !== 0} aria-label={t("previous")}><ArrowUp size={24} /></button>
+        <span aria-live="polite" aria-atomic="true"><strong>{String(active + 1).padStart(2, "0")}</strong><span>/</span><span>03</span></span>
+        <button type="button" onClick={() => select(1)} disabled={travel !== 0} aria-label={t("next")}><ArrowDown size={24} /></button>
+      </nav>
       </div>
       <video ref={character} className="lh-film-character" muted playsInline preload="none" aria-hidden="true" poster="/assets/character-20260910/ola-girl-poster.png">
         <source src="/assets/character-20260910/ola-girl-alpha.webm" type="video/webm" />
