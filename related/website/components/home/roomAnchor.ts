@@ -46,7 +46,7 @@ export function mountJoinAnchor(root: HTMLElement) {
   if (!join) return () => {};
   const mm = gsap.matchMedia();
   mm.add("(min-width: 1101px) and (min-height: 720px) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
-    ScrollTrigger.create({
+    const scroll = ScrollTrigger.create({
       id: "home-join-anchor", trigger: join,
       start: "top bottom", end: () => `top ${document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 86}`,
       snap: {
@@ -55,6 +55,7 @@ export function mountJoinAnchor(root: HTMLElement) {
         inertia: false, delay: 0.22, duration: { min: 0.35, max: 0.75 }, ease: "sine.inOut",
       },
     });
+    return guardReadingStop(root, scroll, () => scroll.end);
   });
   return () => mm.revert();
 }

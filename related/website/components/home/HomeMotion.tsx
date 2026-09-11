@@ -9,6 +9,7 @@ import { mountRoomAnchor, mountJoinAnchor } from "./roomAnchor";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
 import { preloadScenes } from "./preloadScenes";
 import HomeLoading from "./HomeLoading";
+import { mountContentStops } from "./readingGuard";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Native scrolling drives either the video opening or the preserved code option. */
@@ -39,6 +40,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       const releaseRoom = root.current ? mountRoomAnchor(root.current) : () => {};
       const releaseEnding = root.current ? mountEndingChapters(root.current) : () => {};
       const releaseJoin = root.current ? mountJoinAnchor(root.current) : () => {};
+      const releaseContentStops = root.current ? mountContentStops(root.current) : () => {};
       const mm = gsap.matchMedia();
       mm.add(
         {
@@ -271,6 +273,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releaseImages();
         mm.revert();
         releaseJoin();
+        releaseContentStops();
         releaseEnding();
         releaseRoom();
         releaseProducts();

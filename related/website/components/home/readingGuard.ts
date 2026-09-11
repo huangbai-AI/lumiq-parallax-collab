@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export function guardReadingStop(root: HTMLElement, scroll: ScrollTrigger, point: () => number) {
   let motion: gsap.core.Tween | undefined;
   let cooling = false;
+  let settledAt = 0;
   let lastWheel = 0;
   const cancel = () => { motion?.kill(); motion = undefined; cooling = false; };
   const wheel = (event: WheelEvent) => {
@@ -18,7 +19,7 @@ export function guardReadingStop(root: HTMLElement, scroll: ScrollTrigger, point
     }
     const quiet = performance.now() - lastWheel > 220;
     lastWheel = performance.now();
-    if (motion || (cooling && !quiet)) { event.preventDefault(); return; }
+    if (motion || (cooling && (performance.now() - settledAt < 550 || !quiet))) { event.preventDefault(); return; }
     cooling = false;
     const destination = point();
     const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
@@ -30,7 +31,7 @@ export function guardReadingStop(root: HTMLElement, scroll: ScrollTrigger, point
     motion = gsap.to(state, {
       y: destination, duration: 0.65, ease: "sine.inOut",
       onUpdate: () => { window.scrollTo({ top: state.y, behavior: "instant" }); ScrollTrigger.update(); },
-      onComplete: () => { motion = undefined; cooling = true; },
+      onComplete: () => { motion = undefined; cooling = true; settledAt = performance.now(); },
     });
   };
   const key = (event: KeyboardEvent) => {
@@ -47,4 +48,23 @@ export function guardReadingStop(root: HTMLElement, scroll: ScrollTrigger, point
     window.removeEventListener("pointerdown", cancel);
     ScrollTrigger.removeEventListener("refreshInit", cancel);
   };
+}
+
+/** The unpinned product and film floors need the same landing pause as later chapters. */
+export function mountContentStops(root: HTMLElement) {
+  const mm = gsap.matchMedia();
+  mm.add("(min-width: 1101px) and (min-height: 640px) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
+    const releases = [".lh-products-stage", ".lh-films-layout"].flatMap((selector) => {
+      const stage = root.querySelector<HTMLElement>(selector);
+      if (!stage) return [];
+      const scroll = ScrollTrigger.create({
+        trigger: stage, start: "top bottom",
+        end: () => selector === ".lh-products-stage" ? "top top" : `top ${document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 86}`,
+        invalidateOnRefresh: true,
+      });
+      return [guardReadingStop(root, scroll, () => scroll.end)];
+    });
+    return () => releases.forEach((release) => release());
+  });
+  return () => mm.revert();
 }
