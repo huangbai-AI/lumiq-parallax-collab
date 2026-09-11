@@ -196,7 +196,7 @@
 .lh-opening[data-video-mode] .lh-video-layer { mask-image: none; }
 .lh-opening[data-video-mode] :is(.lh-video-start-poster, .lh-video-end-poster, .lh-opening-video) {
   width: max(100vw, calc(100svh * 16 / 9));
-  top: 50%;
+  top: calc(50% + 8px);
   mask-image: none;
 }
 .lh-opening[data-video-mode] .lh-ola-copy { max-width: none; }
