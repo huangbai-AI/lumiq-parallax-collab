@@ -21,7 +21,7 @@ type CardPointer = { x: number; y: number; hovered: boolean };
 function GlassScene({ selected, select, sideView, content, products, carousel = false }: {
   selected: number; select: (index: number) => void; sideView: boolean; content: boolean; products: GlassProduct[]; carousel?: boolean;
 }) {
-  const { camera, size } = useThree();
+  const { camera, size, gl } = useThree();
   const pending = useRef<{ index: number; timer: ReturnType<typeof setTimeout> } | null>(null);
   const blockedUntil = useRef(0);
   const cancelHover = useCallback(() => {
@@ -34,7 +34,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     return cancelHover;
   }, [selected, cancelHover]);
   const hover = useCallback((index: number | null) => {
-    if (index === null || index === selected || performance.now() < blockedUntil.current) {
+    if (gl.domElement.closest("[data-wheel-locked]") || index === null || index === selected || performance.now() < blockedUntil.current) {
       cancelHover(); return;
     }
     if (pending.current?.index === index) return;
@@ -42,9 +42,9 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     pending.current = { index, timer: setTimeout(() => {
       pending.current = null;
       blockedUntil.current = performance.now() + 1000;
-      select(index);
+      if (!gl.domElement.closest("[data-wheel-locked]")) select(index);
     }, 420) };
-  }, [selected, select, cancelHover]);
+  }, [selected, select, cancelHover, gl]);
   const opticalObjects = useRef<Group>(null);
   const reflections = useRef<Group>(null);
   const refractionBackground = useRef<Group>(null);

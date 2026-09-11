@@ -41,8 +41,8 @@ export function mountProductRail(root: HTMLElement) {
   };
   slots.forEach((slot, index) => {
     slot.addEventListener("pointerenter", (event) => {
-      if (!desktop.matches || event.pointerType !== "mouse" || index === active || performance.now() < lockedUntil) return;
-      hover = setTimeout(() => select(index), 420);
+      if (section.querySelector("[data-wheel-locked]") || !desktop.matches || event.pointerType !== "mouse" || index === active || performance.now() < lockedUntil) return;
+      hover = setTimeout(() => { if (!section.querySelector("[data-wheel-locked]")) select(index); }, 420);
     }, options);
     slot.addEventListener("pointerleave", cancelHover, options);
     slot.addEventListener("click", (event) => {
