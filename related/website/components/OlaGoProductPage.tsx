@@ -31,7 +31,7 @@ export default function OlaGoProductPage() {
         title: t("relationshipTitle"),
         body: t("relationshipBody"),
         image: {
-          src: "/assets/ola-go-detail/generated/ola-go-return-home-v3.png",
+          src: "/assets/western-scenes-20260908/ola-go-return-home-v3.webp",
           alt: t("alt"),
           fit: "cover",
           position: "center",
@@ -46,10 +46,10 @@ export default function OlaGoProductPage() {
         image: {
           src:
             index === 0
-              ? "/assets/ola-go-detail/generated/ola-go-schoolbag-v2.png"
+              ? "/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp"
               : index === 1
                 ? "/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png"
-                : "/assets/ola-go-detail/generated/ola-go-bedside-journal-v3.png",
+                : "/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp",
           alt: t("alt"),
         },
       }))}

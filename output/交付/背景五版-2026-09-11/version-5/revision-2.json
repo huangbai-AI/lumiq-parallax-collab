@@ -1,0 +1,56 @@
+{
+  "segment": 2,
+  "status": "downloaded",
+  "original": "segment-2-original.mp4",
+  "modelId": 17,
+  "duration": 5,
+  "resolution": "1080p",
+  "estimatedPoints": 175,
+  "prompt": "5秒16:9高质量网页纯背景动画。图1严格首帧，图2严格尾帧，保持原有构图、珍珠白、淡粉淡蓝淡紫色彩与恒定曝光。运动极为缓慢、自然、克制，一镜到底。最重要：首帧下方椭圆圆盘是光能，不是实体。绝对锁定圆盘中心位置、水平高度、边缘宽度和高度。圆盘保持首帧原尺寸直到完全消失，不能放大缩小、下沉升起、平移、飞走、退到画面底边或被裁切。圆盘在原处从内部到外缘逐渐透明和消散：表面先变通透，随后外沿亮度温柔减弱，光束沿原周长缓慢分散成纤细柔和光流，最终原地完全消散，只留下尾帧的背景弧线。不是刚性盘片移动，不把光盘搬运到另一位置。其余背景曲线只做小幅舒展以匹配尾帧，光流顺原方向流动，禁止巨大漩涡扭结、卷曲、飞射。镜头保持水平且最多全片宽度1%的缓慢水平侧移后归位，不推近不拉远不旋转不改变俯仰。约8颗稀疏细小柔亮粒子沿光带慢速移动，轻微前后层差，不闪烁不爆发。全程曝光稳定，柔和泛光，干净通透白色背景，平滑受控渐变，无噪点、涂抹、污渍、突然闪光、硬切、两图交叉淡入淡出、文字、产品、人物、UI或其他元素。无声音。",
+  "images": [
+    "hogi://image/mtwrwghz_17a8795f7c850e2d.png",
+    "hogi://image/mtwrwjhl_c3885b981aaf5ab0.png"
+  ],
+  "response": {
+    "ok": true,
+    "type": "generation_submitted",
+    "data": {
+      "task_id": "async_video_5cd41b0e03f923ae9787c208ea424b13",
+      "local_task_id": "task_383102d61f9ecf78",
+      "tool": "generate_video_seedance20",
+      "model": {
+        "key": "seedance20",
+        "model_id": 17,
+        "name": "Seedance2.0 pro",
+        "variant": "pro"
+      },
+      "generation_mode": "frame2Video",
+      "workspace_id": "9fbd65ff-c963-4dcb-a89a-bdeefb9fa54a",
+      "status": "queued",
+      "references": {
+        "images": [
+          "hogi://image/mtwrwghz_17a8795f7c850e2d.png",
+          "hogi://image/mtwrwjhl_c3885b981aaf5ab0.png"
+        ],
+        "videos": [],
+        "audios": [],
+        "assets": []
+      },
+      "artifacts": [],
+      "request": {
+        "duration_seconds": 5,
+        "aspect_ratio": "16:9",
+        "resolution": "1080p"
+      }
+    },
+    "next": [
+      {
+        "command": "oiioii task status async_video_5cd41b0e03f923ae9787c208ea424b13 --json",
+        "description": "Check task status"
+      }
+    ]
+  },
+  "taskId": "async_video_5cd41b0e03f923ae9787c208ea424b13",
+  "uri": "hogi://video/3c8c6cfc5d599c6bbc97fc0ac3b4227e3a6ba097e12ad16630448b45892783f5.mp4",
+  "path": "segment-2.mp4"
+}

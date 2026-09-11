@@ -119,7 +119,7 @@ export default function NestProductPage() {
           body: t(`f${number}Body`),
         })),
         image: {
-          src: "/assets/nest-detail/generated/nest-evening-home-v2.png",
+          src: "/assets/western-scenes-20260908/nest-evening-home-v2.webp",
           alt: t("altFinish", { name: selected.name }),
         },
       }}

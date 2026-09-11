@@ -1,0 +1,275 @@
+{
+  "workspace": "9fbd65ff-c963-4dcb-a89a-bdeefb9fa54a",
+  "jobs": {
+    "version-1/segment-1": {
+      "status": "downloaded",
+      "taskId": "async_video_708a6327cdf961fd5103d1c50aaf5289",
+      "localTaskId": "task_8e7a6376d0a8dde1",
+      "submittedAt": "2026-09-11T12:38:24.396Z",
+      "updatedAt": "2026-09-11T12:42:00.947Z",
+      "uri": "hogi://video/566d3f91ec568235372e0f6f4257a2ff3eba04b69e7612efaa980fb0d2f985ac.mp4",
+      "path": "version-1/segment-1.mp4"
+    },
+    "version-1/segment-2": {
+      "status": "downloaded",
+      "taskId": "async_video_bc7ff699cfb6a7911ae542fa55b4079c",
+      "localTaskId": "task_1db87e2918d2efbe",
+      "submittedAt": "2026-09-11T12:38:24.762Z",
+      "updatedAt": "2026-09-11T12:41:38.819Z",
+      "uri": "hogi://video/ad5853ef454462abbe29c3391da3339029d46f98b5952b89af180a4905beb9b5.mp4",
+      "path": "version-1/segment-2.mp4"
+    },
+    "version-1/segment-3": {
+      "status": "downloaded",
+      "taskId": "async_video_85bb29bbd4882fe682aecf7fa7568695",
+      "localTaskId": "task_a8596f26ec39868e",
+      "submittedAt": "2026-09-11T12:38:24.630Z",
+      "updatedAt": "2026-09-11T12:43:02.692Z",
+      "uri": "hogi://video/f63cef7285302b3e2f90e4ab3a37c1ff1b78ce242b8aacfc5907bde8cc604070.mp4",
+      "path": "version-1/segment-3.mp4"
+    },
+    "version-1/segment-4": {
+      "status": "downloaded",
+      "taskId": "async_video_1fcdf9fa8445afa0ef253b12a5eec4d1",
+      "localTaskId": "task_d9bb370606f5a7c6",
+      "submittedAt": "2026-09-11T12:41:42.387Z",
+      "updatedAt": "2026-09-11T12:47:45.179Z",
+      "uri": "hogi://video/a79733219a92dfa59f18145e988827264e26546a86918a7150264439067b5dc8.mp4",
+      "path": "version-1/segment-4.mp4"
+    },
+    "version-1/segment-5": {
+      "status": "downloaded",
+      "taskId": "async_video_268fdd3d398e449bb5dc86bc97f27bc5",
+      "localTaskId": "task_701441f5791585d7",
+      "submittedAt": "2026-09-11T12:42:04.600Z",
+      "updatedAt": "2026-09-11T12:49:10.223Z",
+      "uri": "hogi://video/833e7c9ec1248393c15a34ec25c39a7bac3894a3b42558b7eeb62eb1494f6d0f.mp4",
+      "path": "version-1/segment-5.mp4"
+    },
+    "version-1/segment-6": {
+      "status": "downloaded",
+      "taskId": "async_video_01a6ea2cb0f8c71fade24448086f8c48",
+      "localTaskId": "task_8deb13e123a19b4a",
+      "submittedAt": "2026-09-11T12:43:06.275Z",
+      "updatedAt": "2026-09-11T12:48:07.019Z",
+      "uri": "hogi://video/b517c2405e0f471c7314391e24142153d42e4a8ae2b108dfdba20f771e11859a.mp4",
+      "path": "version-1/segment-6.mp4"
+    },
+    "version-2/segment-1": {
+      "status": "downloaded",
+      "taskId": "async_video_fa043086d1cabfc504408e8360e67096",
+      "localTaskId": "task_6d77a47ba66352c8",
+      "submittedAt": "2026-09-11T12:47:48.766Z",
+      "updatedAt": "2026-09-11T12:50:41.722Z",
+      "uri": "hogi://video/863fffef4d6e6a1cc36907835aaeeef8a2fa12ae353a93a040f492ec1f4f7845.mp4",
+      "path": "version-2/segment-1.mp4"
+    },
+    "version-2/segment-2": {
+      "status": "downloaded",
+      "taskId": "async_video_ff38612ec892a27a39d4933a0b26e28e",
+      "localTaskId": "task_f0333c9782213a37",
+      "submittedAt": "2026-09-11T12:48:10.894Z",
+      "updatedAt": "2026-09-11T12:52:06.593Z",
+      "uri": "hogi://video/851c8fee0eb059b6b2e9fb9acf3a6f7cc416ea10ff62e7014b129b184f18ed22.mp4",
+      "path": "version-2/segment-2.mp4"
+    },
+    "version-2/segment-3": {
+      "status": "downloaded",
+      "taskId": "async_video_7c8c11879e435ccba35bf66cb18edcdd",
+      "localTaskId": "task_3866b8b99ba1bd4b",
+      "submittedAt": "2026-09-11T12:49:14.469Z",
+      "updatedAt": "2026-09-11T12:53:09.959Z",
+      "uri": "hogi://video/d3d645b59dda80a603a296d825c7d570b5ef87c8d427a48be29aa95ecd02f1b2.mp4",
+      "path": "version-2/segment-3.mp4"
+    },
+    "version-2/segment-4": {
+      "status": "downloaded",
+      "taskId": "async_video_05ba8692f1bfdb7558859f4d7a809e56",
+      "localTaskId": "task_71e1fe0a5613e331",
+      "submittedAt": "2026-09-11T12:50:45.661Z",
+      "updatedAt": "2026-09-11T12:54:42.499Z",
+      "uri": "hogi://video/fe604e8882def143e7c1ea7ca65247dd2a7cbea8e87748350611fd5bc94607c4.mp4",
+      "path": "version-2/segment-4.mp4"
+    },
+    "version-2/segment-5": {
+      "status": "downloaded",
+      "taskId": "async_video_52afa5698df015d166072389237bfb07",
+      "localTaskId": "task_e45a792b2ff6444d",
+      "submittedAt": "2026-09-11T12:52:11.046Z",
+      "updatedAt": "2026-09-11T12:56:07.315Z",
+      "uri": "hogi://video/9c105cfa6a9744cdb7c2ed6e1180832dad0b1c9eeb5b40e3a712ede29065ccb6.mp4",
+      "path": "version-2/segment-5.mp4"
+    },
+    "version-2/segment-6": {
+      "status": "downloaded",
+      "taskId": "async_video_766704aeaa52565c92f36895787e010f",
+      "localTaskId": "task_e9fc4f6abca4cca6",
+      "submittedAt": "2026-09-11T12:53:15.220Z",
+      "updatedAt": "2026-09-11T12:59:19.896Z",
+      "uri": "hogi://video/402c0f0c8496915b0da1ec86d14e391677a20fe889c9c4f5fa7311d194b63c8b.mp4",
+      "path": "version-2/segment-6.mp4"
+    },
+    "version-3/segment-1": {
+      "status": "downloaded",
+      "taskId": "async_video_ea1a985ee050d098694015d418bcd10b",
+      "localTaskId": "task_4c1ac51f1eed9a3c",
+      "submittedAt": "2026-09-11T12:54:46.699Z",
+      "updatedAt": "2026-09-11T12:58:00.021Z",
+      "uri": "hogi://video/585259e32a0db48f44e6d7499c26d9aba86cf571ad0f120b60513b2a6e2b3348.mp4",
+      "path": "version-3/segment-1.mp4"
+    },
+    "version-3/segment-2": {
+      "status": "downloaded",
+      "taskId": "async_video_1e762fd4157bc169ddf45b25e340686f",
+      "localTaskId": "task_825b91867e18d0e8",
+      "submittedAt": "2026-09-11T12:56:11.326Z",
+      "updatedAt": "2026-09-11T12:59:48.775Z",
+      "uri": "hogi://video/1225a954e2101b250433084162b76e83aaa2d8fc65a71329276bfd7a767baaba.mp4",
+      "path": "version-3/segment-2.mp4"
+    },
+    "version-3/segment-3": {
+      "status": "downloaded",
+      "taskId": "async_video_36cc7878ccfb11806e5d00d75a366388",
+      "localTaskId": "task_111383b440b3a3f1",
+      "submittedAt": "2026-09-11T12:58:04.287Z",
+      "updatedAt": "2026-09-11T13:04:30.025Z",
+      "uri": "hogi://video/09a0de77add1906bcc9f77cfc61ceadf56b0695d347f00fdff9261a51c01b118.mp4",
+      "path": "version-3/segment-3.mp4"
+    },
+    "version-3/segment-4": {
+      "status": "downloaded",
+      "taskId": "async_video_afa8260a63ef4facfb750ce2539ca54c",
+      "localTaskId": "task_d1dd2fe94bd87a0d",
+      "submittedAt": "2026-09-11T12:59:25.098Z",
+      "updatedAt": "2026-09-11T13:03:00.899Z",
+      "uri": "hogi://video/f39a6b2fda8f06be8b2b549f09e94a29855131114dd0e4db70e103a0943496c6.mp4",
+      "path": "version-3/segment-4.mp4"
+    },
+    "version-3/segment-5": {
+      "status": "downloaded",
+      "taskId": "async_video_5b8a19aaa3e72297046a43b152444f8f",
+      "localTaskId": "task_f4f953b216d37bb9",
+      "submittedAt": "2026-09-11T12:59:52.579Z",
+      "updatedAt": "2026-09-11T13:03:27.319Z",
+      "uri": "hogi://video/7afcababf93ba56ce338b1ca4ab88d83c45fb269ff2fee276040ddef748de3c5.mp4",
+      "path": "version-3/segment-5.mp4"
+    },
+    "version-3/segment-6": {
+      "status": "downloaded",
+      "taskId": "async_video_a3660b0bf3643941ceb43f8d466fcee4",
+      "localTaskId": "task_adcf3b38a58d9976",
+      "submittedAt": "2026-09-11T13:03:04.643Z",
+      "updatedAt": "2026-09-11T13:07:21.053Z",
+      "uri": "hogi://video/58721633188e3448e229a45f13251a994027ce7a78cdec91e454c75175db06e0.mp4",
+      "path": "version-3/segment-6.mp4"
+    },
+    "version-4/segment-1": {
+      "status": "downloaded",
+      "taskId": "async_video_218db6877dfd807efbb30e27b3190fa9",
+      "localTaskId": "task_e569db2722a75eb0",
+      "submittedAt": "2026-09-11T13:03:31.625Z",
+      "updatedAt": "2026-09-11T13:08:51.947Z",
+      "uri": "hogi://video/ccfd09a0bdb3cd532dec02d1d99f2cbcb9f39c88c3ae62858c0072a9267d9d96.mp4",
+      "path": "version-4/segment-1.mp4"
+    },
+    "version-4/segment-2": {
+      "status": "downloaded",
+      "taskId": "async_video_125681d56dbe5452d1f15c8c1c671b7a",
+      "localTaskId": "task_a48548558a5079b4",
+      "submittedAt": "2026-09-11T13:04:34.250Z",
+      "updatedAt": "2026-09-11T13:10:16.095Z",
+      "uri": "hogi://video/62cab146f8ff57c0f79ce3811d98187403e44bc92555f8674a14211acbbcea01.mp4",
+      "path": "version-4/segment-2.mp4"
+    },
+    "version-4/segment-3": {
+      "status": "downloaded",
+      "taskId": "async_video_393b707130de18566eba6465d9aa1e1d",
+      "localTaskId": "task_98b47762d1bbab8e",
+      "submittedAt": "2026-09-11T13:07:25.699Z",
+      "updatedAt": "2026-09-11T13:13:51.361Z",
+      "uri": "hogi://video/d923c0bcb4c1475ef7d66a0001e0cbd1e7c2e02e9a4c8b5831fcc2c4ee497205.mp4",
+      "path": "version-4/segment-3.mp4"
+    },
+    "version-4/segment-4": {
+      "status": "downloaded",
+      "taskId": "async_video_a8594b729d4239d0a98be2caf44635be",
+      "localTaskId": "task_8be31c7dff6ff56f",
+      "submittedAt": "2026-09-11T13:08:55.441Z",
+      "updatedAt": "2026-09-11T13:13:35.031Z",
+      "uri": "hogi://video/0ee1080604c97608bc64508dacd7c4318840e5b6d5d3b045737448e166542955.mp4",
+      "path": "version-4/segment-4.mp4"
+    },
+    "version-4/segment-5": {
+      "status": "downloaded",
+      "taskId": "async_video_112c45415bce8376321e6e48cb9efd16",
+      "localTaskId": "task_15c4988fbbb057ae",
+      "submittedAt": "2026-09-11T13:10:19.987Z",
+      "updatedAt": "2026-09-11T13:14:17.743Z",
+      "uri": "hogi://video/54075785f892cd70de8e6c17ee803a913be8ee169cc31f2827076a009853cd6b.mp4",
+      "path": "version-4/segment-5.mp4"
+    },
+    "version-4/segment-6": {
+      "status": "downloaded",
+      "taskId": "async_video_3db7b6d6fd49112833b1e3558bca9f2c",
+      "localTaskId": "task_a18cd540997a317e",
+      "submittedAt": "2026-09-11T13:13:39.454Z",
+      "updatedAt": "2026-09-11T13:23:30.948Z",
+      "uri": "hogi://video/e427cb92b2587869acead6f23c2cb8583593121ea56879cefaf6fa90c96fabec.mp4",
+      "path": "version-4/segment-6.mp4"
+    },
+    "version-5/segment-1": {
+      "status": "downloaded",
+      "taskId": "async_video_d3293cd9c6582ca2f147a71bdf08edb5",
+      "localTaskId": "task_c3ac2734611c121c",
+      "submittedAt": "2026-09-11T13:13:55.342Z",
+      "updatedAt": "2026-09-11T13:17:55.163Z",
+      "uri": "hogi://video/0aa1dc23a5a18c297ddd1ff286b89d18da6189483f515ceee1c6f46c441034fb.mp4",
+      "path": "version-5/segment-1.mp4"
+    },
+    "version-5/segment-2": {
+      "status": "downloaded",
+      "taskId": "async_video_9a6b67c400121e7c44dbfce00bf6eefe",
+      "localTaskId": "task_1177fd302036cad4",
+      "submittedAt": "2026-09-11T13:14:21.586Z",
+      "updatedAt": "2026-09-11T13:19:48.980Z",
+      "uri": "hogi://video/361c62f5e9d8d8c5908ce552dee4e95f4943364965994589e5319d8cd71f4a20.mp4",
+      "path": "version-5/segment-2.mp4"
+    },
+    "version-5/segment-3": {
+      "status": "downloaded",
+      "taskId": "async_video_1bff805f79cb443c267b1118e0bb51bc",
+      "localTaskId": "task_62030f4e37b7b078",
+      "submittedAt": "2026-09-11T13:23:31.918Z",
+      "updatedAt": "2026-09-11T13:28:00.287Z",
+      "uri": "hogi://video/fdac3679e221ad86f5fbf850c17fb578f734b40e35d5ea5cc6a7c24fd3f16aea.mp4",
+      "path": "version-5/segment-3.mp4"
+    },
+    "version-5/segment-4": {
+      "status": "downloaded",
+      "taskId": "async_video_d9abf24ba0e1a85760102838ca4e9af1",
+      "localTaskId": "task_4ecc2056d55adecf",
+      "submittedAt": "2026-09-11T13:23:31.702Z",
+      "updatedAt": "2026-09-11T13:30:09.097Z",
+      "uri": "hogi://video/a4a5b71b1c7502ce79796b60808a3b026e2cdb6071087f4451eb401ba831f414.mp4",
+      "path": "version-5/segment-4.mp4"
+    },
+    "version-5/segment-5": {
+      "status": "downloaded",
+      "taskId": "async_video_0195412f9570c27e6a99c09baf4c968d",
+      "localTaskId": "task_4e3c6341cc6f4618",
+      "submittedAt": "2026-09-11T13:23:36.073Z",
+      "updatedAt": "2026-09-11T13:27:20.599Z",
+      "uri": "hogi://video/d62750da4cc76bfab8090eb9bbfe821223a35a8dd631aa2b10e9572413be9ece.mp4",
+      "path": "version-5/segment-5.mp4"
+    },
+    "version-5/segment-6": {
+      "status": "downloaded",
+      "taskId": "async_video_e159589f9c4235df70328c313916c87a",
+      "localTaskId": "task_d7406389826af075",
+      "submittedAt": "2026-09-11T13:27:24.777Z",
+      "updatedAt": "2026-09-11T13:33:07.025Z",
+      "uri": "hogi://video/7303c0e7c04b870a2941d6f3296cc973dc025bdcf68dbb8baf12982ca6fc7aff.mp4",
+      "path": "version-5/segment-6.mp4"
+    }
+  }
+}

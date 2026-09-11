@@ -1,0 +1,306 @@
+[
+  {
+    "id": 0,
+    "source": "/assets/home-immersive-2026-09-07/afternoon.webp",
+    "sourceDimensions": [
+      3840,
+      2160
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "16:9",
+    "references": [
+      "analysis/materials/tablet/8.jpg",
+      "analysis/materials/tablet/11.png",
+      "output/交付/欧美场景重建-2026-09-08/产品参考/ola-original.png"
+    ],
+    "reversePrompt": "Warm afternoon living room, wide view. A six-year-old girl with a high ponytail and mustard cardigan sits on the left drawing with colored pencils at a low oak coffee table. Orange tablet lies landscape to her right, screen facing up. OLA stands on a separate side table at right. Beige sofa, oak shelves with books, plants, daylight from rear windows. Preserve the relaxed concentration and device scale.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Warm afternoon living room, wide view. A six-year-old girl with a high ponytail and mustard cardigan sits on the left drawing with colored pencils at a low oak coffee table. Orange tablet lies landscape to her right, screen facing up. OLA stands on a separate side table at right. Beige sofa, oak shelves with books, plants, daylight from rear windows. Preserve the relaxed concentration and device scale.",
+    "status": "installed",
+    "nodeName": "scene-0-medium-final",
+    "generatedDimensions": [
+      3840,
+      2160
+    ]
+  },
+  {
+    "id": 1,
+    "source": "/assets/home-immersive-2026-09-07/evening.webp",
+    "sourceDimensions": [
+      3840,
+      2160
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "16:9",
+    "references": [
+      "related/website/public/assets/print-detail/consistent-20260907/craft.webp"
+    ],
+    "reversePrompt": "Warm evening living room, father at left and six-year-old daughter at right sit closely on a beige sofa beneath a knitted blanket, smiling down at a large open blue fantasy picture book. Warm shaded lamp at left, dark blue night window at right, restrained plants and shelves behind. Medium-wide composition, intimate and natural.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Warm evening living room, father at left and six-year-old daughter at right sit closely on a beige sofa beneath a knitted blanket, smiling down at a large open blue fantasy picture book. Warm shaded lamp at left, dark blue night window at right, restrained plants and shelves behind. Medium-wide composition, intimate and natural. Strict comparison corrections: Match the original medium-wide composition. Father wears a plain TAUPE long-sleeve crewneck, daughter a CREAM knit sweater. Both seated together in a beige armchair, blanket across laps. Book is the original LumiQ Print blue hardcover from the supplied product-only reference: preserve the blue princess and icy castle artwork, not a new dragon book. Do not make the book oversized. Warm lamp on a cabinet behind left, not cut off against the left frame edge.",
+    "status": "installed",
+    "nodeName": "scene-1-reviewed",
+    "generatedDimensions": [
+      3840,
+      2160
+    ]
+  },
+  {
+    "id": 2,
+    "source": "/assets/home-immersive-2026-09-07/morning.webp",
+    "sourceDimensions": [
+      3840,
+      2160
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "16:9",
+    "references": [
+      "analysis/materials/nest15/NEST 15/NEST 15/原木色-正正.png"
+    ],
+    "reversePrompt": "Bright morning dining scene: mother left with cream cardigan and white mug, six-year-old daughter center holding spoon over breakfast bowl, father right in taupe sweater holding beige mug. They exchange smiles. Oak dining table with fruit bowl at lower left, toast and salad center, milk glass. At lower right a landscape light-oak NEST display shows a white family calendar dashboard and small photographs of the SAME new Western family. Large bright rear window, sheer curtains, greenery, pale oak cabinet left. Preserve product prominence and layout.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Bright morning dining scene: mother left with cream cardigan and white mug, six-year-old daughter center holding spoon over breakfast bowl, father right in taupe sweater holding beige mug. They exchange smiles. Oak dining table with fruit bowl at lower left, toast and salad center, milk glass. At lower right a landscape light-oak NEST display shows a white family calendar dashboard and small photographs of the SAME new Western family. Large bright rear window, sheer curtains, greenery, pale oak cabinet left. Preserve product prominence and layout. HIGHEST PRIORITY: use the exact front-view NEST product reference. The entire light oak outer front is a wide LANDSCAPE rectangle, horizontal width 1.63 TIMES height, a 16:9 active screen inside the original broad white bezel. At lower RIGHT of the breakfast table, point device front directly toward the camera, no lateral foreshortening. Width roughly 27 percent of image, height roughly 29 percent of image. Thin natural oak perimeter, broad white inset bezel, tiny square button on lower right white bezel visible, original white support feet. Do not make device square, portrait, thick-framed, or frameless. Display white family calendar/dashboard with small photographs of the same Western family. Preserve morning window, mother left cream cardigan, girl center with spoon, father right taupe sweater, breakfast and cups. Rebuild complete scene using ONLY the supplied ORIGINAL product image; never use a prior generated scene as reference.",
+    "status": "installed",
+    "nodeName": "scene-2-landscape-final",
+    "generatedDimensions": [
+      3840,
+      2160
+    ]
+  },
+  {
+    "id": 3,
+    "source": "/assets/home-immersive-2026-09-07/trust-wide.webp",
+    "sourceDimensions": [
+      3840,
+      2160
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "16:9",
+    "references": [
+      "analysis/materials/tablet/8.jpg"
+    ],
+    "reversePrompt": "Extra-wide airy daylight family scene, camera straight on across broad oak tabletop. Mother in cream knit sweater sits center-right and young son in white sweatshirt center-left; both smile down at orange tablet lying landscape on the table, boy points at screen. Large clean pale wall behind, white sofa and oak cabinet at left, softly sunlit window and plants right, abundant empty space on either side. Screen has orange blue concentric abstract artwork matching product reference.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Extra-wide airy daylight family scene, camera straight on across broad oak tabletop. Mother in cream knit sweater sits center-right and young son in white sweatshirt center-left; both smile down at orange tablet lying landscape on the table, boy points at screen. Large clean pale wall behind, white sofa and oak cabinet at left, softly sunlit window and plants right, abundant empty space on either side. Screen has orange blue concentric abstract artwork matching product reference. Strict comparison corrections: CRITICAL COMPOSITION: wide camera 4 meters away, 35mm lens, NOT a close-up portrait. The upper 55 percent of the entire frame is mostly clean pale wall. Mother and boy together occupy only 36 percent of total frame width in the lower center. Mother head centered x=0.55 y=0.62, boy head x=0.41 y=0.68. Their hands and small original orange tablet are at y=0.90 on the oak tabletop. Tablet occupies only 13 percent total image width. White sofa at lower left, daylight window at right. Preserve abundant side space and upper wall exactly as written; do not zoom in. Most important: tablet lies FLAT horizontally on the tabletop, TOUCH SCREEN FACING UP and visible to camera, like a sheet of paper. Boy touches the SCREEN. Screen shows orange and blue abstract concentric waves. The orange metal REAR FACE is completely HIDDEN. No vertical tablet, no orange back facing viewer, no upright support. Thin orange edge only. No added framed family photographs anywhere. Keep the wide distant composition with empty wall occupying upper 55 percent and people small in lower center.",
+    "status": "installed",
+    "nodeName": "scene-3-front-flat",
+    "generatedDimensions": [
+      3840,
+      2160
+    ]
+  },
+  {
+    "id": 5,
+    "source": "/assets/nest-detail/generated/nest-evening-home-v2.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "16:9",
+    "references": [
+      "analysis/materials/nest15/NEST 15/NEST 15/原木色-正正.png"
+    ],
+    "reversePrompt": "Warm evening home, NEST oak frame calendar display prominently on cabinet in left foreground, tilted slightly back, pale dashboard with clock and family schedule. In softly focused right background mother leans toward daughter seated on beige sofa, father stands to right checking handheld device. Amber lamp lighting, calm intimate scene, product sharp and family faces natural.",
+    "generationPrompt": "Generate a NEW complete lifestyle photograph. Product accuracy is the first priority: faithfully place the ORIGINAL NEST calendar from the supplied front render, preserving its EXACT wide landscape shape without stretching its height, proportions and white bezel. Its outline is 1.65 units WIDE for each 1 unit HIGH; its actual screen is 16:9. Do not squeeze its width. It is NOT a square digital photo frame. The light oak outer perimeter is thin, the white inset bezel is broad, with the small square button low on its right edge. Original small white feet. A white calendar/clock/tasks dashboard fills the active screen. No portrait photos on screen. Product is front facing, its plane parallel to camera, photographed in left foreground on an oak cabinet; its width is 38 percent of the photograph width, and its height is 40 percent of the photograph height. Mother and six-year-old daughter sitting together at right in the farther doorway; father standing behind holding a book. All three newly cast European/North American people in warm neutral clothes. Warm evening amber lamp illumination, clean walls, soft depth of field, natural faces. Match original website scene described above; no website text or watermark. Recreate the complete image as a new generation using only the original product render as an immutable reference; never edit its pixels and never use previous generated results as the base. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges.",
+    "status": "installed",
+    "nodeName": "scene-5-wide-photo",
+    "generatedDimensions": [
+      3840,
+      2160
+    ]
+  },
+  {
+    "id": 8,
+    "source": "/assets/ola-detail/generated/ola-bedtime-story-v2.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "4:3",
+    "references": [
+      "output/交付/欧美场景重建-2026-09-08/产品参考/ola-original.png"
+    ],
+    "reversePrompt": "Bedtime scene in warm cream bedroom. OLA stands upright on wooden bedside table at left next to warm shaded lamp and small toy. At right mother in beige knit sits beside young child tucked under cream bedding, child looking happily toward device. OLA contains original flat anime character, identical housing, camera, panels, bottom circular Go. Side perspective, warm low illumination, clean faces.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Bedtime scene in warm cream bedroom. OLA stands upright on wooden bedside table at left next to warm shaded lamp and small toy. At right mother in beige knit sits beside young child tucked under cream bedding, child looking happily toward device. OLA contains original flat anime character, identical housing, camera, panels, bottom circular Go. Side perspective, warm low illumination, clean faces. Strict comparison corrections: Preserve original subjects and positions: young BOY with short hair lies on his side on a pillow at center-right, covered up to shoulders by cream duvet, looking left toward OLA. Mother sits at far right bedside in profile with hand gently on blanket, not both sitting upright. Upright OLA fully visible on left bedside table. Medium-wide composition, product approx 20 percent frame width. Keep original bronze mechanical shell, camera rectangle, THREE side round buttons, clear front, anime girl and Go disc. No new product parts.",
+    "status": "installed",
+    "nodeName": "scene-8-reviewed",
+    "generatedDimensions": [
+      3264,
+      2448
+    ]
+  },
+  {
+    "id": 9,
+    "source": "/assets/ola-detail/generated/ola-family-kitchen-v2.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "4:3",
+    "references": [
+      "output/交付/欧美场景重建-2026-09-08/产品参考/ola-original.png"
+    ],
+    "reversePrompt": "Daylit family kitchen, father leans on oak counter at left, mother at right behind young daughter seated at counter. Upright OLA centered between family members, who smile naturally toward it and one another. Beige clothing, white kitchen, oak shelves, soft plants and green fruit at lower right. Preserve original mechanical OLA geometry and anime character.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Daylit family kitchen, father leans on oak counter at left, mother at right behind young daughter seated at counter. Upright OLA centered between family members, who smile naturally toward it and one another. Beige clothing, white kitchen, oak shelves, soft plants and green fruit at lower right. Preserve original mechanical OLA geometry and anime character.",
+    "status": "installed",
+    "generatedDimensions": [
+      3264,
+      2448
+    ]
+  },
+  {
+    "id": 10,
+    "source": "/assets/ola-detail/generated/ola-senior-reminder-v2.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "4:3",
+    "references": [
+      "output/交付/欧美场景重建-2026-09-08/产品参考/ola-original.png"
+    ],
+    "reversePrompt": "Elderly woman with silver hair in neat bun, cream cardigan, seated in right profile at round wooden table holding a clear glass of water. OLA upright at left on table facing her; original anime character visible. Bright pale wall, framed art, green leafy vase at far left, soft daylight, gentle reminder interaction. Clean natural elderly facial anatomy.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Elderly woman with silver hair in neat bun, cream cardigan, seated in right profile at round wooden table holding a clear glass of water. OLA upright at left on table facing her; original anime character visible. Bright pale wall, framed art, green leafy vase at far left, soft daylight, gentle reminder interaction. Clean natural elderly facial anatomy.",
+    "status": "installed",
+    "generatedDimensions": [
+      3264,
+      2448
+    ]
+  },
+  {
+    "id": 11,
+    "source": "/assets/ola-go-detail/generated/ola-go-bedside-journal-v3.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "4:3",
+    "references": [
+      "analysis/materials/go/go/微信图片_20260827113448.png"
+    ],
+    "reversePrompt": "Evening bedroom, young boy in gray sweatshirt seated on bed at right speaking toward a small black round Go display on bedside table at left. Warm shaded lamp on far left, cream cushions and brown headboard behind. Go lies at the same shallow angle as original scene, exact rounded geometry and yellow clock interface; nearby small dark accessory stays distinct.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Evening bedroom, young boy in gray sweatshirt seated on bed at right speaking toward a small black round Go display on bedside table at left. Warm shaded lamp on far left, cream cushions and brown headboard behind. Go lies at the same shallow angle as original scene, exact rounded geometry and yellow clock interface; nearby small dark accessory stays distinct. Strict comparison corrections: Preserve the original bedside product placement. Black round Go disc is lying almost FLAT on its back on the oak tabletop, screen facing upward at a shallow angle, just like a small portable puck; it is NOT standing upright and has no invented stand. Go diameter about 7 cm, only 9 percent of frame width. A SECOND smaller flat black circular puck lies to its left; not an earbuds case or pebble box. Boy in gray sweatshirt and blue trousers sits cross-legged on the bed at right, hands together on lap, looking down-left toward the device. Show the table and knees in a medium-wide camera view. Same original casing and side buttons.",
+    "status": "installed",
+    "nodeName": "scene-11-reviewed",
+    "generatedDimensions": [
+      3264,
+      2448
+    ]
+  },
+  {
+    "id": 12,
+    "source": "/assets/ola-go-detail/generated/ola-go-return-home-v3.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "4:3",
+    "references": [
+      "output/交付/欧美场景重建-2026-09-08/产品参考/ola-original.png",
+      "analysis/materials/go/go/微信图片_20260827113448.png",
+      "output/交付/欧美场景重建-2026-09-08/产品参考/ola-go-dock-original.png"
+    ],
+    "reversePrompt": "Warm home entryway, young boy in cream long-sleeve top and beige backpack at left in profile, holding detached small black Go disc in hand toward upright OLA on console at right. Preserve exact original circular dock recess without inventing any housing structure. Plant at far right, daylight doorway behind boy, warm oak cabinet and neutral wall. Original anime inside OLA.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Warm home entryway, young boy in cream long-sleeve top and beige backpack at left in profile, holding detached small black Go disc in hand toward upright OLA on console at right. Preserve exact original circular dock recess without inventing any housing structure. Plant at far right, daylight doorway behind boy, warm oak cabinet and neutral wall. Original anime inside OLA. The supplied original-dock-detail render is the authority for the empty dock: a shallow recessed round bowl with smoothly rounded inner lip, bronze inner back plate and small LUMIQ STUDIO logo centered on its back. NOT a deep cylindrical drilled hole, NOT a flat blank circle. Match original case angle and side controls. Use only the original product renders; regenerate the full lifestyle photograph from the written scene, not from any previously generated image.",
+    "status": "installed",
+    "nodeName": "scene-12-medium-final",
+    "generatedDimensions": [
+      3264,
+      2448
+    ]
+  },
+  {
+    "id": 13,
+    "source": "/assets/ola-go-detail/generated/ola-go-schoolbag-v2.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "4:3",
+    "references": [
+      "analysis/materials/go/go/微信图片_20260827113448.png"
+    ],
+    "reversePrompt": "Close product lifestyle crop: beige backpack strap dominates left foreground with round black Go display mounted to strap showing yellow 15:31 time and small weather icons. Young boy in cream top softly focused at center-right putting belongings into schoolbag, partial face visible. Bright airy bedroom, shallow depth of field. Preserve device scale, attachment and exact case geometry.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Close product lifestyle crop: beige backpack strap dominates left foreground with round black Go display mounted to strap showing yellow 15:31 time and small weather icons. Young boy in cream top softly focused at center-right putting belongings into schoolbag, partial face visible. Bright airy bedroom, shallow depth of field. Preserve device scale, attachment and exact case geometry.",
+    "status": "installed",
+    "generatedDimensions": [
+      3264,
+      2448
+    ]
+  },
+  {
+    "id": 19,
+    "source": "/assets/story/lumiq-story-family-v3.webp",
+    "sourceDimensions": [
+      1920,
+      1080
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "16:9",
+    "references": [
+      "analysis/materials/tablet/8.jpg",
+      "analysis/materials/tablet/11.png",
+      "output/交付/欧美场景重建-2026-09-08/产品参考/ola-original.png",
+      "related/website/public/assets/print-detail/consistent-20260907/craft.webp",
+      "related/website/public/assets/print-detail/consistent-20260907/pages.webp"
+    ],
+    "reversePrompt": "Warm evening multigenerational family at low oak coffee table: little girl in purple top at left, mother center in beige cardigan, silver-haired grandmother at right in dark navy cardigan. All lean toward open illustrated storybook on table. Orange tablet in left foreground; upright OLA at right foreground with original anime character. Dark blue sofa and night window, warm lamp behind left, intimate joyful storytelling.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Warm evening multigenerational family at low oak coffee table: little girl in purple top at left, mother center in beige cardigan, silver-haired grandmother at right in dark navy cardigan. All lean toward open illustrated storybook on table. Orange tablet in left foreground; upright OLA at right foreground with original anime character. Dark blue sofa and night window, warm lamp behind left, intimate joyful storytelling. Strict comparison corrections: Preserve original object arrangement: original orange tablet lies FLAT landscape with screen facing UP at lower LEFT, not standing, not showing orange back. Screen has original orange-blue abstract graphic. OPEN LumiQ Print hardcover lies flat at CENTER of table with the original icy-blue princess and castle page illustrations shown in product reference, not a sepia antique book. Girl at left points to the illustrated page, mother in center has hand on page, grandmother at right rests chin on hand. Their sweaters are purple, beige, navy respectively. OLA upright at right foreground with original mechanical casing and original anime girl. The storybook cover/page refs are immutable product references only; do not use any prior generated lifestyle image.",
+    "status": "installed",
+    "nodeName": "scene-19-reviewed",
+    "generatedDimensions": [
+      3840,
+      2160
+    ]
+  },
+  {
+    "id": 22,
+    "source": "/assets/tablet-detail/generated/tablet-parent-controls-v2.png",
+    "sourceDimensions": [
+      1448,
+      1086
+    ],
+    "model": "Lib Image",
+    "resolution": "4K",
+    "quality": "medium",
+    "ratio": "4:3",
+    "references": [
+      "analysis/materials/tablet/8.jpg",
+      "analysis/materials/tablet/11.png"
+    ],
+    "reversePrompt": "Bright parental control scene: mother in cream top center-left sits with young daughter at right, both looking at landscape tablet standing on oak table at left. Mother points at screen with clean parental control dashboard and circular orange progress chart. Soft plant at rear left, pale wall and oak shelving behind, medium shot, natural warm sunlight, correct orange tablet casing and black bezel.",
+    "generationPrompt": "Create a completely new full-frame 4K commercial lifestyle photograph from this written scene description. All real human subjects are a newly cast European or North American family, with natural Western facial features; keep specified ages, expressions, poses, clothing and relationships. Do not edit, inpaint, retouch, composite over, or reuse pixels from any existing website scene. Only original product renders are supplied as immutable references for exact product geometry, color, controls, seams, camera, logo and proportions. Reconstruct the scene, camera, crop, lighting and atmosphere as described. All miniature family photographs visible on device screens must depict the same newly cast family. Keep original illustrated/anime characters unchanged. Clean polished image, low visual noise, restrained high-frequency detail, clean background, clean stable facial rendering, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No added website headings or watermarks. Bright parental control scene: mother in cream top center-left sits with young daughter at right, both looking at landscape tablet standing on oak table at left. Mother points at screen with clean parental control dashboard and circular orange progress chart. Soft plant at rear left, pale wall and oak shelving behind, medium shot, natural warm sunlight, correct orange tablet casing and black bezel.",
+    "status": "installed",
+    "generatedDimensions": [
+      3264,
+      2448
+    ]
+  }
+]

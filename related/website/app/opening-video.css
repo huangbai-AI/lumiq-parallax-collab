@@ -51,8 +51,8 @@
   height: auto;
   aspect-ratio: 16 / 9;
   transform: translate(-50%, -50%);
-  object-fit: fill;
-  background-size: 100% 100%;
+  object-fit: contain;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
@@ -72,13 +72,13 @@
   }
 }
 .lh-video-start-poster {
-  background-image: url("/assets/home-video/hero-rest-20260907.webp");
+  background-image: url("/assets/home-video/ola-scroll-v16-start-20260909.webp");
 }
 .lh-video-layer[data-intro="pending"] .lh-video-start-poster {
-  background-image: url("/assets/home-video/hero-intro-user-clean-20260907.webp");
+  background-image: url("/assets/home-video/ola-scroll-v16-start-20260909.webp");
 }
 .lh-video-end-poster {
-  background-image: url("/assets/home-video/brand-end-user-clean-20260907.webp");
+  background-image: url("/assets/home-video/ola-scroll-v16-end-20260909.webp");
   opacity: 0;
 }
 .lh-opening-video {
@@ -116,7 +116,13 @@
   pointer-events: none;
 }
 .lh-opening[data-video-mode] .lh-ola-layout {
-  grid-template-columns: 28% 17% 55%;
+  --lh-h3: clamp(25px, 1.8vw, 30px);
+  --lh-detail: clamp(15px, 1vw, 16px);
+  --lh-action: 17px;
+  grid-template-columns: 57% 43%;
+  grid-template-rows: auto auto;
+  align-content: center;
+  row-gap: 20px;
 }
 .lh-opening[data-video-mode] .lh-hero-layout,
 .lh-opening[data-video-mode] .lh-ola-layout {
@@ -137,16 +143,18 @@
   align-self: center;
 }
 .lh-opening[data-video-mode] .lh-ola-copy {
-  grid-column: 1;
+  grid-column: 2;
+  grid-row: 1;
 }
-.lh-opening[data-video-mode] .lh-ola-copy h2 {
-  font-size: clamp(38px, 3.1vw, 52px);
+.lumiq-root .lh-home .lh-opening[data-video-mode] .lh-ola-copy h2 {
+  font-size: clamp(46px, 3.7vw, 64px);
 }
 .lh-opening[data-video-mode] .lh-ola-copy .lh-lead {
-  font-size: clamp(15px, 1vw, 17px);
+  font-size: clamp(18px, 1.25vw, 21px);
 }
 .lh-opening[data-video-mode] .lh-rhythm-cards {
-  grid-column: 3;
+  grid-column: 2;
+  grid-row: 2;
 }
 .lh-opening[data-video-mode] .lh-rhythm-card {
   align-self: stretch;
@@ -160,9 +168,12 @@
   pointer-events: auto;
 }
 .lh-opening[data-video-mode] .lh-rhythm-photo {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 16 / 9;
 }
 @media (max-height: 800px) {
+  .lumiq-root .lh-home .lh-opening[data-video-mode] .lh-ola-copy h2 {
+    font-size: clamp(40px, 3.4vw, 56px);
+  }
   .lh-opening[data-video-mode] .lh-rhythm-copy {
     padding: 18px 14px;
     min-height: 150px;
@@ -176,5 +187,17 @@
   .lh-opening[data-video-mode] :is(.lh-hero-layout, .lh-ola-layout) {
     padding-block: 100px 32px;
   }
-  .lh-opening[data-video-mode] .lh-rhythm-photo { aspect-ratio: 1 / 1.1; }
+  .lh-opening[data-video-mode] .lh-rhythm-photo { aspect-ratio: 16 / 9; }
 }
+
+.lh-opening[data-video-mode] .lh-ola-copy .lh-lead { max-width: 580px; }
+
+/* Cover the stage without stretching or synthetic side backgrounds. */
+.lh-opening[data-video-mode] .lh-video-layer { mask-image: none; }
+.lh-opening[data-video-mode] :is(.lh-video-start-poster, .lh-video-end-poster, .lh-opening-video) {
+  width: max(100vw, calc(100svh * 16 / 9));
+  top: calc(50% + 8px);
+  mask-image: none;
+}
+.lh-opening[data-video-mode] .lh-ola-copy { max-width: none; }
+.lh-opening[data-video-mode] .lh-ola-copy :is(h2, .lh-lead) { padding-right: 0; }

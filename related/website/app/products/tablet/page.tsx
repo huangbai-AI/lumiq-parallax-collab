@@ -92,7 +92,7 @@ export default function TabletPage() {
           body: t(`parent${number}Body`),
         })),
         image: {
-          src: "/assets/tablet-detail/generated/tablet-parent-controls-v2.png",
+          src: "/assets/western-scenes-20260908/tablet-parent-controls-v2.webp",
           alt: t("parentsTitle"),
         },
       }}

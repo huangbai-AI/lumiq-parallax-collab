@@ -1,5 +1,5 @@
 import Image from "@/components/home/HomeImage";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -11,18 +11,23 @@ import {
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
+import HomeBackgrounds from "@/components/home/HomeBackgrounds";
 import HomeMotion from "@/components/home/HomeMotion";
+import HomeGlassProducts from "@/components/home/HomeGlassProducts";
+import HomeFilms from "@/components/home/HomeFilms";
 import HomeExperiences from "@/components/home/HomeExperiences";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
 import "./opening-video.css";
 import "./home-floors-3-4.css";
+import "./home-films.css";
 import "./home-ending.css";
 import "./home-immersive.css";
 import "./home-anchored.css";
 import "./home-typography.css";
 import "./home-loading.css";
+import "./home-pearl-background.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.
@@ -35,7 +40,7 @@ const glassSlices = [
 ];
 const artwork: Record<ProductId, string> = {
   tablet: "home-products-refined-20260907/tablet-pair",
-  ola: "home-products-refined-20260907/ola-repaired",
+  ola: "home-products-refined-20260907/ola-original-transparent",
   "ola-go": "home-interactive/go",
   nest: "home-products-20260907/nest15-angle-confirmed",
   print: "home-interactive/print",
@@ -49,8 +54,10 @@ const principles = [
 
 export default async function Home() {
   const t = await getTranslations("HomeRefresh");
+  const locale = await getLocale();
   return (
     <HomeMotion>
+      <HomeBackgrounds />
       <div className="lh-opening">
         <div className="lh-opening-stage">
           <div className="lh-video-layer" aria-hidden="true">
@@ -104,7 +111,7 @@ export default async function Home() {
                   <br />
                   {t("hero2")}
                   <br />
-                  <span>{t("hero3")}</span>
+                  <span className="lh-hero-accent">{t("hero3")}</span>
                 </h1>
                 <p className="lh-lead">{t("heroBody")}</p>
                 <div className="lh-actions">
@@ -235,6 +242,10 @@ export default async function Home() {
           <div className="lh-products-heading">
             <h2 id="products-title">{t("productsHeading")}</h2>
           </div>
+          <HomeGlassProducts products={collection.map(id => ({
+            name: t(`products.${id}.name`), body: t(`products.${id}.body`),
+            image: "/assets/" + artwork[id] + ".webp", href: `/${locale}${PRODUCT_BY_ID[id].href}`, explore: t("explore"),
+          }))} />
           <div className="lh-products-viewport" id="home-products-rail">
             <div className="lh-products-track">
               {collection.map((id) => (
@@ -311,6 +322,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      <section id="films" className="lh-films-section" aria-labelledby="films-title" data-home-section>
+        <HomeFilms />
+      </section>
       <section
         id="experiences"
         className="lh-experiences lh-room-section"
@@ -329,7 +343,7 @@ export default async function Home() {
           <div className="lh-trust-room">
             <div className="lh-safety-photo">
               <Image
-                src="/assets/home-immersive-2026-09-07/trust-wide.webp"
+                src="/assets/western-scenes-20260908/trust-wide.webp"
                 alt={t("trustAlt")}
                 fill
                 quality={90}

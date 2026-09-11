@@ -46,3 +46,23 @@
   .lh-ola-copy .lh-lead { padding-right: 88px; }
   .lh-brand-character { width: 105px; height: 240px; right: -8px; }
 }
+
+/* Geometric hardware title: bold capitals and a compact, deliberate three-line block. */
+.lumiq-root .lh-home .lh-hero h1:lang(en) {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 5.1vw, 87px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -.055em;
+  line-height: 1.02;
+  text-wrap: initial;
+}
+.lumiq-root .lh-home .lh-hero h1 .lh-hero-accent { color: #627185; }
+@media(max-width:767px) {
+  .lumiq-root .lh-home .lh-hero h1:lang(en) { font-size: clamp(40px, 13.05vw, 72px); line-height: 1.06; letter-spacing: -.045em; }
+}
+
+@media(min-width:768px) {
+  .lh-hero-copy { top: clamp(40px, 8svh, 80px); }
+  .lumiq-root .lh-home .lh-hero h1:lang(en) { width: max-content; }
+}

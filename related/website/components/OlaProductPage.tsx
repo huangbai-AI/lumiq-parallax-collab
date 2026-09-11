@@ -29,7 +29,7 @@ export default function OlaProductPage() {
         title: t("magic"),
         body: t("magicBody"),
         image: {
-          src: "/assets/ola-detail/generated/ola-family-kitchen-v2.png",
+          src: "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp",
           alt: t("adultsAlt"),
         },
         noteTitle: t("synced"),
@@ -44,7 +44,7 @@ export default function OlaProductPage() {
           body: t("kidsBody"),
           bullets: [t("kids1"), t("kids2"), t("kids3")],
           image: {
-            src: "/assets/ola-detail/generated/ola-bedtime-story-v2.png",
+            src: "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp",
             alt: t("kidsAlt"),
           },
         },
@@ -54,7 +54,7 @@ export default function OlaProductPage() {
           body: t("adultsBody"),
           bullets: [t("adults1"), t("adults2"), t("adults3")],
           image: {
-            src: "/assets/ola-detail/generated/ola-senior-reminder-v2.png",
+            src: "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp",
             alt: t("adultsAlt"),
           },
         },

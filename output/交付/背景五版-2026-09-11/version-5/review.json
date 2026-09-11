@@ -1,0 +1,116 @@
+{
+  "segments": [
+    {
+      "file": "segment-1.mp4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "duration": 5.041667,
+      "fps": 24.0,
+      "frame_count": 121,
+      "mean_frame_change": 0.9833796620368958,
+      "max_frame_change": 2.9656474590301514,
+      "max_brightness_change": 2.4930572509765625,
+      "candidate_jump_times": [],
+      "note": "Thresholds only flag abrupt changes; visual review is required."
+    },
+    {
+      "file": "segment-2.mp4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "duration": 5.041667,
+      "fps": 24.0,
+      "frame_count": 121,
+      "mean_frame_change": 1.646382451057434,
+      "max_frame_change": 4.440988063812256,
+      "max_brightness_change": 2.4208831787109375,
+      "candidate_jump_times": [],
+      "note": "Thresholds only flag abrupt changes; visual review is required."
+    },
+    {
+      "file": "segment-3.mp4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "duration": 5.041667,
+      "fps": 24.0,
+      "frame_count": 121,
+      "mean_frame_change": 2.5970144271850586,
+      "max_frame_change": 5.592608451843262,
+      "max_brightness_change": 3.161468505859375,
+      "candidate_jump_times": [],
+      "note": "Thresholds only flag abrupt changes; visual review is required."
+    },
+    {
+      "file": "segment-4.mp4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "duration": 5.041667,
+      "fps": 24.0,
+      "frame_count": 121,
+      "mean_frame_change": 1.869840145111084,
+      "max_frame_change": 3.5545105934143066,
+      "max_brightness_change": 2.3921356201171875,
+      "candidate_jump_times": [],
+      "note": "Thresholds only flag abrupt changes; visual review is required."
+    },
+    {
+      "file": "segment-5.mp4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "duration": 5.041667,
+      "fps": 24.0,
+      "frame_count": 121,
+      "mean_frame_change": 1.3608344793319702,
+      "max_frame_change": 3.1258199214935303,
+      "max_brightness_change": 1.4649200439453125,
+      "candidate_jump_times": [],
+      "note": "Thresholds only flag abrupt changes; visual review is required."
+    },
+    {
+      "file": "segment-6.mp4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "duration": 5.041667,
+      "fps": 24.0,
+      "frame_count": 121,
+      "mean_frame_change": 1.5196166038513184,
+      "max_frame_change": 2.962432384490967,
+      "max_brightness_change": 2.5070648193359375,
+      "candidate_jump_times": [],
+      "note": "Thresholds only flag abrupt changes; visual review is required."
+    }
+  ],
+  "joins": [
+    {
+      "before": "segment-2.mp4",
+      "rgb_difference": 1.1184896230697632
+    },
+    {
+      "before": "segment-3.mp4",
+      "rgb_difference": 0.7419142127037048
+    },
+    {
+      "before": "segment-4.mp4",
+      "rgb_difference": 0.8089152574539185
+    },
+    {
+      "before": "segment-5.mp4",
+      "rgb_difference": 0.7584876418113708
+    },
+    {
+      "before": "segment-6.mp4",
+      "rgb_difference": 0.6737879514694214
+    }
+  ]
+}

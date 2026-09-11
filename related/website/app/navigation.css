@@ -214,7 +214,7 @@
   outline-offset: 4px;
   border-radius: 8px;
 }
-@media (max-width: 1120px) {
+@media (max-width: 1279px) {
   .site-desktop-nav,
   .site-desktop-action {
     display: none !important;
@@ -263,7 +263,7 @@
     height: 38px;
   }
 }
-@media (min-width: 1121px) {
+@media (min-width: 1280px) {
   .site-desktop-nav {
     display: flex !important;
   }
@@ -315,8 +315,8 @@
   padding: 12px clamp(24px, 4vw, 72px);
 }
 .lumiq-root .site-nav .nav-logo {
-  width: 142px;
-  height: 48px;
+  width: 170px;
+  height: 58px;
 }
 .lumiq-root .site-nav .nav-actions {
   gap: 16px;
@@ -328,7 +328,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-size: 13px;
+  font-size: 17px;
   color: #44515e;
 }
 .lumiq-root .site-nav .site-desktop-nav a.active::after {
@@ -338,14 +338,14 @@
   min-height: 44px;
   padding: 10px 22px;
   border-color: #b9c1c8;
-  font-size: 12px;
+  font-size: 15.6px;
 }
 .lumiq-root .site-nav .lang-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  font-size: 12px;
+  font-size: 15.6px;
 }
 .lumiq-root .site-nav .site-mobile-trigger {
   width: 44px;
@@ -406,8 +406,8 @@
     padding: 12px 24px;
   }
   .lumiq-root .site-nav .nav-logo {
-    width: 112px;
-    height: 44px;
+    width: 134px;
+    height: 53px;
   }
   .lumiq-root .site-nav .nav-actions {
     gap: 10px;
@@ -422,7 +422,7 @@
     padding-inline: 16px;
   }
   .lumiq-root .site-nav .nav-logo {
-    width: 92px;
+    width: 110px;
   }
   .lumiq-root .site-nav .nav-actions {
     gap: 6px;

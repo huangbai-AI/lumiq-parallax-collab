@@ -6,6 +6,7 @@
 }
 /* The homepage supplies the shared type and colour language. */
 .lumiq-root {
+  --font-heading: "Lumiq Manrope", "Noto Sans TC", "Noto Sans JP", sans-serif;
   --font-sans: "Lumiq Manrope", Arial, "Noto Sans TC", "Noto Sans JP", sans-serif;
   --lq-h1: clamp(44px, 4.8vw, 78px);
   --lq-h2: clamp(36px, 3vw, 52px);
@@ -87,4 +88,11 @@
 .lumiq-root:is(.locale-ja, .locale-zh-hant) main:not(.lh-home) :is(h1, h2, h3) {
   line-height: 1.3;
   letter-spacing: .01em;
+}
+
+/* All editorial headings, including emphasis, use the shared neutral sans-serif family. */
+.lumiq-root :is(h1,h2,h3,h4,h5,h6),
+.lumiq-root :is(h1,h2,h3,h4,h5,h6) :is(span,em,strong) {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
 }

@@ -1,0 +1,12 @@
+{
+  "workspace": "9fbd65ff-c963-4dcb-a89a-bdeefb9fa54a",
+  "keyframes": [
+    {"id":"02-clean-tail","path":"output/交付/背景视差-2026-09-11/02-clean-tail.png","uri":"hogi://image/mtwrwdj6_37b396f36c177f9a.png"},
+    {"id":"03-disc","path":"output/交付/背景视差-2026-09-11/03-disc.png","uri":"hogi://image/mtwrwghz_17a8795f7c850e2d.png"},
+    {"id":"04-dispersed","path":"output/交付/背景视差-2026-09-11/04-dispersed.png","uri":"hogi://image/mtwrwjhl_c3885b981aaf5ab0.png"},
+    {"id":"05-reformed","path":"output/交付/背景视差-2026-09-11/05-reformed.png","uri":"hogi://image/mtwrwmkm_6ca1f89fa1f82e77.png"},
+    {"id":"safety","path":"output/交付/独立固定背景-2026-09-10/safety.png","uri":"hogi://image/mtwxc6w2_295abdcab36cdd87.png"},
+    {"id":"family","path":"output/交付/独立固定背景-2026-09-10/family.png","uri":"hogi://image/mtwxc7h2_4b16745a87400fb0.png"},
+    {"id":"join","path":"output/交付/独立固定背景-2026-09-10/join.png","uri":"hogi://image/mtwxc8hi_2877f5080b1dbf11.png"}
+  ]
+}

@@ -1066,5 +1066,27 @@
     "parent4Body": "物語を読み終えるとポイントやバッジを獲得し、スクロールより読書を促します。",
     "parent5Title": "ショップ",
     "parent5Body": "ポイントや料金で Lumiq の追加コンテンツや提携クーポンを利用できます。決済には毎回、保護者 PIN が必要です。"
+  },
+  "HomeFilms": {
+    "play": "動画を再生",
+    "pause": "動画を一時停止",
+    "eyebrow": "LUMIQ STORIES",
+    "heading": "毎日を、もっと身近に。",
+    "carousel": "動画カルーセル",
+    "previous": "前の動画",
+    "next": "次の動画",
+    "open": "動画を開く",
+    "everyday-companion": {
+      "title": "毎日に寄り添う存在。",
+      "body": "朝の習慣から静かな夜まで。OLA と Go のある日常をご覧ください。"
+    },
+    "worlds-together": {
+      "title": "物語の世界を、ともに。",
+      "body": "子どもの想像の世界から、世代を超えて分かち合う時間まで。"
+    },
+    "welcome-home": {
+      "title": "おかえりなさい。",
+      "body": "スマートロックと見慣れた笑顔。家で過ごすひとときを描きます。"
+    }
   }
 }
