@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export const backgroundVideoSource = "/assets/chapter-backgrounds-20260911/background-scroll-v1.mp4";
-const backgroundCues = [0, 4, 8, 12];
+export const backgroundVideoSource = "/assets/chapter-backgrounds-20260911/background-scroll-v3.mp4";
+const backgroundCues = [0, 3.7, 7.4, 11.4];
 
 export const chapterBackgrounds = ["products", "films", "experiences", "safety", "family", "join"] as const;
 export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260910/${name}.webp`;

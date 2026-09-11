@@ -8,7 +8,7 @@ const open = async (options = {}) => {
 };
 try {
   const fallback = await open();
-  await fallback.route('**/background-scroll-v1.mp4', route => route.abort());
+  await fallback.route('**/background-scroll-v3.mp4', route => route.abort());
   await fallback.goto('http://127.0.0.1:4211/en');
   await fallback.waitForTimeout(3000);
   assert.equal(await fallback.locator('[data-background-video]').evaluate(v => v.dataset.ready), 'false');
@@ -38,14 +38,14 @@ try {
       }, time);
       assert(await video.evaluate(v => v.paused), 'background remains paused');
     };
-    await move(positions[0], 4);
+    await move(positions[0], 3.7);
     assert.equal(await page.locator('[data-chapter-background="products"]').evaluate(el => el.style.opacity), '0');
-    await move((positions[0] + positions[1]) / 2, 6);
+    await move((positions[0] + positions[1]) / 2, 5.55);
     await page.waitForTimeout(500);
-    assert(Math.abs(await video.evaluate(v => v.currentTime) - 6) < .15, 'stopped scroll freezes frame');
-    await move(positions[1], 8);
-    await move(positions[2], await video.evaluate(v => Math.min(12, v.duration - 1 / 30)));
-    await move(positions[0], 4);
+    assert(Math.abs(await video.evaluate(v => v.currentTime) - 5.55) < .15, 'stopped scroll freezes frame');
+    await move(positions[1], 7.4);
+    await move(positions[2], await video.evaluate(v => Math.min(11.4, v.duration - 1 / 30)));
+    await move(positions[0], 3.7);
     assert.equal(await page.locator('[data-background-video]').count(), 1);
     await page.screenshot({ path: '/tmp/lumiq-background-products.png' });
     await page.close();
