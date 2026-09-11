@@ -228,7 +228,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
     <PearlFlow index={index} reflected={reflected} opacity={opacity} active={active} />
     {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} />}
     {content && !reflected && Math.abs(offset) <= (five ? 2 : 1) && <Html transform position={[0, 0, .16]} distanceFactor={4}>
-      <div className="glass-sample-content" onMouseEnter={() => hover(index)} onFocus={() => select(index)}
+      <div className="glass-sample-content" onMouseEnter={() => hover(index)}
         onPointerMove={e => {
           if (e.pointerType === "touch") return;
           const rect = e.currentTarget.getBoundingClientRect();

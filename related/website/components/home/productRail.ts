@@ -1,3 +1,5 @@
+import { mountCarouselWheelGate } from "./readingGuard";
+
 /** Five real product links, presented as a circular glass carousel on desktop. */
 export function mountProductRail(root: HTMLElement) {
   const section = root.querySelector<HTMLElement>(".lh-products");
@@ -43,7 +45,6 @@ export function mountProductRail(root: HTMLElement) {
       hover = setTimeout(() => select(index), 420);
     }, options);
     slot.addEventListener("pointerleave", cancelHover, options);
-    slot.addEventListener("focusin", () => { if (desktop.matches && index !== active) select(index); }, options);
     slot.addEventListener("click", (event) => {
       if (desktop.matches && index !== active) { event.preventDefault(); select(index); }
     }, options);
@@ -67,10 +68,15 @@ export function mountProductRail(root: HTMLElement) {
   }, { ...options, passive: true });
   const resize = () => { viewport.scrollLeft = 0; active = 0; render(); };
   desktop.addEventListener("change", resize, options);
+  const releaseWheel = mountCarouselWheelGate(
+    section.querySelector<HTMLElement>(".lh-products-stage") || section,
+    () => select(active + 1),
+    () => performance.now() < lockedUntil,
+  );
   section.dataset.enhanced = "true";
   render();
   return () => {
-    cancelHover(); events.abort();
+    releaseWheel(); cancelHover(); events.abort();
     delete section.dataset.enhanced; delete section.dataset.carousel; delete section.dataset.activeProduct;
     slots.forEach(slot => { slot.inert = false; delete slot.dataset.offset; delete slot.dataset.active; });
   };

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
+import { mountCarouselWheelGate } from "./readingGuard";
 import { useTranslations } from "next-intl";
 import { ArrowUp, ArrowDown, Play, Pause } from "lucide-react";
 
@@ -15,7 +16,6 @@ export default function HomeFilms() {
   const character = useRef<HTMLVideoElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const touchStart = useRef<number | null>(null);
-  const lastWheel = useRef(0);
   const [travel, setTravel] = useState(0);
   const switching = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -35,41 +35,7 @@ export default function HomeFilms() {
   useEffect(() => {
     const target = stage.current;
     if (!target) return;
-    let advances = 0;
-    let released = false;
-    const resetOnExit = () => {
-      const bounds = target.getBoundingClientRect();
-      if (bounds.bottom <= 0 || bounds.top >= innerHeight) {
-        advances = 0;
-        released = false;
-        lastWheel.current = 0;
-      }
-    };
-    const wheel = (event: WheelEvent) => {
-      if (released || event.ctrlKey || event.deltaY <= 0 || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-      const bounds = target.getBoundingClientRect();
-      // Capture only once the carousel composition has entered, without snapping scroll position.
-      if (bounds.top > 180 || bounds.bottom < innerHeight * .55) return;
-      const now = performance.now();
-      const quiet = now - lastWheel.current > 350;
-      lastWheel.current = now;
-      // Finish the second animation and its wheel momentum before handing scrolling back.
-      if (advances >= 2 && !switching.current && quiet) {
-        released = true;
-        return;
-      }
-      event.preventDefault();
-      if (advances < 2 && quiet && !switching.current) {
-        advances += 1;
-        select(1);
-      }
-    };
-    window.addEventListener("wheel", wheel, { passive: false });
-    window.addEventListener("scroll", resetOnExit, { passive: true });
-    return () => {
-      window.removeEventListener("wheel", wheel);
-      window.removeEventListener("scroll", resetOnExit);
-    };
+    return mountCarouselWheelGate(target, () => select(1), () => switching.current);
   }, [select]);
   useEffect(() => {
     const element = video.current;

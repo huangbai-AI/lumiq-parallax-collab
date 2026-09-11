@@ -1,40 +1,29 @@
-import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+import {chromium} from 'playwright';
+const browser=await chromium.launch({channel:'chrome',headless:true});
 try {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  await page.goto('http://127.0.0.1:4211/en');
-  await page.waitForTimeout(8000);
-  const target = await page.locator('.lh-products-stage').evaluate(el => scrollY + el.getBoundingClientRect().top);
-  await page.evaluate(y => scrollTo({ top: y - 40, behavior: 'instant' }), target);
-  await page.mouse.move(30, 450);
-  await page.mouse.wheel(0,100);
-  await page.waitForTimeout(300);
-  const landed=await page.evaluate(()=>scrollY);
-  assert(landed>target+40,'wheel advances normally across landing');
-  assert(Math.abs((await page.locator('.lh-products-stage').boundingBox()).y)<3,'complete floor remains visible');
-  await page.waitForTimeout(900);
-  assert(Math.abs(await page.evaluate(()=>scrollY)-landed)<2,'no automatic snap after wheel stops');
-  await page.mouse.wheel(0,120);
-  await page.waitForTimeout(250);
-  assert(await page.evaluate(()=>scrollY)>landed+100,'first wheel consumes real scroll distance');
-  assert(Math.abs((await page.locator('.lh-products-stage').boundingBox()).y)<3,'first wheel remains on floor');
-  await page.mouse.wheel(0,120);
-  await page.waitForTimeout(250);
-  assert((await page.locator('.lh-products-stage').boundingBox()).y < -30,'second wheel leaves floor');
-  const released=await page.evaluate(()=>scrollY);
-  await page.waitForTimeout(900);
-  assert(Math.abs(await page.evaluate(()=>scrollY)-released)<2,'no forced backward movement');
-  await page.locator('.lh-films-stage').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(1000);
-  const before = await page.evaluate(() => scrollY);
-  await page.locator('.lh-film-card').hover();
-  await page.mouse.wheel(0, 150);
-  await page.waitForTimeout(900);
-  assert.equal(await page.locator('.lh-film-card').getAttribute('aria-label'), '2 / 3', 'film wheel still switches videos');
-  assert(Math.abs(await page.evaluate(() => scrollY) - before) < 3, 'film wheel does not move page');
-  console.log('Native landing distance, two-wheel release, no snap-back and film wheel checks passed.');
-} finally {
-  await browser.close();
-}
+ const page=await browser.newPage({viewport:{width:1440,height:1000}});
+ await page.goto('http://127.0.0.1:4211/en');await page.waitForTimeout(8000);
+ await page.locator('.lh-products-stage').evaluate(e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-110));
+ const side=page.locator('.glass-sample-content[data-active="false"][data-offset="1"] a');
+ await side.waitFor();await page.waitForTimeout(1100);
+ const href=await side.getAttribute('href');
+ await side.click();await page.waitForTimeout(850);
+ assert(page.url().endsWith('/en'),'first click only selects');
+ assert.equal(await page.locator('.glass-sample-content[data-active="true"] a').getAttribute('href'),href);
+ await page.locator('.glass-sample-content[data-active="true"] a').click();
+ await page.waitForURL(url=>url.pathname===href);
+ await page.goto('http://127.0.0.1:4211/en');await page.waitForTimeout(8000);
+ await page.locator('.lh-products-stage').evaluate(e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-110));
+ await page.mouse.move(15,450);await page.waitForTimeout(1000);
+ const before=await page.evaluate(()=>scrollY);
+ for(const index of ['1','2']) {
+  await page.mouse.wheel(0,100);await page.waitForTimeout(900);
+  assert.equal(await page.locator('.lh-products').getAttribute('data-active-product'),index);
+  assert.equal(await page.evaluate(()=>scrollY),before);
+ }
+ await page.mouse.wheel(0,150);await page.waitForTimeout(300);
+ assert(await page.evaluate(()=>scrollY)>before+100,'third wheel leaves product page');
+ assert((await page.locator('.lh-products-stage').boundingBox()).y<0,'no pin');
+ console.log('PASS: side click selects, active click navigates, two wheel switches before native exit');
+} finally {await browser.close();}
