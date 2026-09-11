@@ -11,7 +11,14 @@ try {
  assert.equal(await clip.evaluate(v=>getComputedStyle(v).pointerEvents),'none');
  assert.equal(await clip.evaluate(v=>v.muted),true);
  const ratio=await page.evaluate(()=>document.querySelector('.lh-film-card').getBoundingClientRect().width/document.querySelector('.lh-films-stage').getBoundingClientRect().width);
- assert.ok(Math.abs(ratio-.7)<.01,'film card must be 70% of its former stage width');
+ assert.ok(Math.abs(ratio-.91)<.01,'selected film must be 30% larger than its previous 70% width');
+ const top=await page.locator('.lh-film-preview-top').boundingBox();
+ const bottom=await page.locator('.lh-film-preview-bottom').boundingBox();
+ assert.ok(top.y<bottom.y,'previews are stacked vertically');
+ await page.locator('.lh-film-card').hover();
+ await page.mouse.wheel(0,120);
+ await page.waitForTimeout(650);
+ assert.equal(await page.locator('.lh-film-card').getAttribute('aria-label'),'2 / 3');
  assert.equal(await page.locator('.lh-product-character').count(),0,'character must not remain in product carousel');
  const alpha=await clip.evaluate(v=>{const c=document.createElement('canvas');c.width=100;c.height=56;const x=c.getContext('2d');x.drawImage(v,0,0,100,56);return x.getImageData(0,0,1,1).data[3];});
  assert.equal(alpha,0,'video background must decode transparent');
@@ -25,5 +32,5 @@ try {
  assert.equal(await clip.evaluate(v=>getComputedStyle(v).display),'none');
  await page.setViewportSize({width:390,height:844});
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
- console.log('PASS: film placement, 70% card scale, leave reset, re-entry replay, decoded alpha, no pointer interception, reduced motion, mobile width');
+ console.log('PASS: film placement, enlarged card, vertical wheel selection, leave reset, re-entry replay, decoded alpha, reduced motion, mobile width');
 } finally {await browser.close();}

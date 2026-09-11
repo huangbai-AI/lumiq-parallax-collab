@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, Play, Pause } from "lucide-react";
+import { ArrowUp, ArrowDown, Play, Pause } from "lucide-react";
 
 const films = ["everyday-companion", "worlds-together", "welcome-home"] as const;
 
@@ -15,11 +15,34 @@ export default function HomeFilms() {
   const character = useRef<HTMLVideoElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const touchStart = useRef<number | null>(null);
+  const lastWheel = useRef(0);
+  const [direction, setDirection] = useState(1);
   const select = (index: number) => {
+    setDirection(index < active ? -1 : 1);
     video.current?.pause();
     setPlaying(false);
     setActive((index + films.length) % films.length);
   };
+  useEffect(() => {
+    const target = stage.current;
+    if (!target) return;
+    const wheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+      event.preventDefault();
+      const now = performance.now();
+      const quiet = now - lastWheel.current > 350;
+      lastWheel.current = now;
+      if (quiet) {
+        video.current?.pause();
+        setPlaying(false);
+        const step = Math.sign(event.deltaY);
+        setDirection(step);
+        setActive(index => (index + step + films.length) % films.length);
+      }
+    };
+    target.addEventListener("wheel", wheel, { passive: false });
+    return () => target.removeEventListener("wheel", wheel);
+  }, []);
   useEffect(() => {
     const element = video.current;
     if (!element) return;
@@ -65,26 +88,23 @@ export default function HomeFilms() {
       <header className="lh-films-heading">
         <div><p className="lh-eyebrow">{t("eyebrow")}</p><h2 id="films-title">{t("heading")}</h2></div>
         <nav className="lh-films-controls" aria-label={t("carousel")}>
-          <button type="button" onClick={() => select(active - 1)} aria-label={t("previous")}><ArrowLeft size={20} /></button>
+          <button type="button" onClick={() => select(active - 1)} aria-label={t("previous")}><ArrowUp size={20} /></button>
           <span aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, "0")} / 03</span>
-          <button type="button" onClick={() => select(active + 1)} aria-label={t("next")}><ArrowRight size={20} /></button>
+          <button type="button" onClick={() => select(active + 1)} aria-label={t("next")}><ArrowDown size={20} /></button>
         </nav>
       </header>
-      <div ref={stage} className="lh-films-stage" onTouchStart={e => { touchStart.current = e.touches[0].clientX; }}
+      <div ref={stage} className="lh-films-stage" data-direction={direction} onTouchStart={e => { touchStart.current = e.touches[0].clientY; }}
         onTouchEnd={e => {
           if (touchStart.current !== null) {
-            const distance = e.changedTouches[0].clientX - touchStart.current;
+            const distance = e.changedTouches[0].clientY - touchStart.current;
             if (Math.abs(distance) > 50) select(active + (distance < 0 ? 1 : -1));
           }
           touchStart.current = null;
         }}>
-        <video ref={character} className="lh-film-character" muted playsInline preload="none" aria-hidden="true" poster="/assets/character-20260910/ola-girl-poster.png">
-          <source src="/assets/character-20260910/ola-girl-alpha.webm" type="video/webm" />
-        </video>
         {[-1, 1].map(direction => {
           const index = (active + direction + films.length) % films.length;
-          return <button key={direction} className={`lh-film-preview lh-film-preview-${direction < 0 ? "left" : "right"}`}
-            type="button" onClick={() => select(index)} aria-label={`${t(direction < 0 ? "previous" : "next")}: ${t(`${films[index]}.title`)}`}>
+          return <button key={direction} className={`lh-film-preview lh-film-preview-${direction < 0 ? "top" : "bottom"}`}
+            type="button" onClick={() => select(active + direction)} aria-label={`${t(direction < 0 ? "previous" : "next")}: ${t(`${films[index]}.title`)}`}>
             <Image src={`/assets/films-20260908/${films[index]}.jpg`} alt="" width={1280} height={720} unoptimized />
           </button>;
         })}
@@ -99,6 +119,9 @@ export default function HomeFilms() {
           </button>
         </article>
       </div>
+      <video ref={character} className="lh-film-character" muted playsInline preload="none" aria-hidden="true" poster="/assets/character-20260910/ola-girl-poster.png">
+        <source src="/assets/character-20260910/ola-girl-alpha.webm" type="video/webm" />
+      </video>
     </div>
   );
 }
