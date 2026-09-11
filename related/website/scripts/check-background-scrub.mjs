@@ -8,7 +8,7 @@ const open = async (options = {}) => {
 };
 try {
   const fallback = await open();
-  await fallback.route('**/background-scroll-v3-scrub.mp4', route => route.abort());
+  await fallback.route('**/version-5.mp4', route => route.abort());
   await fallback.goto('http://127.0.0.1:4211/en');
   await fallback.waitForTimeout(3000);
   assert.equal(await fallback.locator('[data-background-video]').evaluate(v => v.dataset.ready), 'false');
@@ -24,9 +24,16 @@ try {
     await page.goto('http://127.0.0.1:4211/en');
     await page.waitForSelector('[data-background-video][data-ready="true"]', { state: 'attached', timeout: 30000 });
     await page.waitForTimeout(6000);
-    const { start, end, duration } = await page.locator('[data-background-video]').evaluate(v => ({
-      start: Number(v.dataset.scrollStart), end: Number(v.dataset.scrollEnd), duration: v.duration - 1 / 30
+    const { start, end, duration, cues } = await page.locator('[data-background-video]').evaluate(v => ({
+      start: Number(v.dataset.scrollStart), end: Number(v.dataset.scrollEnd), duration: v.duration - 1 / 30, cues: JSON.parse(v.dataset.scrollCues)
     }));
+    const at = y => {
+      const right = cues.findIndex(([position]) => position > y);
+      if (right === 0) return 0;
+      if (right < 0) return duration;
+      const [a, from] = cues[right - 1], [b, to] = cues[right];
+      return Math.min(duration, from + (to - from) * (y - a) / Math.max(1, b - a));
+    };
     const positions = [start, start+(end-start)*.5, end];
     assert.equal(end, await page.evaluate(()=>document.documentElement.scrollHeight-innerHeight));
     const bounds = await page.locator('[data-background-video]').boundingBox();
@@ -51,11 +58,11 @@ try {
     };
     await move(positions[0], 0);
     assert.equal(await page.locator('[data-background-fallback]').evaluate(el => el.style.opacity), '0');
-    await move((positions[0] + positions[1]) / 2, duration*.25);
+    await move((positions[0] + positions[1]) / 2, at(start+(end-start)*.25));
     await page.waitForTimeout(500);
-    assert(Math.abs(await video.evaluate(v => v.currentTime) - duration*.25) < .15, 'stopped scroll freezes frame');
-    await move(positions[1], duration*.5);
-    await move(start+(end-start)*.9, duration*.9);
+    assert(Math.abs(await video.evaluate(v => v.currentTime) - at(start+(end-start)*.25)) < .15, 'stopped scroll freezes frame');
+    await move(positions[1], at(positions[1]));
+    await move(start+(end-start)*.9, at(start+(end-start)*.9));
     await move(positions[2], duration);
     await move(positions[0], 0);
     assert.equal(await page.locator('[data-background-video]').count(), 1);

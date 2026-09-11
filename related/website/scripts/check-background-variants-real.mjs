@@ -3,16 +3,18 @@ import { chromium } from 'playwright';
 
 const variants = process.argv.slice(2).map(Number);
 if (!variants.length) variants.push(1, 2, 3, 4, 5);
-assert(variants.every(v => Number.isInteger(v) && v >= 1 && v <= 5));
+assert(variants.every(v => Number.isInteger(v) && v >= 0 && v <= 5));
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
 for (const variant of variants) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  await page.goto(`http://127.0.0.1:4211/en?background=${variant}`);
+  await page.goto(`http://127.0.0.1:4211/en${variant ? `?background=${variant}` : ""}`);
   await page.waitForSelector('.lh-home[data-home-state="open"]', { timeout: 30000 });
   await page.waitForTimeout(1000);
   const video = page.locator('[data-background-video]');
   await page.waitForSelector('[data-background-video][data-ready="true"]');
+  assert((await video.evaluate(v => v.currentSrc)).endsWith(`version-${variant || 5}.mp4`));
+  if (!variant) assert.equal(await page.getByRole('navigation', { name: '背景方案预览' }).count(), 0);
   const cues = await video.evaluate(v => JSON.parse(v.dataset.scrollCues));
   assert.deepEqual([...new Set(cues.map(cue => cue[1]))], [0, 5, 10, 15, 20, 25, 30]);
   assert(cues.every(([position], i) => !i || position >= cues[i - 1][0]), 'chapter cues are ordered');
@@ -42,7 +44,7 @@ for (const variant of variants) {
   for(let i=0;i<14;i++) {await page.evaluate(y=>scrollTo({top:y,behavior:'instant'}),cues[i%cues.length][0]);await page.waitForTimeout(45);}
   await move(product[0][0],5);
   assert.equal(await page.evaluate(()=>window.flickers),0);
-  if (variants.length > 1) {
+  if (variants.length > 1 && !variants.includes(0)) {
     const next = variants[(variants.indexOf(variant) + 1) % variants.length];
     const before = await page.evaluate(() => scrollY);
     await page.getByRole('button', { name: `背景方案 ${next}`, exact: true }).click();

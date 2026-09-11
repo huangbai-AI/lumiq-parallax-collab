@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export const backgroundVideoSource = "/assets/chapter-backgrounds-20260911/background-scroll-v3-scrub.mp4";
+export const backgroundVideoSource = "/assets/background-variants-20260911/version-5.mp4";
 
 export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260910/${name}.webp`;
 
@@ -40,7 +40,7 @@ export default function HomeBackgrounds() {
       if (!ready || document.hidden || movie.seeking || movie.readyState < 2) return;
       const progress = Math.max(0, Math.min(1, (scrollY - start) / Math.max(1, end - start)));
       let desired = progress * Math.max(0, movie.duration - 1 / 30);
-      if (variant && cues.length) {
+      if (cues.length) {
         const right = cues.findIndex(([position]) => position > scrollY);
         if (right === 0) desired = 0;
         else if (right < 0) desired = 30;
@@ -58,23 +58,21 @@ export default function HomeBackgrounds() {
       start = ScrollTrigger.getById("home-opening-video")?.end ?? top("#products") - innerHeight;
       end = document.documentElement.scrollHeight - innerHeight;
       const nav = document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 0;
-      if (variant) {
-        cues = [[start, 0]];
-        const add = (position: number, time: number) => cues.push([Math.max(cues[cues.length - 1][0], Math.min(end, position)), time]);
-        const chapter = (id: string, selector: string, time: number, settled = 0) => {
-          const trigger = ScrollTrigger.getById(id);
-          add(trigger ? trigger.start + (trigger.end - trigger.start) * settled : top(selector) - nav, time);
-          if (trigger) add(trigger.end, time);
-        };
-        chapter("home-products-hold", "#products", 5);
-        chapter("home-films-hold", "#films", 10);
-        chapter("home-room-anchor", "#experiences", 15);
-        // These timelines reveal the complete reading layout after their initial shrink.
-        chapter("home-trust-anchor", "#safety", 20, .88 / 1.4);
-        chapter("home-family-chapters", "#family", 25, .36 / 1.2);
-        chapter("home-join-anchor", "#join", 30);
-        add(end, 30);
-      }
+      cues = [[start, 0]];
+      const add = (position: number, time: number) => cues.push([Math.max(cues[cues.length - 1][0], Math.min(end, position)), time]);
+      const chapter = (id: string, selector: string, time: number, settled = 0) => {
+        const trigger = ScrollTrigger.getById(id);
+        add(trigger ? trigger.start + (trigger.end - trigger.start) * settled : top(selector) - nav, time);
+        if (trigger) add(trigger.end, time);
+      };
+      chapter("home-products-hold", "#products", 5);
+      chapter("home-films-hold", "#films", 10);
+      chapter("home-room-anchor", "#experiences", 15);
+      // These timelines reveal the complete reading layout after their initial shrink.
+      chapter("home-trust-anchor", "#safety", 20, .88 / 1.4);
+      chapter("home-family-chapters", "#family", 25, .36 / 1.2);
+      chapter("home-join-anchor", "#join", 30);
+      add(end, 30);
       movie.dataset.scrollStart = String(start);
       movie.dataset.scrollEnd = String(end);
       movie.dataset.scrollCues = JSON.stringify(cues);
