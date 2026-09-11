@@ -3,6 +3,7 @@ import { chapterImage } from "./HomeBackgrounds";
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO, useTexture } from "@react-three/drei";
 import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, VideoTexture } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
@@ -45,10 +46,29 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     }, 420) };
   }, [selected, select, cancelHover]);
   const opticalObjects = useRef<Group>(null);
+  const reflections = useRef<Group>(null);
   const refractionBackground = useRef<Group>(null);
   const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), [products]);
   const buffer = useFBO(768, 768);
   useFrame(({ gl, scene }) => {
+    if (reflections.current && carousel) {
+      const stop = ScrollTrigger.getById("home-products-hold");
+      const stage = gl.domElement.closest('.lh-products-stage');
+      const top = stage?.getBoundingClientRect().top ?? innerHeight;
+      const entry = 1 - MathUtils.smoothstep(top, 0, 80);
+      const exit = stop ? MathUtils.smoothstep(scrollY, stop.end - 80, stop.end + innerHeight * .35) : MathUtils.smoothstep(-top, 0, innerHeight * .35);
+      const fade = entry * (1 - exit);
+      reflections.current.visible = fade > .001;
+      reflections.current.position.y = -4.56 - exit * 5.5;
+      reflections.current.traverse(object => {
+        const material = (object as unknown as { material?: ShaderMaterial }).material;
+        if (!material) return;
+        if (material.uniforms?.reflectionFade) material.uniforms.reflectionFade.value = fade;
+        else if (typeof material.userData.reflectionOpacity === 'number') material.opacity = material.userData.reflectionOpacity * fade;
+      });
+      gl.domElement.dataset.reflectionOpacity = fade.toFixed(3);
+      gl.domElement.dataset.reflectionOffset = (exit * 5.5).toFixed(3);
+    }
     if (!opticalObjects.current) return;
     const previous = gl.getRenderTarget();
     opticalObjects.current.visible = false;
@@ -97,7 +117,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} five={carousel} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
       active={selected === index} select={select} hover={hover} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} />)}
     {/* Mirror geometry across the contact plane; keep the original backdrop continuous. */}
-    <group position={[0, -4.56, 0]} scale={[1, -1, 1]}>
+    <group ref={reflections} position={[0, -4.56, 0]} scale={[1, -1, 1]}>
       {products.map((product, index) => <GlassCard key={product.name} geometry={geometry} index={index} product={product} five={carousel} offset={carousel ? ((index - selected + products.length + Math.floor(products.length / 2)) % products.length) - Math.floor(products.length / 2) : index - 1}
         active={selected === index} select={select} hover={hover} sideView={sideView} content={content} buffer={buffer.texture} pointer={pointers[index]} reflected />)}
     </group>
@@ -199,6 +219,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
     }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; hover(null); }}
       onPointerOver={reflected ? undefined : e => { e.stopPropagation(); hover(index); }} onClick={reflected ? undefined : e => { e.stopPropagation(); select(index); }}>
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
+        userData={reflected ? { reflectionOpacity: .45 * opacity } : {}}
         transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={(reflected ? .45 : 1) * opacity}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
@@ -281,21 +302,21 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
   return <>
     <mesh position={[0, product.body ? .65 : .45, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[width, height]} />
-      <meshBasicMaterial key={String(active)} map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} depthWrite={false} toneMapped={false}
+      <meshBasicMaterial key={String(active)} map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} userData={reflected ? { reflectionOpacity: .55 * opacity } : {}} depthWrite={false} toneMapped={false}
         onBeforeCompile={shader => {
           if (active) shader.fragmentShader = shader.fragmentShader.replace("#include <map_fragment>", "#include <map_fragment>\n diffuseColor.rgb = max(vec3(0.), (diffuseColor.rgb - .18) * 1.12 + .18) * 1.06;");
         }} />
     </mesh>
     <mesh position={[0, product.body ? -1.3 : -1.55, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[2.8, product.body ? 1.4 : .7]} />
-      <meshBasicMaterial map={label} transparent opacity={(reflected ? .55 : 1) * opacity} depthWrite={false} toneMapped={false} />
+      <meshBasicMaterial map={label} transparent opacity={(reflected ? .55 : 1) * opacity} userData={reflected ? { reflectionOpacity: .55 * opacity } : {}} depthWrite={false} toneMapped={false} />
     </mesh>
   </>;
 }
 
 function PearlFlow({ index, reflected, opacity, active }: { index: number; reflected: boolean; opacity: number; active: boolean }) {
   const material = useRef<ShaderMaterial>(null);
-  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 }, glowWidth: { value: 1 } }), []);
+  const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 }, glowWidth: { value: 1 }, reflectionFade: { value: 1 } }), []);
   useFrame(({ clock }) => {
     if (!material.current) return;
     const live = material.current.uniforms;
@@ -307,7 +328,7 @@ function PearlFlow({ index, reflected, opacity, active }: { index: number; refle
     <planeGeometry args={[4.85, 6.25]} />
     <shaderMaterial ref={material} transparent depthWrite={false} uniforms={uniforms}
       vertexShader={`varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`}
-      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength; uniform float glowWidth;
+      fragmentShader={`varying vec2 vUv; uniform float time; uniform float strength; uniform float glowWidth; uniform float reflectionFade;
         void main(){
           vec2 p=(vUv-.5)*vec2(4.85,6.25);
           vec2 q=abs(p)-vec2(1.33,2.03);
@@ -322,7 +343,7 @@ function PearlFlow({ index, reflected, opacity, active }: { index: number; refle
           float diffusion=exp(-d*d/ (.14*glowWidth))*.24;
           float inner=exp(-abs(d)*3.)*edge*.1;
           float alpha=min(.86,(rim*.22+bloom+diffusion+inner+edge*band*.05)*strength);
-          gl_FragColor=vec4(mix(tint,vec3(1.),.78+.22*rim),alpha);
+          gl_FragColor=vec4(mix(tint,vec3(1.),.78+.22*rim),alpha*reflectionFade);
         }`} />
   </mesh>;
 }
