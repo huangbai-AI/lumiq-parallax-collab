@@ -10,7 +10,8 @@ export function mountContentStops(root: HTMLElement) {
       if (!stage) continue;
       ScrollTrigger.create({
         id: selector === ".lh-products-stage" ? "home-products-hold" : "home-films-hold",
-        trigger: stage, pin: stage, start: "top top", end: "+=240",
+        trigger: stage, pin: stage,
+        start: selector === ".lh-films" ? "top 86px" : "top top", end: "+=240",
         anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1,
       });
     }

@@ -65,14 +65,17 @@ export default function HomeFilms() {
     if (!clip || !target) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const placeCharacter = () => {
-      const parent = clip.parentElement!.getBoundingClientRect();
-      const bounds = target.getBoundingClientRect();
-      const cardLeft = bounds.right - bounds.width * .91 - parent.left;
-      // V2's extended fingertip is at 89% of its frame; keep entry flush with the page edge.
-      clip.style.width = `${Math.max(0, cardLeft + 3) / .89}px`;
+      const cardLeft = target.parentElement!.offsetLeft + target.offsetLeft + target.clientWidth * .09;
+      // Preserve the afternoon character height; align V2's fingertip with the card.
+      const width = innerWidth >= 768
+        ? Math.min(innerWidth * .34, 760) * 16 / 9
+        : Math.max(0, cardLeft + 3) / .89;
+      clip.style.width = `${width}px`;
+      clip.style.left = `${cardLeft + 3 - width * .89}px`;
     };
     const resize = new ResizeObserver(placeCharacter);
     resize.observe(target);
+    resize.observe(clip.parentElement!);
     window.addEventListener("resize", placeCharacter);
     placeCharacter();
     let visible = false;

@@ -13,10 +13,11 @@ try {
  assert.ok((await clip.evaluate(v=>v.currentSrc)).includes('ola-girl-v2-alpha.webm'));
  for (const width of [2279,1920,1440]) {
   await page.setViewportSize({width,height:1000});
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(900);
   const girl=await clip.boundingBox();
   const edge=await page.locator('.lh-film-card').boundingBox();
-  assert.ok(Math.abs(girl.x)<1,'left-edge entry stays flush');
+  assert.ok(girl.height >= Math.min(width*.34,760)-2,'character retains afternoon height');
+  assert.ok(edge.width/width < .49,'video keeps afternoon viewport proportion');
   assert.ok(Math.abs(girl.x+girl.width*.89-edge.x)<8,'extended fingertip meets card left edge');
   assert.ok(girl.x+girl.width*.78<edge.x,'body stays left of card');
  }
