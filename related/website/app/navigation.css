@@ -309,6 +309,10 @@
 .lumiq-root .site-nav.home-nav.scrolled::before {
   opacity: 0;
 }
+.lumiq-root .site-nav.home-nav:not(.scrolled) .nav-inner,
+.lumiq-root .site-nav.home-nav:not(.scrolled)::before {
+  transform: translateY(-8px);
+}
 .lumiq-root .site-nav .nav-inner {
   max-width: 1664px;
   min-height: 86px;
