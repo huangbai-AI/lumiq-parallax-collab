@@ -6,12 +6,18 @@ try {
  await page.goto('http://127.0.0.1:4211/en');
  await page.waitForTimeout(8000);
  const enter=async()=>{
-  await page.locator('.lh-films').evaluate(e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-86));
+  await page.locator('.lh-films').evaluate(e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-186));
+  await page.waitForTimeout(500);
+  await page.mouse.wheel(0,100);
   await page.waitForTimeout(500);
  };
  await enter();
  await page.mouse.move(40,450); // The rule applies even outside the video itself.
  const before=await page.evaluate(()=>scrollY);
+ await page.mouse.wheel(0,0);
+ await page.evaluate(()=>scrollBy(0,12));
+ await page.waitForTimeout(150);
+ assert(Math.abs(await page.evaluate(()=>scrollY)-before)<2,'late scroll momentum cannot dislodge complete page');
  for(const label of ['2 / 3','3 / 3']) {
   await page.mouse.wheel(0,100);
   await page.waitForTimeout(100);

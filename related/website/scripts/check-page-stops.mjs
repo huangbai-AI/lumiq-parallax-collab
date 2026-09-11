@@ -21,6 +21,10 @@ try {
  assert(Math.abs((await page.locator('.lh-products-stage').boundingBox()).y)<2,'entry stops exactly at full page');
  assert.equal(await page.locator('.lh-products').getAttribute('data-active-product'),'0','entering gesture does not switch early');
  const before=await page.evaluate(()=>scrollY);
+ await page.mouse.wheel(0,0);
+ await page.evaluate(()=>scrollBy(0,12));
+ await page.waitForTimeout(150);
+ assert(Math.abs(await page.evaluate(()=>scrollY)-before)<2,'late scroll momentum cannot dislodge complete page');
  for(const index of ['1','2']) {
   await page.mouse.wheel(0,100);await page.waitForTimeout(900);
   assert.equal(await page.locator('.lh-products').getAttribute('data-active-product'),index);
