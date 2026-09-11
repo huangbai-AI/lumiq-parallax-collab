@@ -24,11 +24,15 @@ try {
     await page.goto('http://127.0.0.1:4211/en');
     await page.waitForSelector('[data-background-video][data-ready="true"]', { state: 'attached', timeout: 30000 });
     await page.waitForTimeout(6000);
-    const positions = await page.evaluate(() => {
-      const top = selector => scrollY + document.querySelector(selector).getBoundingClientRect().top;
-      const nav = document.querySelector('.site-nav').getBoundingClientRect().height;
-      return [top('.lh-products-stage'), top('.lh-films-layout') - nav, top('.lh-room-layout') - nav];
-    });
+    const { start, end, duration } = await page.locator('[data-background-video]').evaluate(v => ({
+      start: Number(v.dataset.scrollStart), end: Number(v.dataset.scrollEnd), duration: v.duration - 1 / 30
+    }));
+    const positions = [start, start+(end-start)*.5, end];
+    assert.equal(end, await page.evaluate(()=>document.documentElement.scrollHeight-innerHeight));
+    const bounds = await page.locator('[data-background-video]').boundingBox();
+    const nav = await page.locator('.site-nav').boundingBox();
+    assert.ok(Math.abs(bounds.y-nav.height)<1 && Math.abs(bounds.height+nav.height-1000)<1, 'video fills visible viewport below navigation only');
+    assert.equal(await page.locator('[data-background-video]').evaluate(v=>getComputedStyle(v).objectFit), 'cover');
     assert.equal(await page.locator('[data-chapter-background]').count(), 0, 'old chapter image transitions removed');
     await page.evaluate(() => {
       window.backgroundFlickers = 0;
@@ -45,14 +49,15 @@ try {
       }, time);
       assert(await video.evaluate(v => v.paused), 'background remains paused');
     };
-    await move(positions[0], 3.7);
+    await move(positions[0], 0);
     assert.equal(await page.locator('[data-background-fallback]').evaluate(el => el.style.opacity), '0');
-    await move((positions[0] + positions[1]) / 2, 5.55);
+    await move((positions[0] + positions[1]) / 2, duration*.25);
     await page.waitForTimeout(500);
-    assert(Math.abs(await video.evaluate(v => v.currentTime) - 5.55) < .15, 'stopped scroll freezes frame');
-    await move(positions[1], 7.4);
-    await move(positions[2], await video.evaluate(v => Math.min(11.4, v.duration - 1 / 30)));
-    await move(positions[0], 3.7);
+    assert(Math.abs(await video.evaluate(v => v.currentTime) - duration*.25) < .15, 'stopped scroll freezes frame');
+    await move(positions[1], duration*.5);
+    await move(start+(end-start)*.9, duration*.9);
+    await move(positions[2], duration);
+    await move(positions[0], 0);
     assert.equal(await page.locator('[data-background-video]').count(), 1);
     for (let i=0;i<20;i++) {
       await page.evaluate(y=>scrollTo(0,y), positions[0]+(positions[1]-positions[0])*(i%2 ? .7 : .2));
@@ -60,7 +65,7 @@ try {
     }
     await page.waitForTimeout(500);
     assert.equal(await page.evaluate(()=>window.backgroundFlickers),0,'seek never exposes static fallback');
-    await move(positions[0],3.7);
+    await move(positions[0],0);
     await page.screenshot({ path: '/tmp/lumiq-background-products.png' });
     await page.close();
   }

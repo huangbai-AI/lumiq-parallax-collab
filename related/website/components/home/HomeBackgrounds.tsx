@@ -4,7 +4,6 @@ import { createPortal } from "react-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export const backgroundVideoSource = "/assets/chapter-backgrounds-20260911/background-scroll-v3-scrub.mp4";
-const backgroundCues = [0, 3.7, 7.4, 11.4];
 
 export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260910/${name}.webp`;
 
@@ -17,7 +16,8 @@ export default function HomeBackgrounds() {
     if (!host) return;
     let frame = 0;
     let loaded = false;
-    let stops: number[] = [];
+    let start = 0;
+    let end = 1;
     const movie = video.current!;
     const motion = matchMedia("(min-width: 1101px) and (prefers-reduced-motion: no-preference)");
     const update = () => {
@@ -27,23 +27,19 @@ export default function HomeBackgrounds() {
       movie.dataset.ready = String(ready);
       movie.style.opacity = ready ? "1" : "0";
       if (fallback.current) fallback.current.style.opacity = ready ? "0" : "1";
-      if (!ready || document.hidden || movie.seeking || movie.readyState < 2 || stops.length !== 4) return;
-      const end = Math.min(backgroundCues[3], movie.duration - 1 / 30);
-      let desired = scrollY >= stops[3] ? end : 0;
-      for (let i = 0; i < 3; i++) {
-        if (scrollY < stops[i] || scrollY >= stops[i + 1]) continue;
-        const progress = (scrollY - stops[i]) / Math.max(1, stops[i + 1] - stops[i]);
-        desired = backgroundCues[i] + progress * ((i === 2 ? end : backgroundCues[i + 1]) - backgroundCues[i]);
-      }
+      if (!ready || document.hidden || movie.seeking || movie.readyState < 2) return;
+      const progress = Math.max(0, Math.min(1, (scrollY - start) / Math.max(1, end - start)));
+      const desired = progress * Math.max(0, movie.duration - 1 / 30);
       if (Math.abs(movie.currentTime - desired) > 1 / 60) movie.currentTime = desired;
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const measure = () => {
-      const nav = document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 86;
       const top = (selector: string) => scrollY + (document.querySelector(selector)?.getBoundingClientRect().top ?? 0);
-      stops = [ScrollTrigger.getById("home-opening-video")?.end ?? top("#products") - innerHeight,
-        top(".lh-products-stage"), top(".lh-films-layout") - nav,
-        ScrollTrigger.getById("home-room-anchor")?.start ?? top(".lh-room-layout") - nav];
+      start = ScrollTrigger.getById("home-opening-video")?.end ?? top("#products") - innerHeight;
+      end = document.documentElement.scrollHeight - innerHeight;
+      movie.dataset.scrollStart = String(start);
+      movie.dataset.scrollEnd = String(end);
+      movie.parentElement!.style.top = `${document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 0}px`;
       schedule();
     };
     const onLoaded = () => { loaded = true; schedule(); };
@@ -56,6 +52,7 @@ export default function HomeBackgrounds() {
     const resize = new ResizeObserver(measure);
     const home = document.querySelector(".lh-home");
     if (home) resize.observe(home);
+    resize.observe(document.body);
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", measure);
     window.addEventListener("lumiq:home-enter", schedule);

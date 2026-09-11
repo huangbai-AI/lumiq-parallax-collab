@@ -132,9 +132,10 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
     }
     u.map.value = liveVideo ? videoMap.current : texture;
     u.nextMap.value = liveVideo ? videoMap.current : nextTexture;
-    u.viewport.value = fixed ? [innerWidth, innerHeight] : [rect.width, rect.height];
+    const backdrop = fixed ? document.querySelector('.lh-fixed-backgrounds')?.getBoundingClientRect() : null;
+    u.viewport.value = backdrop ? [backdrop.width, backdrop.height] : [rect.width, rect.height];
     u.blend.value = 0;
-    u.canvasOrigin.value = fixed ? [rect.left, rect.top] : [0, 0]; u.canvasHeight.value = rect.height;
+    u.canvasOrigin.value = backdrop ? [rect.left - backdrop.left, rect.top - backdrop.top] : [0, 0]; u.canvasHeight.value = rect.height;
     u.canvasSize.value = [rect.width, rect.height];
     u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = liveVideo ? [video.videoWidth, video.videoHeight] : [image.width, image.height];
   }, -2);
