@@ -10,6 +10,7 @@ export function mountCarouselWheelGate(target: HTMLElement, advance: () => void,
   let advances = 0;
   let released = false;
   let locked = false;
+  let settling = false;
   let holdY = 0;
   const landingTop = target.matches(".lh-products-stage") ? 0 : 86;
   let previousTop = target.getBoundingClientRect().top - landingTop;
@@ -17,16 +18,18 @@ export function mountCarouselWheelGate(target: HTMLElement, advance: () => void,
     holdY = scrollY + target.getBoundingClientRect().top - landingTop;
     locked = true;
     target.dataset.wheelLocked = "true";
-    window.scrollTo({ top: holdY, behavior: "instant" });
+    settling = holdY - scrollY > 2;
+    window.scrollTo({ top: holdY, behavior: settling ? "smooth" : "instant" });
   };
   const unlock = () => {
     locked = false;
+    settling = false;
     delete target.dataset.wheelLocked;
   };
   const pump = () => {
     clearTimeout(pumpTimer);
     if (released || !locked) return;
-    if (busy()) {
+    if (settling || busy()) {
       pumpTimer = setTimeout(pump, 30);
       return;
     }
@@ -50,7 +53,11 @@ export function mountCarouselWheelGate(target: HTMLElement, advance: () => void,
       clearTimeout(pumpTimer);
       unlock();
     }
-    if (locked && scrollY < holdY - 2) { clearTimeout(pumpTimer); requested = advances; unlock(); }
+    if (locked && !settling && scrollY < holdY - 2) { clearTimeout(pumpTimer); requested = advances; unlock(); }
+    if (settling && Math.abs(scrollY - holdY) <= 1) {
+      settling = false;
+      lastWheel = performance.now();
+    }
     const top = bounds.top - landingTop;
     // Native wheel momentum can finish after the wheel callback. Latch the landing,
     // rather than losing the gate when that final movement overshoots by a few pixels.
@@ -59,13 +66,24 @@ export function mountCarouselWheelGate(target: HTMLElement, advance: () => void,
     previousTop = top;
   };
   const wheel = (event: WheelEvent) => {
+    if (event.defaultPrevented) return;
     if (event.deltaY < 0) { clearTimeout(pumpTimer); requested = advances; unlock(); return; }
     if (released || event.ctrlKey || event.deltaY <= 0 || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    if (settling) { event.preventDefault(); return; }
     lastDownInput = performance.now();
     const bounds = target.getBoundingClientRect();
     // Stop the entering gesture exactly at the full composition, never pull the page back.
     const remaining = bounds.top - landingTop;
     const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+    if (!locked && remaining > 2) {
+      // A large wheel pulse must reach the first carousel, not skip to the next one.
+      const earlier = [...document.querySelectorAll<HTMLElement>(".lh-products-stage, .lh-films-stage")].some(other => {
+        if (other === target) return false;
+        const distance = other.getBoundingClientRect().top - (other.matches(".lh-products-stage") ? 0 : 86);
+        return distance > 2 && distance < remaining;
+      });
+      if (earlier) return;
+    }
     if (!locked && (remaining < -120 || remaining > delta + 2)) return;
     if (!locked && Math.abs(remaining) > 2) {
       event.preventDefault();
