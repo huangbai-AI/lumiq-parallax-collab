@@ -4,7 +4,7 @@ import { chapterBlend, chapterImage } from "./HomeBackgrounds";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO, useTexture } from "@react-three/drei";
-import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture } from "three";
+import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, VideoTexture } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
 
 export type GlassProduct = { name: string; image: string; body?: string; href?: string; explore?: string };
@@ -108,6 +108,9 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
 // Refraction uses the same fixed viewport coordinates and crossfade as the page background.
 function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boolean }) {
   const nextTexture = useTexture(chapterImage("films"));
+  const videoMap = useRef<VideoTexture | null>(null);
+  const decodedTime = useRef(-1);
+  useEffect(() => () => { videoMap.current?.dispose(); }, []);
   const material = useRef<ShaderMaterial>(null);
   const { gl } = useThree();
   const uniforms = useMemo(() => ({ map: { value: texture }, nextMap: { value: nextTexture }, blend: { value: 0 }, viewport: { value: [1, 1] },
@@ -117,11 +120,23 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
     const rect = gl.domElement.getBoundingClientRect();
     const u = material.current.uniforms;
     const image = texture.image as HTMLImageElement;
+    const video = fixed ? document.querySelector<HTMLVideoElement>("[data-background-video]") : null;
+    const liveVideo = video?.dataset.ready === "true";
+    if (liveVideo && !videoMap.current) {
+      videoMap.current = new VideoTexture(video);
+      videoMap.current.colorSpace = SRGBColorSpace;
+    }
+    if (liveVideo && videoMap.current && !video.seeking && decodedTime.current !== video.currentTime) {
+      videoMap.current.needsUpdate = true;
+      decodedTime.current = video.currentTime;
+    }
+    u.map.value = liveVideo ? videoMap.current : texture;
+    u.nextMap.value = liveVideo ? videoMap.current : nextTexture;
     u.viewport.value = fixed ? [innerWidth, innerHeight] : [rect.width, rect.height];
-    u.blend.value = fixed ? chapterBlend(document.getElementById("films")?.getBoundingClientRect().top ?? innerHeight, innerHeight) : 0;
+    u.blend.value = fixed && !liveVideo ? chapterBlend(document.getElementById("films")?.getBoundingClientRect().top ?? innerHeight, innerHeight) : 0;
     u.canvasOrigin.value = fixed ? [rect.left, rect.top] : [0, 0]; u.canvasHeight.value = rect.height;
     u.canvasSize.value = [rect.width, rect.height];
-    u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = [image.width, image.height];
+    u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = liveVideo ? [video.videoWidth, video.videoHeight] : [image.width, image.height];
   }, -2);
   return <mesh frustumCulled={false} renderOrder={-10} raycast={() => {}}>
     <planeGeometry args={[2, 2]} />
