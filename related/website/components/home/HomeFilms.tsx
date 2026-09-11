@@ -64,6 +64,17 @@ export default function HomeFilms() {
     const target = stage.current;
     if (!clip || !target) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const placeCharacter = () => {
+      const parent = clip.parentElement!.getBoundingClientRect();
+      const bounds = target.getBoundingClientRect();
+      const cardLeft = bounds.right - bounds.width * .91 - parent.left;
+      // V2's extended fingertip is at 89% of its frame; keep entry flush with the page edge.
+      clip.style.width = `${Math.max(0, cardLeft + 3) / .89}px`;
+    };
+    const resize = new ResizeObserver(placeCharacter);
+    resize.observe(target);
+    window.addEventListener("resize", placeCharacter);
+    placeCharacter();
     let visible = false;
     const sync = () => {
       if (!visible || document.hidden || reduced.matches) clip.pause();
@@ -78,7 +89,8 @@ export default function HomeFilms() {
     document.addEventListener("visibilitychange", sync);
     reduced.addEventListener("change", sync);
     return () => {
-      clip.pause(); observer.disconnect();
+      clip.pause(); observer.disconnect(); resize.disconnect();
+      window.removeEventListener("resize", placeCharacter);
       document.removeEventListener("visibilitychange", sync);
       reduced.removeEventListener("change", sync);
     };
@@ -129,8 +141,8 @@ export default function HomeFilms() {
         <button type="button" onClick={() => select(1)} disabled={travel !== 0} aria-label={t("next")}><ArrowDown size={24} /></button>
       </nav>
       </div>
-      <video ref={character} className="lh-film-character" muted playsInline preload="none" aria-hidden="true" poster="/assets/character-20260910/ola-girl-poster.png">
-        <source src="/assets/character-20260910/ola-girl-alpha.webm" type="video/webm" />
+      <video ref={character} className="lh-film-character" muted playsInline preload="none" aria-hidden="true" poster="/assets/character-20260911/poster-v2.png">
+        <source src="/assets/character-20260911/ola-girl-v2-alpha.webm" type="video/webm" />
       </video>
     </div>
   );

@@ -10,6 +10,16 @@ try {
  await page.waitForFunction(()=>document.querySelector('.lh-film-character').currentTime>0.5);
  assert.equal(await clip.evaluate(v=>getComputedStyle(v).pointerEvents),'none');
  assert.equal(await clip.evaluate(v=>v.muted),true);
+ assert.ok((await clip.evaluate(v=>v.currentSrc)).includes('ola-girl-v2-alpha.webm'));
+ for (const width of [2279,1920,1440]) {
+  await page.setViewportSize({width,height:1000});
+  await page.waitForTimeout(200);
+  const girl=await clip.boundingBox();
+  const edge=await page.locator('.lh-film-card').boundingBox();
+  assert.ok(Math.abs(girl.x)<1,'left-edge entry stays flush');
+  assert.ok(Math.abs(girl.x+girl.width*.89-edge.x)<8,'extended fingertip meets card left edge');
+  assert.ok(girl.x+girl.width*.78<edge.x,'body stays left of card');
+ }
  const ratio=await page.evaluate(()=>document.querySelector('.lh-film-card').getBoundingClientRect().width/document.querySelector('.lh-films-stage').getBoundingClientRect().width);
  assert.ok(Math.abs(ratio-.91)<.01,'selected film must be 30% larger than its previous 70% width');
  const top=await page.locator('.lh-film-preview-top').last().boundingBox();

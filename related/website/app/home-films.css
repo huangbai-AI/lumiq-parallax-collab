@@ -24,5 +24,5 @@
 @media(prefers-reduced-motion:reduce) { .lh-films-stage[data-moving=true] .lh-film-slot { transition: none; } }
 @media(hover:none) { .lh-film-card[data-playing=true] .lh-film-toggle { opacity: 1; } }
 
-.lh-film-character { position: absolute; z-index: 3; bottom: 6%; left: 0; transform: scaleX(-1); width: auto; max-width: none; height: min(65vw,760px); aspect-ratio: 16/9; pointer-events: none; background: transparent; }
+.lh-film-character { position: absolute; z-index: 3; bottom: 6%; left: 0; width: 0; max-width: none; height: auto; aspect-ratio: 16/9; pointer-events: none; background: transparent; }
 @media(prefers-reduced-motion:reduce) { .lh-film-character { display: none; } }
