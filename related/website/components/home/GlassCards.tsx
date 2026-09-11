@@ -1,5 +1,5 @@
 "use client";
-import { chapterBlend, chapterImage } from "./HomeBackgrounds";
+import { chapterImage } from "./HomeBackgrounds";
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -133,7 +133,7 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
     u.map.value = liveVideo ? videoMap.current : texture;
     u.nextMap.value = liveVideo ? videoMap.current : nextTexture;
     u.viewport.value = fixed ? [innerWidth, innerHeight] : [rect.width, rect.height];
-    u.blend.value = fixed && !liveVideo ? chapterBlend(document.getElementById("films")?.getBoundingClientRect().top ?? innerHeight, innerHeight) : 0;
+    u.blend.value = 0;
     u.canvasOrigin.value = fixed ? [rect.left, rect.top] : [0, 0]; u.canvasHeight.value = rect.height;
     u.canvasSize.value = [rect.width, rect.height];
     u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = liveVideo ? [video.videoWidth, video.videoHeight] : [image.width, image.height];

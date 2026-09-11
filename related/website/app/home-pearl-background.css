@@ -1,4 +1,4 @@
-/* Independent full-screen images stay fixed; only their opacity changes between chapters. */
+/* A single fixed video follows chapter scroll progress; one image is a loading fallback. */
 .lumiq-root:has(.lh-home) { isolation: isolate; background: transparent; }
 .lumiq-root .lh-home,
 .lumiq-root .lh-home :is(.lh-opening, .lh-hero, .lh-ola, .lh-products, .lh-experiences, .lh-films-section, .lh-safety, .lh-family, .lh-join),

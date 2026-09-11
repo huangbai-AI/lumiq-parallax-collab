@@ -8,11 +8,11 @@ const open = async (options = {}) => {
 };
 try {
   const fallback = await open();
-  await fallback.route('**/background-scroll-v3.mp4', route => route.abort());
+  await fallback.route('**/background-scroll-v3-scrub.mp4', route => route.abort());
   await fallback.goto('http://127.0.0.1:4211/en');
   await fallback.waitForTimeout(3000);
   assert.equal(await fallback.locator('[data-background-video]').evaluate(v => v.dataset.ready), 'false');
-  assert.equal(await fallback.locator('[data-chapter-background="products"]').evaluate(el => el.style.opacity), '1');
+  assert.equal(await fallback.locator('[data-background-fallback]').evaluate(el => el.style.opacity), '1');
   await fallback.close();
   const reduced = await open({ reducedMotion: 'reduce' });
   await reduced.goto('http://127.0.0.1:4211/en');
@@ -29,6 +29,13 @@ try {
       const nav = document.querySelector('.site-nav').getBoundingClientRect().height;
       return [top('.lh-products-stage'), top('.lh-films-layout') - nav, top('.lh-room-layout') - nav];
     });
+    assert.equal(await page.locator('[data-chapter-background]').count(), 0, 'old chapter image transitions removed');
+    await page.evaluate(() => {
+      window.backgroundFlickers = 0;
+      const v = document.querySelector('[data-background-video]');
+      const check = () => { if (v.dataset.ready !== 'true' || v.style.opacity !== '1') window.backgroundFlickers++; };
+      v.addEventListener('seeking', () => { requestAnimationFrame(check); });
+    });
     const video = page.locator('[data-background-video]');
     const move = async (y, time) => {
       await page.evaluate(y => scrollTo({ top: y, behavior: 'instant' }), y);
@@ -39,7 +46,7 @@ try {
       assert(await video.evaluate(v => v.paused), 'background remains paused');
     };
     await move(positions[0], 3.7);
-    assert.equal(await page.locator('[data-chapter-background="products"]').evaluate(el => el.style.opacity), '0');
+    assert.equal(await page.locator('[data-background-fallback]').evaluate(el => el.style.opacity), '0');
     await move((positions[0] + positions[1]) / 2, 5.55);
     await page.waitForTimeout(500);
     assert(Math.abs(await video.evaluate(v => v.currentTime) - 5.55) < .15, 'stopped scroll freezes frame');
@@ -47,6 +54,13 @@ try {
     await move(positions[2], await video.evaluate(v => Math.min(11.4, v.duration - 1 / 30)));
     await move(positions[0], 3.7);
     assert.equal(await page.locator('[data-background-video]').count(), 1);
+    for (let i=0;i<20;i++) {
+      await page.evaluate(y=>scrollTo(0,y), positions[0]+(positions[1]-positions[0])*(i%2 ? .7 : .2));
+      await page.waitForTimeout(40);
+    }
+    await page.waitForTimeout(500);
+    assert.equal(await page.evaluate(()=>window.backgroundFlickers),0,'seek never exposes static fallback');
+    await move(positions[0],3.7);
     await page.screenshot({ path: '/tmp/lumiq-background-products.png' });
     await page.close();
   }
