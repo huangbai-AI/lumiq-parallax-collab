@@ -1,0 +1,77 @@
+{
+  "model": "Seedance 2.0 pro",
+  "resolution": "1080p",
+  "durationEach": 4,
+  "estimatedTotalPoints": 420,
+  "workspace": "9fbd65ff-c963-4dcb-a89a-bdeefb9fa54a",
+  "tasks": [
+    "async_video_0a73c11189835e30b0783d1bd5b427d3",
+    "async_video_a424b0532bd4b55ef20bb344e37166fa",
+    "async_video_1e6f06397c509027ed2ad4dee3a27d21"
+  ],
+  "jobs": [
+    [
+      "video",
+      "generate",
+      "--prompt",
+      "4秒固定稳定镜头一镜到底的网页背景视差动效。图1是严格首帧，图2是严格尾帧。首尾构图色调曝光位置完全匹配参考。白色光带从两侧向下方中央流动盘绕汇集，形成尾帧底部宽扁的白色发光圆盘。同一光带连续流动变形，近处比远处略快形成纵深视差，不是两图淡入淡出，不是平移放大图片。保持白色淡紫冰蓝浅粉配色，光效通透干净，白色泛光优雅稍炫酷但不刺眼。全程只有背景光带，不出现文字数字UI产品人物粒子或新物体。连续匀速自然，无切镜黑场白闪曝光变化、噪点脏色涂抹。无声音。",
+      "--image",
+      "hogi://image/mtwrwdj6_37b396f36c177f9a.png",
+      "hogi://image/mtwrwghz_17a8795f7c850e2d.png",
+      "--mode",
+      "frame2Video",
+      "--model-id",
+      "17",
+      "--duration",
+      "4",
+      "--resolution",
+      "1080p",
+      "--aspect-ratio",
+      "16:9"
+    ],
+    [
+      "video",
+      "generate",
+      "--prompt",
+      "4秒固定稳定镜头一镜到底的网页背景视差动效。图1是严格首帧，图2是严格尾帧。首尾构图色调曝光位置完全匹配参考。首帧圆盘解开舒展成光带，向两侧和上下边缘分散，形成尾帧开阔弧线和中央留白。同一光带连续流动变形，近处比远处略快形成纵深视差，不是两图淡入淡出，不是平移放大图片。保持白色淡紫冰蓝浅粉配色，光效通透干净，白色泛光优雅稍炫酷但不刺眼。全程只有背景光带，不出现文字数字UI产品人物粒子或新物体。连续匀速自然，无切镜黑场白闪曝光变化、噪点脏色涂抹。无声音。",
+      "--image",
+      "hogi://image/mtwrwghz_17a8795f7c850e2d.png",
+      "hogi://image/mtwrwjhl_c3885b981aaf5ab0.png",
+      "--mode",
+      "frame2Video",
+      "--model-id",
+      "17",
+      "--duration",
+      "4",
+      "--resolution",
+      "1080p",
+      "--aspect-ratio",
+      "16:9"
+    ],
+    [
+      "video",
+      "generate",
+      "--prompt",
+      "4秒固定稳定镜头一镜到底的网页背景视差动效。图1是严格首帧，图2是严格尾帧。首尾构图色调曝光位置完全匹配参考。分散光带重新交织重构为尾帧双侧升起的曲线和下方白色流线。同一光带连续流动变形，近处比远处略快形成纵深视差，不是两图淡入淡出，不是平移放大图片。保持白色淡紫冰蓝浅粉配色，光效通透干净，白色泛光优雅稍炫酷但不刺眼。全程只有背景光带，不出现文字数字UI产品人物粒子或新物体。连续匀速自然，无切镜黑场白闪曝光变化、噪点脏色涂抹。无声音。",
+      "--image",
+      "hogi://image/mtwrwjhl_c3885b981aaf5ab0.png",
+      "hogi://image/mtwrwmkm_6ca1f89fa1f82e77.png",
+      "--mode",
+      "frame2Video",
+      "--model-id",
+      "17",
+      "--duration",
+      "4",
+      "--resolution",
+      "1080p",
+      "--aspect-ratio",
+      "16:9"
+    ]
+  ],
+  "keyframes": [
+    "02-clean-tail.png",
+    "03-disc.png",
+    "04-dispersed.png",
+    "05-reformed.png"
+  ]
+}
