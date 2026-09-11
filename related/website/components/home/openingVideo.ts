@@ -61,7 +61,7 @@ export function mountOpeningVideo(root: HTMLElement) {
     if (video.getAttribute("src") !== source) { video.src = source; video.load(); }
     const timeline = gsap.timeline({ scrollTrigger: {
       id: "home-opening-video", trigger: stage, pin: stage, start: "top top",
-      end: () => `+=${window.innerHeight * 0.95}`, scrub: true,
+      end: () => `+=${window.innerHeight * 2.85}`, scrub: true,
       invalidateOnRefresh: true, refreshPriority: 2, onRefresh: update,
     } });
     timeline
