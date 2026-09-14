@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export const backgroundVideoSource = "/assets/background-variants-20260911/version-5.mp4";
+export const backgroundVideoSource = "/assets/background-variants-20260911/version-5-tail-wave-20260914.mp4";
 
 export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260910/${name}.webp`;
 
@@ -82,7 +82,7 @@ export default function HomeBackgrounds() {
     const onLoaded = () => { loaded = true; schedule(); };
     const configure = () => {
       movie.pause();
-      if (motion.matches) { if (!movie.getAttribute("src")) { movie.src = variant ? `/assets/background-variants-20260911/version-${variant}.mp4` : backgroundVideoSource; movie.load(); } }
+      if (motion.matches) { if (!movie.getAttribute("src")) { movie.src = variant && variant !== 5 ? `/assets/background-variants-20260911/version-${variant}.mp4` : backgroundVideoSource; movie.load(); } }
       else { loaded = false; movie.removeAttribute("src"); movie.load(); }
       schedule();
     };

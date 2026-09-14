@@ -1,0 +1,51 @@
+[
+  {
+    "id": "opening",
+    "prompt": "Generate ONE complete new portrait 9:16 mobile website background, 1080x1920 or higher. Reference is immutable visual guide, not pixel canvas; recreate from scratch. Recompose only for portrait format, preserve the source's exact pearl-white, very pale lilac, icy blue and blush lighting palette, glass ribbon material and recognizable curve geometry. Adapt the source ribbon paths to graceful portrait framing, mostly at the sides and lower half, generous calm central space for readable website text. Keep very top and bottom 12% nearly uniform matching pearl white #f8f7fc, with ribbons naturally fading out before the edges to join neighboring page backgrounds. Clean polished image, low visual noise, restrained high-frequency detail, clean background, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No products, people, letters, logos, text, UI, panel borders, checkerboard, particles. Preserve subtle light energy; do not darken or oversaturate. This is asset opening.",
+    "source": "../完整背景关键帧-2026-09-14/",
+    "output": "opening.png",
+    "method": "built-in image_gen, full-frame portrait regeneration"
+  },
+  {
+    "id": "products",
+    "prompt": "Generate ONE complete new portrait 9:16 mobile website background, 1080x1920 or higher. Reference is immutable visual guide, not pixel canvas; recreate from scratch. Recompose only for portrait format, preserve the source's exact pearl-white, very pale lilac, icy blue and blush lighting palette, glass ribbon material and recognizable curve geometry. Preserve the COMPLETE thin elliptical glass platform around lower 75% of portrait, scaled to fit phone width, elegant light ribbons converging behind it. Keep very top and bottom 12% nearly uniform matching pearl white #f8f7fc, with ribbons naturally fading out before the edges to join neighboring page backgrounds. Clean polished image, low visual noise, restrained high-frequency detail, clean background, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No products, people, letters, logos, text, UI, panel borders, checkerboard, particles. Preserve subtle light energy; do not darken or oversaturate. This is asset products.",
+    "source": "../完整背景关键帧-2026-09-14/",
+    "output": "products.png",
+    "method": "built-in image_gen, full-frame portrait regeneration"
+  },
+  {
+    "id": "films",
+    "prompt": "Generate ONE complete new portrait 9:16 mobile website background, 1080x1920 or higher. Reference is immutable visual guide, not pixel canvas; recreate from scratch. Recompose only for portrait format, preserve the source's exact pearl-white, very pale lilac, icy blue and blush lighting palette, glass ribbon material and recognizable curve geometry. Adapt the source ribbon paths to graceful portrait framing, mostly at the sides and lower half, generous calm central space for readable website text. Keep very top and bottom 12% nearly uniform matching pearl white #f8f7fc, with ribbons naturally fading out before the edges to join neighboring page backgrounds. Clean polished image, low visual noise, restrained high-frequency detail, clean background, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No products, people, letters, logos, text, UI, panel borders, checkerboard, particles. Preserve subtle light energy; do not darken or oversaturate. This is asset films.",
+    "source": "../完整背景关键帧-2026-09-14/",
+    "output": "films.png",
+    "method": "built-in image_gen, full-frame portrait regeneration"
+  },
+  {
+    "id": "experiences",
+    "prompt": "Generate ONE complete new portrait 9:16 mobile website background, 1080x1920 or higher. Reference is immutable visual guide, not pixel canvas; recreate from scratch. Recompose only for portrait format, preserve the source's exact pearl-white, very pale lilac, icy blue and blush lighting palette, glass ribbon material and recognizable curve geometry. Adapt the source ribbon paths to graceful portrait framing, mostly at the sides and lower half, generous calm central space for readable website text. Keep very top and bottom 12% nearly uniform matching pearl white #f8f7fc, with ribbons naturally fading out before the edges to join neighboring page backgrounds. Clean polished image, low visual noise, restrained high-frequency detail, clean background, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No products, people, letters, logos, text, UI, panel borders, checkerboard, particles. Preserve subtle light energy; do not darken or oversaturate. This is asset experiences.",
+    "source": "../完整背景关键帧-2026-09-14/",
+    "output": "experiences.png",
+    "method": "built-in image_gen, full-frame portrait regeneration"
+  },
+  {
+    "id": "safety",
+    "prompt": "Generate ONE complete new portrait 9:16 mobile website background, 1080x1920 or higher. Reference is immutable visual guide, not pixel canvas; recreate from scratch. Recompose only for portrait format, preserve the source's exact pearl-white, very pale lilac, icy blue and blush lighting palette, glass ribbon material and recognizable curve geometry. Adapt the source ribbon paths to graceful portrait framing, mostly at the sides and lower half, generous calm central space for readable website text. Keep very top and bottom 12% nearly uniform matching pearl white #f8f7fc, with ribbons naturally fading out before the edges to join neighboring page backgrounds. Clean polished image, low visual noise, restrained high-frequency detail, clean background, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No products, people, letters, logos, text, UI, panel borders, checkerboard, particles. Preserve subtle light energy; do not darken or oversaturate. This is asset safety.",
+    "source": "../完整背景关键帧-2026-09-14/",
+    "output": "safety.png",
+    "method": "built-in image_gen, full-frame portrait regeneration"
+  },
+  {
+    "id": "family",
+    "prompt": "Generate ONE complete new portrait 9:16 mobile website background, 1080x1920 or higher. Reference is immutable visual guide, not pixel canvas; recreate from scratch. Recompose only for portrait format, preserve the source's exact pearl-white, very pale lilac, icy blue and blush lighting palette, glass ribbon material and recognizable curve geometry. Adapt the source ribbon paths to graceful portrait framing, mostly at the sides and lower half, generous calm central space for readable website text. Keep very top and bottom 12% nearly uniform matching pearl white #f8f7fc, with ribbons naturally fading out before the edges to join neighboring page backgrounds. Clean polished image, low visual noise, restrained high-frequency detail, clean background, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No products, people, letters, logos, text, UI, panel borders, checkerboard, particles. Preserve subtle light energy; do not darken or oversaturate. This is asset family.",
+    "source": "../完整背景关键帧-2026-09-14/",
+    "output": "family.png",
+    "method": "built-in image_gen, full-frame portrait regeneration"
+  },
+  {
+    "id": "join",
+    "prompt": "Generate ONE complete new portrait 9:16 mobile website background, 1080x1920 or higher. Reference is immutable visual guide, not pixel canvas; recreate from scratch. Recompose only for portrait format, preserve the source's exact pearl-white, very pale lilac, icy blue and blush lighting palette, glass ribbon material and recognizable curve geometry. Adapt the source ribbon paths to graceful portrait framing, mostly at the sides and lower half, generous calm central space for readable website text. Keep very top and bottom 12% nearly uniform matching pearl white #f8f7fc, with ribbons naturally fading out before the edges to join neighboring page backgrounds. Clean polished image, low visual noise, restrained high-frequency detail, clean background, smooth controlled gradients, coherent surfaces, no grain buildup, no random speckles, no paint smears, no compression artifacts, no oversharpened edges. No products, people, letters, logos, text, UI, panel borders, checkerboard, particles. Preserve subtle light energy; do not darken or oversaturate. This is asset join.",
+    "source": "../完整背景关键帧-2026-09-14/",
+    "output": "join.png",
+    "method": "built-in image_gen, full-frame portrait regeneration"
+  }
+]

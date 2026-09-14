@@ -2,26 +2,27 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const baseURL = process.env.BASE_URL ?? 'http://127.0.0.1:4211';
 const open = async (options = {}) => {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, ...options });
   return page;
 };
 try {
   const fallback = await open();
-  await fallback.route('**/version-5.mp4', route => route.abort());
-  await fallback.goto('http://127.0.0.1:4211/en');
+  await fallback.route('**/version-5-tail-wave-20260914.mp4', route => route.abort());
+  await fallback.goto(`${baseURL}/en`);
   await fallback.waitForTimeout(3000);
   assert.equal(await fallback.locator('[data-background-video]').evaluate(v => v.dataset.ready), 'false');
   assert.equal(await fallback.locator('[data-background-fallback]').evaluate(el => el.style.opacity), '1');
   await fallback.close();
   const reduced = await open({ reducedMotion: 'reduce' });
-  await reduced.goto('http://127.0.0.1:4211/en');
+  await reduced.goto(`${baseURL}/en`);
   await reduced.waitForTimeout(1500);
   assert.equal(await reduced.locator('[data-background-video]').getAttribute('src'), null);
   await reduced.close();
   if (!process.argv.includes('--fallback-only')) {
     const page = await open();
-    await page.goto('http://127.0.0.1:4211/en');
+    await page.goto(`${baseURL}/en`);
     await page.waitForSelector('[data-background-video][data-ready="true"]', { state: 'attached', timeout: 30000 });
     await page.waitForTimeout(6000);
     const { start, end, duration, cues } = await page.locator('[data-background-video]').evaluate(v => ({
@@ -75,6 +76,13 @@ try {
     await move(positions[0],0);
     await page.screenshot({ path: '/tmp/lumiq-background-products.png' });
     await page.close();
+
+    const mobile = await open({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    await mobile.goto(`${baseURL}/en`);
+    await mobile.waitForSelector('[data-background-video]', { state: 'attached' });
+    assert.equal(await mobile.locator('[data-background-video]').getAttribute('src'), null, 'mobile does not load a parallax video');
+    assert.match(await mobile.locator('#products').evaluate(el => getComputedStyle(el, '::before').backgroundImage), /mobile-backgrounds-20260914\/products.webp/);
+    await mobile.close();
   }
-  console.log('PASS background fallback/reduced-motion' + (process.argv.includes('--fallback-only') ? '' : ', chapter cues, seek/freeze/reverse and single video'));
+  console.log('PASS background fallback/reduced-motion' + (process.argv.includes('--fallback-only') ? '' : ', desktop chapter cues/seek/freeze/reverse and mobile static background'));
 } finally { await browser.close(); }

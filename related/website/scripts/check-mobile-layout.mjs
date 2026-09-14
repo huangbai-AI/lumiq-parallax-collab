@@ -8,12 +8,43 @@ try {
     for (const locale of ['en', 'zh-hant', 'ja']) {
       await page.goto(`${base}/${locale}`, { waitUntil: 'domcontentloaded' });
       await page.waitForSelector('.lh-home[data-home-state="open"]', { timeout: 60000 });
+      assert.equal(await page.locator('[data-background-video]').getAttribute('src'), null, 'no mobile background video');
+      assert.equal(await page.locator('.lh-opening').getAttribute('data-video-mode'), null, 'no mobile opening pin');
       for (const id of ['top', 'ola', 'products', 'films', 'experiences', 'safety', 'family', 'join']) {
         await page.locator(`#${id}`).scrollIntoViewIfNeeded();
         await page.waitForTimeout(250);
         assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${width}/${locale}/${id}: overflow`);
+        const background = await page.locator(`#${id}`).evaluate(el => {
+          const style = getComputedStyle(el, '::before');
+          return { image: style.backgroundImage, mask: style.maskImage, transform: style.transform, height: parseFloat(style.height), sectionHeight: el.getBoundingClientRect().height };
+        });
+        if (id === 'top' || id === 'ola') {
+          assert.equal(await page.locator(`#${id}`).evaluate(el => getComputedStyle(el, '::before').display), 'none', `${id}: no duplicate background`);
+          continue;
+        }
+        assert.match(background.image, /mobile-backgrounds-20260914\//, `${id}: dedicated portrait art`);
+        assert.notEqual(background.mask, 'none', `${id}: soft chapter edges`);
+        assert.equal(background.transform, 'none', `${id}: no parallax transform`);
+        assert(Math.abs(background.height - background.sectionHeight) < 2, `${id}: background covers entire chapter`);
       }
+      const heroImage = await page.locator('.lh-mobile-hero-art img').evaluate(img => ({
+        ratio: img.naturalWidth / img.naturalHeight,
+        boxRatio: img.clientWidth / img.clientHeight,
+        fit: getComputedStyle(img).objectFit,
+      }));
+      assert.equal(heroImage.fit, 'contain');
+      assert(Math.abs(heroImage.ratio - 9 / 16) < .02, 'dedicated portrait hero');
+      assert.equal(await page.locator('.lh-hero-stage').isVisible(), false, 'no desktop scene overlay');
+      assert.equal(await page.locator('.lh-brand-character').isVisible(), false, 'no standalone girl in mobile OLA scene');
+      assert(await page.locator('.lh-mobile-ola-art img').evaluate(img => img.complete && img.naturalWidth > 0), 'OLA + detached Go image loaded');
+      const clearance = await page.evaluate(() => {
+        const art = document.querySelector('.lh-mobile-ola-art img').getBoundingClientRect();
+        const copy = document.querySelector('.lh-ola-copy').getBoundingClientRect();
+        return art.top + art.height * .40 - copy.bottom;
+      });
+      assert(clearance >= 0, 'OLA product does not overlap reserved UI area');
       const hero = await page.locator('#hero-title').boundingBox();
+      assert(Number.parseFloat(await page.locator('#hero-title').evaluate(el => getComputedStyle(el).fontSize)) <= 42, 'mobile title uses compact type scale');
       assert(hero.x >= 0 && hero.x + hero.width <= width, 'hero title fits');
       const card = await page.locator('.lh-film-card').boundingBox();
       assert(card.x >= 0 && card.x + card.width <= width, 'video fits');

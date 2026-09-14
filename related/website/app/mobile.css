@@ -67,3 +67,66 @@
     width: var(--film-width);
   }
 }
+
+.lh-mobile-ola-art { display: none; }
+/* Portrait artwork belongs to each chapter, with a shared pearl edge between chapters. */
+@media (max-width: 1100px) {
+  .lumiq-root:has(.lh-home[data-home-state]) { background: #f8f7fc; }
+  .lumiq-root:has(.lh-home) > .bg-layer,
+  .lumiq-root .lh-fixed-backgrounds,
+  .lumiq-root .lh-home .lh-opening-atmosphere { display: none; }
+  .lumiq-root .lh-home section[data-home-section] { position: relative; isolation: isolate; }
+  .lumiq-root .lh-home section[data-home-section]::before {
+    content: ""; display: block; position: absolute; inset: 0; z-index: -1;
+    width: auto; height: auto; opacity: 1; transform: none; filter: none;
+    pointer-events: none; background: var(--mobile-chapter-art) center / cover no-repeat;
+    mask-image: linear-gradient(transparent, #000 10%, #000 87%, transparent);
+  }
+  .lumiq-root .lh-home :is(#top, #ola)::before { display: none; }
+  .lumiq-root .lh-home #products { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/products.webp'); }
+  .lumiq-root .lh-home #films { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/films.webp'); }
+  .lumiq-root .lh-home #experiences { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/experiences.webp'); }
+  .lumiq-root .lh-home #safety { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/safety.webp'); }
+  .lumiq-root .lh-home #family { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/family.webp'); }
+  .lumiq-root .lh-home #join { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/join.webp'); }
+  .lumiq-root .site-nav .nav-logo { flex-shrink: 0; overflow: visible; }
+  .lumiq-root .site-nav .nav-logo img { object-fit: contain; }
+  .lumiq-root .lh-home .lh-hero-layout { padding-top: 102px; padding-bottom: 16px; }
+  .lumiq-root .lh-home #hero-title {
+    font-size: clamp(30px, 9.2vw, 42px); line-height: 1.09;
+    letter-spacing: -.035em; width: auto; max-width: 100%; text-wrap: balance;
+  }
+  .lumiq-root .lh-home .lh-hero .lh-lead { font-size: 15px; line-height: 1.65; margin-top: 20px; }
+  .lumiq-root .lh-home .lh-hero .lh-actions { margin-top: 22px; }
+  .lumiq-root .lh-home .lh-hero { min-height: calc(200px + min(100vw, 600px) * 16 / 9); }
+  .lumiq-root .lh-home .lh-hero .lh-hero-stage { display: none; }
+  .lumiq-root .lh-home .lh-mobile-hero-art {
+    inset: 0; z-index: -1; max-width: 600px; margin-inline: auto;
+    mask-image: linear-gradient(#000 94%, transparent);
+  }
+  .lumiq-root .lh-home .lh-mobile-hero-art img { object-fit: contain; object-position: center bottom; transform: none; }
+  .lumiq-root .lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
+    font-size: clamp(26px, 7.2vw, 34px); line-height: 1.17; text-wrap: balance;
+  }
+  .lumiq-root .lh-home section :is(.lh-lead, .lh-room-intro, .lh-section-intro) { font-size: 15px; line-height: 1.65; }
+  .lumiq-root .lh-home .lh-ola-layout { display: grid; grid-template-columns: minmax(0, 1fr); padding-block: 0 32px; gap: 24px; }
+  .lumiq-root .lh-home .lh-ola-copy { grid-area: 1 / 1; align-self: start; z-index: 1; padding-top: 32px; }
+  .lumiq-root .lh-home .lh-ola .lh-brand-character { display: none; }
+  .lumiq-root .lh-home .lh-mobile-ola-art { display: block; grid-area: 1 / 1; width: calc(100% + 40px); margin-inline: -20px; padding-top: 100px; mask-image: linear-gradient(transparent, #000 7%, #000 92%, transparent); }
+  .lumiq-root .lh-home .lh-mobile-ola-art img { display: block; width: 100%; height: auto; object-fit: contain; }
+  .lumiq-root .lh-home .lh-hero .lh-actions { flex-wrap: nowrap; gap: 12px; }
+  .lumiq-root .lh-home .lh-hero .lh-button { font-size: 13px; padding-inline: 16px; gap: 10px; white-space: nowrap; }
+  .lumiq-root .lh-home .lh-hero .lh-text-link { font-size: 13px; gap: 8px; white-space: nowrap; }
+  .lumiq-root .lh-home .lh-ola-copy .lh-lead { margin-top: 20px; }
+  .lumiq-root .lh-home .lh-rhythm-photo { min-height: 138px; }
+  .lumiq-root .lh-home .lh-rhythm-copy { padding: 16px 14px; }
+  .lumiq-root .lh-home .lh-products-stage { padding-block: 36px; }
+  .lumiq-root .lh-home .lh-products-viewport { mask-image: linear-gradient(#000 calc(100% - 24px), transparent); }
+  .lumiq-root .lh-home .lh-films-section { padding-block: 36px; }
+  .lumiq-root .lh-home .lh-films-heading h2 { font-size: clamp(28px, 8vw, 36px); max-width: 14ch; text-wrap: balance; line-height: 1.15; }
+  .lumiq-root .lh-home .lh-film-character { width: min(100%, 300px) !important; margin-block: 8px; }
+  .lumiq-root .lh-home .lh-films-stage { height: calc(var(--film-height) * 1.7); min-height: 0; }
+  .lumiq-root .lh-home .lh-join { padding-block: 40px; }
+  .lumiq-root .lh-home .lh-join input { font-size: 16px; }
+  .lumiq-root:has(.lh-home[data-home-state]) > .footer { padding-top: 32px; background: #f8f7fc; }
+}

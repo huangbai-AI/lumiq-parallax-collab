@@ -81,6 +81,16 @@ export default async function Home() {
             aria-labelledby="hero-title"
             data-home-section
           >
+            <div className="lh-mobile-hero-art" role="img" aria-label={t("heroAlt")}>
+              <Image
+                src="/assets/mobile-backgrounds-20260914/hero-unified.webp"
+                alt=""
+                fill
+                sizes="(max-width: 1100px) 100vw, 1px"
+                unoptimized
+                priority
+              />
+            </div>
             <div className="lh-glass-word" aria-hidden="true">
               <div className="lh-glass-art">
                 {glassSlices.map(([left, right], index) => (
@@ -130,15 +140,6 @@ export default async function Home() {
                 aria-label={t("heroAlt")}
                 role="img"
               >
-                <div className="lh-mobile-hero-art">
-                  <Image
-                    src="/assets/home-mobile-20260907/hero.webp"
-                    alt=""
-                    fill
-                    sizes="(max-width: 1100px) 100vw, 1px"
-                    priority
-                  />
-                </div>
                 <div className="lh-hero-plinth" aria-hidden="true" />
                 <div className="lh-hero-object lh-hero-nest">
                   <Image
@@ -198,6 +199,16 @@ export default async function Home() {
                   {t("meetOla")}
                   <ArrowRight size={18} />
                 </Link>
+              </div>
+              <div className="lh-mobile-ola-art">
+                <Image
+                  src="/assets/mobile-backgrounds-20260914/ola-go-ui.webp"
+                  alt="LumiQ OLA + Go"
+                  width={941}
+                  height={1672}
+                  sizes="(max-width: 1100px) 100vw, 1px"
+                  unoptimized
+                />
               </div>
               <div className="lh-brand-character" aria-hidden="true">
                 <Image
