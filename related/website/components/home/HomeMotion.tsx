@@ -3,7 +3,6 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { mountEndingChapters } from "./endingChapters";
 import { mountProductRail } from "./productRail";
 import { mountRoomAnchor, mountJoinAnchor } from "./roomAnchor";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
@@ -37,7 +36,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         ? mountProductRail(root.current)
         : () => {};
       const releaseRoom = root.current ? mountRoomAnchor(root.current) : () => {};
-      const releaseEnding = root.current ? mountEndingChapters(root.current) : () => {};
       const releaseJoin = root.current ? mountJoinAnchor(root.current) : () => {};
       const mm = gsap.matchMedia();
       mm.add(
@@ -271,7 +269,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releaseImages();
         mm.revert();
         releaseJoin();
-        releaseEnding();
         releaseRoom();
         releaseProducts();
         releaseOpening();

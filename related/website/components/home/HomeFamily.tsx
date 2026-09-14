@@ -1,6 +1,7 @@
 "use client";
 import Image from "@/components/home/HomeImage";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { mountCarouselWheelGate } from "./readingGuard";
 import { useTranslations } from "next-intl";
 
 const moments = ["morning", "afternoon", "evening"] as const;
@@ -10,21 +11,38 @@ export default function HomeFamily() {
   const [active, setActive] = useState(0);
   const chapters = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  useEffect(() => {
-    const section = chapters.current?.closest<HTMLElement>("#family");
-    if (!section) return;
-    const change = (event: Event) => setActive((event as CustomEvent<number>).detail);
-    section.addEventListener("lumiq:chapter-change", change);
-    if (section.dataset.chapter) setActive(Number(section.dataset.chapter));
-    return () => section.removeEventListener("lumiq:chapter-change", change);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const [travel, setTravel] = useState(0);
+  const busy = useRef(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const advance = useCallback((step: number) => {
+    if (!step || busy.current) return;
+    busy.current = true;
+    setTravel(step);
+    timer.current = setTimeout(() => {
+      setActive(index => (index + step + moments.length) % moments.length);
+      setTravel(0);
+      busy.current = false;
+    }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 750);
   }, []);
 
+  useEffect(() => {
+    const target = chapters.current?.closest<HTMLElement>('.lh-family-anchor');
+    if (!target) return;
+    const media = matchMedia('(min-width: 1101px) and (min-height: 640px)');
+    let release = () => {};
+    const configure = () => {
+      release();
+      release = media.matches ? mountCarouselWheelGate(target, () => advance(1), () => busy.current) : () => {};
+    };
+    configure();
+    media.addEventListener('change', configure);
+    return () => { release(); clearTimeout(timer.current); media.removeEventListener('change', configure); };
+  }, [advance]);
+
   const select = (index: number) => {
-    setActive(index);
-    chapters.current?.dispatchEvent(new CustomEvent("lumiq:chapter-select", {
-      bubbles: true, detail: index,
-    }));
+    const step = (index - active + moments.length) % moments.length;
+    advance(step === 2 ? -1 : step);
   };
 
   const navigate = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
@@ -42,7 +60,7 @@ export default function HomeFamily() {
   };
 
   return (
-    <div ref={chapters} className="lh-family-chapters">
+    <div ref={chapters} className="lh-family-chapters" data-active-family={active} data-travel={travel}>
       <div className="lh-chapter-navigation" role="tablist" aria-label={t("familyPanoramaAlt")}>
         {moments.map((key, index) => (
           <button
@@ -62,18 +80,29 @@ export default function HomeFamily() {
           </button>
         ))}
       </div>
-      <div className="lh-family-stage">
-        {moments.map((key, index) => (
+      <div className="lh-family-stage" onTouchStart={event => { touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }} onTouchEnd={event => {
+        if (!touchStart.current) return;
+        const dx = event.changedTouches[0].clientX - touchStart.current.x;
+        const dy = event.changedTouches[0].clientY - touchStart.current.y;
+        touchStart.current = null;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) advance(dx < 0 ? 1 : -1);
+      }}>
+        {[-2, -1, 0, 1, 2].map(offset => {
+          const index = (active + offset + moments.length) % moments.length;
+          const key = moments[index];
+          const position = offset - travel;
+          return (
           <div
-            key={key}
-            id={`family-panel-${key}`}
+            key={offset}
+            id={Math.abs(offset) <= 1 ? `family-panel-${key}` : undefined}
             role="tabpanel"
             aria-labelledby={`family-tab-${key}`}
-            aria-hidden={index !== active}
-            inert={index !== active}
-            tabIndex={index === active ? 0 : -1}
+            aria-hidden={offset !== 0}
+            inert={offset !== 0}
+            tabIndex={offset === 0 ? 0 : -1}
             className="lh-family-scene"
-            data-active={index === active}
+            data-active={position === 0}
+            style={{ '--family-offset': position, '--family-scale': position === 0 ? 1 : .78, opacity: position === 0 ? 1 : Math.abs(position) === 1 ? .42 : 0 } as CSSProperties}
           >
             <Image
               src={`/assets/western-scenes-20260908/${key}.webp`}
@@ -83,7 +112,7 @@ export default function HomeFamily() {
               sizes="100vw"
             />
           </div>
-        ))}
+        );})}
       </div>
     </div>
   );

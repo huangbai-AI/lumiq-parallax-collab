@@ -26,9 +26,9 @@
   .lumiq-root .lh-home .lh-rhythm-copy h3 { font-size: 22px; }
   .lumiq-root .lh-home .lh-rhythm-copy p { font-size: 14px; }
   .lumiq-root .lh-home .lh-products-stage { min-height: 0; padding: 48px 0; gap: 24px; }
-  .lumiq-root .lh-home .lh-products-viewport { margin: 0; padding: 12px 20px 28px; scroll-padding-inline: 20px; }
-  .lumiq-root .lh-home .lh-products-track { gap: 16px; padding-right: 0; }
-  .lumiq-root .lh-home .lh-product-slot { flex-basis: min(82vw, 360px); width: min(82vw, 360px); }
+  .lumiq-root .lh-home .lh-products-viewport { margin: 0; padding: 12px 0 28px; scroll-padding-inline: 0; }
+  .lumiq-root .lh-home .lh-products-track { gap: 24px; padding-inline: calc((100vw - min(84vw, 360px)) / 2); }
+  .lumiq-root .lh-home .lh-product-slot { flex-basis: min(84vw, 360px); width: min(84vw, 360px); scroll-snap-align: center; }
   .lumiq-root .lh-home .lh-products .lh-product { height: 440px; padding: 20px; border-radius: 28px; }
   .lumiq-root .lh-home .lh-products .lh-product-art { margin: 0 0 16px; }
   .lumiq-root .lh-home .lh-products .lh-product h3 { font-size: 24px; }
@@ -37,8 +37,8 @@
   .lumiq-root .lh-home .lh-films { display: flex; flex-direction: column; }
   .lumiq-root .lh-home .lh-films-heading { position: relative; inset: auto; width: calc(100% - 40px); margin: 0 auto; order: 0; }
   .lumiq-root .lh-home .lh-films-heading h2 { font-size: clamp(30px, 8vw, 40px); white-space: normal; line-height: 1.12; }
-  .lumiq-root .lh-home .lh-film-character { position: relative; inset: auto !important; width: min(100%, 360px) !important; height: auto; margin: 0 auto; order: 1; }
-  .lumiq-root .lh-home .lh-films-layout { --film-width: min(calc(100vw - 40px), 600px); width: min(calc(100% - 40px), 600px); margin: 0 auto; flex-direction: column; gap: 12px; order: 2; }
+  .lumiq-root .lh-home .lh-film-character { position: absolute; height: auto; margin: 0; order: 1; }
+  .lumiq-root .lh-home .lh-films-layout { --film-width: min(72vw, 600px); width: var(--film-width); margin: 28px 4vw 0 auto; flex-direction: column; gap: 12px; order: 2; }
   .lumiq-root .lh-home .lh-films-stage { width: 100%; height: calc(var(--film-height) * 1.9); min-height: 300px; touch-action: pan-y; }
   .lumiq-root .lh-home .lh-film-slot { width: 100%; }
   .lumiq-root .lh-home .lh-films-controls { flex-direction: row; width: 100%; height: 48px; }
@@ -124,7 +124,6 @@
   .lumiq-root .lh-home .lh-products-viewport { mask-image: linear-gradient(#000 calc(100% - 24px), transparent); }
   .lumiq-root .lh-home .lh-films-section { padding-block: 36px; }
   .lumiq-root .lh-home .lh-films-heading h2 { font-size: clamp(28px, 8vw, 36px); max-width: 14ch; text-wrap: balance; line-height: 1.15; }
-  .lumiq-root .lh-home .lh-film-character { width: min(100%, 300px) !important; margin-block: 8px; }
   .lumiq-root .lh-home .lh-films-stage { height: calc(var(--film-height) * 1.7); min-height: 0; }
   .lumiq-root .lh-home .lh-join { padding-block: 40px; }
   .lumiq-root .lh-home .lh-join input { font-size: 16px; }

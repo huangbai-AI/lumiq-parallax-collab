@@ -54,11 +54,23 @@ export default function HomeFilms() {
     if (!clip || !target) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const placeCharacter = () => {
+      if (innerWidth <= 1100) {
+        const card = target.querySelector('.lh-film-card')?.getBoundingClientRect();
+        if (!card) return;
+        const parent = clip.parentElement!.getBoundingClientRect();
+        const width = Math.min(parent.width * .8, 640);
+        // V2's contact frame (4.8s): fingertip at 89.4% x / 20% y.
+        clip.style.width = `${width}px`;
+        clip.style.left = `${card.left - parent.left + 8 - width * .894}px`;
+        clip.style.top = `${card.top - parent.top + 18 - width * 9 / 16 * .2}px`;
+        clip.style.bottom = 'auto';
+        return;
+      }
+      clip.style.removeProperty('top');
+      clip.style.removeProperty('bottom');
       const cardLeft = target.parentElement!.offsetLeft + target.offsetLeft + target.clientWidth * .09;
       // Preserve the afternoon character height; align V2's fingertip with the card.
-      const width = innerWidth >= 1101
-        ? Math.min(innerWidth * .34, 760) * 16 / 9
-        : Math.max(0, cardLeft + 3) / .89;
+      const width = Math.min(innerWidth * .34, 760) * 16 / 9;
       clip.style.width = `${width}px`;
       clip.style.left = `${cardLeft + 3 - width * .89}px`;
     };

@@ -77,7 +77,7 @@ export function mountCarouselWheelGate(target: HTMLElement, advance: () => void,
     const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
     if (!locked && remaining > 2) {
       // A large wheel pulse must reach the first carousel, not skip to the next one.
-      const earlier = [...document.querySelectorAll<HTMLElement>(".lh-products-stage, .lh-films-stage")].some(other => {
+      const earlier = [...document.querySelectorAll<HTMLElement>(".lh-products-stage, .lh-films-stage, .lh-family-anchor")].some(other => {
         if (other === target) return false;
         const distance = other.getBoundingClientRect().top - (other.matches(".lh-products-stage") ? 0 : 86);
         return distance > 2 && distance < remaining;
@@ -95,7 +95,8 @@ export function mountCarouselWheelGate(target: HTMLElement, advance: () => void,
     const now = performance.now();
     // A short gesture gap accepts ordinary mouse notches. Equal, strong wheel
     // pulses also count separately; a decaying trackpad tail stays one gesture.
-    const gesture = now - lastWheel > 140 ||
+    const decayingTail = delta < lastDelta * .6 && now - lastWheel < 300;
+    const gesture = (!decayingTail && now - lastWheel > 140) ||
       (delta >= 80 && Math.abs(delta - lastDelta) < 1 && now - lastGesture >= 80);
     lastWheel = now;
     lastDelta = delta;

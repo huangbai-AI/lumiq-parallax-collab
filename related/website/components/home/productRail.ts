@@ -19,6 +19,7 @@ export function mountProductRail(root: HTMLElement) {
   let hover: ReturnType<typeof setTimeout> | undefined;
   let lockedUntil = 0;
   const cancelHover = () => clearTimeout(hover);
+  const centeredLeft = (slot: HTMLElement) => slot.offsetLeft - (viewport.clientWidth - slot.offsetWidth) / 2;
   const render = () => {
     section.dataset.carousel = String(desktop.matches);
     section.dataset.activeProduct = String(active);
@@ -37,7 +38,7 @@ export function mountProductRail(root: HTMLElement) {
     active = (index + slots.length) % slots.length;
     lockedUntil = performance.now() + (reduced.matches ? 0 : 650);
     render();
-    if (!desktop.matches) viewport.scrollTo({ left: slots[active].offsetLeft, behavior: reduced.matches ? "instant" : "smooth" });
+    if (!desktop.matches) viewport.scrollTo({ left: centeredLeft(slots[active]), behavior: reduced.matches ? "instant" : "smooth" });
   };
   slots.forEach((slot, index) => {
     slot.addEventListener("pointerenter", (event) => {
@@ -63,7 +64,7 @@ export function mountProductRail(root: HTMLElement) {
   }, options);
   viewport.addEventListener("scroll", () => {
     if (desktop.matches) return;
-    active = slots.reduce((best, slot, i) => Math.abs(slot.offsetLeft - viewport.scrollLeft) < Math.abs(slots[best].offsetLeft - viewport.scrollLeft) ? i : best, 0);
+    active = slots.reduce((best, slot, i) => Math.abs(centeredLeft(slot) - viewport.scrollLeft) < Math.abs(centeredLeft(slots[best]) - viewport.scrollLeft) ? i : best, 0);
     render();
   }, { ...options, passive: true });
   const resize = () => { viewport.scrollLeft = 0; active = 0; render(); };
