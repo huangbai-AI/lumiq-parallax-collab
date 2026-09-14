@@ -12,7 +12,7 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
   const [selected, setSelected] = useState(0);
   useEffect(() => {
     const section = host.current!.closest<HTMLElement>(".lh-products")!;
-    const desktop = matchMedia("(min-width: 768px)");
+    const desktop = matchMedia("(min-width: 1101px)");
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("webgl2");
     if (!context) return;

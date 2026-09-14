@@ -4,6 +4,7 @@ import "./globals.css";
 import "./product-detail-template.css";
 import "./navigation.css";
 import "./site-typography.css";
+import "./mobile.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 import ExternalFonts from "@/components/ExternalFonts";
 

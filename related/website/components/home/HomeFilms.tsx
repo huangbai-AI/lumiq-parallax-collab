@@ -15,7 +15,7 @@ export default function HomeFilms() {
   const video = useRef<HTMLVideoElement>(null);
   const character = useRef<HTMLVideoElement>(null);
   const stage = useRef<HTMLDivElement>(null);
-  const touchStart = useRef<number | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const [travel, setTravel] = useState(0);
   const switching = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -56,7 +56,7 @@ export default function HomeFilms() {
     const placeCharacter = () => {
       const cardLeft = target.parentElement!.offsetLeft + target.offsetLeft + target.clientWidth * .09;
       // Preserve the afternoon character height; align V2's fingertip with the card.
-      const width = innerWidth >= 768
+      const width = innerWidth >= 1101
         ? Math.min(innerWidth * .34, 760) * 16 / 9
         : Math.max(0, cardLeft + 3) / .89;
       clip.style.width = `${width}px`;
@@ -98,11 +98,14 @@ export default function HomeFilms() {
         <div><p className="lh-eyebrow">{t("eyebrow")}</p><h2 id="films-title">{t("heading")}</h2></div>
       </header>
       <div className="lh-films-layout">
-      <div ref={stage} className="lh-films-stage" data-moving={travel !== 0} onTouchStart={e => { touchStart.current = e.touches[0].clientY; }}
+      <div ref={stage} className="lh-films-stage" data-moving={travel !== 0} onTouchStart={e => { touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }}
         onTouchEnd={e => {
           if (touchStart.current !== null) {
-            const distance = e.changedTouches[0].clientY - touchStart.current;
-            if (Math.abs(distance) > 50) select(distance < 0 ? 1 : -1);
+            const dx = e.changedTouches[0].clientX - touchStart.current.x;
+            const dy = e.changedTouches[0].clientY - touchStart.current.y;
+            const mobile = matchMedia("(max-width: 1100px)").matches;
+            const distance = mobile ? dx : dy;
+            if (Math.abs(distance) > 50 && (!mobile || Math.abs(dx) > Math.abs(dy))) select(distance < 0 ? 1 : -1);
           }
           touchStart.current = null;
         }}>

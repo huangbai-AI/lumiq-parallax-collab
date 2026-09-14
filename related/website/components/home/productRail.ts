@@ -11,7 +11,7 @@ export function mountProductRail(root: HTMLElement) {
   const previous = section.querySelector<HTMLButtonElement>("[data-products-previous]")!;
   const next = section.querySelector<HTMLButtonElement>("[data-products-next]")!;
   const meter = section.querySelector<HTMLElement>(".lh-products-progress span")!;
-  const desktop = matchMedia("(min-width: 768px)");
+  const desktop = matchMedia("(min-width: 1101px)");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const events = new AbortController();
   const options = { signal: events.signal };
