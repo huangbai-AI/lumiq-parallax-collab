@@ -37,8 +37,9 @@
   .lumiq-root .lh-home .lh-films { display: flex; flex-direction: column; }
   .lumiq-root .lh-home .lh-films-heading { position: relative; inset: auto; width: calc(100% - 40px); margin: 0 auto; order: 0; }
   .lumiq-root .lh-home .lh-films-heading h2 { font-size: clamp(30px, 8vw, 40px); white-space: normal; line-height: 1.12; }
-  .lumiq-root .lh-home .lh-film-character { position: absolute; height: auto; margin: 0; order: 1; }
-  .lumiq-root .lh-home .lh-films-layout { --film-width: min(72vw, 600px); width: var(--film-width); margin: 28px 4vw 0 auto; flex-direction: column; gap: 12px; order: 2; }
+  .lumiq-root .lh-home .lh-film-character { display: none; }
+  .lumiq-root .lh-home .lh-films-layout { --film-width: min(72vw, 600px); width: var(--film-width); margin: 28px auto 0; flex-direction: column; gap: 12px; order: 2; }
+  .lumiq-root .lh-home .lh-family-stage { touch-action: pan-y; }
   .lumiq-root .lh-home .lh-films-stage { width: 100%; height: calc(var(--film-height) * 1.9); min-height: 300px; touch-action: pan-y; }
   .lumiq-root .lh-home .lh-film-slot { width: 100%; }
   .lumiq-root .lh-home .lh-films-controls { flex-direction: row; width: 100%; height: 48px; }

@@ -55,15 +55,7 @@ export default function HomeFilms() {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const placeCharacter = () => {
       if (innerWidth <= 1100) {
-        const card = target.querySelector('.lh-film-card')?.getBoundingClientRect();
-        if (!card) return;
-        const parent = clip.parentElement!.getBoundingClientRect();
-        const width = Math.min(parent.width * .8, 640);
-        // V2's contact frame (4.8s): fingertip at 89.4% x / 20% y.
-        clip.style.width = `${width}px`;
-        clip.style.left = `${card.left - parent.left + 8 - width * .894}px`;
-        clip.style.top = `${card.top - parent.top + 18 - width * 9 / 16 * .2}px`;
-        clip.style.bottom = 'auto';
+        clip.pause();
         return;
       }
       clip.style.removeProperty('top');
@@ -81,7 +73,7 @@ export default function HomeFilms() {
     placeCharacter();
     let visible = false;
     const sync = () => {
-      if (!visible || document.hidden || reduced.matches) clip.pause();
+      if (!visible || document.hidden || reduced.matches || innerWidth <= 1100) clip.pause();
       else if (!clip.ended) void clip.play().catch(() => {});
     };
     const observer = new IntersectionObserver(([entry]) => {

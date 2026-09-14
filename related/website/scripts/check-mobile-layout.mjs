@@ -48,9 +48,8 @@ try {
       assert(hero.x >= 0 && hero.x + hero.width <= width, 'hero title fits');
       const card = await page.locator('.lh-film-card').boundingBox();
       assert(card.x >= 0 && card.x + card.width <= width, 'video fits');
-      const girl = await page.locator('.lh-film-character').boundingBox();
-      assert(Math.abs(girl.x + girl.width * .894 - (card.x + 8)) < 2, 'girl fingertip meets left card edge');
-      assert(Math.abs(girl.y + girl.height * .2 - (card.y + 18)) < 2, 'girl contact height matches card');
+      assert.equal(await page.locator('.lh-film-character').isVisible(), false, 'no mobile character');
+      assert(Math.abs(card.x + card.width / 2 - width / 2) < 2, 'mobile video centered');
       const selected = await page.locator('.lh-product-slot[data-active="true"]').boundingBox();
       assert(Math.abs(selected.x + selected.width / 2 - width / 2) < 2, 'selected product centered');
       assert.equal(await page.locator('.lh-products').getAttribute('data-carousel'), 'false');
