@@ -13,6 +13,7 @@ export default function ContactPage() {
 
   return (
     <SubPage
+      className="contact-page"
       eyebrow={t("eyebrow")}
       title={t("title")}
       intro={t("intro")}

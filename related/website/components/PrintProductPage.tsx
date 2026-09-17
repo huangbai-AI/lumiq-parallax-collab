@@ -17,7 +17,7 @@ export default function PrintProductPage() {
       priceLabel="USD 69"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/home-interactive/print.webp",
+        src: "/assets/products/lumiq-print.png",
         alt: t("alt"),
         fit: "contain",
         unoptimized: true,
@@ -80,7 +80,7 @@ export default function PrintProductPage() {
           body: t(`s${number}Body`),
         })),
         image: {
-          src: "/assets/home-interactive/print.webp",
+          src: "/assets/products/lumiq-print.png",
           alt: t("alt"),
           fit: "contain",
           unoptimized: true,

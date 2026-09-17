@@ -6,6 +6,7 @@ export default function AboutPage() {
 
   return (
     <SubPage
+      className="about-page"
       eyebrow={t("eyebrow")}
       title={t("title")}
       intro={t("intro")}

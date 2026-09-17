@@ -19,7 +19,7 @@ export default function OlaProductPage() {
       priceLabel="USD 599"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/ola-detail/ola-hero-mobile-cutout-v10.png",
+        src: "/assets/web/ola-hero-front.webp",
         alt: t("deviceAlt"),
         fit: "contain",
         position: "center",
@@ -67,7 +67,7 @@ export default function OlaProductPage() {
           body: t(`way${number}Body`),
         })),
         image: {
-          src: "/assets/ola-detail/lumiq-ola-angle-feishu-v3.png",
+          src: "/assets/home-products-refined-20260907/ola-repaired.webp",
           alt: t("deviceAlt"),
           fit: "contain",
         },
@@ -81,7 +81,7 @@ export default function OlaProductPage() {
           body: t(`sb${number}`),
         })),
         image: {
-          src: "/assets/ola-detail/lumiq-ola-upright-transparent.png",
+          src: "/assets/ola-detail/original-20260915/ola-high-angle-crop.png",
           alt: t("deviceAlt"),
           fit: "contain",
         },

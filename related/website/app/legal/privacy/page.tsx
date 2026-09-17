@@ -5,7 +5,7 @@ import {useTranslations} from "next-intl";
 export default function PrivacyPage() {
   const t = useTranslations("Legal");
   return (
-    <SubPage eyebrow={t("eyebrow")} title={t("privacy.title")} intro={t("privacy.intro")}>
+    <SubPage className="privacy-page" eyebrow={t("eyebrow")} title={t("privacy.title")} intro={t("privacy.intro")}>
       <DraftNotice>{t("draft")}</DraftNotice>
       <h2>{t("privacy.waitlistHeading")}</h2>
       <p>{t("privacy.waitlistBody")}</p>

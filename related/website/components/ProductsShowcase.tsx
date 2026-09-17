@@ -316,7 +316,7 @@ export default function ProductsShowcase() {
       </section>
 
       <style>{`
-        .prod-page { background: #fff; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
+        .prod-page { background-color: #fbfbfe; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
         .prod-page .container { max-width: 1200px; }
 
         .prod-kicker { display: block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
@@ -358,7 +358,7 @@ export default function ProductsShowcase() {
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
         .prod-stage { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; align-items: stretch; }
-        .prod-stage-media { position: relative; display: block; width: 100%; min-width: 0; align-self: center; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
+        .prod-stage-media { position: relative; display: block; width: 100%; min-width: 0; align-self: center; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: rgba(255,255,255,.68); color: inherit; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
         .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
         .prod-stage-media img.on { opacity: 1; transform: scale(1); }
@@ -384,7 +384,7 @@ export default function ProductsShowcase() {
         .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
 
-        .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--cream-2); }
+        .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: transparent; }
         .prod-page > .prod-story-invite .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: center; min-height: clamp(22rem, 28vw, 27rem); padding-top: clamp(5rem, 7vw, 7rem); padding-bottom: clamp(5rem, 7vw, 7rem); }
         .prod-story-invite .prod-kicker { margin-bottom: .8rem; }
         .prod-story-invite-heading h2 { max-width: 36rem; font-size: clamp(1.85rem, 3.2vw, 2.5rem); line-height: 1.16; }

@@ -55,7 +55,7 @@ export default function PrelaunchPage() {
   };
 
   return (
-    <main className="lumiq-root editorial-page" style={{ paddingTop: "8rem", minHeight: "100vh" }}>
+    <main className="lumiq-root editorial-page prelaunch-page" style={{ paddingTop: "8rem", minHeight: "100vh" }}>
       <div className="bg-layer" aria-hidden>
         <div className="stars" />
         <div className="bokeh b1" />

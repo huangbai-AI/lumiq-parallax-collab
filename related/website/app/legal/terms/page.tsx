@@ -5,7 +5,7 @@ import {useTranslations} from "next-intl";
 export default function TermsPage() {
   const t = useTranslations("Legal");
   return (
-    <SubPage eyebrow={t("eyebrow")} title={t("terms.title")} intro={t("terms.intro")}>
+    <SubPage className="terms-page" eyebrow={t("eyebrow")} title={t("terms.title")} intro={t("terms.intro")}>
       <DraftNotice>{t("draft")}</DraftNotice>
       <p>{t("terms.p1")}</p>
       <h2>{t("terms.h1")}</h2>

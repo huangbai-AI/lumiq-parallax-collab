@@ -1,15 +1,16 @@
 import type { ReactNode } from "react";
 
 interface SubPageProps {
+  className?: string;
   eyebrow?: string;
   title: string;
   intro?: string;
   children: ReactNode;
 }
 
-export default function SubPage({ eyebrow, title, intro, children }: SubPageProps) {
+export default function SubPage({ className, eyebrow, title, intro, children }: SubPageProps) {
   return (
-    <main className="subpage">
+    <main className={`subpage${className ? ` ${className}` : ""}`}>
       <section className="subpage-hero">
         <div className="container">
           {eyebrow && <div className="eyebrow">{eyebrow}</div>}

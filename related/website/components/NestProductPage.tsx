@@ -119,8 +119,9 @@ export default function NestProductPage() {
           body: t(`f${number}Body`),
         })),
         image: {
-          src: "/assets/western-scenes-20260908/nest-evening-home-v2.webp",
-          alt: t("altFinish", { name: selected.name }),
+          src: "/assets/web/nest15-rear.webp",
+          alt: t("portraitAlt"),
+          fit: "contain",
         },
       }}
       finalTitle={`${t("give")} ${t("place")}`}

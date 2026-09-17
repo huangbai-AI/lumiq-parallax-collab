@@ -295,7 +295,7 @@ export default function PlansContent() {
 
   return (
     <main
-      className="editorial-page"
+      className="editorial-page plans-page"
       style={{ paddingTop: "6rem", color: "var(--ink)" }}
     >
       <RevealObserver />
@@ -449,7 +449,7 @@ export default function PlansContent() {
         .hw-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
         .hw-card { min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 1.25rem 1.25rem 1.75rem; display: flex; flex-direction: column; transition: transform .4s, box-shadow .4s, border-color .4s; }
         .hw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-h); }
-        .hw-img { aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: var(--cream-3); }
+        .hw-img { aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: rgba(255,255,255,.68); }
         .hw-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s ease; }
         .hw-img-contain-ola img, .hw-img-contain-print img { object-fit: contain; }
         .hw-img-contain-ola img { transform: scale(1.02); }
@@ -484,8 +484,8 @@ export default function PlansContent() {
         .pal-table th, .pal-table td { padding: 1rem 1.1rem; text-align: center; border-bottom: 1px solid var(--border); font-size: .95rem; vertical-align: middle; }
         .pal-table thead th { font-family: var(--font-serif); font-size: 1.1rem; border-bottom: 1px solid var(--border-h); position: relative; padding-top: 1.4rem; padding-bottom: 1.4rem; }
         .pal-table tbody th { text-align: left; color: var(--ink-2); font-weight: 500; }
-        .pal-table tbody tr:not(.cta-row):hover th, .pal-table tbody tr:not(.cta-row):hover td { background: var(--cream-2); }
-        .pal-table .is-featured { background: var(--cream-2); }
+        .pal-table tbody tr:not(.cta-row):hover th, .pal-table tbody tr:not(.cta-row):hover td { background: rgba(240,245,252,.6); }
+        .pal-table .is-featured { background: rgba(240,245,252,.6); }
         .pal-table thead .is-featured { background: var(--ink); color: white; }
         .pop-tag { display: block; font-family: var(--font-sans); font-size: .55rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #E8CE8F; margin-bottom: .3rem; }
         .pal-table .cta-row th, .pal-table .cta-row td { border-bottom: none; padding-top: 1.25rem; padding-bottom: 1.5rem; }

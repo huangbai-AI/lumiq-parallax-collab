@@ -30,7 +30,7 @@ export default function FaqPage() {
   }, [faqs, query]);
 
   return (
-    <main className="editorial-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
+    <main className="editorial-page faq-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
       <Script
         id="faq-schema"
         type="application/ld+json"

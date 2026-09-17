@@ -22,7 +22,7 @@ export default function OlaGoProductPage() {
       priceLabel={t("included")}
       ctaLabel={t("join")}
       heroImage={{
-        src: "/assets/web/lumiq-ola-go.webp",
+        src: "/assets/products/lumiq-ola-go.png",
         alt: t("alt"),
         fit: "contain",
       }}
@@ -62,7 +62,7 @@ export default function OlaGoProductPage() {
           body: t(`${key}Body`),
         })),
         image: {
-          src: "/assets/web/lumiq-ola-go.webp",
+          src: "/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png",
           alt: t("alt"),
           fit: "contain",
         },
@@ -76,7 +76,7 @@ export default function OlaGoProductPage() {
           body: t(`${key}Body`),
         })),
         image: {
-          src: "/assets/web/lumiq-ola-go.webp",
+          src: "/assets/products/lumiq-ola-go.png",
           alt: t("alt"),
           fit: "contain",
         },

@@ -143,7 +143,7 @@ export default function StoryPage() {
         .story-page {
           padding-top: 7rem;
           color: var(--ink);
-          background: linear-gradient(180deg, #fff 0%, #fbfaf8 42%, #fff 100%);
+          background-color: #fbfbfe;
         }
         .story-page .container { max-width: 1240px; }
         .story-page .story-hero { padding: 4.5rem 2rem 0; }
@@ -171,7 +171,7 @@ export default function StoryPage() {
         .story-origin-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
         .story-origin-copy p { margin: 0; color: var(--ink-2); font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.75; }
 
-        .story-page .story-principles { padding: clamp(6rem, 8vw, 8rem) 0; background: #f5f3ee; border-block: 1px solid rgba(20,20,20,.06); }
+        .story-page .story-principles { padding: clamp(6rem, 8vw, 8rem) 0; background: transparent; border-block: 1px solid rgba(20,20,20,.06); }
         .story-section-head { display: flex; align-items: end; justify-content: space-between; gap: 3rem; margin-bottom: 3.5rem; }
         .story-section-head h2 { margin: .8rem 0 0; max-width: 700px; font-size: clamp(2.25rem, 4.5vw, 4rem); line-height: 1.04; letter-spacing: -.025em; }
         .story-section-head > p { max-width: 430px; margin: 0; color: var(--ink-3); line-height: 1.7; }
@@ -184,11 +184,11 @@ export default function StoryPage() {
         .story-principle h3 { margin: 0 0 .8rem; font-size: clamp(1.5rem, 2.3vw, 2rem); }
         .story-principle p { max-width: 480px; margin: 0; color: var(--ink-2); line-height: 1.7; }
 
-        .story-page .story-quote-band { padding: clamp(6rem, 8vw, 8rem) 0; background: #071020; color: #fff; text-align: center; }
+        .story-page .story-quote-band { padding: clamp(6rem, 8vw, 8rem) 0; background: transparent; color: var(--ink); text-align: center; }
         .story-quote-band .container { max-width: 980px; }
         .story-quote-band .container > span { display: block; height: 3.5rem; color: #8eb2ff; font: 400 5rem/1 Georgia, serif; }
         .story-quote-band blockquote { margin: 1rem auto 2rem; font-size: clamp(2rem, 4.6vw, 4.25rem); line-height: 1.16; letter-spacing: -.02em; }
-        .story-quote-band cite { color: #9baac2; font-size: .72rem; font-style: normal; letter-spacing: .18em; text-transform: uppercase; }
+        .story-quote-band cite { color: var(--ink-3); font-size: .72rem; font-style: normal; letter-spacing: .18em; text-transform: uppercase; }
 
         .story-page .story-timeline { padding: clamp(5.5rem, 7vw, 7rem) 2rem clamp(5rem, 6vw, 6rem); }
         .story-timeline-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); list-style: none; margin: 0; padding: 0; }
@@ -200,14 +200,14 @@ export default function StoryPage() {
         .story-milestone p { margin: 0; color: var(--ink-3); font-size: .94rem; line-height: 1.65; }
 
         .story-page .story-future { padding: 0 0 clamp(5rem, 6vw, 6rem); }
-        .story-page .story-future-grid { display: grid; grid-template-columns: minmax(280px, .82fr) minmax(500px, 1.18fr); gap: clamp(3rem, 5vw, 5.5rem); align-items: center; padding: clamp(4rem, 5vw, 5rem) clamp(3rem, 5vw, 4.5rem); border-radius: 28px; background: #f1efe9; overflow: hidden; }
+        .story-page .story-future-grid { display: grid; grid-template-columns: minmax(280px, .82fr) minmax(500px, 1.18fr); gap: clamp(3rem, 5vw, 5.5rem); align-items: center; padding: clamp(4rem, 5vw, 5rem) clamp(3rem, 5vw, 4.5rem); border-radius: 28px; background: rgba(255,255,255,.7); overflow: hidden; }
         .story-future-copy h2 { margin: .8rem 0 1.5rem; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.05; letter-spacing: -.025em; }
         .story-future-copy p { margin: 0 0 1rem; color: var(--ink-2); line-height: 1.72; }
         .story-cta { display: inline-flex; gap: .75rem; align-items: center; margin-top: 1rem; }
         .story-collection { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 2.4vw, 2rem) clamp(.9rem, 1.8vw, 1.4rem); align-items: start; }
         .story-collection a { display: grid; grid-template-rows: auto auto; min-width: 0; color: var(--ink-2); text-align: center; transition: transform .3s cubic-bezier(.22, 1, .36, 1); }
         .story-collection a:hover { transform: translateY(-.35rem); }
-        .story-collection img { width: 100%; height: auto; aspect-ratio: 1; padding: clamp(.75rem, 1.4vw, 1.15rem); border-radius: 18px; background: #e7e3da; object-fit: contain; }
+        .story-collection img { width: 100%; height: auto; aspect-ratio: 1; padding: clamp(.75rem, 1.4vw, 1.15rem); border-radius: 18px; background: rgba(255,255,255,.72); object-fit: contain; }
         .story-collection span { display: block; width: 100%; padding-top: .65rem; text-align: center; font-size: clamp(.75rem, .8vw, .82rem); font-weight: 500; line-height: 1.4; letter-spacing: .015em; }
 
         @media (max-width: 900px) {

@@ -19,7 +19,7 @@ export default function TabletPage() {
       priceLabel="USD 399"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/web/lumiq-tablet-hero.webp",
+        src: "/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png",
         alt: t("deviceAlt"),
         fit: "contain",
       }}
@@ -78,7 +78,7 @@ export default function TabletPage() {
           body: t(`power${number}Body`),
         })),
         image: {
-          src: "/assets/tablet-detail/lumiq-tablet-pedestal-v1.png",
+          src: "/assets/tablet-detail/original-20260915/tablet-three-quarter-transparent.png",
           alt: t("deviceAlt"),
           fit: "contain",
         },

@@ -5,7 +5,7 @@ import {useTranslations} from "next-intl";
 export default function ChildSafetyPage() {
   const t = useTranslations("Legal");
   return (
-    <SubPage eyebrow={t("eyebrow")} title={t("childSafety.title")} intro={t("childSafety.intro")}>
+    <SubPage className="child-safety-page" eyebrow={t("eyebrow")} title={t("childSafety.title")} intro={t("childSafety.intro")}>
       <DraftNotice>{t("draft")}</DraftNotice>
       <p>{t("childSafety.p1")}</p>
       <h2>{t("childSafety.h1")}</h2>

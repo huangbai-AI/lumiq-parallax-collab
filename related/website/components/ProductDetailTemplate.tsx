@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 
@@ -159,22 +159,40 @@ export default function ProductDetailTemplate({
   finalBody,
   secondaryAction,
 }: ProductDetailTemplateProps) {
+  const heroRef = useRef<HTMLElement>(null);
   const style = {
     "--pd-accent": accent,
     "--pd-accent-soft": accentSoft,
   } as CSSProperties;
 
+  useEffect(() => {
+    if (!heroRef.current) return;
+
+    const hero = heroRef.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => hero.classList.toggle("is-entered", entry.isIntersecting),
+      { threshold: 0.25 },
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [slug]);
+
   return (
     <main className={`product-detail-light pd-${slug}`} style={style}>
-      <section className="pd-hero-floor">
+      <section
+        ref={heroRef}
+        className="pd-hero-floor is-entered"
+        data-no-word-reveal=""
+      >
         <div className="pd-shell pd-hero-grid">
           <div className="pd-hero-copy">
             <Link href="/products" className="pd-back-link">
               {backLabel}
             </Link>
             <h1>
-              {productName}
-              <span>{title}</span>
+              <span className="pd-product-name">{productName}</span>
+              <span className="pd-product-tagline">{title}</span>
             </h1>
             <p className="pd-hero-lede">{lede}</p>
             <p className="pd-concept-note">{conceptNotice}</p>
@@ -185,6 +203,10 @@ export default function ProductDetailTemplate({
               </Link>
             </div>
             {heroOptions && <div className="pd-hero-options">{heroOptions}</div>}
+          </div>
+
+          <div className="pd-hero-display-title" aria-hidden="true">
+            {productName.toUpperCase()}
           </div>
 
           <figure className="pd-hero-visual">
