@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { PRODUCT_BY_ID } from "@/lib/products";
 
+const PRODUCT_AUTOPLAY_MS = 5000;
+
 export default function ProductsShowcase() {
   const t = useTranslations("Products");
   const rootRef = useRef<HTMLElement>(null);
@@ -123,7 +125,7 @@ export default function ProductsShowcase() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setInterval(
       () => setActive((current) => (current + 1) % products.length),
-      1500,
+      PRODUCT_AUTOPLAY_MS,
     );
     return () => window.clearInterval(timer);
   }, [autoplayEpoch, pageVisible, products.length, stageInView]);
@@ -343,6 +345,14 @@ export default function ProductsShowcase() {
               </button>
             </div>
           </div>
+
+          <div
+            key={`${current.id}-${autoplayEpoch}-${stageInView}-${pageVisible}`}
+            className={`prod-autoplay-progress${stageInView && pageVisible ? " running" : ""}`}
+            aria-hidden="true"
+          >
+            <span />
+          </div>
         </div>
       </section>
 
@@ -420,7 +430,7 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        .prod-stage { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(340px, .92fr) minmax(420px, 1.08fr); gap: clamp(2.5rem, 5vw, 6rem); align-items: stretch; width: calc(100vw - (100vw - 100%) / 2 - 1.5rem); min-height: min(700px, calc(100vh - 9rem)); padding: clamp(1.25rem, 2.4vw, 2.25rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); overscroll-behavior: contain; }
+        .prod-stage { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(340px, .92fr) minmax(420px, 1.08fr); column-gap: clamp(2.5rem, 5vw, 6rem); row-gap: clamp(.85rem, 1.4vw, 1.25rem); align-items: stretch; width: calc(100vw - (100vw - 100%) / 2 - 1.5rem); min-height: min(700px, calc(100vh - 9rem)); padding: clamp(1.25rem, 2.4vw, 2.25rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); overscroll-behavior: contain; }
         .prod-stage::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
         .prod-stage::after { content: ""; position: absolute; z-index: 2; inset: 1px; pointer-events: none; border-radius: 37px; box-shadow: inset 0 0 40px rgba(255,255,255,.18); }
         .prod-stage-media { position: relative; z-index: 1; display: block; width: 100%; min-width: 0; align-self: stretch; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: linear-gradient(145deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); color: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 18px 44px rgba(43,54,86,.08); -webkit-backdrop-filter: blur(12px) saturate(130%); backdrop-filter: blur(12px) saturate(130%); }
@@ -448,6 +458,10 @@ export default function ProductsShowcase() {
         .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.76); background: rgba(255,255,255,.48); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.75); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background .25s, color .25s, border-color .25s; }
         .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
+        .prod-autoplay-progress { position: relative; z-index: 3; grid-column: 1 / -1; width: 100%; height: 3px; overflow: hidden; border-radius: 999px; background: rgba(26,42,68,.1); box-shadow: inset 0 1px 2px rgba(26,42,68,.08); }
+        .prod-autoplay-progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, rgba(95,113,151,.72), rgba(184,142,45,.92)); box-shadow: 0 0 12px rgba(184,142,45,.22); }
+        @keyframes prodAutoplayProgress { from { width: 0; } to { width: 100%; } }
+        .prod-autoplay-progress.running span { animation: prodAutoplayProgress 5s linear forwards; }
 
         .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: transparent; }
         .prod-page > .prod-story-invite .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: center; min-height: clamp(22rem, 28vw, 27rem); padding-top: clamp(5rem, 7vw, 7rem); padding-bottom: clamp(5rem, 7vw, 7rem); }
@@ -479,7 +493,7 @@ export default function ProductsShowcase() {
           .prod-tab.on { background: var(--navy); color: #fff; border-color: var(--navy); }
           .prod-tab::before, .prod-tab-num, .prod-tab-sub { display: none; }
           .prod-tab-name { margin: 0; font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
-          .prod-stage { grid-template-columns: 1fr; gap: 2.5rem; width: 100%; min-height: 0; padding: 1.25rem; border-radius: 30px; }
+          .prod-stage { grid-template-columns: 1fr; column-gap: 0; row-gap: 1.5rem; width: 100%; min-height: 0; padding: 1.25rem; border-radius: 30px; }
           .prod-stage-panel { padding: 0 .5rem .75rem; }
           .prod-page > .prod-story-invite .prod-story-invite-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 5rem; padding-bottom: 5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }
@@ -500,6 +514,7 @@ export default function ProductsShowcase() {
         }
         @media (prefers-reduced-motion: reduce) {
           .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; }
+          .prod-autoplay-progress { display: none; }
         }
       `}</style>
     </main>
