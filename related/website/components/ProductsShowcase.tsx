@@ -22,7 +22,12 @@ export default function ProductsShowcase() {
   const t = useTranslations("Products");
   const rootRef = useRef<HTMLElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const wheelReadyAtRef = useRef(0);
   const [active, setActive] = useState(0);
+  const [stageInView, setStageInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
+  const [autoplayEpoch, setAutoplayEpoch] = useState(0);
   const products = [
     {
       id: "tablet",
@@ -95,6 +100,34 @@ export default function ProductsShowcase() {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setStageInView(entry.isIntersecting),
+      { threshold: 0.35 },
+    );
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const syncVisibility = () => setPageVisible(document.visibilityState === "visible");
+    syncVisibility();
+    document.addEventListener("visibilitychange", syncVisibility);
+    return () => document.removeEventListener("visibilitychange", syncVisibility);
+  }, []);
+
+  useEffect(() => {
+    if (!stageInView || !pageVisible) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(
+      () => setActive((current) => (current + 1) % products.length),
+      1500,
+    );
+    return () => window.clearInterval(timer);
+  }, [autoplayEpoch, pageVisible, products.length, stageInView]);
+
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = heroMediaRef.current;
     if (!el) return;
@@ -113,6 +146,30 @@ export default function ProductsShowcase() {
   };
 
   const current = products[active];
+
+  const selectProduct = (index: number) => {
+    setActive((index + products.length) % products.length);
+    setAutoplayEpoch((epoch) => epoch + 1);
+  };
+
+  const stepProduct = (direction: 1 | -1) => {
+    setActive((currentIndex) =>
+      (currentIndex + direction + products.length) % products.length,
+    );
+    setAutoplayEpoch((epoch) => epoch + 1);
+  };
+
+  const onStageWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+      ? event.deltaY
+      : event.deltaX;
+    if (Math.abs(delta) < 8) return;
+    event.preventDefault();
+    const now = performance.now();
+    if (now < wheelReadyAtRef.current) return;
+    wheelReadyAtRef.current = now + 520;
+    stepProduct(delta > 0 ? 1 : -1);
+  };
 
   return (
     <main ref={rootRef} className="prod-page editorial-page">
@@ -202,14 +259,14 @@ export default function ProductsShowcase() {
               aria-selected={i === active}
               tabIndex={i === active ? 0 : -1}
               className={`prod-tab${i === active ? " on" : ""}`}
-              onClick={() => setActive(i)}
+              onClick={() => selectProduct(i)}
               onKeyDown={(event) => {
                 const next = event.key === "ArrowRight" ? (i + 1) % products.length
                   : event.key === "ArrowLeft" ? (i + products.length - 1) % products.length
                   : event.key === "Home" ? 0 : event.key === "End" ? products.length - 1 : null;
                 if (next === null) return;
                 event.preventDefault();
-                setActive(next);
+                selectProduct(next);
                 const target = document.getElementById(`product-tab-${products[next].id}`);
                 target?.focus({ preventScroll: true });
                 target?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
@@ -222,7 +279,15 @@ export default function ProductsShowcase() {
           ))}
         </div>
 
-        <div className="prod-stage reveal" id="product-panel" role="tabpanel" aria-labelledby={`product-tab-${current.id}`} tabIndex={0}>
+        <div
+          ref={stageRef}
+          className="prod-stage reveal"
+          id="product-panel"
+          role="tabpanel"
+          aria-labelledby={`product-tab-${current.id}`}
+          tabIndex={0}
+          onWheel={onStageWheel}
+        >
           <div className="prod-stage-media">
             {products.map((p, i) => (
               <Image
@@ -264,9 +329,7 @@ export default function ProductsShowcase() {
               <button
                 type="button"
                 aria-label={t("previous")}
-                onClick={() =>
-                  setActive((active + products.length - 1) % products.length)
-                }
+                onClick={() => stepProduct(-1)}
               >
                 <ArrowLeft size={18} strokeWidth={1.8} />
               </button>
@@ -274,7 +337,7 @@ export default function ProductsShowcase() {
               <button
                 type="button"
                 aria-label={t("next")}
-                onClick={() => setActive((active + 1) % products.length)}
+                onClick={() => stepProduct(1)}
               >
                 <ArrowRight size={18} strokeWidth={1.8} />
               </button>
@@ -357,14 +420,16 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        .prod-stage { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; align-items: stretch; }
-        .prod-stage-media { position: relative; display: block; width: 100%; min-width: 0; align-self: center; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: rgba(255,255,255,.68); color: inherit; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
+        .prod-stage { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(340px, .92fr) minmax(420px, 1.08fr); gap: clamp(2.5rem, 5vw, 6rem); align-items: stretch; width: calc(100vw - (100vw - 100%) / 2 - 1.5rem); min-height: min(700px, calc(100vh - 9rem)); padding: clamp(1.25rem, 2.4vw, 2.25rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); overscroll-behavior: contain; }
+        .prod-stage::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
+        .prod-stage::after { content: ""; position: absolute; z-index: 2; inset: 1px; pointer-events: none; border-radius: 37px; box-shadow: inset 0 0 40px rgba(255,255,255,.18); }
+        .prod-stage-media { position: relative; z-index: 1; display: block; width: 100%; min-width: 0; align-self: stretch; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: linear-gradient(145deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); color: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 18px 44px rgba(43,54,86,.08); -webkit-backdrop-filter: blur(12px) saturate(130%); backdrop-filter: blur(12px) saturate(130%); }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
         .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
         .prod-stage-media img.on { opacity: 1; transform: scale(1); }
         .prod-stage-media:hover img.on { transform: scale(1.025); }
 
-        .prod-stage-panel { min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+        .prod-stage-panel { position: relative; z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(.5rem, 1vw, 1.25rem) clamp(.25rem, 2vw, 2.25rem) clamp(.5rem, 1vw, 1.25rem) 0; }
         @keyframes prodFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         .prod-panel-body { animation: prodFade 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
         .prod-index { display: block; font-size: 4rem; line-height: 1; color: var(--lilac-2); }
@@ -380,7 +445,7 @@ export default function ProductsShowcase() {
         .prod-page .prod-product-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 
         .prod-stage-nav { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.25rem; }
-        .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-h); background: #fff; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
+        .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.76); background: rgba(255,255,255,.48); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.75); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background .25s, color .25s, border-color .25s; }
         .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
 
@@ -414,7 +479,8 @@ export default function ProductsShowcase() {
           .prod-tab.on { background: var(--navy); color: #fff; border-color: var(--navy); }
           .prod-tab::before, .prod-tab-num, .prod-tab-sub { display: none; }
           .prod-tab-name { margin: 0; font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
-          .prod-stage { grid-template-columns: 1fr; gap: 2.5rem; }
+          .prod-stage { grid-template-columns: 1fr; gap: 2.5rem; width: 100%; min-height: 0; padding: 1.25rem; border-radius: 30px; }
+          .prod-stage-panel { padding: 0 .5rem .75rem; }
           .prod-page > .prod-story-invite .prod-story-invite-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 5rem; padding-bottom: 5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }
           .prod-promise-item:nth-child(odd) { border-left: none; }
