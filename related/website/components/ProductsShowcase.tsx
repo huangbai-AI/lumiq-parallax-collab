@@ -27,7 +27,7 @@ export default function ProductsShowcase() {
   const stageRef = useRef<HTMLDivElement>(null);
   const wheelReadyAtRef = useRef(0);
   const [active, setActive] = useState(0);
-  const [stageInView, setStageInView] = useState(false);
+  const [stageFullyVisible, setStageFullyVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [autoplayEpoch, setAutoplayEpoch] = useState(0);
   const products = [
@@ -105,12 +105,38 @@ export default function ProductsShowcase() {
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setStageInView(entry.isIntersecting),
-      { threshold: 0.35 },
-    );
-    observer.observe(stage);
-    return () => observer.disconnect();
+    const nav = document.querySelector<HTMLElement>(".site-nav");
+    let frame = 0;
+    const updateStageVisibility = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const rect = stage.getBoundingClientRect();
+        const navBottom = nav?.getBoundingClientRect().bottom ?? 0;
+        const tolerance = 2;
+        const availableHeight = window.innerHeight - navBottom;
+        const fitsBelowNav = rect.height <= availableHeight + tolerance;
+        const fullyVisible = fitsBelowNav
+          ? rect.top >= navBottom - tolerance &&
+            rect.bottom <= window.innerHeight + tolerance
+          : rect.top <= navBottom + tolerance &&
+            rect.bottom >= window.innerHeight - tolerance;
+        setStageFullyVisible((current) =>
+          current === fullyVisible ? current : fullyVisible,
+        );
+      });
+    };
+    const resizeObserver = new ResizeObserver(updateStageVisibility);
+    resizeObserver.observe(stage);
+    if (nav) resizeObserver.observe(nav);
+    window.addEventListener("scroll", updateStageVisibility, { passive: true });
+    window.addEventListener("resize", updateStageVisibility);
+    updateStageVisibility();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      window.removeEventListener("scroll", updateStageVisibility);
+      window.removeEventListener("resize", updateStageVisibility);
+    };
   }, []);
 
   useEffect(() => {
@@ -121,14 +147,14 @@ export default function ProductsShowcase() {
   }, []);
 
   useEffect(() => {
-    if (!stageInView || !pageVisible) return;
+    if (!stageFullyVisible || !pageVisible) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setInterval(
       () => setActive((current) => (current + 1) % products.length),
       PRODUCT_AUTOPLAY_MS,
     );
     return () => window.clearInterval(timer);
-  }, [autoplayEpoch, pageVisible, products.length, stageInView]);
+  }, [autoplayEpoch, pageVisible, products.length, stageFullyVisible]);
 
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = heroMediaRef.current;
@@ -162,6 +188,7 @@ export default function ProductsShowcase() {
   };
 
   const onStageWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    if (!stageFullyVisible) return;
     const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX)
       ? event.deltaY
       : event.deltaX;
@@ -287,6 +314,7 @@ export default function ProductsShowcase() {
           id="product-panel"
           role="tabpanel"
           aria-labelledby={`product-tab-${current.id}`}
+          data-carousel-ready={stageFullyVisible ? "true" : "false"}
           tabIndex={0}
           onWheel={onStageWheel}
         >
@@ -347,8 +375,8 @@ export default function ProductsShowcase() {
           </div>
 
           <div
-            key={`${current.id}-${autoplayEpoch}-${stageInView}-${pageVisible}`}
-            className={`prod-autoplay-progress${stageInView && pageVisible ? " running" : ""}`}
+            key={`${current.id}-${autoplayEpoch}-${stageFullyVisible}-${pageVisible}`}
+            className={`prod-autoplay-progress${stageFullyVisible && pageVisible ? " running" : ""}`}
             aria-hidden="true"
           >
             <span />
@@ -430,9 +458,10 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        .prod-stage { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(340px, .92fr) minmax(420px, 1.08fr); column-gap: clamp(2.5rem, 5vw, 6rem); row-gap: clamp(.85rem, 1.4vw, 1.25rem); align-items: stretch; width: calc(100vw - (100vw - 100%) / 2 - 1.5rem); min-height: min(700px, calc(100vh - 9rem)); padding: clamp(1.25rem, 2.4vw, 2.25rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); overscroll-behavior: contain; }
+        .prod-stage { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(340px, .92fr) minmax(420px, 1.08fr); column-gap: clamp(2.5rem, 5vw, 6rem); row-gap: clamp(.85rem, 1.4vw, 1.25rem); align-items: stretch; width: calc(100vw - (100vw - 100%) / 2 - 1.5rem); min-height: min(700px, calc(100vh - 9rem)); padding: clamp(1.25rem, 2.4vw, 2.25rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); }
         .prod-stage::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
         .prod-stage::after { content: ""; position: absolute; z-index: 2; inset: 1px; pointer-events: none; border-radius: 37px; box-shadow: inset 0 0 40px rgba(255,255,255,.18); }
+        .prod-stage[data-carousel-ready="true"] { overscroll-behavior: contain; }
         .prod-stage-media { position: relative; z-index: 1; display: block; width: 100%; min-width: 0; align-self: stretch; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: linear-gradient(145deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); color: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 18px 44px rgba(43,54,86,.08); -webkit-backdrop-filter: blur(12px) saturate(130%); backdrop-filter: blur(12px) saturate(130%); }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
         .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
