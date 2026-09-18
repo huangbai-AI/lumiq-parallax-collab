@@ -429,7 +429,7 @@ export default function ProductsShowcase() {
         .prod-topbar-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-4); }
 
         .prod-page > .prod-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; padding-top: clamp(3.5rem, 5vw, 4.5rem); padding-bottom: clamp(3.5rem, 5vw, 4.5rem); }
-        .prod-page > .prod-hero::before, .prod-page > .prod-lineup::before { display: none; }
+        .prod-page > section::before { display: none; }
         .prod-hero-text h1 { font-size: clamp(2.75rem, 6vw, 4.75rem); line-height: 1.03; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
         .prod-hero-text h1 em { font-style: italic; color: var(--gold); }
         .prod-lead { color: var(--ink-2); font-size: 1.125rem; line-height: 1.7; max-width: 30rem; }
