@@ -417,7 +417,7 @@ export default function ProductsShowcase() {
       </section>
 
       <style>{`
-        .prod-page { background-color: #fbfbfe; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
+        .prod-page { --prod-flow-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'); background-color: #fbfbfe; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
         .prod-page .container { max-width: 1200px; }
 
         .prod-kicker { display: block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
@@ -429,6 +429,8 @@ export default function ProductsShowcase() {
         .prod-topbar-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-4); }
 
         .prod-page > .prod-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; padding-top: clamp(3.5rem, 5vw, 4.5rem); padding-bottom: clamp(3.5rem, 5vw, 4.5rem); }
+        .prod-page > .prod-hero::before, .prod-page > .prod-feats::before, .prod-page > .prod-lineup::before { background-attachment: fixed; }
+        .prod-page > .prod-hero::before, .prod-page > .prod-lineup::before { background-image: var(--prod-flow-bg); }
         .prod-hero-text h1 { font-size: clamp(2.75rem, 6vw, 4.75rem); line-height: 1.03; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
         .prod-hero-text h1 em { font-style: italic; color: var(--gold); }
         .prod-lead { color: var(--ink-2); font-size: 1.125rem; line-height: 1.7; max-width: 30rem; }
@@ -437,7 +439,7 @@ export default function ProductsShowcase() {
         .prod-hero-media img { width: 112%; height: 112%; max-width: none; object-fit: contain; display: block; filter: drop-shadow(0 24px 28px rgba(31,23,14,.12)) drop-shadow(0 7px 10px rgba(31,23,14,.08)); transform: translate(var(--px, 0px), var(--py, 0px)) scale(.98); transition: transform 0.5s ease-out; will-change: transform; }
 
         .prod-page > .prod-feats { position: relative; isolation: isolate; padding-top: 0; padding-bottom: 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.7); border-bottom: 1px solid rgba(255,255,255,.56); background: linear-gradient(105deg, rgba(255,255,255,.2), rgba(250,251,255,.08) 55%, rgba(228,235,255,.12)) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.82), inset 0 -1px 0 rgba(255,255,255,.18), 0 10px 30px rgba(43,54,86,.05); -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%); }
-        .prod-page > .prod-feats::before { content: ""; position: absolute; z-index: -1; inset: -14px; pointer-events: none; background-color: #fbfbfe; background-image: linear-gradient(115deg, rgba(255,255,255,.08), transparent 34%, rgba(202,215,255,.08) 72%, rgba(255,255,255,.1)), var(--section-bg); background-position: center; background-repeat: no-repeat; background-size: cover; filter: blur(7px) saturate(120%); transform: scale(1.025); }
+        .prod-page > .prod-feats::before { content: ""; position: absolute; z-index: -1; inset: -10px; pointer-events: none; background-color: #fbfbfe; background-image: linear-gradient(115deg, rgba(255,255,255,.05), transparent 34%, rgba(202,215,255,.06) 72%, rgba(255,255,255,.08)), var(--prod-flow-bg); background-position: center; background-repeat: no-repeat; background-size: cover; filter: blur(4px) saturate(120%); transform: scale(1.02); }
         .prod-feats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
         .prod-feat { display: flex; align-items: center; gap: 1rem; padding: 1.75rem 1.75rem; border-left: 1px solid rgba(255,255,255,.46); }
         .prod-feat:first-child { border-left: none; }
