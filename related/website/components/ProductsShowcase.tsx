@@ -436,9 +436,10 @@ export default function ProductsShowcase() {
         .prod-hero-media { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; overflow: visible; }
         .prod-hero-media img { width: 112%; height: 112%; max-width: none; object-fit: contain; display: block; filter: drop-shadow(0 24px 28px rgba(31,23,14,.12)) drop-shadow(0 7px 10px rgba(31,23,14,.08)); transform: translate(var(--px, 0px), var(--py, 0px)) scale(.98); transition: transform 0.5s ease-out; will-change: transform; }
 
-        .prod-page > .prod-feats { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .prod-page > .prod-feats { position: relative; isolation: isolate; padding-top: 0; padding-bottom: 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,.76); border-bottom: 1px solid rgba(255,255,255,.6); background: linear-gradient(105deg, rgba(255,255,255,.5), rgba(250,251,255,.28) 55%, rgba(228,235,255,.3)) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.86), inset 0 -1px 0 rgba(255,255,255,.22), 0 10px 30px rgba(43,54,86,.05); -webkit-backdrop-filter: blur(24px) saturate(150%); backdrop-filter: blur(24px) saturate(150%); }
+        .prod-page > .prod-feats::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.23), transparent 35%, rgba(202,215,255,.14) 72%, rgba(255,255,255,.18)); }
         .prod-feats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-        .prod-feat { display: flex; align-items: center; gap: 1rem; padding: 1.75rem 1.75rem; border-left: 1px solid var(--border); }
+        .prod-feat { display: flex; align-items: center; gap: 1rem; padding: 1.75rem 1.75rem; border-left: 1px solid rgba(255,255,255,.46); }
         .prod-feat:first-child { border-left: none; }
         .prod-feat-ico { width: 44px; height: 44px; border: 1px solid var(--border-h); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); flex-shrink: 0; transition: background .3s, color .3s, border-color .3s; }
         .prod-feat:hover .prod-feat-ico { background: var(--ink); color: #fff; border-color: var(--ink); }
