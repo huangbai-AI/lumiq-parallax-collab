@@ -215,7 +215,6 @@ export default function ProductDetailTemplate({
               sizes="(max-width: 900px) 100vw, 56vw"
               priority
             />
-            {heroMeta && <figcaption>{heroMeta}</figcaption>}
           </figure>
         </div>
       </section>

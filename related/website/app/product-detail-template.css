@@ -132,7 +132,7 @@
 }
 .product-detail-light .pd-price {
   color: var(--pd-ink);
-  font: 400 clamp(26px, 2.6vw, 40px)/1 var(--font-serif, Georgia, serif);
+  font: 400 clamp(18px, 1.82vw, 28px)/1 var(--font-serif, Georgia, serif);
   letter-spacing: -.025em;
 }
 .product-detail-light .pd-primary-action {
@@ -174,17 +174,6 @@
   mix-blend-mode: multiply;
   transition: transform .6s cubic-bezier(.2,.75,.2,1);
 }
-.product-detail-light .pd-hero-visual figcaption {
-  position: absolute;
-  right: 20px;
-  bottom: 18px;
-  padding: 8px 12px;
-  background: rgba(255,255,255,.86);
-  color: var(--pd-muted);
-  font-size: 12px;
-  letter-spacing: .08em;
-}
-
 .product-detail-light .pd-floor { padding-block: clamp(144px, 12vw, 192px); }
 .product-detail-light .pd-story-floor { background: #fff; }
 .product-detail-light .pd-story-grid {
