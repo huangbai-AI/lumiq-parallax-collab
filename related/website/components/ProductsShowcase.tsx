@@ -26,38 +26,44 @@ export default function ProductsShowcase() {
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const wheelReadyAtRef = useRef(0);
+  const wheelDeltaRef = useRef(0);
+  const wheelDeltaExpiresAtRef = useRef(0);
   const [active, setActive] = useState(0);
   const [stageFullyVisible, setStageFullyVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [autoplayEpoch, setAutoplayEpoch] = useState(0);
   const products = [
     {
-      id: "tablet",
-      href: PRODUCT_BY_ID.tablet.href,
-      img: PRODUCT_BY_ID.tablet.image,
-      tag: "01",
-      name: "Lumiq Tablet",
-    },
-    {
-      id: "book",
-      href: PRODUCT_BY_ID.print.href,
-      img: PRODUCT_BY_ID.print.image,
-      tag: "02",
-      name: "Lumiq Print",
-    },
-    {
       id: "pal",
       href: PRODUCT_BY_ID.ola.href,
       img: PRODUCT_BY_ID.ola.image,
-      tag: "03",
+      tag: "01",
       name: "Lumiq Ola",
+      copyIndex: 3,
     },
     {
       id: "ola-go",
       href: PRODUCT_BY_ID["ola-go"].href,
       img: PRODUCT_BY_ID["ola-go"].image,
-      tag: "04",
+      tag: "02",
       name: "Lumiq Ola Go",
+      copyIndex: 4,
+    },
+    {
+      id: "tablet",
+      href: PRODUCT_BY_ID.tablet.href,
+      img: PRODUCT_BY_ID.tablet.image,
+      tag: "03",
+      name: "Lumiq Tablet",
+      copyIndex: 1,
+    },
+    {
+      id: "book",
+      href: PRODUCT_BY_ID.print.href,
+      img: PRODUCT_BY_ID.print.image,
+      tag: "04",
+      name: "Lumiq Print",
+      copyIndex: 2,
     },
     {
       id: "nest",
@@ -65,13 +71,14 @@ export default function ProductsShowcase() {
       img: PRODUCT_BY_ID.nest.image,
       tag: "05",
       name: "Lumiq Nest 15",
+      copyIndex: 5,
     },
-  ].map((product, index) => ({
+  ].map(({ copyIndex, ...product }) => ({
     ...product,
-    pill: t(`p${index + 1}Pill`),
-    sub: t(`p${index + 1}Sub`),
-    desc: t(`p${index + 1}Desc`),
-    specs: [1, 2, 3, 4].map((n) => t(`p${index + 1}S${n}`)),
+    pill: t(`p${copyIndex}Pill`),
+    sub: t(`p${copyIndex}Sub`),
+    desc: t(`p${copyIndex}Desc`),
+    specs: [1, 2, 3, 4].map((n) => t(`p${copyIndex}S${n}`)),
   }));
   const features = [Cpu, Box, GraduationCap, ShieldCheck].map(
     (Icon, index) => ({
@@ -188,16 +195,37 @@ export default function ProductsShowcase() {
   };
 
   const onStageWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    if (!stageFullyVisible) return;
+    const stage = stageRef.current;
+    const nav = document.querySelector<HTMLElement>(".site-nav");
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
+    const navBottom = nav?.getBoundingClientRect().bottom ?? 0;
+    const tolerance = 2;
+    const availableHeight = window.innerHeight - navBottom;
+    const isFullyVisible = rect.height <= availableHeight + tolerance
+      ? rect.top >= navBottom - tolerance && rect.bottom <= window.innerHeight + tolerance
+      : rect.top <= navBottom + tolerance && rect.bottom >= window.innerHeight - tolerance;
+    if (!isFullyVisible) return;
+
     const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX)
       ? event.deltaY
       : event.deltaX;
-    if (Math.abs(delta) < 8) return;
+    if (!delta) return;
     event.preventDefault();
+
     const now = performance.now();
     if (now < wheelReadyAtRef.current) return;
+    if (now > wheelDeltaExpiresAtRef.current || Math.sign(delta) !== Math.sign(wheelDeltaRef.current)) {
+      wheelDeltaRef.current = 0;
+    }
+    wheelDeltaRef.current += delta;
+    wheelDeltaExpiresAtRef.current = now + 180;
+    if (Math.abs(wheelDeltaRef.current) < 12) return;
+
     wheelReadyAtRef.current = now + 520;
-    stepProduct(delta > 0 ? 1 : -1);
+    const direction = wheelDeltaRef.current > 0 ? 1 : -1;
+    wheelDeltaRef.current = 0;
+    stepProduct(direction);
   };
 
   return (
