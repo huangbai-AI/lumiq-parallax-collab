@@ -494,7 +494,7 @@ export default function ProductsShowcase() {
         @keyframes prodAutoplayProgress { from { width: 0; } to { width: 100%; } }
         .prod-autoplay-progress.running span { animation: prodAutoplayProgress 5s linear forwards; }
 
-        .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: transparent; }
+        .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border: 0; background: transparent; }
         .prod-page > .prod-story-invite .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: center; min-height: clamp(22rem, 28vw, 27rem); padding-top: clamp(5rem, 7vw, 7rem); padding-bottom: clamp(5rem, 7vw, 7rem); }
         .prod-story-invite .prod-kicker { margin-bottom: .8rem; }
         .prod-story-invite-heading h2 { max-width: 36rem; font-size: clamp(1.85rem, 3.2vw, 2.5rem); line-height: 1.16; }
