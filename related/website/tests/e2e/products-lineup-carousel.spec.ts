@@ -6,21 +6,37 @@ test('carousel cards diffuse blue and violet light beyond their edges', async ({
   await page.goto('/en/products#lineup');
 
   const glowColors = async (selector: string) => page.locator(selector).evaluate((element) =>
-    [...getComputedStyle(element).boxShadow.matchAll(/rgba\((\d+), (\d+), (\d+), ([\d.]+)\)/g)]
-      .map((match) => match.slice(1).map(Number)),
+    [...getComputedStyle(element).boxShadow.matchAll(/rgba\((\d+), (\d+), (\d+), ([\d.]+)\)([^,]*)/g)]
+      .filter((match) => !match[5].includes('inset'))
+      .map((match) => match.slice(1, 5).map(Number)),
   );
-  const hasBlueGlow = (colors: number[][]) => colors.some(([r, g, b, alpha]) =>
-    r > 100 && b > r + 25 && b > g + 25 && alpha > 0.08,
+  const hasBlueGlow = (colors: number[][], minimumAlpha: number) => colors.some(([r, g, b, alpha]) =>
+    r > 100 && b > r + 25 && b > g + 25 && alpha >= minimumAlpha,
   );
-  const hasVioletGlow = (colors: number[][]) => colors.some(([r, g, b, alpha]) =>
-    r > 100 && r > g + 25 && b > g + 25 && alpha > 0.06,
+  const hasVioletGlow = (colors: number[][], minimumAlpha: number) => colors.some(([r, g, b, alpha]) =>
+    r > 100 && r > g + 25 && b > g + 25 && alpha >= minimumAlpha,
   );
 
   for (const slot of ['center', 'previous', 'next']) {
     const colors = await glowColors(`.prod-slide[data-slot="${slot}"]`);
-    expect(hasBlueGlow(colors), `${slot} card needs a cool outer glow`).toBe(true);
-    expect(hasVioletGlow(colors), `${slot} card needs a violet outer glow`).toBe(true);
+    expect(hasBlueGlow(colors, slot === 'center' ? 0.35 : 0.2), `${slot} card needs a cool outer glow`).toBe(true);
+    expect(hasVioletGlow(colors, slot === 'center' ? 0.3 : 0.15), `${slot} card needs a violet outer glow`).toBe(true);
   }
+});
+
+test('narrow-screen active card shows colored light inside its visible edges', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'narrow viewport on desktop browser');
+  await page.setViewportSize({width: 562, height: 711});
+  await page.goto('/en/products#lineup');
+
+  const insetColors = await page.locator('.prod-slide[data-slot="center"]').evaluate((element) =>
+    [...getComputedStyle(element).boxShadow.matchAll(/rgba\((\d+), (\d+), (\d+), ([\d.]+)\)[^,]*inset/g)]
+      .map((match) => match.slice(1).map(Number)),
+  );
+  const visibleColoredGlow = insetColors.filter(([r, g, b, alpha]) =>
+    Math.max(r, g, b) - Math.min(r, g, b) > 35 && alpha >= 0.5,
+  );
+  expect(visibleColoredGlow.length).toBeGreaterThanOrEqual(2);
 });
 
 test('product images sit directly on the frosted carousel cards without inner panels', async ({page}, info) => {
