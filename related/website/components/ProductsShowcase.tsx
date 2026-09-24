@@ -496,8 +496,8 @@ export default function ProductsShowcase() {
         .prod-carousel { --center-width: min(70%, 1125px); --side-width: calc((100% - var(--center-width)) / 2 - .75rem); position: relative; width: calc(100vw - 3rem); height: clamp(560px, calc(100vh - 7.25rem), 700px); margin-left: 50%; transform: translateX(-50%); perspective: 1800px; }
         .prod-carousel-glow { --card-radius: 38px; position: absolute; z-index: 3; top: 50%; left: 50%; width: var(--center-width); height: 100%; pointer-events: none; transform: translate(-50%, -50%); }
         /* Both rings are diffused: a soft edge peak and a short, low-energy tail. */
-        .prod-glow-band { --spread: 5px; position: absolute; inset: calc(-.5 * var(--spread)); border-radius: calc(var(--card-radius) + .5 * var(--spread)); filter: blur(6px); opacity: .6; }
-        .prod-glow-band--edge { --spread: 2px; filter: blur(2.5px); opacity: .65; }
+        .prod-glow-band { --spread: 5px; position: absolute; inset: calc(-.5 * var(--spread)); border-radius: calc(var(--card-radius) + .5 * var(--spread)); filter: blur(6px) saturate(1.2); opacity: .72; }
+        .prod-glow-band--edge { --spread: 2px; filter: blur(2.5px) saturate(1.2); opacity: .78; }
         .prod-glow-mask { position: absolute; inset: 0; padding: var(--spread); border-radius: inherit; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; }
         .prod-glow-sweep { position: absolute; top: 50%; left: 50%; width: max(160vw, 160vh); height: max(160vw, 160vh); background: conic-gradient(rgba(190, 210, 221, .55) 0deg, rgba(177, 202, 222, .72) 58deg, rgba(206, 212, 229, .42) 130deg, rgba(204, 195, 225, .68) 205deg, rgba(226, 211, 223, .48) 296deg, rgba(190, 210, 221, .55) 360deg); transform: translate(-50%, -50%); animation: prod-glow-flow 40s linear infinite; }
         .prod-glow-band--edge .prod-glow-sweep { filter: brightness(1.28) saturate(.25); }
