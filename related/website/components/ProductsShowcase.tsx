@@ -495,7 +495,7 @@ export default function ProductsShowcase() {
         .prod-stage:focus-visible, .prod-peek:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
         .prod-peek:hover, .prod-peek:focus-visible { opacity: .9; }
         .prod-stage[data-carousel-ready="true"] { overscroll-behavior: contain; }
-        .prod-stage-media { position: absolute; z-index: 1; left: .5rem; top: .75rem; width: calc(100% - 1rem); height: 75%; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: linear-gradient(145deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 18px 44px rgba(43,54,86,.08); -webkit-backdrop-filter: blur(12px) saturate(130%); backdrop-filter: blur(12px) saturate(130%); transition: left .68s cubic-bezier(.22,1,.36,1), top .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1); }
+        .prod-stage-media { position: absolute; z-index: 1; left: .5rem; top: .75rem; width: calc(100% - 1rem); height: 75%; overflow: hidden; transition: left .68s cubic-bezier(.22,1,.36,1), top .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1); }
         .prod-stage .prod-stage-media { left: clamp(1rem, 1.8vw, 1.65rem); top: clamp(1rem, 1.8vw, 1.65rem); width: calc(44% - 1rem); height: calc(100% - clamp(2rem, 3.6vw, 3.3rem)); }
         .prod-stage-media img { display: block; width: 100%; height: 100%; object-fit: contain; padding: clamp(.5rem, 1.2vw, 1rem); filter: drop-shadow(0 14px 18px rgba(35,42,64,.12)); transition: transform .68s cubic-bezier(.22,1,.36,1); }
         .prod-stage .prod-stage-media img { padding: clamp(1rem, 3vw, 2.25rem); }
@@ -572,7 +572,6 @@ export default function ProductsShowcase() {
           .prod-promise-item { border-left: none !important; border-top: 1px solid var(--border); padding: 1.4rem .5rem; }
           .prod-promise-item:first-child { border-top: none; }
           .prod-topbar-inner { gap: 0.5rem 1rem; letter-spacing: 0.12em; }
-          .prod-stage-media { border-radius: 20px; }
           .prod-hero-media img { width: 108%; height: 108%; transform: scale(.98); }
           .prod-page .prod-product-link { width: 100%; min-height: 48px; }
           .prod-page > .prod-story-invite .prod-story-invite-inner { padding-top: 4.5rem; padding-bottom: 4.5rem; }

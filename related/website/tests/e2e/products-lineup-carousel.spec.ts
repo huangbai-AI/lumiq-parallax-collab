@@ -1,5 +1,33 @@
 import {expect, test} from '@playwright/test';
 
+test('product images sit directly on the frosted carousel cards without inner panels', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop carousel cards');
+  await page.setViewportSize({width: 1440, height: 900});
+  await page.goto('/en/products#lineup');
+
+  const media = page.locator('.prod-slide[data-slot="center"] .prod-stage-media, .prod-slide[data-slot="previous"] .prod-stage-media, .prod-slide[data-slot="next"] .prod-stage-media');
+  await expect(media).toHaveCount(3);
+  for (const panel of await media.all()) {
+    const styles = await panel.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        background: style.backgroundImage,
+        backgroundColor: style.backgroundColor,
+        borderWidth: style.borderTopWidth,
+        shadow: style.boxShadow,
+        backdropFilter: style.backdropFilter,
+      };
+    });
+    expect(styles).toEqual({
+      background: 'none',
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      borderWidth: '0px',
+      shadow: 'none',
+      backdropFilter: 'none',
+    });
+  }
+});
+
 test('lineup shows side previews and changes only from card interactions', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop card layout');
   await page.setViewportSize({width: 1440, height: 900});
