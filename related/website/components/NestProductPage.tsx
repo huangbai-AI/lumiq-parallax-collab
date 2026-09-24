@@ -46,13 +46,13 @@ export default function NestProductPage() {
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
       priceLabel={`15.6 ${t("display")}`}
+      compactHeroPriceLabel
       ctaLabel={t("waitlist")}
       heroImage={{
         src: selected.image,
         alt: t("altFinish", { name: selected.name }),
         fit: "contain",
       }}
-      heroMeta={`15.6 ${t("display")}`}
       heroOptions={
         <div className="pd-finish-picker" aria-label={t("choose")}>
           <p>

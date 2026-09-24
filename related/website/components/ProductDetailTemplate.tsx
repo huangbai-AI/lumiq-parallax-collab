@@ -51,10 +51,10 @@ type ProductDetailTemplateProps = {
   lede: string;
   conceptNotice: string;
   priceLabel: string;
+  compactHeroPriceLabel?: boolean;
   ctaLabel: string;
   heroImage: ProductVisual;
   heroOptions?: ReactNode;
-  heroMeta?: string;
   story: ProductStory;
   scenesEyebrow?: string;
   scenesTitle: string;
@@ -144,10 +144,10 @@ export default function ProductDetailTemplate({
   lede,
   conceptNotice,
   priceLabel,
+  compactHeroPriceLabel = false,
   ctaLabel,
   heroImage,
   heroOptions,
-  heroMeta,
   story,
   scenesEyebrow,
   scenesTitle,
@@ -197,7 +197,7 @@ export default function ProductDetailTemplate({
             <p className="pd-hero-lede">{lede}</p>
             <p className="pd-concept-note">{conceptNotice}</p>
             <div className="pd-price-row">
-              <p className="pd-price">{priceLabel}</p>
+              <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>{priceLabel}</p>
               <Link href="/prelaunch" className="pd-primary-action">
                 {ctaLabel}
               </Link>
@@ -215,7 +215,6 @@ export default function ProductDetailTemplate({
               sizes="(max-width: 900px) 100vw, 56vw"
               priority
             />
-            {heroMeta && <figcaption>{heroMeta}</figcaption>}
           </figure>
         </div>
       </section>

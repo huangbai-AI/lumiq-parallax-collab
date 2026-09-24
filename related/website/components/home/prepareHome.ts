@@ -111,9 +111,14 @@ export async function prepareHome(
     values[index] = Math.max(values[index], value);
     onProgress(Math.min(99, tasks.reduce((sum, task, i) => sum + task.weight * values[i], 0) / total * 100));
   };
-  await Promise.all(tasks.map(async (task, index) => {
+  const results = await Promise.allSettled(tasks.map(async (task, index) => {
     await task.run(value => report(index, value));
     report(index, 1);
   }));
+  const failed = results.filter(result => result.status === "rejected");
+  // A new clone may not have received its Git LFS media yet. Development should
+  // remain navigable with the component-level preview fallbacks; production keeps
+  // the existing strict loading gate so missing release assets are still visible.
+  if (failed.length && process.env.NODE_ENV !== "development") throw failed[0].reason;
   onProgress(100);
 }

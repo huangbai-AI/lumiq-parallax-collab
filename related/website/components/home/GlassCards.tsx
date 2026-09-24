@@ -4,8 +4,8 @@ import { chapterImage } from "./HomeBackgrounds";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO, useTexture } from "@react-three/drei";
-import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, VideoTexture } from "three";
+import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
+import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, VideoTexture } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
 
 export type GlassProduct = { name: string; image: string; body?: string; href?: string; explore?: string };
@@ -17,6 +17,48 @@ const demoProducts: GlassProduct[] = [
 ];
 
 type CardPointer = { x: number; y: number; hovered: boolean };
+
+/**
+ * A missing LFS object is served as a small text pointer during a fresh clone.
+ * Drei's useTexture rejects that decode and takes down the whole canvas. Keep a
+ * neutral canvas texture on screen until the real asset is available instead.
+ */
+function useSafeTexture(url: string, transparent = false): Texture {
+  const fallback = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 96;
+    const ctx = canvas.getContext("2d")!;
+    if (!transparent) {
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, "#f8f5fb");
+      gradient.addColorStop(.5, "#e9eef8");
+      gradient.addColorStop(1, "#f7eee9");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    const texture = new CanvasTexture(canvas);
+    texture.colorSpace = SRGBColorSpace;
+    return texture;
+  }, [transparent]);
+  const [texture, setTexture] = useState<Texture>(fallback);
+  useEffect(() => {
+    let alive = true;
+    let loaded: Texture | undefined;
+    setTexture(fallback);
+    new TextureLoader().load(url, value => {
+      if (!alive) { value.dispose(); return; }
+      value.colorSpace = SRGBColorSpace;
+      loaded = value;
+      setTexture(value);
+    }, undefined, () => {
+      // The static fallback keeps local development usable until `git lfs pull` finishes.
+      console.warn(`Could not load ${url}; using the local preview texture.`);
+    });
+    return () => { alive = false; loaded?.dispose(); };
+  }, [url, fallback]);
+  useEffect(() => () => fallback.dispose(), [fallback]);
+  return texture;
+}
 
 function GlassScene({ selected, select, sideView, content, products, carousel = false }: {
   selected: number; select: (index: number) => void; sideView: boolean; content: boolean; products: GlassProduct[]; carousel?: boolean;
@@ -79,7 +121,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     opticalObjects.current.visible = true;
     if (refractionBackground.current) refractionBackground.current.visible = !carousel;
   }, -1);
-  const background = useTexture(carousel ? chapterImage("products") : "/assets/home-interactive/pearl-light.webp");
+  const background = useSafeTexture(carousel ? chapterImage("products") : "/assets/home-interactive/pearl-light.webp");
   const geometry = useMemo(() => {
     const w = 3.1, h = 4.5, r = .22;
     const s = new Shape();
@@ -127,7 +169,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
 
 // Refraction uses the same fixed viewport coordinates and crossfade as the page background.
 function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boolean }) {
-  const nextTexture = useTexture(chapterImage("films"));
+  const nextTexture = useSafeTexture(chapterImage("films"));
   const videoMap = useRef<VideoTexture | null>(null);
   const decodedTime = useRef(-1);
   useEffect(() => () => { videoMap.current?.dispose(); }, []);
@@ -267,7 +309,7 @@ function GlassShadow({ active }: { active: boolean }) {
 
 /* Original artwork participates in the mirrored card as well as the foreground. */
 function CardArtwork({ product, active, reflected, opacity }: { product: GlassProduct; active: boolean; reflected: boolean; opacity: number }) {
-  const texture = useTexture(product.image);
+  const texture = useSafeTexture(product.image, true);
   const [fontReady, setFontReady] = useState(false);
   useEffect(() => {
     let alive = true;
