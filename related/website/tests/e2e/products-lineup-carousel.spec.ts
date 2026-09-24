@@ -1,26 +1,24 @@
 import {expect, test} from '@playwright/test';
 
-test('carousel cards diffuse blue and violet light beyond their edges', async ({page}, info) => {
+test('carousel cards have restrained, spatially dispersed color glow', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto('/en/products#lineup');
 
   const glowColors = async (selector: string) => page.locator(selector).evaluate((element) =>
     [...getComputedStyle(element).boxShadow.matchAll(/rgba\((\d+), (\d+), (\d+), ([\d.]+)\)([^,]*)/g)]
-      .filter((match) => !match[5].includes('inset'))
       .map((match) => match.slice(1, 5).map(Number)),
-  );
-  const hasBlueGlow = (colors: number[][], minimumAlpha: number) => colors.some(([r, g, b, alpha]) =>
-    r > 100 && b > r + 25 && b > g + 25 && alpha >= minimumAlpha,
-  );
-  const hasVioletGlow = (colors: number[][], minimumAlpha: number) => colors.some(([r, g, b, alpha]) =>
-    r > 100 && r > g + 25 && b > g + 25 && alpha >= minimumAlpha,
   );
 
   for (const slot of ['center', 'previous', 'next']) {
-    const colors = await glowColors(`.prod-slide[data-slot="${slot}"]`);
-    expect(hasBlueGlow(colors, slot === 'center' ? 0.35 : 0.2), `${slot} card needs a cool outer glow`).toBe(true);
-    expect(hasVioletGlow(colors, slot === 'center' ? 0.3 : 0.15), `${slot} card needs a violet outer glow`).toBe(true);
+    const colors = (await glowColors(`.prod-slide[data-slot="${slot}"]`))
+      .filter(([r, g, b]) => Math.max(r, g, b) - Math.min(r, g, b) > 35 && Math.max(r, g, b) > 100);
+    const totalOpacity = colors.reduce((sum, [, , , alpha]) => sum + alpha, 0);
+    expect(totalOpacity, `${slot} card color glow should be about half as strong`).toBeLessThan(slot === 'center' ? 1.2 : 0.3);
+    expect(totalOpacity, `${slot} card should still have visible color`).toBeGreaterThan(slot === 'center' ? 0.9 : 0.18);
+    expect(colors.some(([r, g, b]) => g > r + 35 && b > g + 10), `${slot} card needs a cyan edge`).toBe(true);
+    expect(colors.some(([r, g, b]) => r > g + 25 && b > r + 30), `${slot} card needs a violet edge`).toBe(true);
+    expect(colors.some(([r, g, b]) => r > b + 20 && b > g + 20), `${slot} card needs a soft pink edge`).toBe(true);
   }
 });
 
@@ -34,9 +32,10 @@ test('narrow-screen active card shows colored light inside its visible edges', a
       .map((match) => match.slice(1).map(Number)),
   );
   const visibleColoredGlow = insetColors.filter(([r, g, b, alpha]) =>
-    Math.max(r, g, b) - Math.min(r, g, b) > 35 && alpha >= 0.5,
+    Math.max(r, g, b) - Math.min(r, g, b) > 35 && alpha >= 0.1,
   );
-  expect(visibleColoredGlow.length).toBeGreaterThanOrEqual(2);
+  expect(visibleColoredGlow.length).toBeGreaterThanOrEqual(3);
+  expect(visibleColoredGlow.reduce((sum, [, , , alpha]) => sum + alpha, 0)).toBeLessThan(0.75);
 });
 
 test('product images sit directly on the frosted carousel cards without inner panels', async ({page}, info) => {
