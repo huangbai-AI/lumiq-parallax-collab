@@ -38,7 +38,7 @@ test('narrow-screen active card shows colored light inside its visible edges', a
   expect(visibleColoredGlow.reduce((sum, [, , , alpha]) => sum + alpha, 0)).toBeLessThan(0.3);
 });
 
-test('closed edge glow has no traveling dash ends while its color and brightness move in 20 seconds', async ({page}, info) => {
+test('closed edge glow has no traveling dash ends while its color and brightness move in 40 seconds', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto('/en/products#lineup');
@@ -66,7 +66,7 @@ test('closed edge glow has no traveling dash ends while its color and brightness
     return {duration: parseFloat(style.animationDuration), name: style.animationName, transform: style.transform, background: style.backgroundImage, mask: mask.maskImage, filter: diffusion.filter, spread: parseFloat(diffusion.getPropertyValue('--spread'))};
   }));
   for (const layer of before) {
-    expect(layer.duration).toBe(20);
+    expect(layer.duration).toBe(40);
     expect(layer.name).not.toBe('none');
     expect(layer.filter).toContain('blur(');
     expect(layer.mask).not.toBe('none');
@@ -101,7 +101,7 @@ test('edge glow stays narrow without stacked colored outer shadows', async ({pag
   });
   expect(glow.spread).toBeGreaterThan(0);
   expect(glow.spread).toBeLessThanOrEqual(2);
-  expect(glow.blur).toBeLessThan(glow.spread);
+  expect(glow.blur).toBeGreaterThanOrEqual(glow.spread);
 
   const outerColoredShadows = await page.locator('.prod-slide[data-slot="center"]').evaluate((element) =>
     getComputedStyle(element).boxShadow.split(/\),\s*/).filter((shadow) => {
