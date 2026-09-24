@@ -340,6 +340,9 @@ export default function ProductsShowcase() {
             <div className="prod-glow-band">
               <span className="prod-glow-mask"><span className="prod-glow-sweep" /></span>
             </div>
+            <div className="prod-glow-band prod-glow-band--edge">
+              <span className="prod-glow-mask"><span className="prod-glow-sweep" /></span>
+            </div>
           </div>
           {products.map((p, i) => {
             const distance = (i - active + products.length) % products.length;
@@ -492,7 +495,9 @@ export default function ProductsShowcase() {
         @keyframes prod-glow-flow { to { transform: translate(-50%, -50%) rotate(360deg); } }
         .prod-carousel { --center-width: min(70%, 1125px); --side-width: calc((100% - var(--center-width)) / 2 - .75rem); position: relative; width: calc(100vw - 3rem); height: clamp(560px, calc(100vh - 7.25rem), 700px); margin-left: 50%; transform: translateX(-50%); perspective: 1800px; }
         .prod-carousel-glow { --card-radius: 38px; position: absolute; z-index: 3; top: 50%; left: 50%; width: var(--center-width); height: 100%; pointer-events: none; transform: translate(-50%, -50%); }
-        .prod-glow-band { --spread: 10px; position: absolute; inset: calc(-1 * var(--spread)); border-radius: calc(var(--card-radius) + var(--spread)); filter: blur(12px); opacity: 1; }
+        /* Narrow masked borders, as used by Magic UI Shine Border; the color field stays closed. */
+        .prod-glow-band { --spread: 3px; position: absolute; inset: calc(-.5 * var(--spread)); border-radius: calc(var(--card-radius) + .5 * var(--spread)); filter: blur(4px); opacity: .55; }
+        .prod-glow-band--edge { --spread: 1.5px; filter: blur(.25px); opacity: .95; }
         .prod-glow-mask { position: absolute; inset: 0; padding: var(--spread); border-radius: inherit; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; }
         .prod-glow-sweep { position: absolute; top: 50%; left: 50%; width: max(160vw, 160vh); height: max(160vw, 160vh); background: conic-gradient(rgba(100, 205, 245, .58) 0deg, rgba(90, 190, 248, .94) 58deg, rgba(136, 174, 251, .38) 130deg, rgba(150, 115, 232, .88) 205deg, rgba(225, 160, 225, .43) 296deg, rgba(100, 205, 245, .58) 360deg); transform: translate(-50%, -50%); animation: prod-glow-flow 20s linear infinite; }
         .prod-slide { position: absolute; top: 50%; left: 50%; z-index: 0; isolation: isolate; width: var(--center-width); height: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06), -10px 2px 55px 8px rgba(107,188,237,.12), 10px -2px 104px 20px rgba(190,139,228,.08), 4px 10px 65px 8px rgba(243,177,206,.04); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); transform: translate(-50%,-50%) rotateY(0deg); transition: left .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1), opacity .4s ease, background .5s ease, box-shadow .68s ease; }

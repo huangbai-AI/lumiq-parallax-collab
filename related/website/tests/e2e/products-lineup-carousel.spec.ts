@@ -57,8 +57,8 @@ test('closed edge glow has no traveling dash ends while its color and brightness
   await expect(halo.locator('[stroke-dasharray]')).toHaveCount(0);
   const bands = halo.locator('.prod-glow-band');
   const moving = halo.locator('.prod-glow-sweep');
-  await expect(bands).toHaveCount(1);
-  await expect(moving).toHaveCount(1);
+  await expect(bands).toHaveCount(2);
+  await expect(moving).toHaveCount(2);
   const before = await moving.evaluateAll((elements) => elements.map((element) => {
     const style = getComputedStyle(element);
     const mask = getComputedStyle(element.parentElement!);
@@ -69,7 +69,6 @@ test('closed edge glow has no traveling dash ends while its color and brightness
     expect(layer.duration).toBe(20);
     expect(layer.name).not.toBe('none');
     expect(layer.filter).toContain('blur(');
-    expect(parseFloat(layer.filter.match(/blur\((\d+(?:\.\d+)?)px\)/)?.[1] ?? '0')).toBeGreaterThanOrEqual(layer.spread);
     expect(layer.mask).not.toBe('none');
     expect(layer.background).toContain('conic-gradient');
     expect(layer.background).not.toContain('transparent');
@@ -85,7 +84,7 @@ test('closed edge glow has no traveling dash ends while its color and brightness
 
   await page.emulateMedia({reducedMotion: 'reduce'});
   const reduced = await moving.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName));
-  expect(reduced).toEqual(['none']);
+  expect(reduced).toEqual(['none', 'none']);
 });
 
 test('edge glow stays narrow without stacked colored outer shadows', async ({page}, info) => {
@@ -93,17 +92,16 @@ test('edge glow stays narrow without stacked colored outer shadows', async ({pag
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto('/en/products#lineup');
 
-  const glow = await page.locator('.prod-glow-band').evaluate((element) => {
+  const glow = await page.locator('.prod-glow-band--edge').evaluate((element) => {
     const style = getComputedStyle(element);
     return {
       spread: parseFloat(style.getPropertyValue('--spread')),
       blur: parseFloat(style.filter.match(/blur\((\d+(?:\.\d+)?)px\)/)?.[1] ?? '0'),
     };
   });
-  expect(glow.spread).toBeGreaterThanOrEqual(9);
-  expect(glow.spread).toBeLessThanOrEqual(11);
-  expect(glow.blur).toBeGreaterThanOrEqual(11);
-  expect(glow.blur).toBeLessThanOrEqual(13);
+  expect(glow.spread).toBeGreaterThan(0);
+  expect(glow.spread).toBeLessThanOrEqual(2);
+  expect(glow.blur).toBeLessThan(glow.spread);
 
   const outerColoredShadows = await page.locator('.prod-slide[data-slot="center"]').evaluate((element) =>
     getComputedStyle(element).boxShadow.split(/\),\s*/).filter((shadow) => {
