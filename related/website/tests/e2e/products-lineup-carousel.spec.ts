@@ -38,17 +38,15 @@ test('narrow-screen active card shows colored light inside its visible edges', a
   expect(visibleColoredGlow.reduce((sum, [, , , alpha]) => sum + alpha, 0)).toBeLessThan(0.3);
 });
 
-test('one continuous soft light track stays centered on the active card edge and travels in 20 seconds', async ({page}, info) => {
+test('closed edge glow has no traveling dash ends while its color and brightness move in 20 seconds', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto('/en/products#lineup');
 
   const halo = page.locator('.prod-carousel-glow');
   await expect(halo).toHaveCount(1);
-  const track = halo.locator('svg');
-  await expect(track).toHaveCount(1);
   const cardBox = await page.locator('.prod-slide[data-slot="center"]').boundingBox();
-  const trackBox = await track.boundingBox();
+  const trackBox = await halo.boundingBox();
   expect(cardBox).not.toBeNull();
   expect(trackBox).not.toBeNull();
   expect(Math.abs(trackBox!.x - cardBox!.x)).toBeLessThan(2);
@@ -56,29 +54,38 @@ test('one continuous soft light track stays centered on the active card edge and
   expect(Math.abs(trackBox!.width - cardBox!.width)).toBeLessThan(2);
   expect(Math.abs(trackBox!.height - cardBox!.height)).toBeLessThan(2);
 
-  const baseline = track.locator('.prod-glow-base');
-  const moving = track.locator('.prod-glow-travel');
-  await expect(baseline).toHaveCount(1);
-  await expect(moving).toHaveCount(3);
-  expect(await baseline.evaluate((element) => getComputedStyle(element).strokeDasharray)).toBe('none');
+  await expect(halo.locator('[stroke-dasharray]')).toHaveCount(0);
+  const bands = halo.locator('.prod-glow-band');
+  const moving = halo.locator('.prod-glow-sweep');
+  await expect(bands).toHaveCount(1);
+  await expect(moving).toHaveCount(1);
   const before = await moving.evaluateAll((elements) => elements.map((element) => {
     const style = getComputedStyle(element);
-    return {duration: parseFloat(style.animationDuration), name: style.animationName, offset: style.strokeDashoffset, filter: style.filter, dash: style.strokeDasharray};
+    const mask = getComputedStyle(element.parentElement!);
+    const diffusion = getComputedStyle(element.parentElement!.parentElement!);
+    return {duration: parseFloat(style.animationDuration), name: style.animationName, transform: style.transform, background: style.backgroundImage, mask: mask.maskImage, filter: diffusion.filter, spread: parseFloat(diffusion.getPropertyValue('--spread'))};
   }));
   for (const layer of before) {
     expect(layer.duration).toBe(20);
     expect(layer.name).not.toBe('none');
     expect(layer.filter).toContain('blur(');
-    expect(layer.dash).not.toBe('none');
+    expect(parseFloat(layer.filter.match(/blur\((\d+(?:\.\d+)?)px\)/)?.[1] ?? '0')).toBeGreaterThanOrEqual(layer.spread);
+    expect(layer.mask).not.toBe('none');
+    expect(layer.background).toContain('conic-gradient');
+    expect(layer.background).not.toContain('transparent');
+    const start = layer.background.match(/(rgba?\([^)]+\)) 0deg/)?.[1];
+    const end = layer.background.match(/(rgba?\([^)]+\)) 360deg/)?.[1];
+    expect(start).toBeTruthy();
+    expect(end).toBe(start);
   }
 
   await page.waitForTimeout(250);
-  const laterOffset = await moving.first().evaluate((element) => getComputedStyle(element).strokeDashoffset);
-  expect(laterOffset).not.toBe(before[0].offset);
+  const laterTransform = await moving.first().evaluate((element) => getComputedStyle(element).transform);
+  expect(laterTransform).not.toBe(before[0].transform);
 
   await page.emulateMedia({reducedMotion: 'reduce'});
   const reduced = await moving.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName));
-  expect(reduced).toEqual(['none', 'none', 'none']);
+  expect(reduced).toEqual(['none']);
 });
 
 test('active glass card has no fixed bright rim interrupting the soft halo', async ({page}, info) => {
