@@ -28,8 +28,13 @@ function paintStudio(canvas: HTMLCanvasElement, phase: number) {
 
 // One continuous solid, not separate CSS bands. The neutral transmission
 // background is a studio approximation; it does not capture the live DOM.
-function GlassSlab() {
+function GlassSlab({running}: {running: boolean}) {
   const {size, camera, invalidate} = useThree();
+  useEffect(() => {
+    if (!running) return;
+    const timer = window.setInterval(invalidate, 1000 / 12);
+    return () => window.clearInterval(timer);
+  }, [running, invalidate]);
   // Commit the projection and geometry together. R3F's automatic projection
   // resize can otherwise expose the old slab in the new viewport for a frame.
   useLayoutEffect(() => {
@@ -107,7 +112,7 @@ function FrostedFallback() {
   return <div style={{position: 'absolute', inset: 0, borderRadius: 'inherit', background: 'rgba(237,240,245,.7)', backdropFilter: 'blur(30px)'}} />;
 }
 
-export default function GlassCardMaterial() {
+export default function GlassCardMaterial({animated = false}: {animated?: boolean}) {
   const container = useRef<HTMLDivElement>(null);
   const [running, setRunning] = useState(false);
   useEffect(() => {
@@ -124,9 +129,9 @@ export default function GlassCardMaterial() {
     <MaterialFallback>
       <Canvas orthographic camera={{position: [0, 0, 10], manual: true, near: .1, far: 30}}
         resize={{scroll: false, debounce: 0, offsetSize: true}}
-        frameloop={running ? 'always' : 'demand'} dpr={[1, 1.5]} gl={{alpha: true, antialias: true, toneMapping: LinearToneMapping, toneMappingExposure: 1.3}}
+        frameloop="demand" dpr={[1, 1.5]} gl={{alpha: true, antialias: true, toneMapping: LinearToneMapping, toneMappingExposure: 1.3}}
         fallback={<FrostedFallback />}>
-        <GlassSlab />
+        <GlassSlab running={running && animated} />
       </Canvas>
     </MaterialFallback>
     <style jsx global>{`

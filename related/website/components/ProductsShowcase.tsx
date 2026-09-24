@@ -365,7 +365,7 @@ export default function ProductsShowcase() {
                   }
                 } : undefined}
               >
-                {(selected || preview) && <GlassCardMaterial />}
+                {(selected || preview) && <GlassCardMaterial animated={selected} />}
                 <div className="prod-stage-media">
                   <Image
                     src={p.img}
