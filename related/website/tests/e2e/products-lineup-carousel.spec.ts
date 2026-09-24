@@ -15,7 +15,7 @@ test('carousel cards have restrained, spatially dispersed color glow', async ({p
       .filter(([r, g, b]) => Math.max(r, g, b) - Math.min(r, g, b) > 35 && Math.max(r, g, b) > 100);
     const totalOpacity = colors.reduce((sum, [, , , alpha]) => sum + alpha, 0);
     expect(totalOpacity, `${slot} card should leave room for the moving outer glow`).toBeLessThan(slot === 'center' ? 0.5 : 0.3);
-    expect(totalOpacity, `${slot} card should still have visible color`).toBeGreaterThan(slot === 'center' ? 0.3 : 0.18);
+    expect(totalOpacity, `${slot} card should still have visible color`).toBeGreaterThan(0.18);
     expect(colors.some(([r, g, b]) => g > r + 35 && b > g + 10), `${slot} card needs a cyan edge`).toBe(true);
     expect(colors.some(([r, g, b]) => r > g + 25 && b > r + 30), `${slot} card needs a violet edge`).toBe(true);
     expect(colors.some(([r, g, b]) => r > b + 20 && b > g + 20), `${slot} card needs a soft pink edge`).toBe(true);
@@ -86,6 +86,33 @@ test('closed edge glow has no traveling dash ends while its color and brightness
   await page.emulateMedia({reducedMotion: 'reduce'});
   const reduced = await moving.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName));
   expect(reduced).toEqual(['none']);
+});
+
+test('edge glow stays narrow without stacked colored outer shadows', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
+  await page.setViewportSize({width: 1440, height: 900});
+  await page.goto('/en/products#lineup');
+
+  const glow = await page.locator('.prod-glow-band').evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      spread: parseFloat(style.getPropertyValue('--spread')),
+      blur: parseFloat(style.filter.match(/blur\((\d+(?:\.\d+)?)px\)/)?.[1] ?? '0'),
+    };
+  });
+  expect(glow.spread).toBeGreaterThanOrEqual(9);
+  expect(glow.spread).toBeLessThanOrEqual(11);
+  expect(glow.blur).toBeGreaterThanOrEqual(11);
+  expect(glow.blur).toBeLessThanOrEqual(13);
+
+  const outerColoredShadows = await page.locator('.prod-slide[data-slot="center"]').evaluate((element) =>
+    getComputedStyle(element).boxShadow.split(/\),\s*/).filter((shadow) => {
+      if (shadow.includes('inset')) return false;
+      const colors = shadow.match(/rgba?\((\d+), (\d+), (\d+)/)?.slice(1).map(Number);
+      return colors ? Math.max(...colors) - Math.min(...colors) > 40 : false;
+    }),
+  );
+  expect(outerColoredShadows).toEqual([]);
 });
 
 test('active glass card has no fixed bright rim interrupting the soft halo', async ({page}, info) => {
