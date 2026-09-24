@@ -14,8 +14,8 @@ test('carousel cards have restrained, spatially dispersed color glow', async ({p
     const colors = (await glowColors(`.prod-slide[data-slot="${slot}"]`))
       .filter(([r, g, b]) => Math.max(r, g, b) - Math.min(r, g, b) > 35 && Math.max(r, g, b) > 100);
     const totalOpacity = colors.reduce((sum, [, , , alpha]) => sum + alpha, 0);
-    expect(totalOpacity, `${slot} card color glow should be about half as strong`).toBeLessThan(slot === 'center' ? 1.2 : 0.3);
-    expect(totalOpacity, `${slot} card should still have visible color`).toBeGreaterThan(slot === 'center' ? 0.9 : 0.18);
+    expect(totalOpacity, `${slot} card should leave room for the moving outer glow`).toBeLessThan(slot === 'center' ? 0.5 : 0.3);
+    expect(totalOpacity, `${slot} card should still have visible color`).toBeGreaterThan(slot === 'center' ? 0.3 : 0.18);
     expect(colors.some(([r, g, b]) => g > r + 35 && b > g + 10), `${slot} card needs a cyan edge`).toBe(true);
     expect(colors.some(([r, g, b]) => r > g + 25 && b > r + 30), `${slot} card needs a violet edge`).toBe(true);
     expect(colors.some(([r, g, b]) => r > b + 20 && b > g + 20), `${slot} card needs a soft pink edge`).toBe(true);
@@ -32,10 +32,47 @@ test('narrow-screen active card shows colored light inside its visible edges', a
       .map((match) => match.slice(1).map(Number)),
   );
   const visibleColoredGlow = insetColors.filter(([r, g, b, alpha]) =>
-    Math.max(r, g, b) - Math.min(r, g, b) > 35 && alpha >= 0.1,
+    Math.max(r, g, b) - Math.min(r, g, b) > 35 && alpha >= 0.04,
   );
   expect(visibleColoredGlow.length).toBeGreaterThanOrEqual(3);
-  expect(visibleColoredGlow.reduce((sum, [, , , alpha]) => sum + alpha, 0)).toBeLessThan(0.75);
+  expect(visibleColoredGlow.reduce((sum, [, , , alpha]) => sum + alpha, 0)).toBeLessThan(0.3);
+});
+
+test('outer halo slowly travels around the active card and pauses for reduced motion', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
+  await page.setViewportSize({width: 1440, height: 900});
+  await page.goto('/en/products#lineup');
+
+  const halo = page.locator('.prod-carousel-glow');
+  await expect(halo).toHaveCount(1);
+  const before = await halo.evaluate((element) => {
+    const bloom = getComputedStyle(element);
+    const color = getComputedStyle(element, '::before');
+    const sharpRim = getComputedStyle(element, '::after');
+    return {
+      image: color.backgroundImage,
+      diffusion: bloom.filter,
+      mask: bloom.maskImage,
+      sharpRim: sharpRim.content,
+      duration: parseFloat(color.animationDuration),
+      name: color.animationName,
+      transform: color.transform,
+    };
+  });
+  expect(before.image).toContain('conic-gradient');
+  expect(before.diffusion).toContain('blur(28px)');
+  expect(before.mask).not.toBe('none');
+  expect(before.sharpRim).toBe('none');
+  expect(before.duration).toBe(10);
+  expect(before.name).not.toBe('none');
+
+  await page.waitForTimeout(250);
+  const laterTransform = await halo.evaluate((element) => getComputedStyle(element, '::before').transform);
+  expect(laterTransform).not.toBe(before.transform);
+
+  await page.emulateMedia({reducedMotion: 'reduce'});
+  const reduced = await halo.evaluate((element) => getComputedStyle(element, '::before').animationName);
+  expect(reduced).toBe('none');
 });
 
 test('product images sit directly on the frosted carousel cards without inner panels', async ({page}, info) => {
@@ -120,16 +157,22 @@ test('the next card travels into the center with its product image fully visible
   expect(imageBefore!.x).toBeGreaterThanOrEqual(stageBefore!.x + stageBefore!.width);
 
   await stage.hover();
+  const travelSamples = incoming!.evaluate((card) => new Promise<number[]>((resolve) => {
+    const positions: number[] = [];
+    const started = performance.now();
+    const capture = () => {
+      positions.push(card.getBoundingClientRect().x);
+      if (performance.now() - started < 1200) requestAnimationFrame(capture);
+      else resolve(positions);
+    };
+    requestAnimationFrame(capture);
+  }));
   await page.mouse.wheel(0, 120);
   await expect.poll(() => incoming!.evaluate((card) => card.classList.contains('prod-stage'))).toBe(true);
-  await page.waitForTimeout(180);
-  const midway = await incoming!.boundingBox();
-  await page.waitForTimeout(650);
+  const positions = await travelSamples;
   const after = await incoming!.boundingBox();
-  expect(midway).not.toBeNull();
   expect(after).not.toBeNull();
-  expect(midway!.x).toBeLessThan(before!.x - 20);
-  expect(midway!.x).toBeGreaterThan(after!.x + 20);
+  expect(positions.some((x) => x < before!.x - 20 && x > after!.x + 20), 'incoming card should occupy positions between side and center').toBe(true);
   expect(after!.width).toBeGreaterThan(before!.width * 2);
 });
 
