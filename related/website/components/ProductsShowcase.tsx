@@ -18,8 +18,6 @@ import {
 } from "lucide-react";
 import { PRODUCT_BY_ID } from "@/lib/products";
 
-const PRODUCT_AUTOPLAY_MS = 5000;
-
 export default function ProductsShowcase() {
   const t = useTranslations("Products");
   const rootRef = useRef<HTMLElement>(null);
@@ -30,8 +28,6 @@ export default function ProductsShowcase() {
   const wheelDeltaExpiresAtRef = useRef(0);
   const [active, setActive] = useState(0);
   const [stageFullyVisible, setStageFullyVisible] = useState(false);
-  const [pageVisible, setPageVisible] = useState(true);
-  const [autoplayEpoch, setAutoplayEpoch] = useState(0);
   const products = [
     {
       id: "pal",
@@ -146,23 +142,6 @@ export default function ProductsShowcase() {
     };
   }, []);
 
-  useEffect(() => {
-    const syncVisibility = () => setPageVisible(document.visibilityState === "visible");
-    syncVisibility();
-    document.addEventListener("visibilitychange", syncVisibility);
-    return () => document.removeEventListener("visibilitychange", syncVisibility);
-  }, []);
-
-  useEffect(() => {
-    if (!stageFullyVisible || !pageVisible) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setTimeout(
-      () => setActive((current) => (current + 1) % products.length),
-      PRODUCT_AUTOPLAY_MS,
-    );
-    return () => window.clearTimeout(timer);
-  }, [active, autoplayEpoch, pageVisible, products.length, stageFullyVisible]);
-
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = heroMediaRef.current;
     if (!el) return;
@@ -181,20 +160,20 @@ export default function ProductsShowcase() {
   };
 
   const current = products[active];
+  const previous = products[(active + products.length - 1) % products.length];
+  const next = products[(active + 1) % products.length];
 
   const selectProduct = (index: number) => {
     setActive((index + products.length) % products.length);
-    setAutoplayEpoch((epoch) => epoch + 1);
   };
 
   const stepProduct = (direction: 1 | -1) => {
     setActive((currentIndex) =>
       (currentIndex + direction + products.length) % products.length,
     );
-    setAutoplayEpoch((epoch) => epoch + 1);
   };
 
-  const onStageWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+  const onStageWheel = (event: React.WheelEvent<HTMLElement>) => {
     const stage = stageRef.current;
     const nav = document.querySelector<HTMLElement>(".site-nav");
     if (!stage) return;
@@ -336,30 +315,43 @@ export default function ProductsShowcase() {
           ))}
         </div>
 
-        <div
-          ref={stageRef}
-          className="prod-stage reveal"
-          id="product-panel"
-          role="tabpanel"
-          aria-labelledby={`product-tab-${current.id}`}
-          data-carousel-ready={stageFullyVisible ? "true" : "false"}
-          tabIndex={0}
-          onWheel={onStageWheel}
-        >
-          <div className="prod-stage-media">
-            {products.map((p, i) => (
-              <Image
-                key={p.id}
-                src={p.img}
-                alt={i === active ? p.name : ""}
-                width={1000}
-                height={1000}
-                sizes="(max-width: 820px) 100vw, 55vw"
-                className={`${i === active ? "on" : ""}${p.id === "nest" ? " nest" : ""}`}
-                loading={i === 0 ? undefined : "lazy"}
-              />
-            ))}
-          </div>
+        <div className="prod-carousel">
+          <button
+            key={`previous-${previous.id}`}
+            type="button"
+            className="prod-peek prod-peek--previous"
+            aria-label={`${t("previous")}: ${previous.name}`}
+            onClick={() => stepProduct(-1)}
+            onWheel={onStageWheel}
+          >
+            <Image src={previous.img} alt="" width={600} height={600} sizes="(max-width: 960px) 1px, 26vw" />
+            <span className="prod-peek-caption"><small>{previous.tag}</small>{previous.name}</span>
+          </button>
+
+          <div
+            ref={stageRef}
+            className="prod-stage reveal"
+            id="product-panel"
+            role="tabpanel"
+            aria-labelledby={`product-tab-${current.id}`}
+            data-carousel-ready={stageFullyVisible ? "true" : "false"}
+            tabIndex={0}
+            onWheel={onStageWheel}
+          >
+            <div className="prod-stage-media">
+              {products.map((p, i) => (
+                <Image
+                  key={p.id}
+                  src={p.img}
+                  alt={i === active ? p.name : ""}
+                  width={1000}
+                  height={1000}
+                  sizes="(max-width: 820px) 100vw, 55vw"
+                  className={`${i === active ? "on" : ""}${p.id === "nest" ? " nest" : ""}`}
+                  loading={i === 0 ? undefined : "lazy"}
+                />
+              ))}
+            </div>
 
           <div className="prod-stage-panel">
             <div className="prod-panel-body" key={current.id}>
@@ -402,13 +394,19 @@ export default function ProductsShowcase() {
             </div>
           </div>
 
-          <div
-            key={`${current.id}-${autoplayEpoch}-${stageFullyVisible}-${pageVisible}`}
-            className={`prod-autoplay-progress${stageFullyVisible && pageVisible ? " running" : ""}`}
-            aria-hidden="true"
-          >
-            <span />
           </div>
+
+          <button
+            key={`next-${next.id}`}
+            type="button"
+            className="prod-peek prod-peek--next"
+            aria-label={`${t("next")}: ${next.name}`}
+            onClick={() => stepProduct(1)}
+            onWheel={onStageWheel}
+          >
+            <Image src={next.img} alt="" width={600} height={600} sizes="(max-width: 960px) 1px, 26vw" />
+            <span className="prod-peek-caption"><small>{next.tag}</small>{next.name}</span>
+          </button>
         </div>
       </section>
 
@@ -488,10 +486,22 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        .prod-stage { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(340px, .92fr) minmax(420px, 1.08fr); column-gap: clamp(2.5rem, 5vw, 6rem); row-gap: clamp(.65rem, 1vw, 1rem); align-items: stretch; width: calc(100vw - (100vw - 100%) / 2 - 1.5rem); margin-left: calc((100vw - 100%) / -4 - .25rem); height: clamp(560px, calc(100vh - 7.25rem), 700px); min-height: 0; padding: clamp(1rem, 1.8vw, 1.65rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); }
+        .prod-carousel { position: relative; width: calc(100vw - 3rem); max-width: 1480px; margin-left: 50%; transform: translateX(-50%); }
+        .prod-stage { position: relative; z-index: 2; isolation: isolate; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); column-gap: clamp(1.5rem, 4vw, 4rem); row-gap: clamp(.65rem, 1vw, 1rem); align-items: stretch; width: 76%; margin: 0 auto; height: clamp(560px, calc(100vh - 7.25rem), 700px); min-height: 0; padding: clamp(1rem, 1.8vw, 1.65rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); }
         .prod-stage::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
         .prod-stage::after { content: ""; position: absolute; z-index: 2; inset: 1px; pointer-events: none; border-radius: 37px; box-shadow: inset 0 0 40px rgba(255,255,255,.18); }
         .prod-stage[data-carousel-ready="true"] { overscroll-behavior: contain; }
+        .prod-peek { position: absolute; z-index: 1; top: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 28%; height: 76%; padding: 1.25rem; overflow: hidden; border: 1px solid rgba(255,255,255,.7); border-radius: 32px; background: linear-gradient(145deg, rgba(255,255,255,.32), rgba(226,236,255,.15)); color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.84), 0 18px 48px rgba(43,54,86,.1); -webkit-backdrop-filter: blur(18px) saturate(145%); backdrop-filter: blur(18px) saturate(145%); cursor: pointer; opacity: .57; transform: translateY(-50%) scale(.94); transition: opacity .3s ease, transform .3s ease, box-shadow .3s ease; animation: prodPeekIn .45s ease; }
+        .prod-peek--previous { left: 0; }
+        .prod-peek--next { right: 0; }
+        .prod-peek:hover, .prod-peek:focus-visible { opacity: .82; transform: translateY(-50%) scale(.97); box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 22px 54px rgba(43,54,86,.16); }
+        .prod-peek:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+        .prod-peek img { display: block; width: 100%; height: 74%; object-fit: contain; filter: drop-shadow(0 14px 18px rgba(35,42,64,.12)); }
+        .prod-peek-caption { display: flex; flex-direction: column; width: 100%; font-size: clamp(.8rem, 1.3vw, 1.1rem); font-weight: 600; line-height: 1.3; white-space: nowrap; }
+        .prod-peek-caption small { margin-bottom: .25rem; color: var(--ink-3); font-size: .75rem; font-weight: 500; }
+        .prod-peek--previous .prod-peek-caption { align-items: flex-start; }
+        .prod-peek--next .prod-peek-caption { align-items: flex-end; }
+        @keyframes prodPeekIn { from { opacity: 0; } to { opacity: .57; } }
         .prod-stage-media { position: relative; z-index: 1; display: block; width: 100%; min-width: 0; align-self: stretch; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: linear-gradient(145deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); color: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 18px 44px rgba(43,54,86,.08); -webkit-backdrop-filter: blur(12px) saturate(130%); backdrop-filter: blur(12px) saturate(130%); }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
         .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
@@ -517,10 +527,6 @@ export default function ProductsShowcase() {
         .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.76); background: rgba(255,255,255,.48); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.75); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background .25s, color .25s, border-color .25s; }
         .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
-        .prod-autoplay-progress { position: relative; z-index: 3; grid-column: 1 / -1; width: 100%; height: 3px; overflow: hidden; border-radius: 999px; background: rgba(26,42,68,.1); box-shadow: inset 0 1px 2px rgba(26,42,68,.08); }
-        .prod-autoplay-progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, rgba(95,113,151,.72), rgba(184,142,45,.92)); box-shadow: 0 0 12px rgba(184,142,45,.22); }
-        @keyframes prodAutoplayProgress { from { width: 0; } to { width: 100%; } }
-        .prod-autoplay-progress.running span { animation: prodAutoplayProgress 5s linear forwards; }
 
         .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border: 0; background: transparent; }
         .prod-page > .prod-story-invite .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: center; min-height: clamp(22rem, 28vw, 27rem); padding-top: clamp(5rem, 7vw, 7rem); padding-bottom: clamp(5rem, 7vw, 7rem); }
@@ -551,7 +557,9 @@ export default function ProductsShowcase() {
           .prod-tab.on { background: var(--navy); color: #fff; border-color: var(--navy); }
           .prod-tab::before, .prod-tab-num, .prod-tab-sub { display: none; }
           .prod-tab-name { margin: 0; font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
-          .prod-stage { grid-template-columns: 1fr; column-gap: 0; row-gap: 1.5rem; width: 100%; margin-left: 0; transform: none; height: auto; min-height: 0; padding: 1.25rem; border-radius: 30px; }
+          .prod-carousel { width: 100%; max-width: none; margin-left: 0; transform: none; }
+          .prod-peek { display: none; }
+          .prod-stage { grid-template-columns: 1fr; column-gap: 0; row-gap: 1.5rem; width: 100%; margin: 0; height: auto; min-height: 0; padding: 1.25rem; border-radius: 30px; }
           .prod-stage-panel { padding: 0 .5rem .75rem; }
           .prod-page > .prod-story-invite .prod-story-invite-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 5rem; padding-bottom: 5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }
@@ -572,8 +580,7 @@ export default function ProductsShowcase() {
           .prod-page > .prod-story-invite .prod-story-invite-inner { padding-top: 4.5rem; padding-bottom: 4.5rem; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; }
-          .prod-autoplay-progress { display: none; }
+          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg, .prod-peek { transition: none; animation: none; }
         }
       `}</style>
     </main>
