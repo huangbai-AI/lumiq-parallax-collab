@@ -178,10 +178,14 @@ test('lineup shows side previews and changes only from card interactions', async
 
   const afterCardWheel = await stage.getAttribute('aria-labelledby');
   await expect.poll(async () => (await stage.boundingBox())?.width ?? 0).toBeGreaterThan(950);
+  await expect.poll(() => stage.evaluate((element) =>
+    element.getAnimations().some((animation) => animation.playState === 'running'),
+  )).toBe(false);
   const scrollBefore = await page.evaluate(() => window.scrollY);
   const carouselBox = await page.locator('.prod-carousel').boundingBox();
   expect(carouselBox).not.toBeNull();
   await page.mouse.move(carouselBox!.x + carouselBox!.width / 2, carouselBox!.y - 24);
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await page.mouse.wheel(0, 100);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollBefore);
   await expect(stage).toHaveAttribute('aria-labelledby', afterCardWheel!);
