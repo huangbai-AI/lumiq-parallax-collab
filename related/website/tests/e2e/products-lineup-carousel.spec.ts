@@ -17,15 +17,64 @@ test('lineup shows side previews and changes only from card interactions', async
   await expect(stage).toHaveAttribute('aria-labelledby', initial!);
 
   await stage.hover();
+  const scrollBeforeCardWheel = await page.evaluate(() => window.scrollY);
   await page.mouse.wheel(0, 120);
   await expect(stage).not.toHaveAttribute('aria-labelledby', initial!);
+  expect(await page.evaluate(() => window.scrollY)).toBe(scrollBeforeCardWheel);
 
   const afterCardWheel = await stage.getAttribute('aria-labelledby');
+  await expect.poll(async () => (await stage.boundingBox())?.width ?? 0).toBeGreaterThan(950);
   const scrollBefore = await page.evaluate(() => window.scrollY);
-  const stageBox = await stage.boundingBox();
-  expect(stageBox).not.toBeNull();
-  await page.mouse.move(stageBox!.x + stageBox!.width / 2, stageBox!.y - 24);
+  const carouselBox = await page.locator('.prod-carousel').boundingBox();
+  expect(carouselBox).not.toBeNull();
+  await page.mouse.move(carouselBox!.x + carouselBox!.width / 2, carouselBox!.y - 24);
   await page.mouse.wheel(0, 100);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollBefore);
   await expect(stage).toHaveAttribute('aria-labelledby', afterCardWheel!);
+});
+
+test('the next card travels into the center with its product image fully visible at the side', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop card animation');
+  await page.setViewportSize({width: 1856, height: 1000});
+  await page.goto('/en/products#lineup');
+
+  const stage = page.locator('.prod-stage');
+  await stage.scrollIntoViewIfNeeded();
+  await expect(stage).toHaveAttribute('data-carousel-ready', 'true');
+
+  const incoming = await page.locator('.prod-peek--next').elementHandle();
+  expect(incoming).not.toBeNull();
+  const before = await incoming!.boundingBox();
+  const stageBefore = await stage.boundingBox();
+  const sideImage = await incoming!.waitForElementState('visible').then(() => incoming!.$('img'));
+  const imageBefore = await sideImage?.boundingBox();
+  expect(before).not.toBeNull();
+  expect(stageBefore).not.toBeNull();
+  expect(imageBefore).not.toBeNull();
+  expect(imageBefore!.x).toBeGreaterThanOrEqual(stageBefore!.x + stageBefore!.width);
+
+  await stage.hover();
+  await page.mouse.wheel(0, 120);
+  await expect.poll(() => incoming!.evaluate((card) => card.classList.contains('prod-stage'))).toBe(true);
+  await page.waitForTimeout(180);
+  const midway = await incoming!.boundingBox();
+  await page.waitForTimeout(650);
+  const after = await incoming!.boundingBox();
+  expect(midway).not.toBeNull();
+  expect(after).not.toBeNull();
+  expect(midway!.x).toBeLessThan(before!.x - 20);
+  expect(midway!.x).toBeGreaterThan(after!.x + 20);
+  expect(after!.width).toBeGreaterThan(before!.width * 2);
+});
+
+test('the active card fills the mobile content width without horizontal overflow', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'mobile viewport on desktop browser');
+  await page.setViewportSize({width: 390, height: 844});
+  await page.goto('/en/products#lineup');
+  const stage = page.locator('.prod-stage');
+  const box = await stage.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box!.width).toBeGreaterThan(340);
+  expect(box!.x).toBeLessThan(25);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
 });

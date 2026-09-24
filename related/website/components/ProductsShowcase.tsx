@@ -26,6 +26,7 @@ export default function ProductsShowcase() {
   const wheelReadyAtRef = useRef(0);
   const wheelDeltaRef = useRef(0);
   const wheelDeltaExpiresAtRef = useRef(0);
+  const pointerOverCardRef = useRef(false);
   const [active, setActive] = useState(0);
   const [stageFullyVisible, setStageFullyVisible] = useState(false);
   const products = [
@@ -142,6 +143,61 @@ export default function ProductsShowcase() {
     };
   }, []);
 
+  useEffect(() => {
+    const carousel = stageRef.current;
+    if (!carousel) return;
+    const nav = document.querySelector<HTMLElement>(".site-nav");
+    const onPointerMove = (event: PointerEvent) => {
+      const card = document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLElement>(".prod-slide");
+      pointerOverCardRef.current = Boolean(card && carousel.contains(card) &&
+        (card.dataset.slot === "center" || card.dataset.slot === "previous" || card.dataset.slot === "next"));
+    };
+    const onWheel = (event: WheelEvent) => {
+      if (!pointerOverCardRef.current) return;
+      const target = event.target instanceof Element
+        ? event.target.closest<HTMLElement>(".prod-slide")
+        : null;
+      if (!target || !carousel.contains(target)) return;
+      const slot = target.dataset.slot;
+      if (slot !== "center" && slot !== "previous" && slot !== "next") return;
+
+      const rect = carousel.getBoundingClientRect();
+      const navBottom = nav?.getBoundingClientRect().bottom ?? 0;
+      const tolerance = 2;
+      const availableHeight = window.innerHeight - navBottom;
+      const isFullyVisible = rect.height <= availableHeight + tolerance
+        ? rect.top >= navBottom - tolerance && rect.bottom <= window.innerHeight + tolerance
+        : rect.top <= navBottom + tolerance && rect.bottom >= window.innerHeight - tolerance;
+      if (!isFullyVisible) return;
+
+      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+        ? event.deltaY
+        : event.deltaX;
+      if (!delta) return;
+      event.preventDefault();
+
+      const now = performance.now();
+      if (now < wheelReadyAtRef.current) return;
+      if (now > wheelDeltaExpiresAtRef.current || Math.sign(delta) !== Math.sign(wheelDeltaRef.current)) {
+        wheelDeltaRef.current = 0;
+      }
+      wheelDeltaRef.current += delta;
+      wheelDeltaExpiresAtRef.current = now + 180;
+      if (Math.abs(wheelDeltaRef.current) < 12) return;
+
+      wheelReadyAtRef.current = now + 700;
+      const direction = wheelDeltaRef.current > 0 ? 1 : -1;
+      wheelDeltaRef.current = 0;
+      setActive((currentIndex) => (currentIndex + direction + products.length) % products.length);
+    };
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    carousel.addEventListener("wheel", onWheel, { passive: false, capture: true });
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      carousel.removeEventListener("wheel", onWheel, true);
+    };
+  }, [products.length]);
+
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = heroMediaRef.current;
     if (!el) return;
@@ -160,8 +216,6 @@ export default function ProductsShowcase() {
   };
 
   const current = products[active];
-  const previous = products[(active + products.length - 1) % products.length];
-  const next = products[(active + 1) % products.length];
 
   const selectProduct = (index: number) => {
     setActive((index + products.length) % products.length);
@@ -171,40 +225,6 @@ export default function ProductsShowcase() {
     setActive((currentIndex) =>
       (currentIndex + direction + products.length) % products.length,
     );
-  };
-
-  const onStageWheel = (event: React.WheelEvent<HTMLElement>) => {
-    const stage = stageRef.current;
-    const nav = document.querySelector<HTMLElement>(".site-nav");
-    if (!stage) return;
-    const rect = stage.getBoundingClientRect();
-    const navBottom = nav?.getBoundingClientRect().bottom ?? 0;
-    const tolerance = 2;
-    const availableHeight = window.innerHeight - navBottom;
-    const isFullyVisible = rect.height <= availableHeight + tolerance
-      ? rect.top >= navBottom - tolerance && rect.bottom <= window.innerHeight + tolerance
-      : rect.top <= navBottom + tolerance && rect.bottom >= window.innerHeight - tolerance;
-    if (!isFullyVisible) return;
-
-    const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX)
-      ? event.deltaY
-      : event.deltaX;
-    if (!delta) return;
-    event.preventDefault();
-
-    const now = performance.now();
-    if (now < wheelReadyAtRef.current) return;
-    if (now > wheelDeltaExpiresAtRef.current || Math.sign(delta) !== Math.sign(wheelDeltaRef.current)) {
-      wheelDeltaRef.current = 0;
-    }
-    wheelDeltaRef.current += delta;
-    wheelDeltaExpiresAtRef.current = now + 180;
-    if (Math.abs(wheelDeltaRef.current) < 12) return;
-
-    wheelReadyAtRef.current = now + 520;
-    const direction = wheelDeltaRef.current > 0 ? 1 : -1;
-    wheelDeltaRef.current = 0;
-    stepProduct(direction);
   };
 
   return (
@@ -315,98 +335,76 @@ export default function ProductsShowcase() {
           ))}
         </div>
 
-        <div className="prod-carousel">
-          <button
-            key={`previous-${previous.id}`}
-            type="button"
-            className="prod-peek prod-peek--previous"
-            aria-label={`${t("previous")}: ${previous.name}`}
-            onClick={() => stepProduct(-1)}
-            onWheel={onStageWheel}
-          >
-            <Image src={previous.img} alt="" width={600} height={600} sizes="(max-width: 960px) 1px, 26vw" />
-            <span className="prod-peek-caption"><small>{previous.tag}</small>{previous.name}</span>
-          </button>
-
-          <div
-            ref={stageRef}
-            className="prod-stage reveal"
-            id="product-panel"
-            role="tabpanel"
-            aria-labelledby={`product-tab-${current.id}`}
-            data-carousel-ready={stageFullyVisible ? "true" : "false"}
-            tabIndex={0}
-            onWheel={onStageWheel}
-          >
-            <div className="prod-stage-media">
-              {products.map((p, i) => (
-                <Image
-                  key={p.id}
-                  src={p.img}
-                  alt={i === active ? p.name : ""}
-                  width={1000}
-                  height={1000}
-                  sizes="(max-width: 820px) 100vw, 55vw"
-                  className={`${i === active ? "on" : ""}${p.id === "nest" ? " nest" : ""}`}
-                  loading={i === 0 ? undefined : "lazy"}
-                />
-              ))}
-            </div>
-
-          <div className="prod-stage-panel">
-            <div className="prod-panel-body" key={current.id}>
-              <span className="prod-index serif" aria-hidden>
-                {current.tag}
-              </span>
-              <span className="prod-pill">{current.pill}</span>
-              <h3 className="serif">{current.name}</h3>
-              <div className="prod-sub">{current.sub}</div>
-              <p>{current.desc}</p>
-              <ul className="prod-specs">
-                {current.specs.map((s) => (
-                  <li key={s}>
-                    <span className="prod-tick" aria-hidden />
-                    {s}
-                  </li>
-                ))}
-              </ul>
-              <Link href={current.href} className="prod-product-link">
-                {t("discover", { name: current.name })}
-              </Link>
-            </div>
-
-            <div className="prod-stage-nav">
-              <button
-                type="button"
-                aria-label={t("previous")}
-                onClick={() => stepProduct(-1)}
+        <div ref={stageRef} className="prod-carousel">
+          {products.map((p, i) => {
+            const distance = (i - active + products.length) % products.length;
+            const slot = ["center", "next", "far-next", "far-previous", "previous"][distance];
+            const selected = slot === "center";
+            const preview = slot === "previous" || slot === "next";
+            return (
+              <div
+                key={p.id}
+                className={`prod-slide${selected ? " prod-stage" : ""}${preview ? ` prod-peek prod-peek--${slot}` : ""}`}
+                data-slot={slot}
+                data-product-id={p.id}
+                id={selected ? "product-panel" : undefined}
+                role={selected ? "tabpanel" : preview ? "button" : undefined}
+                aria-labelledby={selected ? `product-tab-${p.id}` : undefined}
+                aria-label={preview ? `${t(slot === "previous" ? "previous" : "next")}: ${p.name}` : undefined}
+                aria-hidden={!selected && !preview ? true : undefined}
+                data-carousel-ready={selected ? (stageFullyVisible ? "true" : "false") : undefined}
+                tabIndex={selected || preview ? 0 : -1}
+                onClick={preview ? () => selectProduct(i) : undefined}
+                onKeyDown={preview ? (event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    selectProduct(i);
+                  }
+                } : undefined}
               >
-                <ArrowLeft size={18} strokeWidth={1.8} />
-              </button>
-              <span className="prod-counter">{current.tag} / 05</span>
-              <button
-                type="button"
-                aria-label={t("next")}
-                onClick={() => stepProduct(1)}
-              >
-                <ArrowRight size={18} strokeWidth={1.8} />
-              </button>
-            </div>
-          </div>
-
-          </div>
-
-          <button
-            key={`next-${next.id}`}
-            type="button"
-            className="prod-peek prod-peek--next"
-            aria-label={`${t("next")}: ${next.name}`}
-            onClick={() => stepProduct(1)}
-            onWheel={onStageWheel}
-          >
-            <Image src={next.img} alt="" width={600} height={600} sizes="(max-width: 960px) 1px, 26vw" />
-            <span className="prod-peek-caption"><small>{next.tag}</small>{next.name}</span>
-          </button>
+                <div className="prod-stage-media">
+                  <Image
+                    src={p.img}
+                    alt={selected ? p.name : ""}
+                    width={1000}
+                    height={1000}
+                    sizes="(max-width: 960px) 100vw, (max-width: 1500px) 45vw, 520px"
+                    className={p.id === "nest" ? "nest" : ""}
+                    loading={i === 0 || i === 1 || i === products.length - 1 ? "eager" : "lazy"}
+                  />
+                </div>
+                <span className="prod-peek-caption" aria-hidden={selected}>
+                  <small>{p.tag}</small>{p.name}
+                </span>
+                <div className="prod-stage-panel" aria-hidden={!selected}>
+                  <div className="prod-panel-body">
+                    <span className="prod-index serif" aria-hidden>{p.tag}</span>
+                    <span className="prod-pill">{p.pill}</span>
+                    <h3 className="serif">{p.name}</h3>
+                    <div className="prod-sub">{p.sub}</div>
+                    <p>{p.desc}</p>
+                    <ul className="prod-specs">
+                      {p.specs.map((spec) => (
+                        <li key={spec}><span className="prod-tick" aria-hidden />{spec}</li>
+                      ))}
+                    </ul>
+                    <Link href={p.href} className="prod-product-link" tabIndex={selected ? 0 : -1}>
+                      {t("discover", { name: p.name })}
+                    </Link>
+                  </div>
+                  <div className="prod-stage-nav">
+                    <button type="button" aria-label={t("previous")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(-1); }}>
+                      <ArrowLeft size={18} strokeWidth={1.8} />
+                    </button>
+                    <span className="prod-counter">{p.tag} / 05</span>
+                    <button type="button" aria-label={t("next")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(1); }}>
+                      <ArrowRight size={18} strokeWidth={1.8} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -486,31 +484,30 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        .prod-carousel { position: relative; width: calc(100vw - 3rem); max-width: 1480px; margin-left: 50%; transform: translateX(-50%); }
-        .prod-stage { position: relative; z-index: 2; isolation: isolate; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); column-gap: clamp(1.5rem, 4vw, 4rem); row-gap: clamp(.65rem, 1vw, 1rem); align-items: stretch; width: 76%; margin: 0 auto; height: clamp(560px, calc(100vh - 7.25rem), 700px); min-height: 0; padding: clamp(1rem, 1.8vw, 1.65rem); overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); }
-        .prod-stage::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
-        .prod-stage::after { content: ""; position: absolute; z-index: 2; inset: 1px; pointer-events: none; border-radius: 37px; box-shadow: inset 0 0 40px rgba(255,255,255,.18); }
+        .prod-carousel { --center-width: min(70%, 1125px); --side-width: calc((100% - var(--center-width)) / 2 - .75rem); position: relative; width: calc(100vw - 3rem); height: clamp(560px, calc(100vh - 7.25rem), 700px); margin-left: 50%; transform: translateX(-50%); perspective: 1800px; }
+        .prod-slide { position: absolute; top: 50%; left: 50%; z-index: 0; isolation: isolate; width: var(--center-width); height: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); transform: translate(-50%,-50%) rotateY(0deg); transition: left .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1), transform .68s cubic-bezier(.22,1,.36,1), opacity .4s ease, background .5s ease; }
+        .prod-slide::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
+        .prod-slide[data-slot="center"] { left: 50%; z-index: 2; width: var(--center-width); height: 100%; opacity: 1; }
+        .prod-slide[data-slot="previous"], .prod-slide[data-slot="far-previous"] { left: calc(var(--side-width) / 2); width: var(--side-width); height: 76%; transform: translate(-50%,-50%) rotateY(5deg); }
+        .prod-slide[data-slot="next"], .prod-slide[data-slot="far-next"] { left: calc(100% - var(--side-width) / 2); width: var(--side-width); height: 76%; transform: translate(-50%,-50%) rotateY(-5deg); }
+        .prod-slide[data-slot="previous"], .prod-slide[data-slot="next"] { z-index: 1; opacity: .68; cursor: pointer; }
+        .prod-slide[data-slot^="far-"] { opacity: 0; pointer-events: none; }
+        .prod-stage:focus-visible, .prod-peek:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+        .prod-peek:hover, .prod-peek:focus-visible { opacity: .9; }
         .prod-stage[data-carousel-ready="true"] { overscroll-behavior: contain; }
-        .prod-peek { position: absolute; z-index: 1; top: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 28%; height: 76%; padding: 1.25rem; overflow: hidden; border: 1px solid rgba(255,255,255,.7); border-radius: 32px; background: linear-gradient(145deg, rgba(255,255,255,.32), rgba(226,236,255,.15)); color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.84), 0 18px 48px rgba(43,54,86,.1); -webkit-backdrop-filter: blur(18px) saturate(145%); backdrop-filter: blur(18px) saturate(145%); cursor: pointer; opacity: .57; transform: translateY(-50%) scale(.94); transition: opacity .3s ease, transform .3s ease, box-shadow .3s ease; animation: prodPeekIn .45s ease; }
-        .prod-peek--previous { left: 0; }
-        .prod-peek--next { right: 0; }
-        .prod-peek:hover, .prod-peek:focus-visible { opacity: .82; transform: translateY(-50%) scale(.97); box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 22px 54px rgba(43,54,86,.16); }
-        .prod-peek:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-        .prod-peek img { display: block; width: 100%; height: 74%; object-fit: contain; filter: drop-shadow(0 14px 18px rgba(35,42,64,.12)); }
-        .prod-peek-caption { display: flex; flex-direction: column; width: 100%; font-size: clamp(.8rem, 1.3vw, 1.1rem); font-weight: 600; line-height: 1.3; white-space: nowrap; }
+        .prod-stage-media { position: absolute; z-index: 1; left: .5rem; top: .75rem; width: calc(100% - 1rem); height: 75%; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: linear-gradient(145deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 18px 44px rgba(43,54,86,.08); -webkit-backdrop-filter: blur(12px) saturate(130%); backdrop-filter: blur(12px) saturate(130%); transition: left .68s cubic-bezier(.22,1,.36,1), top .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1); }
+        .prod-stage .prod-stage-media { left: clamp(1rem, 1.8vw, 1.65rem); top: clamp(1rem, 1.8vw, 1.65rem); width: calc(44% - 1rem); height: calc(100% - clamp(2rem, 3.6vw, 3.3rem)); }
+        .prod-stage-media img { display: block; width: 100%; height: 100%; object-fit: contain; padding: clamp(.5rem, 1.2vw, 1rem); filter: drop-shadow(0 14px 18px rgba(35,42,64,.12)); transition: transform .68s cubic-bezier(.22,1,.36,1); }
+        .prod-stage .prod-stage-media img { padding: clamp(1rem, 3vw, 2.25rem); }
+        .prod-stage .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
+        .prod-stage .prod-stage-media:hover img { transform: scale(1.025); }
+        .prod-peek-caption { position: absolute; z-index: 2; left: 1rem; right: 1rem; bottom: 1.25rem; display: flex; flex-direction: column; font-size: clamp(.8rem, 1.3vw, 1.1rem); font-weight: 600; line-height: 1.3; white-space: nowrap; opacity: 1; transition: opacity .2s ease; }
         .prod-peek-caption small { margin-bottom: .25rem; color: var(--ink-3); font-size: .75rem; font-weight: 500; }
-        .prod-peek--previous .prod-peek-caption { align-items: flex-start; }
         .prod-peek--next .prod-peek-caption { align-items: flex-end; }
-        @keyframes prodPeekIn { from { opacity: 0; } to { opacity: .57; } }
-        .prod-stage-media { position: relative; z-index: 1; display: block; width: 100%; min-width: 0; align-self: stretch; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: linear-gradient(145deg, rgba(255,255,255,.34), rgba(255,255,255,.12)); color: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 18px 44px rgba(43,54,86,.08); -webkit-backdrop-filter: blur(12px) saturate(130%); backdrop-filter: blur(12px) saturate(130%); }
-        .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
-        .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
-        .prod-stage-media img.on { opacity: 1; transform: scale(1); }
-        .prod-stage-media:hover img.on { transform: scale(1.025); }
+        .prod-stage .prod-peek-caption, .prod-slide[data-slot^="far-"] .prod-peek-caption { opacity: 0; }
 
-        .prod-stage-panel { position: relative; z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(.25rem, .7vw, .75rem) clamp(.25rem, 1.5vw, 1.5rem) clamp(.25rem, .7vw, .75rem) 0; }
-        @keyframes prodFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        .prod-panel-body { animation: prodFade 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+        .prod-stage-panel { position: absolute; z-index: 3; top: 0; left: 49%; width: 50%; height: 100%; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(.25rem, .7vw, .75rem) clamp(.25rem, 1.5vw, 1.5rem) clamp(.25rem, .7vw, .75rem) 0; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+        .prod-stage .prod-stage-panel { opacity: 1; pointer-events: auto; transition-delay: .18s; }
         .prod-index { display: block; font-size: clamp(2.75rem, 4vw, 4rem); line-height: .9; color: var(--lilac-2); }
         .prod-pill { display: inline-block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0.55rem 0 0.65rem; }
         .prod-panel-body h3 { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.1; margin: 0; }
@@ -557,10 +554,11 @@ export default function ProductsShowcase() {
           .prod-tab.on { background: var(--navy); color: #fff; border-color: var(--navy); }
           .prod-tab::before, .prod-tab-num, .prod-tab-sub { display: none; }
           .prod-tab-name { margin: 0; font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
-          .prod-carousel { width: 100%; max-width: none; margin-left: 0; transform: none; }
-          .prod-peek { display: none; }
-          .prod-stage { grid-template-columns: 1fr; column-gap: 0; row-gap: 1.5rem; width: 100%; margin: 0; height: auto; min-height: 0; padding: 1.25rem; border-radius: 30px; }
-          .prod-stage-panel { padding: 0 .5rem .75rem; }
+          .prod-carousel { width: 100%; height: auto; margin-left: 0; transform: none; }
+          .prod-slide:not(.prod-stage) { display: none; }
+          .prod-slide[data-slot="center"] { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 0; padding: 1.25rem; border-radius: 30px; transform: none; }
+          .prod-stage .prod-stage-media { position: relative; top: auto; left: auto; width: 100%; height: auto; aspect-ratio: 1 / 1; }
+          .prod-stage-panel, .prod-stage .prod-stage-panel { position: relative; top: auto; left: auto; width: 100%; height: auto; padding: 1.5rem .5rem .75rem; }
           .prod-page > .prod-story-invite .prod-story-invite-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 5rem; padding-bottom: 5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }
           .prod-promise-item:nth-child(odd) { border-left: none; }
@@ -580,7 +578,7 @@ export default function ProductsShowcase() {
           .prod-page > .prod-story-invite .prod-story-invite-inner { padding-top: 4.5rem; padding-bottom: 4.5rem; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg, .prod-peek { transition: none; animation: none; }
+          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg, .prod-slide { transition: none; animation: none; }
         }
       `}</style>
     </main>
