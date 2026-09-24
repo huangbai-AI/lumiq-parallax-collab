@@ -47,32 +47,47 @@ test('outer halo slowly travels around the active card and pauses for reduced mo
   await expect(halo).toHaveCount(1);
   const before = await halo.evaluate((element) => {
     const bloom = getComputedStyle(element);
-    const color = getComputedStyle(element, '::before');
-    const sharpRim = getComputedStyle(element, '::after');
+    const source = element.querySelector('.prod-carousel-glow-ring');
+    const color = getComputedStyle(source ?? element, '::before');
     return {
       image: color.backgroundImage,
       diffusion: bloom.filter,
-      mask: bloom.maskImage,
-      sharpRim: sharpRim.content,
+      outerMask: bloom.maskImage,
+      sourceMask: source ? getComputedStyle(source).maskImage : 'none',
       duration: parseFloat(color.animationDuration),
       name: color.animationName,
       transform: color.transform,
     };
   });
   expect(before.image).toContain('conic-gradient');
+  expect(before.image).toContain('rgba(0, 0, 0, 0) 0deg');
+  expect(before.image).toContain('rgba(0, 0, 0, 0) 360deg');
   expect(before.diffusion).toContain('blur(28px)');
-  expect(before.mask).not.toBe('none');
-  expect(before.sharpRim).toBe('none');
+  expect(before.outerMask).toBe('none');
+  expect(before.sourceMask).not.toBe('none');
   expect(before.duration).toBe(10);
   expect(before.name).not.toBe('none');
 
   await page.waitForTimeout(250);
-  const laterTransform = await halo.evaluate((element) => getComputedStyle(element, '::before').transform);
+  const laterTransform = await halo.evaluate((element) => getComputedStyle(element.querySelector('.prod-carousel-glow-ring') ?? element, '::before').transform);
   expect(laterTransform).not.toBe(before.transform);
 
   await page.emulateMedia({reducedMotion: 'reduce'});
-  const reduced = await halo.evaluate((element) => getComputedStyle(element, '::before').animationName);
+  const reduced = await halo.evaluate((element) => getComputedStyle(element.querySelector('.prod-carousel-glow-ring') ?? element, '::before').animationName);
   expect(reduced).toBe('none');
+});
+
+test('active glass card has no fixed bright rim interrupting the soft halo', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
+  await page.setViewportSize({width: 1440, height: 900});
+  await page.goto('/en/products#lineup');
+
+  const card = await page.locator('.prod-slide[data-slot="center"]').evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {border: style.borderTopColor, shadow: style.boxShadow};
+  });
+  expect(card.border).toBe('rgba(0, 0, 0, 0)');
+  expect(card.shadow).not.toContain('inset 0px 1px 0px');
 });
 
 test('product images sit directly on the frosted carousel cards without inner panels', async ({page}, info) => {
