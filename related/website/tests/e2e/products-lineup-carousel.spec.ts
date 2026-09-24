@@ -38,46 +38,47 @@ test('narrow-screen active card shows colored light inside its visible edges', a
   expect(visibleColoredGlow.reduce((sum, [, , , alpha]) => sum + alpha, 0)).toBeLessThan(0.3);
 });
 
-test('two soft radial lights orbit the card without a masked or hard-edged strip', async ({page}, info) => {
+test('one continuous soft light track stays centered on the active card edge and travels in 20 seconds', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto('/en/products#lineup');
 
   const halo = page.locator('.prod-carousel-glow');
   await expect(halo).toHaveCount(1);
-  const lights = halo.locator('.prod-carousel-glow-orb');
-  await expect(lights).toHaveCount(2);
-  const before = await lights.evaluateAll((elements) => elements.map((element) => {
-    const light = getComputedStyle(element);
-    const bloom = getComputedStyle(element, '::before');
-    return {
-      background: light.backgroundImage,
-      bloom: bloom.backgroundImage,
-      filter: light.filter,
-      mask: light.maskImage,
-      duration: parseFloat(light.animationDuration),
-      name: light.animationName,
-      x: light.left,
-    };
+  const track = halo.locator('svg');
+  await expect(track).toHaveCount(1);
+  const cardBox = await page.locator('.prod-slide[data-slot="center"]').boundingBox();
+  const trackBox = await track.boundingBox();
+  expect(cardBox).not.toBeNull();
+  expect(trackBox).not.toBeNull();
+  expect(Math.abs(trackBox!.x - cardBox!.x)).toBeLessThan(2);
+  expect(Math.abs(trackBox!.y - cardBox!.y)).toBeLessThan(2);
+  expect(Math.abs(trackBox!.width - cardBox!.width)).toBeLessThan(2);
+  expect(Math.abs(trackBox!.height - cardBox!.height)).toBeLessThan(2);
+
+  const baseline = track.locator('.prod-glow-base');
+  const moving = track.locator('.prod-glow-travel');
+  await expect(baseline).toHaveCount(1);
+  await expect(moving).toHaveCount(3);
+  expect(await baseline.evaluate((element) => getComputedStyle(element).strokeDasharray)).toBe('none');
+  const before = await moving.evaluateAll((elements) => elements.map((element) => {
+    const style = getComputedStyle(element);
+    return {duration: parseFloat(style.animationDuration), name: style.animationName, offset: style.strokeDashoffset, filter: style.filter, dash: style.strokeDasharray};
   }));
-  for (const light of before) {
-    expect(light.background).toContain('radial-gradient');
-    expect(light.background).toContain('rgba(0, 0, 0, 0) 100%');
-    expect(light.bloom).toContain('radial-gradient');
-    expect(light.bloom).toContain('rgba(0, 0, 0, 0) 100%');
-    expect(light.filter).toContain('blur(');
-    expect(light.mask).toBe('none');
-    expect(light.duration).toBe(10);
-    expect(light.name).not.toBe('none');
+  for (const layer of before) {
+    expect(layer.duration).toBe(20);
+    expect(layer.name).not.toBe('none');
+    expect(layer.filter).toContain('blur(');
+    expect(layer.dash).not.toBe('none');
   }
 
   await page.waitForTimeout(250);
-  const laterX = await lights.first().evaluate((element) => getComputedStyle(element).left);
-  expect(laterX).not.toBe(before[0].x);
+  const laterOffset = await moving.first().evaluate((element) => getComputedStyle(element).strokeDashoffset);
+  expect(laterOffset).not.toBe(before[0].offset);
 
   await page.emulateMedia({reducedMotion: 'reduce'});
-  const reduced = await lights.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName));
-  expect(reduced).toEqual(['none', 'none']);
+  const reduced = await moving.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName));
+  expect(reduced).toEqual(['none', 'none', 'none']);
 });
 
 test('active glass card has no fixed bright rim interrupting the soft halo', async ({page}, info) => {

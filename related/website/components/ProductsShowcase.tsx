@@ -337,8 +337,20 @@ export default function ProductsShowcase() {
 
         <div ref={stageRef} className="prod-carousel">
           <div className="prod-carousel-glow" aria-hidden="true">
-            <span className="prod-carousel-glow-orb prod-carousel-glow-orb--cyan" />
-            <span className="prod-carousel-glow-orb prod-carousel-glow-orb--violet" />
+            <svg focusable="false">
+              <defs>
+                <linearGradient id="prod-glow-spectrum" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#66cdf8" />
+                  <stop offset="38%" stopColor="#8ab8ff" />
+                  <stop offset="72%" stopColor="#ad8ff2" />
+                  <stop offset="100%" stopColor="#e5a6df" />
+                </linearGradient>
+              </defs>
+              <rect className="prod-glow-track prod-glow-base" x="0" y="0" width="100%" height="100%" rx="38" pathLength="100" />
+              <rect className="prod-glow-track prod-glow-travel prod-glow-travel--bloom" x="0" y="0" width="100%" height="100%" rx="38" pathLength="100" strokeDasharray="34 66" />
+              <rect className="prod-glow-track prod-glow-travel prod-glow-travel--body" x="0" y="0" width="100%" height="100%" rx="38" pathLength="100" strokeDasharray="20 80" />
+              <rect className="prod-glow-track prod-glow-travel prod-glow-travel--core" x="0" y="0" width="100%" height="100%" rx="38" pathLength="100" strokeDasharray="9 91" />
+            </svg>
           </div>
           {products.map((p, i) => {
             const distance = (i - active + products.length) % products.length;
@@ -488,19 +500,16 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        @keyframes prod-glow-orbit {
-          0% { left: 0; top: 0; }
-          25% { left: 100%; top: 0; }
-          50% { left: 100%; top: 100%; }
-          75% { left: 0; top: 100%; }
-          100% { left: 0; top: 0; }
-        }
+        @keyframes prod-glow-travel { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -100; } }
         .prod-carousel { --center-width: min(70%, 1125px); --side-width: calc((100% - var(--center-width)) / 2 - .75rem); position: relative; width: calc(100vw - 3rem); height: clamp(560px, calc(100vh - 7.25rem), 700px); margin-left: 50%; transform: translateX(-50%); perspective: 1800px; }
-        .prod-carousel-glow { position: absolute; z-index: 1; top: 50%; left: 50%; width: calc(var(--center-width) + 128px); height: calc(100% + 128px); pointer-events: none; transform: translate(-50%, -50%); }
-        .prod-carousel-glow-orb { position: absolute; left: 0; top: 0; width: clamp(260px, 30vw, 430px); height: clamp(260px, 40vh, 400px); border-radius: 50%; transform: translate(-50%, -50%); filter: blur(22px); background: radial-gradient(ellipse at center, var(--glow-core) 0%, var(--glow-mid) 25%, var(--glow-soft) 53%, transparent 100%); animation: prod-glow-orbit 10s linear infinite; }
-        .prod-carousel-glow-orb::before { content: ""; position: absolute; inset: -17%; border-radius: 50%; background: radial-gradient(ellipse at center, var(--glow-bloom) 0%, var(--glow-haze) 42%, transparent 100%); filter: blur(24px); }
-        .prod-carousel-glow-orb--cyan { --glow-core: rgba(61,169,236,.62); --glow-mid: rgba(72,180,240,.34); --glow-soft: rgba(83,190,242,.09); --glow-bloom: rgba(61,169,236,.22); --glow-haze: rgba(83,190,242,.06); }
-        .prod-carousel-glow-orb--violet { --glow-core: rgba(140,109,233,.53); --glow-mid: rgba(151,119,235,.29); --glow-soft: rgba(171,141,238,.08); --glow-bloom: rgba(140,109,233,.19); --glow-haze: rgba(171,141,238,.05); animation-delay: -5s; }
+        .prod-carousel-glow { position: absolute; z-index: 3; top: 50%; left: 50%; width: var(--center-width); height: 100%; pointer-events: none; transform: translate(-50%, -50%); }
+        .prod-carousel-glow svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .prod-glow-track { fill: none; stroke: url(#prod-glow-spectrum); }
+        .prod-glow-base { stroke-width: 7px; opacity: .17; filter: blur(6px); }
+        .prod-glow-travel { stroke-linecap: round; animation: prod-glow-travel 20s linear infinite; }
+        .prod-glow-travel--bloom { stroke-width: 38px; opacity: .46; filter: blur(24px); }
+        .prod-glow-travel--body { stroke-width: 17px; opacity: .64; filter: blur(11px); }
+        .prod-glow-travel--core { stroke-width: 6px; opacity: .8; filter: blur(4px); }
         .prod-slide { position: absolute; top: 50%; left: 50%; z-index: 0; isolation: isolate; width: var(--center-width); height: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06), -10px 2px 55px 8px rgba(107,188,237,.12), 10px -2px 104px 20px rgba(190,139,228,.08), 4px 10px 65px 8px rgba(243,177,206,.04); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); transform: translate(-50%,-50%) rotateY(0deg); transition: left .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1), opacity .4s ease, background .5s ease, box-shadow .68s ease; }
         .prod-slide::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
         .prod-slide[data-slot="center"] { left: 50%; z-index: 2; width: var(--center-width); height: 100%; opacity: 1; border-color: transparent; box-shadow: inset 13px 1px 42px 5px rgba(77,187,234,.1), inset -12px 0 74px 12px rgba(151,109,228,.08), inset -4px -10px 62px 11px rgba(232,159,202,.04), 0 24px 70px rgba(43,54,86,.12), 0 6px 20px rgba(43,54,86,.05), 0 0 45px 5px rgba(255,255,255,.55), -10px 0 82px 12px rgba(107,188,237,.08), 12px -3px 132px 28px rgba(159,130,225,.06), 5px 14px 82px 12px rgba(242,168,205,.04); }
@@ -571,7 +580,8 @@ export default function ProductsShowcase() {
           .prod-tab::before, .prod-tab-num, .prod-tab-sub { display: none; }
           .prod-tab-name { margin: 0; font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
           .prod-carousel { width: 100%; height: auto; margin-left: 0; transform: none; }
-          .prod-carousel-glow { width: calc(100% + 48px); border-radius: 54px; }
+          .prod-carousel-glow { width: 100%; }
+          .prod-glow-track { rx: 30px; }
           .prod-slide:not(.prod-stage) { display: none; }
           .prod-slide[data-slot="center"] { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 0; padding: 1.25rem; border-radius: 30px; transform: none; }
           .prod-stage .prod-stage-media { position: relative; top: auto; left: auto; width: 100%; height: auto; aspect-ratio: 1 / 1; }
@@ -595,7 +605,7 @@ export default function ProductsShowcase() {
         }
         @media (prefers-reduced-motion: reduce) {
           .prod-hero-media img, .prod-stage-media img, .prod-story-link svg, .prod-slide { transition: none; animation: none; }
-          .prod-carousel-glow-orb { animation: none; }
+          .prod-glow-travel { animation: none; }
         }
       `}</style>
     </main>
