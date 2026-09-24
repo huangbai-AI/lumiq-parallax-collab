@@ -337,7 +337,8 @@ export default function ProductsShowcase() {
 
         <div ref={stageRef} className="prod-carousel">
           <div className="prod-carousel-glow" aria-hidden="true">
-            <span className="prod-carousel-glow-ring" />
+            <span className="prod-carousel-glow-orb prod-carousel-glow-orb--cyan" />
+            <span className="prod-carousel-glow-orb prod-carousel-glow-orb--violet" />
           </div>
           {products.map((p, i) => {
             const distance = (i - active + products.length) % products.length;
@@ -487,11 +488,19 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        @keyframes prod-glow-orbit { to { transform: rotate(360deg); } }
+        @keyframes prod-glow-orbit {
+          0% { left: 0; top: 0; }
+          25% { left: 100%; top: 0; }
+          50% { left: 100%; top: 100%; }
+          75% { left: 0; top: 100%; }
+          100% { left: 0; top: 0; }
+        }
         .prod-carousel { --center-width: min(70%, 1125px); --side-width: calc((100% - var(--center-width)) / 2 - .75rem); position: relative; width: calc(100vw - 3rem); height: clamp(560px, calc(100vh - 7.25rem), 700px); margin-left: 50%; transform: translateX(-50%); perspective: 1800px; }
-        .prod-carousel-glow { position: absolute; z-index: 1; top: 50%; left: 50%; width: calc(var(--center-width) + 48px); height: calc(100% + 48px); border-radius: 62px; pointer-events: none; transform: translate(-50%, -50%); filter: blur(28px); opacity: .65; }
-        .prod-carousel-glow-ring { position: absolute; inset: 0; padding: 24px; border-radius: inherit; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; }
-        .prod-carousel-glow-ring::before { content: ""; position: absolute; inset: -50%; border-radius: 50%; background: conic-gradient(transparent 0deg, rgba(103,194,238,.03) 18deg, rgba(103,194,238,.66) 52deg, rgba(103,194,238,.2) 83deg, transparent 125deg, rgba(164,132,235,.03) 148deg, rgba(164,132,235,.62) 190deg, rgba(164,132,235,.12) 223deg, transparent 260deg, rgba(240,168,208,.04) 280deg, rgba(240,168,208,.28) 312deg, transparent 360deg); animation: prod-glow-orbit 10s linear infinite; }
+        .prod-carousel-glow { position: absolute; z-index: 1; top: 50%; left: 50%; width: calc(var(--center-width) + 128px); height: calc(100% + 128px); pointer-events: none; transform: translate(-50%, -50%); }
+        .prod-carousel-glow-orb { position: absolute; left: 0; top: 0; width: clamp(260px, 30vw, 430px); height: clamp(260px, 40vh, 400px); border-radius: 50%; transform: translate(-50%, -50%); filter: blur(22px); background: radial-gradient(ellipse at center, var(--glow-core) 0%, var(--glow-mid) 25%, var(--glow-soft) 53%, transparent 100%); animation: prod-glow-orbit 10s linear infinite; }
+        .prod-carousel-glow-orb::before { content: ""; position: absolute; inset: -17%; border-radius: 50%; background: radial-gradient(ellipse at center, var(--glow-bloom) 0%, var(--glow-haze) 42%, transparent 100%); filter: blur(24px); }
+        .prod-carousel-glow-orb--cyan { --glow-core: rgba(61,169,236,.62); --glow-mid: rgba(72,180,240,.34); --glow-soft: rgba(83,190,242,.09); --glow-bloom: rgba(61,169,236,.22); --glow-haze: rgba(83,190,242,.06); }
+        .prod-carousel-glow-orb--violet { --glow-core: rgba(140,109,233,.53); --glow-mid: rgba(151,119,235,.29); --glow-soft: rgba(171,141,238,.08); --glow-bloom: rgba(140,109,233,.19); --glow-haze: rgba(171,141,238,.05); animation-delay: -5s; }
         .prod-slide { position: absolute; top: 50%; left: 50%; z-index: 0; isolation: isolate; width: var(--center-width); height: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 38px; background: linear-gradient(118deg, rgba(255,255,255,.56) 0%, rgba(255,255,255,.26) 52%, rgba(244,247,255,.18) 100%); color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(255,255,255,.28), 0 24px 70px rgba(43,54,86,.13), 0 6px 20px rgba(43,54,86,.06), -10px 2px 55px 8px rgba(107,188,237,.12), 10px -2px 104px 20px rgba(190,139,228,.08), 4px 10px 65px 8px rgba(243,177,206,.04); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); transform: translate(-50%,-50%) rotateY(0deg); transition: left .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1), opacity .4s ease, background .5s ease, box-shadow .68s ease; }
         .prod-slide::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(circle at 18% 8%, rgba(255,255,255,.72), transparent 38%), linear-gradient(105deg, rgba(255,255,255,.2), transparent 46%, rgba(192,206,255,.11)); }
         .prod-slide[data-slot="center"] { left: 50%; z-index: 2; width: var(--center-width); height: 100%; opacity: 1; border-color: transparent; box-shadow: inset 13px 1px 42px 5px rgba(77,187,234,.1), inset -12px 0 74px 12px rgba(151,109,228,.08), inset -4px -10px 62px 11px rgba(232,159,202,.04), 0 24px 70px rgba(43,54,86,.12), 0 6px 20px rgba(43,54,86,.05), 0 0 45px 5px rgba(255,255,255,.55), -10px 0 82px 12px rgba(107,188,237,.08), 12px -3px 132px 28px rgba(159,130,225,.06), 5px 14px 82px 12px rgba(242,168,205,.04); }
@@ -586,7 +595,7 @@ export default function ProductsShowcase() {
         }
         @media (prefers-reduced-motion: reduce) {
           .prod-hero-media img, .prod-stage-media img, .prod-story-link svg, .prod-slide { transition: none; animation: none; }
-          .prod-carousel-glow-ring::before { animation: none; }
+          .prod-carousel-glow-orb { animation: none; }
         }
       `}</style>
     </main>

@@ -38,43 +38,46 @@ test('narrow-screen active card shows colored light inside its visible edges', a
   expect(visibleColoredGlow.reduce((sum, [, , , alpha]) => sum + alpha, 0)).toBeLessThan(0.3);
 });
 
-test('outer halo slowly travels around the active card and pauses for reduced motion', async ({page}, info) => {
+test('two soft radial lights orbit the card without a masked or hard-edged strip', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
   await page.setViewportSize({width: 1440, height: 900});
   await page.goto('/en/products#lineup');
 
   const halo = page.locator('.prod-carousel-glow');
   await expect(halo).toHaveCount(1);
-  const before = await halo.evaluate((element) => {
-    const bloom = getComputedStyle(element);
-    const source = element.querySelector('.prod-carousel-glow-ring');
-    const color = getComputedStyle(source ?? element, '::before');
+  const lights = halo.locator('.prod-carousel-glow-orb');
+  await expect(lights).toHaveCount(2);
+  const before = await lights.evaluateAll((elements) => elements.map((element) => {
+    const light = getComputedStyle(element);
+    const bloom = getComputedStyle(element, '::before');
     return {
-      image: color.backgroundImage,
-      diffusion: bloom.filter,
-      outerMask: bloom.maskImage,
-      sourceMask: source ? getComputedStyle(source).maskImage : 'none',
-      duration: parseFloat(color.animationDuration),
-      name: color.animationName,
-      transform: color.transform,
+      background: light.backgroundImage,
+      bloom: bloom.backgroundImage,
+      filter: light.filter,
+      mask: light.maskImage,
+      duration: parseFloat(light.animationDuration),
+      name: light.animationName,
+      x: light.left,
     };
-  });
-  expect(before.image).toContain('conic-gradient');
-  expect(before.image).toContain('rgba(0, 0, 0, 0) 0deg');
-  expect(before.image).toContain('rgba(0, 0, 0, 0) 360deg');
-  expect(before.diffusion).toContain('blur(28px)');
-  expect(before.outerMask).toBe('none');
-  expect(before.sourceMask).not.toBe('none');
-  expect(before.duration).toBe(10);
-  expect(before.name).not.toBe('none');
+  }));
+  for (const light of before) {
+    expect(light.background).toContain('radial-gradient');
+    expect(light.background).toContain('rgba(0, 0, 0, 0) 100%');
+    expect(light.bloom).toContain('radial-gradient');
+    expect(light.bloom).toContain('rgba(0, 0, 0, 0) 100%');
+    expect(light.filter).toContain('blur(');
+    expect(light.mask).toBe('none');
+    expect(light.duration).toBe(10);
+    expect(light.name).not.toBe('none');
+  }
 
   await page.waitForTimeout(250);
-  const laterTransform = await halo.evaluate((element) => getComputedStyle(element.querySelector('.prod-carousel-glow-ring') ?? element, '::before').transform);
-  expect(laterTransform).not.toBe(before.transform);
+  const laterX = await lights.first().evaluate((element) => getComputedStyle(element).left);
+  expect(laterX).not.toBe(before[0].x);
 
   await page.emulateMedia({reducedMotion: 'reduce'});
-  const reduced = await halo.evaluate((element) => getComputedStyle(element.querySelector('.prod-carousel-glow-ring') ?? element, '::before').animationName);
-  expect(reduced).toBe('none');
+  const reduced = await lights.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName));
+  expect(reduced).toEqual(['none', 'none']);
 });
 
 test('active glass card has no fixed bright rim interrupting the soft halo', async ({page}, info) => {
