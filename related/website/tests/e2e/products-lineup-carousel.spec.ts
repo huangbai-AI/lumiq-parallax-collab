@@ -1,5 +1,28 @@
 import {expect, test} from '@playwright/test';
 
+test('carousel cards diffuse blue and violet light beyond their edges', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop carousel glow');
+  await page.setViewportSize({width: 1440, height: 900});
+  await page.goto('/en/products#lineup');
+
+  const glowColors = async (selector: string) => page.locator(selector).evaluate((element) =>
+    [...getComputedStyle(element).boxShadow.matchAll(/rgba\((\d+), (\d+), (\d+), ([\d.]+)\)/g)]
+      .map((match) => match.slice(1).map(Number)),
+  );
+  const hasBlueGlow = (colors: number[][]) => colors.some(([r, g, b, alpha]) =>
+    r > 100 && b > r + 25 && b > g + 25 && alpha > 0.08,
+  );
+  const hasVioletGlow = (colors: number[][]) => colors.some(([r, g, b, alpha]) =>
+    r > 100 && r > g + 25 && b > g + 25 && alpha > 0.06,
+  );
+
+  for (const slot of ['center', 'previous', 'next']) {
+    const colors = await glowColors(`.prod-slide[data-slot="${slot}"]`);
+    expect(hasBlueGlow(colors), `${slot} card needs a cool outer glow`).toBe(true);
+    expect(hasVioletGlow(colors), `${slot} card needs a violet outer glow`).toBe(true);
+  }
+});
+
 test('product images sit directly on the frosted carousel cards without inner panels', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop carousel cards');
   await page.setViewportSize({width: 1440, height: 900});
