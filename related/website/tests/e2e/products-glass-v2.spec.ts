@@ -21,6 +21,7 @@ test('glass canvas fills the moving card throughout a page turn without a second
     blur: getComputedStyle(element).backdropFilter,
   }));
   expect(face).toEqual({background: 'rgba(0, 0, 0, 0)', blur: 'none'});
+  expect(await page.locator('.prod-stage').evaluate(element => getComputedStyle(element).boxShadow)).toBe('none');
 });
 
 test('whole 3D glass surface replaces decorative rings and leaves controls accessible', async ({page}) => {

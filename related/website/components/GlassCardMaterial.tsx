@@ -1,9 +1,30 @@
 "use client";
 
-import {Component, useEffect, useLayoutEffect, useMemo, type ReactNode} from "react";
-import {Canvas, useThree} from "@react-three/fiber";
+import {Component, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode} from "react";
+import {Canvas, useFrame, useThree} from "@react-three/fiber";
 import {Environment, Lightformer, MeshTransmissionMaterial} from "@react-three/drei";
-import {CanvasTexture, ExtrudeGeometry, NoToneMapping, OrthographicCamera, Shape, SRGBColorSpace} from "three";
+import {CanvasTexture, ExtrudeGeometry, LinearToneMapping, OrthographicCamera, Shape, SRGBColorSpace} from "three";
+import {toCreasedNormals} from "three/examples/jsm/utils/BufferGeometryUtils.js";
+
+function paintStudio(canvas: HTMLCanvasElement, phase: number) {
+  const context = canvas.getContext('2d')!;
+  const base = context.createLinearGradient(0, 0, 440, 512);
+  base.addColorStop(0, '#f4f6fa');
+  base.addColorStop(.32, '#c7cfd8');
+  base.addColorStop(.65, '#e4e8ef');
+  base.addColorStop(1, '#eef0f5');
+  context.fillStyle = base;
+  context.fillRect(0, 0, 512, 512);
+  for (const [offset, color] of [[0, 'rgba(153,196,235,.38)'], [Math.PI, 'rgba(194,176,224,.30)']] as const) {
+    const x = 256 + Math.cos(phase + offset) * 190;
+    const y = 256 + Math.sin(phase + offset) * 150;
+    const light = context.createRadialGradient(x, y, 0, x, y, 340);
+    light.addColorStop(0, color);
+    light.addColorStop(1, 'rgba(235,240,250,0)');
+    context.fillStyle = light;
+    context.fillRect(0, 0, 512, 512);
+  }
+}
 
 // One continuous solid, not separate CSS bands. The neutral transmission
 // background is a studio approximation; it does not capture the live DOM.
@@ -39,26 +60,26 @@ function GlassSlab() {
       bevelThickness: .16, bevelSegments: 16, curveSegments: 24, steps: 1,
     });
     solid.center();
-    return solid;
+    return toCreasedNormals(solid, Math.PI / 3);
   }, [size.width, size.height]);
   useEffect(() => () => geometry.dispose(), [geometry]);
   const backdrop = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 512;
-    const context = canvas.getContext("2d")!;
-    const light = context.createLinearGradient(0, 0, 440, 512);
-    light.addColorStop(0, "#fafbfc");
-    light.addColorStop(.3, "#c7cfd8");
-    light.addColorStop(.58, "#e3e8ed");
-    light.addColorStop(.82, "#f7f8fa");
-    light.addColorStop(1, "#e0e5ea");
-    context.fillStyle = light;
-    context.fillRect(0, 0, 512, 512);
+    paintStudio(canvas, 0);
     const texture = new CanvasTexture(canvas);
     texture.colorSpace = SRGBColorSpace;
     return texture;
   }, []);
   useEffect(() => () => backdrop.dispose(), [backdrop]);
+  const lastPaint = useRef(-1);
+  useFrame(({clock}) => {
+    const elapsed = clock.getElapsedTime();
+    if (elapsed - lastPaint.current < 1 / 20) return;
+    lastPaint.current = elapsed;
+    paintStudio(backdrop.image as HTMLCanvasElement, elapsed * Math.PI * 2 / 40);
+    backdrop.needsUpdate = true;
+  });
   return <>
     <ambientLight intensity={.35} />
     <Environment resolution={128}>
@@ -87,17 +108,30 @@ function FrostedFallback() {
 }
 
 export default function GlassCardMaterial() {
-  return <div className="prod-glass-material" aria-hidden="true" style={{position: "absolute", inset: 0, borderRadius: 'inherit', pointerEvents: "none", zIndex: 0}}>
+  const container = useRef<HTMLDivElement>(null);
+  const [running, setRunning] = useState(false);
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let visible = false;
+    const update = () => setRunning(visible && !reduced.matches && !document.hidden);
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); });
+    if (container.current) observer.observe(container.current);
+    reduced.addEventListener('change', update);
+    document.addEventListener('visibilitychange', update);
+    return () => { observer.disconnect(); reduced.removeEventListener('change', update); document.removeEventListener('visibilitychange', update); };
+  }, []);
+  return <div ref={container} className="prod-glass-material" aria-hidden="true" style={{position: "absolute", inset: 0, borderRadius: 'inherit', pointerEvents: "none", zIndex: 0}}>
     <MaterialFallback>
       <Canvas orthographic camera={{position: [0, 0, 10], manual: true, near: .1, far: 30}}
         resize={{scroll: false, debounce: 0, offsetSize: true}}
-        frameloop="demand" dpr={[1, 1.5]} gl={{alpha: true, antialias: true, toneMapping: NoToneMapping}}
+        frameloop={running ? 'always' : 'demand'} dpr={[1, 1.5]} gl={{alpha: true, antialias: true, toneMapping: LinearToneMapping, toneMappingExposure: 1.3}}
         fallback={<FrostedFallback />}>
         <GlassSlab />
       </Canvas>
     </MaterialFallback>
     <style jsx global>{`
       .prod-glass-material canvas { width: 100% !important; height: 100% !important; }
+      .prod-glass-material { filter: drop-shadow(0 12px 16px rgba(37,43,52,.16)); }
     `}</style>
   </div>;
 }
