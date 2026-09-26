@@ -3,26 +3,35 @@
 import {Component, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode} from "react";
 import {Canvas, useFrame, useThree} from "@react-three/fiber";
 import {Environment, Lightformer, MeshTransmissionMaterial} from "@react-three/drei";
-import {CanvasTexture, ExtrudeGeometry, LinearToneMapping, OrthographicCamera, Shape, SRGBColorSpace} from "three";
-import {toCreasedNormals} from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import {CanvasTexture, LinearToneMapping, OrthographicCamera, SRGBColorSpace} from "three";
+import {createPillowGeometry} from "@/lib/pillow-glass";
 
 function paintStudio(canvas: HTMLCanvasElement, phase: number) {
   const context = canvas.getContext('2d')!;
-  const base = context.createLinearGradient(0, 0, 440, 512);
-  base.addColorStop(0, '#f4f6fa');
-  base.addColorStop(.32, '#c7cfd8');
-  base.addColorStop(.65, '#e4e8ef');
-  base.addColorStop(1, '#eef0f5');
-  context.fillStyle = base;
+  context.fillStyle = '#e5e8ed';
   context.fillRect(0, 0, 512, 512);
-  for (const [offset, color] of [[0, 'rgba(153,196,235,.38)'], [Math.PI, 'rgba(194,176,224,.30)']] as const) {
-    const x = 256 + Math.cos(phase + offset) * 190;
-    const y = 256 + Math.sin(phase + offset) * 150;
-    const light = context.createRadialGradient(x, y, 0, x, y, 340);
+  // Unequal overlapping washes, with incommensurate drift frequencies.
+  // No repeating circular sweep or granular noise in the frosted face.
+  const washes = [
+    [140, 145, 235, .75, 'rgba(96,115,137,.32)'],
+    [325, 255, 180, 2.1, 'rgba(142,157,184,.28)'],
+    [110, 425, 185, 4.5, 'rgba(255,255,255,.85)'],
+    [455, 110, 240, 1.6, 'rgba(255,255,255,.68)'],
+    [300, 390, 200, 3.3, 'rgba(205,197,219,.25)'],
+  ] as const;
+  for (const [cx, cy, radius, offset, color] of washes) {
+    const x = cx + Math.sin(phase * .63 + offset) * 65 + Math.sin(phase * 1.13 + offset) * 18;
+    const y = cy + Math.cos(phase * .79 + offset) * 55;
+    context.save();
+    context.translate(x, y);
+    context.rotate(offset + Math.sin(phase * .31) * .2);
+    context.scale(1.3, .78);
+    const light = context.createRadialGradient(0, 0, 0, 0, 0, radius);
     light.addColorStop(0, color);
-    light.addColorStop(1, 'rgba(235,240,250,0)');
+    light.addColorStop(1, color.replace(/,[.\d]+\)$/, ',0)'));
     context.fillStyle = light;
-    context.fillRect(0, 0, 512, 512);
+    context.fillRect(-radius, -radius, radius * 2, radius * 2);
+    context.restore();
   }
 }
 
@@ -46,27 +55,9 @@ function GlassSlab({running}: {running: boolean}) {
     lens.updateProjectionMatrix();
     invalidate();
   }, [size.width, size.height, camera, invalidate]);
-  const geometry = useMemo(() => {
-    const w = Math.max(.4, size.width / 100 - .4);
-    const h = Math.max(.4, size.height / 100 - .4);
-    const r = Math.min(.32, w / 3, h / 3);
-    const shape = new Shape();
-    shape.moveTo(-w / 2 + r, -h / 2);
-    shape.lineTo(w / 2 - r, -h / 2);
-    shape.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
-    shape.lineTo(w / 2, h / 2 - r);
-    shape.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
-    shape.lineTo(-w / 2 + r, h / 2);
-    shape.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
-    shape.lineTo(-w / 2, -h / 2 + r);
-    shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
-    const solid = new ExtrudeGeometry(shape, {
-      depth: .18, bevelEnabled: true, bevelSize: .18,
-      bevelThickness: .16, bevelSegments: 16, curveSegments: 24, steps: 1,
-    });
-    solid.center();
-    return toCreasedNormals(solid, Math.PI / 3);
-  }, [size.width, size.height]);
+  const geometry = useMemo(() => createPillowGeometry(
+    Math.max(.4, size.width / 100 - .04), Math.max(.4, size.height / 100 - .04),
+  ), [size.width, size.height]);
   useEffect(() => () => geometry.dispose(), [geometry]);
   const backdrop = useMemo(() => {
     const canvas = document.createElement("canvas");
@@ -88,14 +79,14 @@ function GlassSlab({running}: {running: boolean}) {
   return <>
     <ambientLight intensity={.35} />
     <Environment resolution={128}>
-      <Lightformer position={[-3, 3, 4]} rotation={[0, -.35, -.35]} scale={[3, 7, 1]} intensity={3.2} />
-      <Lightformer position={[4, 1, 3]} rotation={[0, .45, .2]} scale={[1.3, 6, 1]} intensity={1.8} />
-      <Lightformer position={[0, -4, 2]} scale={[6, 3, 1]} intensity={.65} />
+      <Lightformer form="circle" position={[-3, 3, 4]} rotation={[0, -.35, -.35]} scale={[3.5, 6, 1]} intensity={2.4} />
+      <Lightformer position={[4, 1, 3]} rotation={[0, .45, .4]} scale={[1.5, 5, 1]} intensity={1.6} />
+      <Lightformer form="circle" position={[-2, -4, 3]} scale={[4, 2, 1]} intensity={2} />
     </Environment>
     <mesh geometry={geometry}>
       <MeshTransmissionMaterial background={backdrop} color="#ffffff"
-        transmission={.96} roughness={.3} thickness={.5} ior={1.46}
-        clearcoat={.55} clearcoatRoughness={.18} envMapIntensity={1.05}
+        transmission={.96} roughness={.32} thickness={.9} ior={1.43}
+        clearcoat={.4} clearcoatRoughness={.26} envMapIntensity={.9}
         chromaticAberration={0} distortion={0} temporalDistortion={0}
         samples={8} resolution={256} />
     </mesh>
