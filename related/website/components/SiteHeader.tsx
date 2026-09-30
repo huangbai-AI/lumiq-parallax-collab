@@ -27,7 +27,6 @@ export default function SiteHeader() {
     { href: "/products", label: t("products") },
     { href: "/story", label: t("brandStory") },
     { href: "/plans", label: t("plans") },
-    { href: "/media", label: t("mediaReviews") },
     { href: "/faq", label: t("faq") },
   ] as const;
 
@@ -55,7 +54,7 @@ export default function SiteHeader() {
   }, [menuOpen]);
 
   useEffect(() => {
-    const wide = window.matchMedia("(min-width: 1121px)");
+    const wide = window.matchMedia("(min-width: 1024px)");
     const closeOnWide = () => {
       if (wide.matches) setMenuOpen(false);
     };
@@ -140,7 +139,7 @@ export default function SiteHeader() {
         <Link prefetch={isHomepage ? false : undefined} href="/" className="nav-logo" onClick={closeMenu}>
           <Image
             src="/assets/brand/lumiq-logo-transparent-dark.png"
-            alt="LumiQ Studio"
+            alt={isHomepage ? "LUMIQ Studio" : "LumiQ Studio"}
             className="nav-logo-img"
             width={360}
             height={96}
@@ -219,6 +218,7 @@ export default function SiteHeader() {
             ) : (
               <Menu size={22} strokeWidth={2.2} />
             )}
+            <span className="site-mobile-trigger-label">{t("menu")}</span>
           </button>
         </div>
       </div>

@@ -197,4 +197,19 @@
 .lh-products[data-glass-3d] .lh-glass-products { display: block; position: relative; height: clamp(560px, 76svh, 1000px); width: 100%; }
 .lh-products[data-glass-3d] .lh-glass-products::after { content: ""; position: absolute; inset: auto 0 0; height: 20%; pointer-events: none; background: linear-gradient(transparent, #f5f3f9); }
 .lh-home .lh-products[data-glass-3d] { background: #f5f3f9; }
-.lh-products[data-glass-3d] .lh-products-stage { gap: 8px; }
+.lh-products[data-glass-3d] .lh-products-stage { min-height: 0; gap: 8px; overflow: clip; }
+.lh-products[data-glass-3d] .lh-products-footer { position: relative; z-index: 2; width: 100%; height: 0; min-height: 0; margin: -18svh 0 0; }
+.lh-products[data-glass-3d][data-enhanced] .lh-products-progress { display: none; }
+.lh-products[data-glass-3d] .lh-products-controls {
+  position: absolute;
+  top: -29svh;
+  left: 0;
+  right: 0;
+  height: 44px;
+  padding-inline: clamp(16px, calc(25vw - 300px), 300px);
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.lh-products[data-glass-3d] .lh-products-controls button { pointer-events: auto; }

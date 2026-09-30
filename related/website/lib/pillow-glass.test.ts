@@ -2,6 +2,17 @@ import {describe, expect, it} from 'vitest';
 import {createPillowGeometry} from './pillow-glass';
 
 describe('inflated glass solid', () => {
+  it('keeps straight front edges with small corners independent of card aspect ratio', () => {
+    for (const [width, height] of [[9.7, 7], [3.5, 8]]) {
+      const geometry = createPillowGeometry(width, height);
+      const p = geometry.getAttribute('position');
+      const topEdge = Array.from({length: p.count}, (_, i) => i).filter(i =>
+        Math.abs(p.getZ(i)) < .00001 && p.getY(i) > height / 2 - .001);
+      expect(topEdge.length).toBeGreaterThan(5);
+      expect(Math.max(...topEdge.map(i => p.getX(i)))).toBeGreaterThan(width / 2 - .7);
+      geometry.dispose();
+    }
+  });
   it('has a continuously rounded face rather than a flat front with bevel bands', () => {
     const geometry = createPillowGeometry(9.7, 7);
     const p = geometry.getAttribute('position');

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
-import { mountCarouselWheelGate } from "./readingGuard";
+import { mountHorizontalCarousel } from "./readingNavigation";
 import { useTranslations } from "next-intl";
 import { ArrowUp, ArrowDown, Play, Pause } from "lucide-react";
 
@@ -14,6 +14,8 @@ export default function HomeFilms() {
   const [playing, setPlaying] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
   const character = useRef<HTMLVideoElement>(null);
+  const characterHost = useRef<HTMLDivElement>(null);
+  const [alphaVideo, setAlphaVideo] = useState(false);
   const stage = useRef<HTMLDivElement>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const [travel, setTravel] = useState(0);
@@ -35,8 +37,14 @@ export default function HomeFilms() {
   useEffect(() => {
     const target = stage.current;
     if (!target) return;
-    return mountCarouselWheelGate(target, () => select(1), () => switching.current);
+    return mountHorizontalCarousel(target, select, () => switching.current);
   }, [select]);
+  useEffect(() => {
+    // WebKit can decode this VP9 clip without its alpha channel, leaving a white box.
+    // Use the original transparent PNG on Safari/iOS instead of a chroma-key patch.
+    const ua = navigator.userAgent;
+    setAlphaVideo(!/iPad|iPhone|iPod/.test(ua) && /Chrome|Chromium|Edg|Firefox/.test(ua));
+  }, []);
   useEffect(() => {
     const element = video.current;
     if (!element) return;
@@ -50,47 +58,53 @@ export default function HomeFilms() {
   }, [active]);
   useEffect(() => {
     const clip = character.current;
+    const host = characterHost.current;
     const target = stage.current;
-    if (!clip || !target) return;
+    if (!host || !target) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const placeCharacter = () => {
       if (innerWidth <= 1100) {
-        clip.pause();
+        clip?.pause();
         return;
       }
-      clip.style.removeProperty('top');
-      clip.style.removeProperty('bottom');
+      host.style.removeProperty('top');
+      host.style.removeProperty('bottom');
       const cardLeft = target.parentElement!.offsetLeft + target.offsetLeft + target.clientWidth * .09;
       // Preserve the afternoon character height; align V2's fingertip with the card.
-      const width = Math.min(innerWidth * .34, 760) * 16 / 9;
-      clip.style.width = `${width}px`;
-      clip.style.left = `${cardLeft + 3 - width * .89}px`;
+      const heading = host.parentElement!.querySelector<HTMLElement>('.lh-films-heading');
+      const headingBottom = heading ? heading.offsetTop + heading.offsetHeight : 0;
+      // Reserve title clearance on wide, short viewports without moving the film cards.
+      const availableHeight = Math.max(0, host.parentElement!.clientHeight * .94 - headingBottom - 24);
+      const width = Math.min(innerWidth * .34, 760, availableHeight) * 16 / 9;
+      host.style.width = `${width}px`;
+      host.style.left = `${cardLeft + 3 - width * .89}px`;
     };
     const resize = new ResizeObserver(placeCharacter);
     resize.observe(target);
-    resize.observe(clip.parentElement!);
+    resize.observe(host.parentElement!);
     window.addEventListener("resize", placeCharacter);
     placeCharacter();
     let visible = false;
     const sync = () => {
+      if (!clip) return;
       if (!visible || document.hidden || reduced.matches || innerWidth <= 1100) clip.pause();
       else if (!clip.ended) void clip.play().catch(() => {});
     };
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
-      if (!visible) { clip.pause(); clip.currentTime = 0; }
+      if (!visible && clip) { clip.pause(); clip.currentTime = 0; }
       sync();
     }, { threshold: 0.35 });
     observer.observe(target);
     document.addEventListener("visibilitychange", sync);
     reduced.addEventListener("change", sync);
     return () => {
-      clip.pause(); observer.disconnect(); resize.disconnect();
+      clip?.pause(); observer.disconnect(); resize.disconnect();
       window.removeEventListener("resize", placeCharacter);
       document.removeEventListener("visibilitychange", sync);
       reduced.removeEventListener("change", sync);
     };
-  }, []);
+  }, [alphaVideo]);
   const toggle = async () => {
     if (!video.current) return;
     if (!video.current.paused) video.current.pause();
@@ -107,16 +121,14 @@ export default function HomeFilms() {
           if (touchStart.current !== null) {
             const dx = e.changedTouches[0].clientX - touchStart.current.x;
             const dy = e.changedTouches[0].clientY - touchStart.current.y;
-            const mobile = matchMedia("(max-width: 1100px)").matches;
-            const distance = mobile ? dx : dy;
-            if (Math.abs(distance) > 50 && (!mobile || Math.abs(dx) > Math.abs(dy))) select(distance < 0 ? 1 : -1);
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) select(dx < 0 ? 1 : -1);
           }
           touchStart.current = null;
         }}>
         {[-2, -1, 0, 1, 2].map(offset => {
           const index = (active + offset + films.length) % films.length;
           const slot = offset - travel;
-          return <div key={`${active}-${offset}`} className="lh-film-slot" style={{ "--slot": slot, "--card-scale": slot === 0 ? 1 : 70 / 91, "--card-height": slot === 0 ? 1 : .8, "--card-opacity": slot === 0 ? 1 : .45 } as CSSProperties} aria-hidden={Math.abs(slot) > 1}>
+          return <div key={`${active}-${offset}`} className="lh-film-slot" data-center={slot === 0} data-main={offset === 0} style={{ "--slot": slot, "--card-scale": slot === 0 ? 1 : 70 / 91, "--card-height": slot === 0 ? 1 : .8, "--card-opacity": slot === 0 || offset === 0 ? 1 : .45 } as CSSProperties} aria-hidden={Math.abs(slot) > 1}>
           {offset !== 0 ? <button className={`lh-film-preview lh-film-preview-${offset < 0 ? "top" : "bottom"}`}
             tabIndex={Math.abs(slot) > 1 || travel !== 0 ? -1 : 0} disabled={travel !== 0}
             type="button" onClick={() => select(Math.sign(offset))} aria-label={`${t(offset < 0 ? "previous" : "next")}: ${t(`${films[index]}.title`)}`}>
@@ -140,9 +152,11 @@ export default function HomeFilms() {
         <button type="button" onClick={() => select(1)} disabled={travel !== 0} aria-label={t("next")}><ArrowDown size={24} /></button>
       </nav>
       </div>
-      <video ref={character} className="lh-film-character" muted playsInline preload="none" aria-hidden="true" poster="/assets/character-20260911/poster-v2.png">
+      <div ref={characterHost} className="lh-film-character" data-alpha-video={alphaVideo} aria-hidden="true">
+      {alphaVideo ? <video ref={character} muted playsInline preload="none" poster="/assets/character-20260911/poster-v2.png">
         <source src="/assets/character-20260911/ola-girl-v2-alpha.webm" type="video/webm" />
-      </video>
+      </video> : <Image src="/assets/character-20260911/poster-v2.png" alt="" fill unoptimized sizes="100vw" />}
+      </div>
     </div>
   );
 }

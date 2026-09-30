@@ -13,11 +13,11 @@ export default function StoryPage() {
     title: t(`p${i}Title`),
     body: t(`p${i}Body`),
   }));
-  const years = ["2011", "2024", "2025", "2026"];
+  const years = ["2024", "2025", "2026"];
   const milestones = years.map((year, i) => ({
     year,
-    title: t(`m${i + 1}Title`),
-    body: t(`m${i + 1}Body`),
+    title: t(`m${i + 2}Title`),
+    body: t(`m${i + 2}Body`),
   }));
   const collection = [
     PRODUCT_BY_ID.tablet,
@@ -164,14 +164,15 @@ export default function StoryPage() {
         .story-hero-media figcaption span { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); }
         .story-hero-media figcaption strong { max-width: 640px; text-align: right; font-family: var(--font-serif); font-size: clamp(1.15rem, 2vw, 1.85rem); font-weight: 500; line-height: 1.25; }
 
-        .story-page .story-origin { display: grid; grid-template-columns: minmax(180px, .4fr) minmax(0, 1fr); gap: 3rem 7rem; padding: clamp(5rem, 7vw, 7rem) 2rem; }
-        .story-section-label { display: flex; align-items: start; gap: 1rem; padding-top: .4rem; border-top: 1px solid var(--border-h); color: var(--ink-3); }
+        .story-page .story-origin { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 2.5vw, 2.25rem); padding: clamp(4rem, 5vw, 5rem) 2rem; }
+        .story-section-label { display: flex; align-items: center; gap: 1rem; color: var(--ink-3); }
+        .story-section-label::after { content: ""; flex: 1; height: 1px; margin-left: 1rem; background: var(--border-h); }
         .story-section-label span { color: var(--gold); font-family: var(--font-serif); }
         .story-section-label p { margin: 0; font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; }
-        .story-origin-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-        .story-origin-copy p { margin: 0; color: var(--ink-2); font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.75; }
+        .story-origin-copy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 5vw, 4.5rem); }
+        .story-origin-copy p { margin: 0; color: var(--ink-2); font-size: clamp(1rem, 1.05vw, 1.125rem); line-height: 1.65; }
 
-        .story-page .story-principles { padding: clamp(6rem, 8vw, 8rem) 0; background: transparent; border-block: 1px solid rgba(20,20,20,.06); }
+        .story-page .story-principles { padding: clamp(6rem, 8vw, 8rem) 0; background: transparent; }
         .story-section-head { display: flex; align-items: end; justify-content: space-between; gap: 3rem; margin-bottom: 3.5rem; }
         .story-section-head h2 { margin: .8rem 0 0; max-width: 700px; font-size: clamp(2.25rem, 4.5vw, 4rem); line-height: 1.04; letter-spacing: -.025em; }
         .story-section-head > p { max-width: 430px; margin: 0; color: var(--ink-3); line-height: 1.7; }
@@ -191,7 +192,7 @@ export default function StoryPage() {
         .story-quote-band cite { color: var(--ink-3); font-size: .72rem; font-style: normal; letter-spacing: .18em; text-transform: uppercase; }
 
         .story-page .story-timeline { padding: clamp(5.5rem, 7vw, 7rem) 2rem clamp(5rem, 6vw, 6rem); }
-        .story-timeline-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); list-style: none; margin: 0; padding: 0; }
+        .story-timeline-grid { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); list-style: none; margin: 0; padding: 0; }
         .story-timeline-grid::before { content: ""; position: absolute; top: 8px; right: 0; left: 0; height: 1px; background: var(--border); }
         .story-milestone { position: relative; padding-top: 2.75rem; }
         .story-milestone::before { content: ""; position: absolute; top: 3px; left: 0; width: 11px; height: 11px; border: 2px solid #fff; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
@@ -214,10 +215,12 @@ export default function StoryPage() {
           .story-hero-copy, .story-page .story-origin, .story-page .story-future-grid { grid-template-columns: 1fr; }
           .story-hero-copy { gap: 1.75rem; }
           .story-hero-copy .kicker { grid-column: auto; }
-          .story-origin { gap: 2rem; }
-          .story-origin-copy { gap: 2rem; }
+          .story-origin { gap: 1.5rem; }
           .story-section-head { align-items: start; flex-direction: column; }
           .story-page .story-future-grid { padding: 4rem 3rem; }
+        }
+        @media (max-width: 899px) {
+          .story-origin-copy { grid-template-columns: 1fr; gap: 1.25rem; }
         }
         @media (max-width: 700px) {
           .story-page { padding-top: 5.75rem; }
@@ -231,7 +234,7 @@ export default function StoryPage() {
           .story-hero-media figcaption span { font-size: .58rem; }
           .story-hero-media figcaption strong { text-align: left; font-size: .95rem; line-height: 1.28; }
           .story-page .story-origin { padding: 4rem 1rem 5rem; }
-          .story-origin-copy, .story-principle-grid, .story-timeline-grid { grid-template-columns: 1fr; }
+          .story-principle-grid, .story-timeline-grid { grid-template-columns: 1fr; }
           .story-page .story-principles { padding: 5rem 0; }
           .story-principle-grid { border-radius: 18px; }
           .story-principle { min-height: auto; border-right: 0; border-bottom: 1px solid rgba(20,20,20,.08) !important; }

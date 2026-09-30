@@ -14,7 +14,7 @@ export function mountRoomAnchor(root: HTMLElement) {
     ScrollTrigger.create({
       id: "home-room-anchor", trigger: room, pin: room,
       start: () => `top ${navHeight()}`,
-      end: () => `+=${innerHeight * 0.65}`,
+      end: () => `+=${innerHeight * 0.3}`,
       anticipatePin: 1, invalidateOnRefresh: true,
     });
     return () => {

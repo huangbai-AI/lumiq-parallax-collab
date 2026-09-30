@@ -94,8 +94,8 @@ export const PRODUCT_CATALOG = [
   },
   {
     id: "nest",
-    name: "Lumiq Nest 15",
-    shortName: "Nest 15",
+    name: "Lumiq Orb",
+    shortName: "Orb",
     category: "Smart family calendar",
     href: "/products/nest",
     legacyHrefs: [],

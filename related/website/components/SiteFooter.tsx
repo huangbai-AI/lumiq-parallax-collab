@@ -21,20 +21,20 @@ export default function SiteFooter() {
                     ? "/assets/brand/lumiq-logo-transparent-dark.png"
                     : "/lumiq-logo.png"
                 }
-                alt="LumiQ Studio"
+                alt={isHomepage ? "LUMIQ Studio" : "LumiQ Studio"}
                 className="foot-logo-img"
                 width={360}
                 height={96}
               />
             </div>
-            <p className="foot-blurb">{t("blurb")}</p>
+            <p className="foot-blurb">{isHomepage ? t("blurb").replace(/lumiq/gi, "LUMIQ") : t("blurb")}</p>
           </div>
           <div className="foot-nav">
             <h4>{t("products")}</h4>
             <ul>
               {PRODUCT_CATALOG.map((product) => (
                 <li key={product.id}>
-                  <Link href={product.href}>{product.name}</Link>
+                  <Link href={product.href}>{isHomepage ? product.name.replace(/lumiq/gi, "LUMIQ") : product.name}</Link>
                 </li>
               ))}
               <li>
@@ -50,9 +50,6 @@ export default function SiteFooter() {
               </li>
               <li>
                 <Link href="/story">{t("brandStory")}</Link>
-              </li>
-              <li>
-                <Link href="/media">{t("mediaReviews")}</Link>
               </li>
               <li>
                 <Link href="/contact">{t("contact")}</Link>

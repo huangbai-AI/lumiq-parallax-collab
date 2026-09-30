@@ -28,6 +28,7 @@ import "./home-anchored.css";
 import "./home-typography.css";
 import "./home-loading.css";
 import "./home-pearl-background.css";
+import "./home-brand-review.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 // Five masks reveal the existing rendered letters, not a browser font.
@@ -203,7 +204,7 @@ export default async function Home() {
               <div className="lh-mobile-ola-art">
                 <Image
                   src="/assets/mobile-backgrounds-20260914/ola-go-ui.webp"
-                  alt="LumiQ OLA + Go"
+                  alt="LUMIQ OLA + Go"
                   width={941}
                   height={1672}
                   sizes="(max-width: 1100px) 100vw, 1px"

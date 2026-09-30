@@ -15,7 +15,6 @@ export type PageMetadataKey =
   | "productPrint"
   | "productNest"
   | "plans"
-  | "media"
   | "faq"
   | "about"
   | "contact"
@@ -35,7 +34,6 @@ const paths: Record<PageMetadataKey, string> = {
   productPrint: "/products/print",
   productNest: "/products/nest",
   plans: "/plans",
-  media: "/media",
   faq: "/faq",
   about: "/about",
   contact: "/contact",
@@ -82,7 +80,6 @@ export async function pageMetadata(
       description: t("description"),
     },
     ...(new Set<PageMetadataKey>([
-      "media",
       "privacy",
       "terms",
       "cookies",

@@ -18,6 +18,7 @@ import {
   Truck,
 } from "lucide-react";
 import { PRODUCT_BY_ID } from "@/lib/products";
+import { CarouselInput } from "@/lib/carousel-input";
 
 const GlassCardMaterial = dynamic(() => import("./GlassCardMaterial"), {ssr: false});
 
@@ -26,9 +27,7 @@ export default function ProductsShowcase() {
   const rootRef = useRef<HTMLElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const wheelReadyAtRef = useRef(0);
-  const wheelDeltaRef = useRef(0);
-  const wheelDeltaExpiresAtRef = useRef(0);
+  const [carouselInput] = useState(() => new CarouselInput());
   const pointerOverCardRef = useRef(false);
   const [active, setActive] = useState(0);
   const [stageFullyVisible, setStageFullyVisible] = useState(false);
@@ -70,7 +69,7 @@ export default function ProductsShowcase() {
       href: PRODUCT_BY_ID.nest.href,
       img: PRODUCT_BY_ID.nest.image,
       tag: "05",
-      name: "Lumiq Nest 15",
+      name: "Lumiq Orb",
       copyIndex: 5,
     },
   ].map(({ copyIndex, ...product }) => ({
@@ -156,6 +155,7 @@ export default function ProductsShowcase() {
         (card.dataset.slot === "center" || card.dataset.slot === "previous" || card.dataset.slot === "next"));
     };
     const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
       if (!pointerOverCardRef.current) return;
       const target = event.target instanceof Element
         ? event.target.closest<HTMLElement>(".prod-slide")
@@ -173,33 +173,51 @@ export default function ProductsShowcase() {
         : rect.top <= navBottom + tolerance && rect.bottom >= window.innerHeight - tolerance;
       if (!isFullyVisible) return;
 
-      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX)
-        ? event.deltaY
-        : event.deltaX;
+      const delta = event.deltaX;
       if (!delta) return;
       event.preventDefault();
 
-      const now = performance.now();
-      if (now < wheelReadyAtRef.current) return;
-      if (now > wheelDeltaExpiresAtRef.current || Math.sign(delta) !== Math.sign(wheelDeltaRef.current)) {
-        wheelDeltaRef.current = 0;
-      }
-      wheelDeltaRef.current += delta;
-      wheelDeltaExpiresAtRef.current = now + 180;
-      if (Math.abs(wheelDeltaRef.current) < 12) return;
-
-      wheelReadyAtRef.current = now + 700;
-      const direction = wheelDeltaRef.current > 0 ? 1 : -1;
-      wheelDeltaRef.current = 0;
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+      const direction = carouselInput.wheel(delta * unit, event.timeStamp, performance.now());
+      if (!direction) return;
       setActive((currentIndex) => (currentIndex + direction + products.length) % products.length);
     };
     window.addEventListener("pointermove", onPointerMove, { passive: true });
+    let start: {x: number; y: number; id: number} | null = null;
+    let suppressClickUntil = 0;
+    const onDown = (event: PointerEvent) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      const target = event.target as Element;
+      if (!target.closest('.prod-slide') || target.closest('button,a')) return;
+      start = {x: event.clientX, y: event.clientY, id: event.pointerId};
+    };
+    const onUp = (event: PointerEvent) => {
+      if (!start || event.pointerId !== start.id) return;
+      const dx = event.clientX - start.x, dy = event.clientY - start.y;
+      start = null;
+      if (Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy) * 1.4) return;
+      suppressClickUntil = performance.now() + 400;
+      if (!carouselInput.navigate(performance.now())) return;
+      setActive(index => (index + (dx < 0 ? 1 : -1) + products.length) % products.length);
+    };
+    const onCancel = () => { start = null; };
+    const onClick = (event: MouseEvent) => {
+      if (performance.now() < suppressClickUntil) { event.preventDefault(); event.stopPropagation(); }
+    };
+    carousel.addEventListener('pointerdown', onDown);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onCancel);
+    carousel.addEventListener('click', onClick, true);
     carousel.addEventListener("wheel", onWheel, { passive: false, capture: true });
     return () => {
       window.removeEventListener("pointermove", onPointerMove);
+      carousel.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onCancel);
+      carousel.removeEventListener('click', onClick, true);
       carousel.removeEventListener("wheel", onWheel, true);
     };
-  }, [products.length]);
+  }, [products.length, carouselInput]);
 
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = heroMediaRef.current;
@@ -221,10 +239,12 @@ export default function ProductsShowcase() {
   const current = products[active];
 
   const selectProduct = (index: number) => {
+    if (index === active || !carouselInput.navigate(performance.now())) return;
     setActive((index + products.length) % products.length);
   };
 
   const stepProduct = (direction: 1 | -1) => {
+    if (!carouselInput.navigate(performance.now())) return;
     setActive((currentIndex) =>
       (currentIndex + direction + products.length) % products.length,
     );
@@ -338,7 +358,7 @@ export default function ProductsShowcase() {
           ))}
         </div>
 
-        <div ref={stageRef} className="prod-carousel">
+        <div ref={stageRef} className="prod-carousel" style={{touchAction: 'pan-y pinch-zoom'}} onDragStart={event => event.preventDefault()}>
           {products.map((p, i) => {
             const distance = (i - active + products.length) % products.length;
             const slot = ["center", "next", "far-next", "far-previous", "previous"][distance];
@@ -412,6 +432,32 @@ export default function ProductsShowcase() {
         </div>
       </section>
 
+      <section id="all-products" className="container prod-catalog" aria-labelledby="catalog-heading">
+        <h2 id="catalog-heading">{t('catalogTitle')}</h2>
+        <div className="prod-catalog-grid">
+          {products.map(product => (
+            <Link key={product.id} href={product.href} className="prod-catalog-card" prefetch={false}>
+              <div className="prod-catalog-image">
+                <Image src={product.img} alt="" width={700} height={700}
+                  sizes="(max-width: 600px) 80vw, 330px" />
+              </div>
+              <div className="prod-catalog-caption">
+                <h3>{product.name}</h3>
+                <p className="prod-catalog-description">{product.desc}</p>
+                <span className="prod-catalog-explore">{t('catalogExplore')}</span>
+              </div>
+            </Link>
+          ))}
+          <article className="prod-catalog-card prod-catalog-more">
+            <div className="prod-catalog-image">
+              <Image src="/assets/brand/lumiq-logo-transparent-dark.png" alt="LumiQ" width={700} height={700}
+                sizes="(max-width: 600px) 70vw, 260px" />
+            </div>
+            <div className="prod-catalog-caption"><h3>more</h3></div>
+          </article>
+        </div>
+      </section>
+
       {/* Brand story invitation */}
       <section className="prod-story-invite reveal">
         <div className="container prod-story-invite-inner">
@@ -447,6 +493,33 @@ export default function ProductsShowcase() {
       <style>{`
         .prod-page { --prod-flow-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'); background-color: #fbfbfe; background-image: var(--prod-flow-bg); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
         .prod-page .container { max-width: 1200px; }
+
+        .prod-page > .prod-catalog { padding-top: 2rem; padding-bottom: clamp(5rem, 8vw, 8rem); scroll-margin-top: 7rem; }
+        .prod-catalog h2 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; margin: 0 0 2.5rem; }
+        .prod-catalog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .prod-catalog-card { display: flex; flex-direction: column; width: 100%; min-width: 0; min-height: 490px; aspect-ratio: 1; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); text-decoration: none; padding: clamp(2rem, 4vw, 3rem); }
+        .prod-catalog-card:nth-child(odd) { border-right: 1px solid rgba(56,76,103,.2); }
+        .prod-catalog-card:nth-child(n+3) { border-top: 1px solid rgba(56,76,103,.2); }
+        .prod-catalog-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; }
+        .prod-catalog-image { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 1rem 1.8rem; }
+        .prod-catalog-image img { width: 100%; max-width: 330px; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 10px rgba(35,40,51,.12)); }
+        .prod-catalog-caption { position: relative; z-index: 1; text-align: center; flex-shrink: 0; padding-bottom: .3rem; }
+        .prod-catalog-caption h3 { margin: 0 0 .3rem; font-size: clamp(1.15rem, 1.7vw, 1.45rem); font-weight: 600; letter-spacing: -.025em; }
+        .prod-catalog-description { max-width: 26rem; min-height: 4.95em; margin: .8rem auto 1rem; color: var(--ink-2); font-size: .9375rem; line-height: 1.65; }
+        .prod-catalog-explore { font-size: .9rem; color: var(--ink-2); text-underline-offset: 4px; }
+        .prod-catalog-card:hover .prod-catalog-explore { text-decoration: underline; }
+        .prod-catalog-more .prod-catalog-image { padding: 2rem; }
+        .prod-catalog-more .prod-catalog-image img { filter: none; max-width: 260px; }
+        .prod-catalog-more .prod-catalog-caption { padding-bottom: 7.8rem; }
+        @media(max-width: 600px) {
+          .prod-catalog-grid { grid-template-columns: minmax(0, 1fr); }
+          .prod-catalog-card { aspect-ratio: auto; min-height: 0; padding: 2.5rem 1rem; }
+          .prod-catalog-card:nth-child(odd) { border-right: 0; }
+          .prod-catalog-card:nth-child(n+2) { border-top: 1px solid rgba(56,76,103,.2); }
+          .prod-catalog-image { flex: none; height: 260px; }
+          .prod-catalog-description { min-height: 0; }
+          .prod-catalog-more .prod-catalog-caption { padding-bottom: 1rem; }
+        }
 
         .prod-kicker { display: block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
         .prod-ghost-link { color: var(--ink-2); border-bottom: 1px solid var(--ink-4); padding-bottom: 2px; font-size: 0.95rem; transition: color .25s, border-color .25s; }

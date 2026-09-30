@@ -5,6 +5,7 @@ import {Canvas, useFrame, useThree} from "@react-three/fiber";
 import {Environment, Lightformer, MeshTransmissionMaterial} from "@react-three/drei";
 import {CanvasTexture, LinearToneMapping, OrthographicCamera, SRGBColorSpace} from "three";
 import {createPillowGeometry} from "@/lib/pillow-glass";
+import {glassFlowPhase} from "@/lib/glass-flow";
 
 function paintStudio(canvas: HTMLCanvasElement, phase: number) {
   const context = canvas.getContext('2d')!;
@@ -14,10 +15,10 @@ function paintStudio(canvas: HTMLCanvasElement, phase: number) {
   // No repeating circular sweep or granular noise in the frosted face.
   const washes = [
     [140, 145, 235, .75, 'rgba(96,115,137,.32)'],
-    [325, 255, 180, 2.1, 'rgba(142,157,184,.28)'],
+    [325, 255, 180, 2.1, 'rgba(154,186,218,.28)'],
     [110, 425, 185, 4.5, 'rgba(255,255,255,.85)'],
     [455, 110, 240, 1.6, 'rgba(255,255,255,.68)'],
-    [300, 390, 200, 3.3, 'rgba(205,197,219,.25)'],
+    [300, 390, 200, 3.3, 'rgba(199,185,220,.28)'],
   ] as const;
   for (const [cx, cy, radius, offset, color] of washes) {
     const x = cx + Math.sin(phase * .63 + offset) * 65 + Math.sin(phase * 1.13 + offset) * 18;
@@ -37,13 +38,13 @@ function paintStudio(canvas: HTMLCanvasElement, phase: number) {
 
 // One continuous solid, not separate CSS bands. The neutral transmission
 // background is a studio approximation; it does not capture the live DOM.
-function GlassSlab({running}: {running: boolean}) {
+function GlassSlab({running, variant}: {running: boolean; variant: number}) {
   const {size, camera, invalidate} = useThree();
   useEffect(() => {
     if (!running) return;
-    const timer = window.setInterval(invalidate, 1000 / 12);
+    const timer = window.setInterval(invalidate, 1000 / (variant ? 8 : 12));
     return () => window.clearInterval(timer);
-  }, [running, invalidate]);
+  }, [running, invalidate, variant]);
   // Commit the projection and geometry together. R3F's automatic projection
   // resize can otherwise expose the old slab in the new viewport for a frame.
   useLayoutEffect(() => {
@@ -62,18 +63,18 @@ function GlassSlab({running}: {running: boolean}) {
   const backdrop = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 512;
-    paintStudio(canvas, 0);
+    paintStudio(canvas, glassFlowPhase(0, variant));
     const texture = new CanvasTexture(canvas);
     texture.colorSpace = SRGBColorSpace;
     return texture;
-  }, []);
+  }, [variant]);
   useEffect(() => () => backdrop.dispose(), [backdrop]);
   const lastPaint = useRef(-1);
   useFrame(({clock}) => {
     const elapsed = clock.getElapsedTime();
     if (elapsed - lastPaint.current < 1 / 20) return;
     lastPaint.current = elapsed;
-    paintStudio(backdrop.image as HTMLCanvasElement, elapsed * Math.PI * 2 / 40);
+    paintStudio(backdrop.image as HTMLCanvasElement, glassFlowPhase(elapsed, variant));
     backdrop.needsUpdate = true;
   });
   return <>
@@ -85,9 +86,9 @@ function GlassSlab({running}: {running: boolean}) {
     </Environment>
     <mesh geometry={geometry}>
       <MeshTransmissionMaterial background={backdrop} color="#ffffff"
-        transmission={.96} roughness={.32} thickness={.9} ior={1.43}
+        transmission={.96} roughness={.3} thickness={.7} ior={1.43}
         clearcoat={.4} clearcoatRoughness={.26} envMapIntensity={.9}
-        chromaticAberration={0} distortion={0} temporalDistortion={0}
+        chromaticAberration={.004} distortion={0} temporalDistortion={0}
         samples={8} resolution={256} />
     </mesh>
   </>;
@@ -103,7 +104,7 @@ function FrostedFallback() {
   return <div style={{position: 'absolute', inset: 0, borderRadius: 'inherit', background: 'rgba(237,240,245,.7)', backdropFilter: 'blur(30px)'}} />;
 }
 
-export default function GlassCardMaterial({animated = false}: {animated?: boolean}) {
+export default function GlassCardMaterial({animated = false, variant = 0}: {animated?: boolean; variant?: number}) {
   const container = useRef<HTMLDivElement>(null);
   const [running, setRunning] = useState(false);
   useEffect(() => {
@@ -120,9 +121,9 @@ export default function GlassCardMaterial({animated = false}: {animated?: boolea
     <MaterialFallback>
       <Canvas orthographic camera={{position: [0, 0, 10], manual: true, near: .1, far: 30}}
         resize={{scroll: false, debounce: 0, offsetSize: true}}
-        frameloop="demand" dpr={[1, 1.5]} gl={{alpha: true, antialias: true, toneMapping: LinearToneMapping, toneMappingExposure: 1.3}}
+        frameloop="demand" dpr={variant ? 1 : [1, 1.5]} gl={{alpha: true, antialias: true, toneMapping: LinearToneMapping, toneMappingExposure: 1.3}}
         fallback={<FrostedFallback />}>
-        <GlassSlab running={running && animated} />
+        <GlassSlab running={running && animated} variant={variant} />
       </Canvas>
     </MaterialFallback>
     <style jsx global>{`

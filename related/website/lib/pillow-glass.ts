@@ -1,20 +1,37 @@
-import {BufferGeometry, Float32BufferAttribute} from 'three';
+import {BufferGeometry, Float32BufferAttribute, Shape} from 'three';
 
 export function createPillowGeometry(width: number, height: number) {
-  const around = 128, rings = 48;
-  const depth = Math.min(.58, width * .24, height * .24);
+  const rings = 48;
+  const depth = Math.min(.4, width * .18, height * .18);
+  const radius = Math.min(.48, width / 4, height / 4);
+  const x = width / 2, y = height / 2;
+  const outline = new Shape();
+  outline.moveTo(x - radius, -y);
+  outline.absarc(x - radius, -y + radius, radius, -Math.PI / 2, 0, false);
+  outline.lineTo(x, y - radius);
+  outline.absarc(x - radius, y - radius, radius, 0, Math.PI / 2, false);
+  outline.lineTo(-x + radius, y);
+  outline.absarc(-x + radius, y - radius, radius, Math.PI / 2, Math.PI, false);
+  outline.lineTo(-x, -y + radius);
+  outline.absarc(-x + radius, -y + radius, radius, Math.PI, Math.PI * 1.5, false);
+  outline.closePath();
+  // Reserve equal tessellation for each corner and straight segment, so small
+  // corners do not become visibly faceted on wide desktop cards.
+  const perimeter = outline.curves.flatMap(curve =>
+    Array.from({length: 20}, (_, i) => curve.getPoint(i / 20)));
+  const around = perimeter.length;
   const positions: number[] = [0, 0, -depth];
   const indices: number[] = [];
   const signedPower = (v: number, power: number) => Math.sign(v) * Math.pow(Math.abs(v), power);
-  // A superellipsoid: no planar cap, bevel band, or second rear outline.
+  // Fixed rounded-rectangle silhouette; depth curvature is independent of
+  // corner radius. Shared vertices keep the inflated face and shoulder smooth.
   for (let row = 1; row < rings; row++) {
     const latitude = -Math.PI / 2 + row * Math.PI / rings;
-    const spread = Math.pow(Math.cos(latitude), .42);
+    const spread = Math.pow(Math.cos(latitude), .25);
     for (let column = 0; column < around; column++) {
-      const angle = column * Math.PI * 2 / around;
       positions.push(
-        width / 2 * spread * signedPower(Math.cos(angle), .2),
-        height / 2 * spread * signedPower(Math.sin(angle), .2),
+        perimeter[column].x * spread,
+        perimeter[column].y * spread,
         depth * signedPower(Math.sin(latitude), .75),
       );
     }
