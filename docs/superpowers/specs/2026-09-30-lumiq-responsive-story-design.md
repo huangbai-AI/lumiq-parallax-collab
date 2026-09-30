@@ -12,14 +12,14 @@ Use the existing shared `SiteHeader` and page styles rather than create separate
 
 Use content-aware CSS grids, fluid sizing, and readable maximum widths for page sections. At wide widths, retain the full-bleed backgrounds while keeping text and controls at readable line lengths. At phone widths, stack content that would otherwise collide; keep controls large enough to use by touch. Do not hide essential content merely to make horizontal-overflow checks pass.
 
-For Brand Story, keep `01 BRAND STORY` and its adjacent rule as the heading row. Below it, render the two existing paragraphs as two balanced columns at widths of at least 900px, with a deliberate gutter. At narrower widths, use one column in source order. Remove the top and bottom section-border rule that currently creates a visible seam at the origin-to-principles transition; keep the single continuous page background and the heading-row rule.
+For Brand Story, keep `01 BRAND STORY` and its adjacent rule as the heading row. Below it, render the two existing paragraphs as two balanced columns at widths of at least 900px, with a deliberate empty gutter and no line between the columns. At narrower widths, use one column in source order. Remove the top and bottom section-border rule that currently creates a visible seam at the origin-to-principles transition; keep the single continuous page background and the heading-row rule.
 
 ## Verification and acceptance
 
 - Check representative viewport widths of 320, 375, 768, 1024, 1280, 1440, 1920, and 2560px, including at least one short viewport height.
 - On every covered route and locale, navigation remains reachable, the page has no unintended horizontal overflow, and essential text and controls are not clipped or covered by the fixed header.
 - On phones, the menu button is evident and opens all destinations and language choices. At the desktop breakpoint, the full navigation fits inside the glass capsule. Resizing across the breakpoint never leaves the menu open while its trigger is hidden or leaves page scrolling locked.
-- Brand Story shows two paragraphs side by side at desktop widths and in one column on phones. The boundary above the principles section has no hairline, while the heading's rule remains.
+- Brand Story shows two paragraphs side by side at desktop widths without a middle divider, and in one column on phones. The boundary above the principles section has no hairline, while the heading's rule remains.
 - Compare before/after screenshots at representative widths. Add the change description and screenshots to the existing local Taiwan LumiQ change-log workbook. If Feishu access remains unavailable, report that explicitly rather than claim remote synchronization.
 - Run the relevant automated tests, typecheck, and browser checks before claiming completion. Keep the local preview available and provide its exact clickable URL. Do not deploy or push this change unless asked.
 
