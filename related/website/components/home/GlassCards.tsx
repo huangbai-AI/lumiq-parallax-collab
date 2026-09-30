@@ -323,7 +323,8 @@ function CardArtwork({ product, active, reflected, opacity, hideLabel = false }:
   }, []);
   const image = texture.image as HTMLImageElement;
   const aspect = image.width / image.height;
-  const width = Math.min(product.body ? 2.45 : 2.55, (product.body ? 2.45 : 2.95) * aspect), height = width / aspect;
+  // Keep every aspect ratio inside the artwork zone, above the DOM caption.
+  const width = Math.min(product.body ? 2.35 : 2.55, (product.body ? 2.1 : 2.95) * aspect), height = width / aspect;
   const label = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 1024; canvas.height = product.body ? 512 : 256;
@@ -347,7 +348,7 @@ function CardArtwork({ product, active, reflected, opacity, hideLabel = false }:
   }, [product, active, fontReady]);
   useEffect(() => () => label.dispose(), [label]);
   return <>
-    <mesh position={[0, product.body ? .78 : .45, .24]} renderOrder={active ? 4 : 0}>
+    <mesh position={[0, product.body ? .98 : .45, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[width, height]} />
       <meshBasicMaterial key={String(active)} map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} userData={reflected ? { reflectionOpacity: .55 * opacity } : {}} depthWrite={false} toneMapped={false}
         onBeforeCompile={shader => {
