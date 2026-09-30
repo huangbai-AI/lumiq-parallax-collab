@@ -520,15 +520,20 @@
   --page-bg-5: url('/assets/subpage-backgrounds-20260915/cookies.webp');
   --page-bg-6: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp');
 }
-.plans-page {
+.story-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/story-flow-clean.webp'); }
+.plans-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/plans-flow-clean.webp'); }
+.media-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/media-flow-clean.webp'); }
+.faq-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp'); }
+.prelaunch-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/prelaunch-flow-clean.webp'); }
+:is(.story-page, .plans-page, .media-page, .faq-page, .prelaunch-page) {
   background-color: #fbfbfe;
-  background-image: var(--page-bg-1);
+  background-image: var(--single-page-bg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
 }
-.plans-page > section::before { display: none; }
+:is(.story-page, .plans-page, .media-page, .faq-page, .prelaunch-page) > section::before { display: none; }
 :is(.faq-page, .prelaunch-page, .child-safety-page) {
   --page-bg-1: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp');
   --page-bg-2: url('/assets/subpage-backgrounds-20260915/faq.webp');

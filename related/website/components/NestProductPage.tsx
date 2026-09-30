@@ -41,18 +41,18 @@ export default function NestProductPage() {
       accent="#6f8db8"
       accentSoft="#dfe7f1"
       backLabel={t("all")}
-      productName="Lumiq Nest 15"
+      productName="Lumiq Orb"
       title={`${t("give")} ${t("place")}`}
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
       priceLabel={`15.6 ${t("display")}`}
+      compactHeroPriceLabel
       ctaLabel={t("waitlist")}
       heroImage={{
         src: selected.image,
         alt: t("altFinish", { name: selected.name }),
         fit: "contain",
       }}
-      heroMeta={`15.6 ${t("display")}`}
       heroOptions={
         <div className="pd-finish-picker" aria-label={t("choose")}>
           <p>

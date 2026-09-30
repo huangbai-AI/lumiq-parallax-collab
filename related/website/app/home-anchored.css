@@ -243,6 +243,10 @@
   overflow: visible;
   border-radius: 0;
 }
+@media (hover: hover) and (pointer: fine) {
+  .lh-home .lh-family-stage { cursor: grab; user-select: none; }
+  .lh-home .lh-family-stage:active { cursor: grabbing; }
+}
 .lh-home .lh-family-scene {
   inset: 0 auto auto 50%;
   width: var(--family-card-width);
@@ -252,6 +256,19 @@
   transform: translateX(calc(-50% + var(--family-offset) * 92%)) scale(var(--family-scale));
   transition: none;
 }
+.lh-home .lh-family-scene[data-preview="true"] { pointer-events: auto; }
+.lh-home .lh-family-preview-button {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.lh-home .lh-family-preview-button:focus-visible { outline: 3px solid #334656; outline-offset: -5px; }
 .lh-home .lh-family-chapters:not([data-travel="0"]) .lh-family-scene {
   transition: transform 750ms cubic-bezier(.22,.65,.25,1), opacity 750ms ease;
 }

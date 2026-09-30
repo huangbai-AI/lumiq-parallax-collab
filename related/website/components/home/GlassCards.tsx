@@ -4,8 +4,8 @@ import { chapterImage } from "./HomeBackgrounds";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO, useTexture } from "@react-three/drei";
-import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, VideoTexture } from "three";
+import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
+import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, VideoTexture } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
 
 export type GlassProduct = { name: string; image: string; body?: string; href?: string; explore?: string };
@@ -18,10 +18,52 @@ const demoProducts: GlassProduct[] = [
 
 type CardPointer = { x: number; y: number; hovered: boolean };
 
+/**
+ * A missing LFS object is served as a small text pointer during a fresh clone.
+ * Drei's useTexture rejects that decode and takes down the whole canvas. Keep a
+ * neutral canvas texture on screen until the real asset is available instead.
+ */
+function useSafeTexture(url: string, transparent = false): Texture {
+  const fallback = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 96;
+    const ctx = canvas.getContext("2d")!;
+    if (!transparent) {
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, "#f8f5fb");
+      gradient.addColorStop(.5, "#e9eef8");
+      gradient.addColorStop(1, "#f7eee9");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    const texture = new CanvasTexture(canvas);
+    texture.colorSpace = SRGBColorSpace;
+    return texture;
+  }, [transparent]);
+  const [texture, setTexture] = useState<Texture>(fallback);
+  useEffect(() => {
+    let alive = true;
+    let loaded: Texture | undefined;
+    setTexture(fallback);
+    new TextureLoader().load(url, value => {
+      if (!alive) { value.dispose(); return; }
+      value.colorSpace = SRGBColorSpace;
+      loaded = value;
+      setTexture(value);
+    }, undefined, () => {
+      // The static fallback keeps local development usable until `git lfs pull` finishes.
+      console.warn(`Could not load ${url}; using the local preview texture.`);
+    });
+    return () => { alive = false; loaded?.dispose(); };
+  }, [url, fallback]);
+  useEffect(() => () => fallback.dispose(), [fallback]);
+  return texture;
+}
+
 function GlassScene({ selected, select, sideView, content, products, carousel = false }: {
   selected: number; select: (index: number) => void; sideView: boolean; content: boolean; products: GlassProduct[]; carousel?: boolean;
 }) {
-  const { camera, size, gl } = useThree();
+  const { camera, size } = useThree();
   const pending = useRef<{ index: number; timer: ReturnType<typeof setTimeout> } | null>(null);
   const blockedUntil = useRef(0);
   const cancelHover = useCallback(() => {
@@ -34,7 +76,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     return cancelHover;
   }, [selected, cancelHover]);
   const hover = useCallback((index: number | null) => {
-    if (gl.domElement.closest("[data-wheel-locked]") || index === null || index === selected || performance.now() < blockedUntil.current) {
+    if (carousel || index === null || index === selected || performance.now() < blockedUntil.current) {
       cancelHover(); return;
     }
     if (pending.current?.index === index) return;
@@ -42,9 +84,9 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     pending.current = { index, timer: setTimeout(() => {
       pending.current = null;
       blockedUntil.current = performance.now() + 1000;
-      if (!gl.domElement.closest("[data-wheel-locked]")) select(index);
+      select(index);
     }, 420) };
-  }, [selected, select, cancelHover, gl]);
+  }, [selected, select, cancelHover, carousel]);
   const opticalObjects = useRef<Group>(null);
   const reflections = useRef<Group>(null);
   const refractionBackground = useRef<Group>(null);
@@ -79,7 +121,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
     opticalObjects.current.visible = true;
     if (refractionBackground.current) refractionBackground.current.visible = !carousel;
   }, -1);
-  const background = useTexture(carousel ? chapterImage("products") : "/assets/home-interactive/pearl-light.webp");
+  const background = useSafeTexture(carousel ? chapterImage("products") : "/assets/home-interactive/pearl-light.webp");
   const geometry = useMemo(() => {
     const w = 3.1, h = 4.5, r = .22;
     const s = new Shape();
@@ -127,7 +169,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
 
 // Refraction uses the same fixed viewport coordinates and crossfade as the page background.
 function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boolean }) {
-  const nextTexture = useTexture(chapterImage("films"));
+  const nextTexture = useSafeTexture(chapterImage("films"));
   const videoMap = useRef<VideoTexture | null>(null);
   const decodedTime = useRef(-1);
   useEffect(() => () => { videoMap.current?.dispose(); }, []);
@@ -226,7 +268,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
         samples={16} resolution={512} backsideResolution={256} color="#ffffff" />
     </mesh>
     <PearlFlow index={index} reflected={reflected} opacity={opacity} active={active} />
-    {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} />}
+    {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} hideLabel={five && !reflected && Boolean(product.body)} />}
     {content && !reflected && Math.abs(offset) <= (five ? 2 : 1) && <Html transform position={[0, 0, .16]} distanceFactor={4}>
       <div className="glass-sample-content" onMouseEnter={() => hover(index)}
         onPointerMove={e => {
@@ -243,6 +285,11 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
           <button className="glass-product-hit" onClick={() => select(index)} aria-pressed={active}>
             <span className="glass-accessible-label">{product.name} · {active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂"}</span>
           </button>}
+        {five && product.body && <div className="glass-carousel-caption" aria-hidden="true">
+          <strong>{product.name}</strong>
+          {active && <p>{product.body}</p>}
+          <span>{product.explore} ↗</span>
+        </div>}
       </div>
     </Html>}
   </group>;
@@ -266,8 +313,8 @@ function GlassShadow({ active }: { active: boolean }) {
 }
 
 /* Original artwork participates in the mirrored card as well as the foreground. */
-function CardArtwork({ product, active, reflected, opacity }: { product: GlassProduct; active: boolean; reflected: boolean; opacity: number }) {
-  const texture = useTexture(product.image);
+function CardArtwork({ product, active, reflected, opacity, hideLabel = false }: { product: GlassProduct; active: boolean; reflected: boolean; opacity: number; hideLabel?: boolean }) {
+  const texture = useSafeTexture(product.image, true);
   const [fontReady, setFontReady] = useState(false);
   useEffect(() => {
     let alive = true;
@@ -276,15 +323,15 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
   }, []);
   const image = texture.image as HTMLImageElement;
   const aspect = image.width / image.height;
-  const width = Math.min(2.55, (product.body ? 2.55 : 2.95) * aspect), height = width / aspect;
+  const width = Math.min(product.body ? 2.45 : 2.55, (product.body ? 2.45 : 2.95) * aspect), height = width / aspect;
   const label = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 1024; canvas.height = product.body ? 512 : 256;
     const ctx = canvas.getContext("2d")!;
     ctx.textAlign = "center"; ctx.fillStyle = active ? "#10243b" : "#233448";
-    ctx.font = `700 74px ${fontReady ? '"Lumiq Manrope"' : 'Arial'}, sans-serif`;
+    ctx.font = `700 96px ${fontReady ? '"Lumiq Manrope"' : 'Arial'}, sans-serif`;
     ctx.fillText(product.name, 512, 100);
-    ctx.fillStyle = active ? "#35465c" : "#687286"; ctx.font = `${active ? 500 : 400} 38px Arial, sans-serif`;
+    ctx.fillStyle = active ? "#35465c" : "#687286"; ctx.font = `${active ? 500 : 400} 52px Arial, sans-serif`;
     if (product.body) {
       const lines: string[] = []; let line = "";
       for (const word of product.body.match(/[^\s\u3000-\u9fff]+\s*|[\u3000-\u9fff]/gu) || []) {
@@ -292,7 +339,7 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
         line += word;
       }
       if (line) lines.push(line.trim());
-      lines.forEach((text, i) => ctx.fillText(text, 512, 182 + i * 48));
+      lines.forEach((text, i) => ctx.fillText(text, 512, 190 + i * 62));
       ctx.fillText(`${product.explore}  ↗`, 512, 430);
     } else ctx.fillText(active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂", 512, 192);
     const map = new CanvasTexture(canvas); map.colorSpace = SRGBColorSpace;
@@ -300,17 +347,17 @@ function CardArtwork({ product, active, reflected, opacity }: { product: GlassPr
   }, [product, active, fontReady]);
   useEffect(() => () => label.dispose(), [label]);
   return <>
-    <mesh position={[0, product.body ? .65 : .45, .24]} renderOrder={active ? 4 : 0}>
+    <mesh position={[0, product.body ? .78 : .45, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[width, height]} />
       <meshBasicMaterial key={String(active)} map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} userData={reflected ? { reflectionOpacity: .55 * opacity } : {}} depthWrite={false} toneMapped={false}
         onBeforeCompile={shader => {
           if (active) shader.fragmentShader = shader.fragmentShader.replace("#include <map_fragment>", "#include <map_fragment>\n diffuseColor.rgb = max(vec3(0.), (diffuseColor.rgb - .18) * 1.12 + .18) * 1.06;");
         }} />
     </mesh>
-    <mesh position={[0, product.body ? -1.3 : -1.55, .24]} renderOrder={active ? 4 : 0}>
+    {!hideLabel && <mesh position={[0, product.body ? -1.3 : -1.55, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[2.8, product.body ? 1.4 : .7]} />
       <meshBasicMaterial map={label} transparent opacity={(reflected ? .55 : 1) * opacity} userData={reflected ? { reflectionOpacity: .55 * opacity } : {}} depthWrite={false} toneMapped={false} />
-    </mesh>
+    </mesh>}
   </>;
 }
 

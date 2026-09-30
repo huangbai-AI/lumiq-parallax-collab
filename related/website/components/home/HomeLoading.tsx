@@ -56,7 +56,10 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
       }, reduced ? 0 : 1100);
     };
     const tick = () => {
-      if (wordmarkStarted === undefined && overlay.current?.querySelector('.lh-loader-wordmark[data-ready="true"]')) {
+      // The LFS-backed mark is optional in a fresh development clone. Let the
+      // progress gate finish with its CSS preview instead of keeping the page
+      // hidden behind a logo that cannot decode yet.
+      if (wordmarkStarted === undefined && (process.env.NODE_ENV === "development" || overlay.current?.querySelector('.lh-loader-wordmark[data-ready="true"]'))) {
         wordmarkStarted = performance.now();
       }
       shown.current += (target.current - shown.current) * (reduced || returning ? 1 : 0.12);

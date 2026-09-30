@@ -1,7 +1,6 @@
 "use client";
 import Image from "@/components/home/HomeImage";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
-import { mountCarouselWheelGate } from "./readingGuard";
 import { useTranslations } from "next-intl";
 
 const moments = ["morning", "afternoon", "evening"] as const;
@@ -10,8 +9,10 @@ export default function HomeFamily() {
   const t = useTranslations("HomeRefresh");
   const [active, setActive] = useState(0);
   const chapters = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const pointerStart = useRef<{ id: number; x: number; y: number } | null>(null);
   const [travel, setTravel] = useState(0);
   const busy = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -26,18 +27,29 @@ export default function HomeFamily() {
     }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 750);
   }, []);
 
+  useEffect(() => () => clearTimeout(timer.current), []);
+
   useEffect(() => {
-    const target = chapters.current?.closest<HTMLElement>('.lh-family-anchor');
+    const target = stage.current;
     if (!target) return;
-    const media = matchMedia('(min-width: 1101px) and (min-height: 640px)');
-    let release = () => {};
-    const configure = () => {
-      release();
-      release = media.matches ? mountCarouselWheelGate(target, () => advance(1), () => busy.current) : () => {};
+    let distance = 0;
+    let lastEvent = -Infinity;
+    let consumed = false;
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+      event.preventDefault();
+      const now = performance.now();
+      if (now - lastEvent > 220) { distance = 0; consumed = false; }
+      lastEvent = now;
+      if (consumed || busy.current) return;
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerWidth : 1;
+      distance += event.deltaX * unit;
+      if (Math.abs(distance) < 50) return;
+      consumed = true;
+      advance(distance > 0 ? 1 : -1);
     };
-    configure();
-    media.addEventListener('change', configure);
-    return () => { release(); clearTimeout(timer.current); media.removeEventListener('change', configure); };
+    target.addEventListener('wheel', onWheel, { passive: false });
+    return () => target.removeEventListener('wheel', onWheel);
   }, [advance]);
 
   const select = (index: number) => {
@@ -80,7 +92,19 @@ export default function HomeFamily() {
           </button>
         ))}
       </div>
-      <div className="lh-family-stage" onTouchStart={event => { touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }} onTouchEnd={event => {
+      <div ref={stage} className="lh-family-stage" onPointerDown={event => {
+        if (event.pointerType === 'touch' || event.button !== 0) return;
+        if ((event.target as HTMLElement).closest('.lh-family-preview-button')) return;
+        pointerStart.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }} onPointerUp={event => {
+        const start = pointerStart.current;
+        if (!start || start.id !== event.pointerId) return;
+        pointerStart.current = null;
+        const dx = event.clientX - start.x;
+        const dy = event.clientY - start.y;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) advance(dx < 0 ? 1 : -1);
+      }} onPointerCancel={() => { pointerStart.current = null; }} onDragStart={event => event.preventDefault()} onTouchStart={event => { touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }} onTouchEnd={event => {
         if (!touchStart.current) return;
         const dx = event.changedTouches[0].clientX - touchStart.current.x;
         const dy = event.changedTouches[0].clientY - touchStart.current.y;
@@ -97,20 +121,31 @@ export default function HomeFamily() {
             id={Math.abs(offset) <= 1 ? `family-panel-${key}` : undefined}
             role="tabpanel"
             aria-labelledby={`family-tab-${key}`}
-            aria-hidden={offset !== 0}
-            inert={offset !== 0}
+            aria-hidden={Math.abs(offset) > 1}
+            inert={Math.abs(offset) > 1}
             tabIndex={offset === 0 ? 0 : -1}
             className="lh-family-scene"
             data-active={position === 0}
+            data-preview={Math.abs(offset) === 1}
             style={{ '--family-offset': position, '--family-scale': position === 0 ? 1 : .78, opacity: position === 0 ? 1 : Math.abs(position) === 1 ? .42 : 0 } as CSSProperties}
           >
-            <Image
+            {Math.abs(offset) === 1 ? <button type="button" className="lh-family-preview-button" aria-label={t(`familyMoments.${key}`)} onClick={() => advance(offset)}>
+              <Image
+                src={`/assets/western-scenes-20260908/${key}.webp`}
+                alt=""
+                fill
+                quality={90}
+                sizes="100vw"
+                draggable={false}
+              />
+            </button> : <Image
               src={`/assets/western-scenes-20260908/${key}.webp`}
               alt={t(`familyMoments.${key}`)}
               fill
               quality={90}
               sizes="100vw"
-            />
+              draggable={false}
+            />}
           </div>
         );})}
       </div>

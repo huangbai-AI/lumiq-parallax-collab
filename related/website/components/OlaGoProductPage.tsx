@@ -20,6 +20,7 @@ export default function OlaGoProductPage() {
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
       priceLabel={t("included")}
+      compactHeroPriceLabel
       ctaLabel={t("join")}
       heroImage={{
         src: "/assets/products/lumiq-ola-go.png",

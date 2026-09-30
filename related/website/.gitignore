@@ -11,6 +11,7 @@
 /artifacts
 
 # next.js
+/.next-*/
 /.next/
 /.next-i18n/
 /.next-e2e/
@@ -44,3 +45,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env*

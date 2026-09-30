@@ -1,4 +1,4 @@
-import { mountCarouselWheelGate } from "./readingGuard";
+import { mountHorizontalCarousel } from "./readingNavigation";
 
 /** Five real product links, presented as a circular glass carousel on desktop. */
 export function mountProductRail(root: HTMLElement) {
@@ -16,9 +16,7 @@ export function mountProductRail(root: HTMLElement) {
   const events = new AbortController();
   const options = { signal: events.signal };
   let active = 0;
-  let hover: ReturnType<typeof setTimeout> | undefined;
   let lockedUntil = 0;
-  const cancelHover = () => clearTimeout(hover);
   const centeredLeft = (slot: HTMLElement) => slot.offsetLeft - (viewport.clientWidth - slot.offsetWidth) / 2;
   const render = () => {
     section.dataset.carousel = String(desktop.matches);
@@ -34,18 +32,12 @@ export function mountProductRail(root: HTMLElement) {
     previous.disabled = next.disabled = false;
   };
   const select = (index: number) => {
-    cancelHover();
     active = (index + slots.length) % slots.length;
     lockedUntil = performance.now() + (reduced.matches ? 0 : 650);
     render();
     if (!desktop.matches) viewport.scrollTo({ left: centeredLeft(slots[active]), behavior: reduced.matches ? "instant" : "smooth" });
   };
   slots.forEach((slot, index) => {
-    slot.addEventListener("pointerenter", (event) => {
-      if (section.querySelector("[data-wheel-locked]") || !desktop.matches || event.pointerType !== "mouse" || index === active || performance.now() < lockedUntil) return;
-      hover = setTimeout(() => { if (!section.querySelector("[data-wheel-locked]")) select(index); }, 420);
-    }, options);
-    slot.addEventListener("pointerleave", cancelHover, options);
     slot.addEventListener("click", (event) => {
       if (desktop.matches && index !== active) { event.preventDefault(); select(index); }
     }, options);
@@ -69,15 +61,15 @@ export function mountProductRail(root: HTMLElement) {
   }, { ...options, passive: true });
   const resize = () => { viewport.scrollLeft = 0; active = 0; render(); };
   desktop.addEventListener("change", resize, options);
-  const releaseWheel = mountCarouselWheelGate(
+  const releaseWheel = mountHorizontalCarousel(
     section.querySelector<HTMLElement>(".lh-products-stage") || section,
-    () => select(active + 1),
+    (step) => select(active + step),
     () => performance.now() < lockedUntil,
   );
   section.dataset.enhanced = "true";
   render();
   return () => {
-    releaseWheel(); cancelHover(); events.abort();
+    releaseWheel(); events.abort();
     delete section.dataset.enhanced; delete section.dataset.carousel; delete section.dataset.activeProduct;
     slots.forEach(slot => { slot.inert = false; delete slot.dataset.offset; delete slot.dataset.active; });
   };
