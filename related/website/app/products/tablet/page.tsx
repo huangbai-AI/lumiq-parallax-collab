@@ -50,7 +50,7 @@ export default function TabletPage() {
           title: t("activeTitle"),
           body: t("activeBody"),
           image: {
-            src: "/assets/tablet-detail/generated/tablet-active-story-time-v2.png",
+            src: "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
             alt: t("activeTitle"),
           },
         },
