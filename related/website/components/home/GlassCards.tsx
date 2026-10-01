@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
 import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, VideoTexture } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
+import copyStyles from "./ProductCardCopy.module.css";
 
 export type GlassProduct = { name: string; image: string; body?: string; href?: string; explore?: string };
 
@@ -270,7 +271,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
     <PearlFlow index={index} reflected={reflected} opacity={opacity} active={active} />
     {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} hideLabel={five && !reflected && Boolean(product.body)} />}
     {content && !reflected && Math.abs(offset) <= (five ? 2 : 1) && <Html transform position={[0, 0, .16]} distanceFactor={4}>
-      <div className="glass-sample-content" onMouseEnter={() => hover(index)}
+      <div className={`glass-sample-content ${copyStyles.surface}`} onMouseEnter={() => hover(index)}
         onPointerMove={e => {
           if (e.pointerType === "touch") return;
           const rect = e.currentTarget.getBoundingClientRect();
@@ -285,10 +286,10 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
           <button className="glass-product-hit" onClick={() => select(index)} aria-pressed={active}>
             <span className="glass-accessible-label">{product.name} · {active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂"}</span>
           </button>}
-        {five && product.body && <div className="glass-carousel-caption" aria-hidden="true">
-          <strong>{product.name}</strong>
-          {active && <p>{product.body}</p>}
-          <span>{product.explore} ↗</span>
+        {five && product.body && <div className={copyStyles.copy} data-card-copy data-no-word-reveal aria-hidden="true">
+          <div className={copyStyles.title} data-card-title>{product.name}</div>
+          {active && <p className={copyStyles.description}>{product.body}</p>}
+          <div className={copyStyles.action} data-card-action>{product.explore} ↗</div>
         </div>}
       </div>
     </Html>}
@@ -323,7 +324,8 @@ function CardArtwork({ product, active, reflected, opacity, hideLabel = false }:
   }, []);
   const image = texture.image as HTMLImageElement;
   const aspect = image.width / image.height;
-  const width = Math.min(product.body ? 2.45 : 2.55, (product.body ? 2.45 : 2.95) * aspect), height = width / aspect;
+  // Keep every aspect ratio inside the artwork zone, above the DOM caption.
+  const width = Math.min(product.body ? 2.35 : 2.55, (product.body ? 2.1 : 2.95) * aspect), height = width / aspect;
   const label = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 1024; canvas.height = product.body ? 512 : 256;
@@ -347,7 +349,7 @@ function CardArtwork({ product, active, reflected, opacity, hideLabel = false }:
   }, [product, active, fontReady]);
   useEffect(() => () => label.dispose(), [label]);
   return <>
-    <mesh position={[0, product.body ? .78 : .45, .24]} renderOrder={active ? 4 : 0}>
+    <mesh position={[0, product.body ? .98 : .45, .24]} renderOrder={active ? 4 : 0}>
       <planeGeometry args={[width, height]} />
       <meshBasicMaterial key={String(active)} map={texture} transparent opacity={(reflected ? .55 : 1) * opacity} userData={reflected ? { reflectionOpacity: .55 * opacity } : {}} depthWrite={false} toneMapped={false}
         onBeforeCompile={shader => {

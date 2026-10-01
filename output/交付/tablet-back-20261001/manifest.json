@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-01",
+  "method": "built-in image_gen precise-object-edit",
+  "originalProductReference": "analysis/materials/tablet/11.png",
+  "sceneReference": "related/website/public/assets/tablet-detail/generated/tablet-active-story-time-v2.png",
+  "selectedAsset": "related/website/public/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+  "logoColor": "muted warm light gray, no pure white glow",
+  "invariants": ["mother and daughter on sofa", "warm beige room", "landscape 4:3 framing", "existing page layout and copy", "left comparison image unchanged"],
+  "promptSummary": "Replace only the impossible tablet with the original orange rear shell facing camera: centered white LUMIQ STUDIO logo, upper-right camera and flash. Front screen faces mother and daughter and is not visible. Preserve scene, natural hands, lighting, photographic detail. No screenshot reference or previous candidate used."
+}

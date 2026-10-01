@@ -28,15 +28,11 @@
 .lh-products[data-glass-3d] .lh-products-controls button { pointer-events: auto; }
 .lh-home .lh-products-stage { touch-action: pan-y; }
 .lh-home .lh-products-controls button:active { transform: scale(.96); }
-.glass-carousel-caption {
-  position: absolute; top: 65%; bottom: 5%; left: 6%; width: 88%;
-  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-  color: #233448; text-align: center; pointer-events: none;
-}
-.glass-carousel-caption strong { display: block; font-size: 22px; line-height: 1.2; white-space: nowrap; }
-.glass-sample-content[data-active=true] .glass-carousel-caption strong { font-size: 26px; }
-.glass-carousel-caption p { margin: 7px 0 0; font: 400 17px/1.4 Arial,sans-serif; }
-.glass-carousel-caption > span { display: block; margin-top: auto; padding-top: 8px; font: 500 17px/1.25 Arial,sans-serif; white-space: nowrap; }
+/* The non-WebGL layout uses the same separated image/copy zones on touch screens. */
+.lumiq-root .lh-home .lh-products .lh-product { padding-inline: 12px; }
+.lumiq-root .lh-home .lh-products .lh-product-copy { width: 100%; min-width: 0; text-align: center; }
+.lumiq-root .lh-home .lh-products .lh-product-copy p { max-width: none; width: 100%; margin: 8px 0 0; font-size: 13px; text-align: left; white-space: normal; text-wrap: wrap; }
+.lh-products .lh-product-art { flex-shrink: 0; }
 @media(min-width:768px) {
   .lh-home .lh-hero-copy { max-width: min(660px, 48vw); }
   .lh-home .lh-products-heading h2 { max-width: 1100px; text-wrap: balance; }
